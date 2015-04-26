@@ -67,7 +67,9 @@ public class ArcadeMatchManager implements MatchManager {
         PlayerManagement players = Arcade.getPlayerManagement();
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             ScoreboardManager.updateSidedar(player);
-            if (!player.isObserver()) {
+            if (player.isObserver()) {
+                // TOOD set ghost
+            } else {
                 players.setAsPlayer(player, KitType.BEGIN, false, true);
             }
         }

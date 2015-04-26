@@ -76,9 +76,9 @@ public class Monument extends GameableBlock {
                 if (online.getTeam().equals(player.getTeam())) {
                     // send to destroyers team
                     online.sendActionMessage(ActionMessageType.SUCCESS,
-                            this.getDestroyed().getDisplayName() + " znisczyla " + Color.DARK_AQUA +
-                            this.getObjective().getDisplayName() + Color.DARK_GREEN + " druzyny " +
-                            this.getOwner().getDisplayName() + Color.DARK_GREEN + " (" +
+                            this.getDestroyed().getDisplayName() + Color.DARK_GREEN +" znisczyla " +
+                            Color.DARK_AQUA + this.getObjective().getDisplayName() + Color.DARK_GREEN +
+                            " druzyny " + this.getOwner().getDisplayName() + Color.DARK_GREEN + " (" +
                             this.getObjective().getMonuments().size() + " bloków).");
                 } else if (online.getTeam().equals(this.getOwner())) {
                     // send to owner of this objective
@@ -89,9 +89,9 @@ public class Monument extends GameableBlock {
                 } else {
                     // send to other players like other teams (if 3 or more is available) and observers
                     online.sendActionMessage(ActionMessageType.INFO,
-                            this.getDestroyed().getDisplayName() + " znisczyla " + Color.DARK_AQUA +
-                            this.getObjective().getDisplayName() + Color.YELLOW + " druzyny " +
-                            this.getOwner().getDisplayName() + Color.YELLOW + " (" +
+                            this.getDestroyed().getDisplayName() + Color.DARK_AQUA +" znisczyla " +
+                            Color.DARK_AQUA + this.getObjective().getDisplayName() + Color.YELLOW +
+                            " druzyny " + this.getOwner().getDisplayName() + Color.YELLOW + " (" +
                             this.getObjective().getMonuments().size() + " bloków).");
                 }
             }
