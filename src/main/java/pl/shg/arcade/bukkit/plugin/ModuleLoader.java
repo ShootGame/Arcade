@@ -28,6 +28,7 @@ public abstract class ModuleLoader implements IRegistration {
     private void features() {
         this.register(AntiGriefModule.class); // ess
         this.register(AutoJoinModule.class); // prefered for the blitz gamemodes
+        this.register(AutoRespawnModule.class); // prefered for the capture the sheeps
         this.register(BlockPearlTeleportModule.class);
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
