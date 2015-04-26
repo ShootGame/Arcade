@@ -18,6 +18,7 @@ import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.module.ModuleException;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -33,12 +34,22 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     public DeathMatchModule() {
         super(new Date(2014, 11, 15), "death-match", "1.0");
         this.addDependency(DependencyType.STRONG, Points.class);
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.INT) {
+            @Override
+            public String getPrefix() {
+                return "Ustaw ilość punktów (zabić) po ilu mecz ma się zakończyć, " +
+                        "a drużyna wygrać. Domyślnie jest to 300 punktów.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "death-match:",
+                    "  max-score: 300"
+                };
+            }
+        });
         this.deploy(true);
-    }
-    
-    public DeathMatchModule(Date date, String id, String version) {
-        super(date, id, version);
-        this.addDependency(DependencyType.STRONG, Points.class);
     }
     
     @Override

@@ -21,24 +21,22 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public abstract class Module implements IModule {
-    private final Date date;
+    private Date date;
     private final Map<DependencyType, List<Class<? extends Module>>> dependencies;
     private boolean deploy = false;
     private final ModuleDescription docs;
     private final List<ConfigurationDoc> examples;
-    private final String id;
-    private final String version;
+    private String id;
+    private String version;
     
     public Module(Date date, String id, String version) {
-        Validate.notNull(date, "date can not be null");
-        Validate.notNull(id, "id can not be null");
-        Validate.notNull(version, "version can not be null");
-        this.date = date;
+        this.setDate(date);
+        this.setID(id);
+        this.setVersion(version);
+        
         this.dependencies = new HashMap<>();
         this.docs = new ModuleDescription(this);
         this.examples = new ArrayList<>();
-        this.id = id.toLowerCase();
-        this.version = version;
         
         this.dependencies.put(DependencyType.OPTIONAL, new ArrayList<Class<? extends Module>>());
         this.dependencies.put(DependencyType.STRONG, new ArrayList<Class<? extends Module>>());
@@ -53,6 +51,10 @@ public abstract class Module implements IModule {
     public void addExample(ConfigurationDoc example) {
         Validate.notNull(example, "example can not be null");
         this.examples.add(example);
+    }
+    
+    public void clearExamples() {
+        this.examples.clear();
     }
     
     public void deploy(boolean deploy) {
@@ -94,6 +96,21 @@ public abstract class Module implements IModule {
     
     public boolean isDeployed() {
         return this.deploy;
+    }
+    
+    public final void setDate(Date date) {
+        Validate.notNull(date, "date can not be null");
+        this.date = date;
+    }
+    
+    public final void setID(String id) {
+        Validate.notNull(id, "id can not be null");
+        this.id = id.toLowerCase();
+    }
+    
+    public final void setVersion(String version) {
+        Validate.notNull(version, "version can not be null");
+        this.version = version;
     }
     
     public static Module of(Class<? extends Module> module) {
