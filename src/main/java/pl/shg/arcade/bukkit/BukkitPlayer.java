@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
+import net.minecraft.server.v1_8_R1.EntityPlayer;
 import net.minecraft.server.v1_8_R1.EnumTitleAction;
 import net.minecraft.server.v1_8_R1.IChatBaseComponent;
 import net.minecraft.server.v1_8_R1.Packet;
@@ -20,6 +21,7 @@ import net.minecraft.server.v1_8_R1.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
@@ -49,6 +51,8 @@ import pl.themolka.permissions.User;
  * @author Aleksander
  */
 public class BukkitPlayer extends ArcadePlayer {
+    private static final CraftServer server = (CraftServer) Bukkit.getServer();
+    private final EntityPlayer handle;
     private final User permissions;
     private final CraftPlayer player;
     
@@ -56,6 +60,7 @@ public class BukkitPlayer extends ArcadePlayer {
         Validate.notNull(player, "player can not be null");
         this.permissions = new User(player);
         this.player = (CraftPlayer) player;
+        this.handle = this.player.getHandle();
         
         this.makePermissions();
     }
@@ -160,6 +165,11 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void reset() {
         // TODO reset player to the observer state
+    }
+    
+    @Override
+    public void respawn() {
+        server.getHandle().moveToWorld(this.handle, 0, false);
     }
     
     @Override
@@ -292,7 +302,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     public synchronized void sendPacket(Packet packet) {
         if (this.bukkit() != null && this.bukkit().getHandle() != null) {
-            this.bukkit().getHandle().playerConnection.sendPacket(packet);
+            this.handle.playerConnection.sendPacket(packet);
         }
     }
     

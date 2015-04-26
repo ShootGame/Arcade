@@ -28,4 +28,6 @@ public interface MinecraftPlayer extends HumanEntity, Sender {
     void disconnect(String[] reason);
     
     void reloadPermissions();
+    
+    void respawn();
 }
