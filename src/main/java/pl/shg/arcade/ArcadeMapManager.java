@@ -1,0 +1,155 @@
+/*
+ * Copyright (C) 2014 TheMolkaPL - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
+ */
+package pl.shg.arcade;
+
+import java.io.File;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.map.ConfigurationTechnology;
+import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.map.MapManager;
+import pl.shg.arcade.api.map.NotLoadedMap;
+import pl.shg.arcade.api.map.WorldManager;
+import pl.shg.arcade.api.server.Rotation;
+import pl.shg.arcade.api.util.Validate;
+
+/**
+ *
+ * @author Aleksander
+ */
+public class ArcadeMapManager implements MapManager {
+    private final ConfigurationTechnology configuration;
+    private Map current;
+    private final File directory;
+    private Map next;
+    private List<Map> maps;
+    private final Random random = new Random();
+    private WorldManager worlds;
+    
+    public ArcadeMapManager(ConfigurationTechnology configuration, File directory) {
+        Validate.notNull(configuration, "configuration can not be null");
+        Validate.notNull(directory, "directory can not be null");
+        this.configuration = configuration;
+        this.directory = directory;
+    }
+    
+    @Override
+    public ConfigurationTechnology getConfiguration() {
+        return this.configuration;
+    }
+    
+    @Override
+    public Map getCurrentMap() {
+        return this.current;
+    }
+    
+    @Override
+    public void updateCurrentMap() {
+        // check if currently running...
+        this.current = this.getNextMap();
+        Rotation rotation = Arcade.getServers().getCurrentServer().getRotation();
+        
+        boolean nextMap = false;
+        for (int i = 0; i < rotation.getMaps().size(); i++) {
+            Map map = rotation.getMaps().get(i);
+            if (nextMap) {
+                this.setNextMap(map);
+                return;
+            } else if (map.equals(this.current)) {
+                nextMap = true;
+            }
+        }
+        
+        if (nextMap) {
+            this.setNextMap(null);
+        } else if (this.current.equals(Arcade.getMaps().getCurrentMap())) {
+            this.setNextMap(rotation.getMaps().get(this.random.nextInt(rotation.getMaps().size())));
+        } else if (this.getNextMap().getName().equals(this.current.getName())) {
+            this.setNextMap(null);
+            Log.log(Level.SEVERE, "Aby plugin Arcade dzialal prawidlowo wymagane sa minimum 2 rotacyjne mapy!");
+        }
+    }
+    
+    @Override
+    public Map getMap(String name) {
+        Validate.notNull(name, "name can not be null");
+        name = name.toLowerCase().replace(" ", "_");
+        for (Map map : this.getMaps()) {
+            if (map.getName().toLowerCase().contains(name.toLowerCase())) {
+                return map;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public Map getMapExact(String name) {
+        Validate.notNull(name, "name can not be null");
+        name = name.toLowerCase().replace(" ", "_");
+        for (Map map : this.getMaps()) {
+            if (map.getName().toLowerCase().equals(name)) {
+                return map;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public File getMapsDirectory() {
+        return this.directory;
+    }
+    
+    @Override
+    public Map getNextMap() {
+        return next;
+    }
+    
+    @Override
+    public void setNextMap(Map next) {
+        this.next = next;
+    }
+    
+    @Override
+    public List<Map> getMaps() {
+        return this.maps;
+    }
+    
+    @Override
+    public void setMaps(List<Map> maps) {
+        Validate.notNull(maps, "maps can not be null");
+        this.maps = maps;
+    }
+    
+    @Override
+    public WorldManager getWorlds() {
+        return this.worlds;
+    }
+    
+    @Override
+    public void setWorlds(WorldManager worlds) {
+        Validate.notNull(worlds, "worlds can not be null");
+        this.worlds = worlds;
+        
+        Rotation rotation = Arcade.getServers().getCurrentServer().getRotation();
+        if (this.getNextMap() != null) {
+            this.getWorlds().load(this.getNextMap().getName());
+        } else if (rotation.getMaps().isEmpty()) {
+            Log.log(Level.SEVERE, "Brak map w rotacji " + rotation.getName() + " dla serwera " + rotation.getServer().getName());
+        } else {
+            for (Map map : rotation.getMaps()) {
+                if (!(map instanceof NotLoadedMap)) {
+                    this.setNextMap(map);
+                    Arcade.getServer().getScheduler().runCycle(0);
+                    return;
+                }
+            }
+        }
+    }
+}

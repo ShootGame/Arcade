@@ -1,0 +1,10 @@
+name: Arcade
+version: '${project.version}'
+author: TheMolkaPL
+website: http://www.shootgame.net
+description: 'Zarzadzanie mini-grami w jednym pluginie'
+prefix: 'Arcade'
+load: STARTUP
+loadbefore: [WorldEdit]
+dependency: [Permissions, ShootGame]
+main: pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin
