@@ -11,6 +11,7 @@ import pl.shg.arcade.bukkit.module.deathmatch.DeathMatchModule;
 import pl.shg.arcade.bukkit.module.escape.EscapeModule;
 import pl.shg.arcade.bukkit.module.lib.Points;
 import pl.shg.arcade.bukkit.module.monument.MonumentModule;
+import pl.shg.arcade.bukkit.module.paintball.PaintballModule;
 import pl.shg.arcade.bukkit.module.wool.WoolModule;
 
 /**
@@ -55,6 +56,7 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(DeathMatchModule.class);
         this.register(EscapeModule.class);
         this.register(MonumentModule.class);
+        this.register(PaintballModule.class);
         this.register(WoolModule.class);
     }
 }

@@ -37,10 +37,24 @@ public class DisableMobSpawningModule extends Module implements BListener {
                 "mobów, które mogą, lub nie mogę zostać narodzone na mapie. " +
                 "Proszę pamiętać, że moby które będą już narodzone na mapie " +
                 "przed jej zapisem nie zostaną usunięte.");
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.BOOLEAN) {
+            @Override
+            public String getPrefix() {
+                return "Ustaw całkowite blokowanie spawnowania mobów na mapie.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "disable-mob-spawning: true"
+                };
+            }
+        });
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.ENTITY) {
             @Override
             public String getPrefix() {
-                return "Ustaw moby, które mogą się spawnować na mapie.";
+                return "Ustaw moby, które mogą się spawnować na mapie. Wszystkie " +
+                        "inne, które nie zostaną podane w tej opcji zostaną zablokowane.";
             }
             
             @Override
@@ -56,7 +70,8 @@ public class DisableMobSpawningModule extends Module implements BListener {
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.ENTITY) {
             @Override
             public String getPrefix() {
-                return "Ustaw moby, które nie mogą się spawnować na mapie.";
+                return "Ustaw moby, które nie mogą się spawnować na mapie. Wszystkie " +
+                        "inne, które nie zostaną podane w tej opcji zostaną odblokowane.";
             }
             
             @Override

@@ -28,12 +28,17 @@ import pl.shg.arcade.bukkit.module.lib.Points;
  * @author Aleksander
  */
 public class DeathMatchModule extends ObjectiveModule implements BListener {
-    private int maxScore = 300;
+    protected int maxScore = 300;
     
     public DeathMatchModule() {
         super(new Date(2014, 11, 15), "death-match", "1.0");
         this.addDependency(DependencyType.STRONG, Points.class);
         this.deploy(true);
+    }
+    
+    public DeathMatchModule(Date date, String id, String version) {
+        super(date, id, version);
+        this.addDependency(DependencyType.STRONG, Points.class);
     }
     
     @Override
