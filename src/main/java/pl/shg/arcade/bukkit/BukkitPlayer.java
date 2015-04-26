@@ -12,9 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
+import net.minecraft.server.v1_8_R1.EnumClientCommand;
 import net.minecraft.server.v1_8_R1.EnumTitleAction;
 import net.minecraft.server.v1_8_R1.IChatBaseComponent;
 import net.minecraft.server.v1_8_R1.Packet;
+import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R1.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_8_R1.PacketPlayOutTitle;
@@ -169,7 +171,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void respawn() {
-        server.getHandle().moveToWorld(this.handle, 0, false);
+        player.getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
     }
     
     @Override
