@@ -97,6 +97,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         bukkitPlayer.setFlySpeed(0.20F);
         bukkitPlayer.setWalkSpeed(0.20F);
         
+        bukkitPlayer.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0));
         bukkitPlayer.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
         
         this.obsKit.set(bukkitPlayer, fullKit);
