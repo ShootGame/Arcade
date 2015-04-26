@@ -33,7 +33,7 @@ public class AutoJoinModule extends Module {
         this.getDocs().setDescription("Ten moduł umożliwia automatyczne dołączanie " +
                 "do drużyny przez graczy od razu po załadowaniu mapy. Zaleca się " +
                 "użycie tego modułu tylko i wyłącznie na mapach typu <code>Blitz</code>.");
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
             @Override
             public String getPrefix() {
                 return "Możesz dodać opcjonalną wiadomość przy dołączaniu do " +

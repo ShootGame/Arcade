@@ -45,7 +45,7 @@ public class LivesModule extends Module implements BListener {
         this.getDocs().setDescription("Ten moduł dodaje system żyć do meczu. " +
                 "Gracz ma do dyspozycji określoną ilość żyć, po śmierci zostaje " +
                 "on przeniesiony do obserwatorów.");
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(true, ConfigurationDoc.Type.INT) {
             @Override
             public String getPrefix() {
                 return "Oczywiście istnieje możliwość ustawienia ilości żyć dla " +
@@ -68,13 +68,8 @@ public class LivesModule extends Module implements BListener {
                         "ustawiania większej ilości niż <code>10</code>, ponieważ " +
                         "gra stanie się monotonna.";
             }
-            
-            @Override
-            public boolean required() {
-                return true;
-            }
         });
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
             @Override
             public String getPrefix() {
                 return "Możesz zmienić wszelkie wiadomości do graczy, jakie wysyła ten " +
@@ -91,7 +86,7 @@ public class LivesModule extends Module implements BListener {
                 };
             }
         });
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
             @Override
             public String getPrefix() {
                 return "Możesz zmienić wszelkie wiadomości do graczy, jakie wysyła ten " +

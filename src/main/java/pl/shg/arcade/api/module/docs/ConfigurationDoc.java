@@ -6,11 +6,22 @@
  */
 package pl.shg.arcade.api.module.docs;
 
+import pl.shg.arcade.api.util.Validate;
+
 /**
  *
  * @author Aleksander
  */
 public abstract class ConfigurationDoc {
+    private final boolean required;
+    private final Type type;
+    
+    public ConfigurationDoc(boolean required, Type type) {
+        Validate.notNull(type, "type can not be null");
+        this.required = required;
+        this.type = type;
+    }
+    
     public String getPrefix() {
         return null;
     }
@@ -21,7 +32,21 @@ public abstract class ConfigurationDoc {
         return null;
     }
     
-    public boolean required() {
-        return false;
+    public Type getType() {
+        return this.type;
+    }
+    
+    public boolean isRequired() {
+        return this.required;
+    }
+    
+    public static enum Type {
+        BOOLEAN,
+        ENTITY,
+        ID,
+        INT,
+        MESSAGE,
+        MESSAGE_ERROR,
+        MESSAGE_SUCCESS;
     }
 }

@@ -30,7 +30,7 @@ public class GameRuleModule extends Module {
         super(new Date(2015, 3, 18), "game-rule", "1.0");
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie własnych " +
                 "wartości <code>gamerule</code> z Minecraft");
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(true, ConfigurationDoc.Type.BOOLEAN) {
             @Override
             public String getPrefix() {
                 return "Nie możesz ustawić każdej wartości dla gamerule, ponieważ " +
@@ -54,11 +54,6 @@ public class GameRuleModule extends Module {
                 return "Powyższy przykład blokuje cykl czasu <code>" +
                         "doDaylightCycle</code> na mapie oraz wyłącza drop " +
                         "itemów <code>doTileDrops</code> z bloków. ";
-            }
-            
-            @Override
-            public boolean required() {
-                return true;
             }
         });
         this.deploy(true);

@@ -17,6 +17,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleException;
+import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -36,6 +37,38 @@ public class DisableMobSpawningModule extends Module implements BListener {
                 "mobów, które mogą, lub nie mogę zostać narodzone na mapie. " +
                 "Proszę pamiętać, że moby które będą już narodzone na mapie " +
                 "przed jej zapisem nie zostaną usunięte.");
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.ENTITY) {
+            @Override
+            public String getPrefix() {
+                return "Ustaw moby, które mogą się spawnować na mapie.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "disable-mob-spawning:",
+                    "  allowed:",
+                    "    PIG: true",
+                    "    COW: true"
+                };
+            }
+        });
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.ENTITY) {
+            @Override
+            public String getPrefix() {
+                return "Ustaw moby, które nie mogą się spawnować na mapie.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "disable-mob-spawning:",
+                    "  disallowed:",
+                    "    CREEPER: true",
+                    "    ZOMBIE: true"
+                };
+            }
+        });
         this.deploy(true);
     }
     

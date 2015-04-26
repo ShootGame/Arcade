@@ -32,12 +32,11 @@ public class JoinWhenRunningCancelModule extends Module {
                 "do drużyn (także rangom premium) w czasie trawnia meczu. Do " +
                 "gry można dołączyć tylko i wyłącznie podczas odliczania do " +
                 "jej startu.");
-        this.addExample(new ConfigurationDoc() {
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE_ERROR) {
             @Override
             public String getPrefix() {
                 return "Moduł posiada opcję zmiany wiadomości próby wejścia do " +
-                        "drużyny. Jest to <code>error message</code>, a więc " +
-                        "kolor czerwony zostanie dodany automatycznie.";
+                        "drużyny.";
             }
             
             @Override
