@@ -41,12 +41,6 @@ public class ScoreboardManager {
         }
     }
     
-    public static void updateSidedar(Player player) {
-        if (ScoreboardManager.SCOREBOARD.getObjective("sidebar") != null) {
-            ((org.bukkit.entity.Player) player.getPlayer()).setScoreboard(ScoreboardManager.SCOREBOARD);
-        }
-    }
-    
     public static void updateTag(Player player) {
         org.bukkit.scoreboard.Team team = ScoreboardManager.SCOREBOARD.getTeam(player.getTeam().getID());
         team.add(player.getName());
@@ -106,7 +100,7 @@ public class ScoreboardManager {
             updateScoreboard();
         }
         
-        private static void updateScoreboard() {
+        public static void updateScoreboard() {
             System.out.println("scory: " + getScores());
             for (ScoreboardScore score : getScores()) {
                 System.out.println("dodawanie scoru " + score.getName() + ": " + score.getScore());

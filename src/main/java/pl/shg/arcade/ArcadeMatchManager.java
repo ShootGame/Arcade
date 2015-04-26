@@ -65,8 +65,8 @@ public class ArcadeMatchManager implements MatchManager {
         this.broadcastStart();
         
         PlayerManagement players = Arcade.getPlayerManagement();
+        ScoreboardManager.Sidebar.updateScoreboard(); // TODO nie mozna uzywac tutaj bukkit api
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
-            ScoreboardManager.updateSidedar(player);
             if (player.isObserver()) {
                 // TOOD set ghost
             } else {

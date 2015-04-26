@@ -102,7 +102,6 @@ public class PlayerListeners implements Listener {
         Player player = new BukkitPlayer(e.getPlayer());
         this.server.addPlayer(player);
         player.updateDisplayName();
-        ScoreboardManager.updateSidedar(player);
         
         List<Spawn> spawns = player.getTeam().getSpawns();
         Spawn spawn = spawns.get(this.random.nextInt(spawns.size()));
