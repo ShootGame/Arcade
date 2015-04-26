@@ -6,14 +6,15 @@
  */
 package pl.shg.arcade.bukkit;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.Server;
 import org.bukkit.inventory.Inventory;
 import pl.shg.arcade.ArcadeServer;
+import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.menu.Menu;
@@ -87,9 +88,15 @@ public class BukkitServer extends ArcadeServer {
     
     @Override
     public void shutdown() {
+        List<UUID> players = new ArrayList<>();
         for (Player player : this.getOnlinePlayers()) {
-            player.disconnect(Color.AQUA + "Serwer jest teraz restartowany\n" +
-                    Color.YELLOW + "Prosimy; " + Color.GOLD + "zaloguj sie ponownie.");
+            players.add(player.getUUID());
+        }
+        
+        for (UUID player : players) {
+            Arcade.getServer().getPlayer(player).disconnect(Color.AQUA +
+                    "Serwer jest teraz restartowany\n" + Color.YELLOW +
+                    "Prosimy; " + Color.GOLD + "zaloguj sie ponownie.");
         }
         
         this.server.shutdown();
