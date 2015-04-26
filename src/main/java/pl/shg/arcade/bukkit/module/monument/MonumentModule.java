@@ -115,7 +115,9 @@ public class MonumentModule extends ObjectiveModule {
     }
     
     @Override
-    public void makeScoreboard() {}
+    public void makeScoreboard() {
+        
+    }
     
     @Override
     public boolean objectiveScored(Team team) {
