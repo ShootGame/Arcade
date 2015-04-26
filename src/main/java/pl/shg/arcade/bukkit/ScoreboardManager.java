@@ -100,8 +100,8 @@ public class ScoreboardManager {
             Scoreboard board = ScoreboardManager.SCOREBOARD;
             
             objective = board.registerNewObjective(Sidebar.ID, "dummy");
-            objective.setDisplayName(name);
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            objective.setDisplayName(name);
             
             updateScoreboard();
         }
@@ -110,7 +110,7 @@ public class ScoreboardManager {
             System.out.println("scory: " + getScores());
             for (ScoreboardScore score : getScores()) {
                 System.out.println("dodawanie scoru " + score.getName() + ": " + score.getScore());
-                objective.getScore(score.getName()).setScore(score.getScore());
+                objective.getScore(score.getName()).setScore(1);
             }
         }
     }
