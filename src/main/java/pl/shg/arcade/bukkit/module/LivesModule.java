@@ -16,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.command.def.JoinCommand;
@@ -98,7 +100,7 @@ public class LivesModule extends Module implements BListener {
             public String[] getCode() {
                 return new String[] {
                     "lives:",
-                    "  respawn-message: '`aPozostalo Ci jeszcze `3`l%s`r`a zyc.'"
+                    "  respawn-message: '`aPozostalo Ci jeszcze `3`l%s zyc`r`a.'"
                 };
             }
         });
@@ -130,7 +132,8 @@ public class LivesModule extends Module implements BListener {
         this.kickMessage = Config.getValueMessage(config, this, "kick-message",
                 Color.RED + "Straciles/as wszystkie (%s) zycia, odpadasz z gry!", true);
         this.respawnMessage = Config.getValueMessage(config, this, "respawn-message",
-                Color.GREEN + "Pozostalo Ci jeszcze " + Color.DARK_AQUA + Color.BOLD + "%s" + Color.RESET + Color.GREEN + " zyc.", true);
+                Color.GREEN + "Pozostalo Ci jeszcze " + Color.DARK_AQUA + Color.BOLD
+                        + "%s" + " zyc" + Color.RESET + Color.GREEN + ".", true);
     }
     
     @Override
@@ -178,12 +181,11 @@ public class LivesModule extends Module implements BListener {
         
         ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
         
-        Bukkit.getScheduler().runTaskLater(ArcadeBukkitPlugin.getPlugin(), new Runnable() {
-            
+        new BukkitRunnable() {
             @Override
             public void run() {
                 Arcade.getServer().checkEndMatch();
             }
-        }, 1L);
+        }.runTaskLater(ArcadeBukkitPlugin.getPlugin(), 5L);
     }
 }

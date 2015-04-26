@@ -69,8 +69,15 @@ public class CycleScheduler implements Runnable {
     private void cycle() {
         Log.noteAdmins("Ladowanie mapy " + this.maps.getNextMap().getName() + "...", Log.NoteLevel.INFO);
         long ms = System.currentTimeMillis();
+        
         TeamManager teams = Arcade.getTeams();
         PlayerManagement players = Arcade.getPlayerManagement();
+        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+            if (player.isDead()) {
+                player.kick(); // TODO we kick dead players, but respawn would be better
+            }
+        }
+        
         Arcade.getModules().inactiveAll();
         GameableBlock.reset();
         Map oldMap = this.maps.getCurrentMap();
@@ -82,16 +89,13 @@ public class CycleScheduler implements Runnable {
         } catch (ConfigurationException ex) {
             Log.noteAdmins("Mapa " + maps.getCurrentMap().getName() + " nie jest prawidlowo skonfigurowana.\n" + Color.RESET +
                     Color.RED + ex.getMessage() + ".\n" +
-                    Color.RED + "Zaladuj inna mape komendami /setnext <map...> oraz /schedule 5. Mozesz takze zrestartowac serwer uzywajac /setnext -r",
+                    Color.RED + "Zaladuj inna mape komendami /setnext <map...> oraz /cycle 5. Mozesz takze zrestartowac serwer uzywajac /setnext -r",
                     Log.NoteLevel.SEVERE);
         }
         
         Map map = Arcade.getMaps().getCurrentMap();
         List<Spawn> spawns = teams.getObservers().getSpawns();
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
-            if (false) { // TODO is dead
-                player.respawn();
-            }
             player.setTeam(teams.getObservers());
             player.teleport(spawns.get(new Random().nextInt(spawns.size())));
             players.setAsObserver(player, true, false);

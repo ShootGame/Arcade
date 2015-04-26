@@ -65,12 +65,13 @@ public class BukkitPlayerManagement implements PlayerManagement {
         switch (sound) {
             case BEGINING: result = Sound.ORB_PICKUP; break;
             case BEGINS: result = Sound.ANVIL_LAND; break;
+            case ELIMINATION: result = Sound.IRONGOLEM_DEATH; break;
             case ENEMY_LOST: result = Sound.WITHER_DEATH; break;
             case ENEMY_WON: result = Sound.WITHER_SPAWN; break;
         }
         if (result != null) {
             Player bukkitPlayer = (Player) player.getPlayer();
-            bukkitPlayer.playSound(bukkitPlayer.getLocation(), result, 10, 1);
+            bukkitPlayer.playSound(bukkitPlayer.getLocation(), result, 10F, 1F);
         }
     }
     

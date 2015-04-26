@@ -56,7 +56,6 @@ public class ScoreboardManager {
             scores = new ArrayList<>();
             for (Objective obj : ScoreboardManager.SCOREBOARD.getObjectives()) {
                 if (obj.getName().equals(Sidebar.ID)) {
-                    System.out.println("odrejestorwywuje " + obj.getName());
                     obj.unregister();
                 }
             }
@@ -101,9 +100,7 @@ public class ScoreboardManager {
         }
         
         public static void updateScoreboard() {
-            System.out.println("scory: " + getScores());
             for (ScoreboardScore score : getScores()) {
-                System.out.println("dodawanie scoru " + score.getName() + ": " + score.getScore());
                 objective.getScore(score.getName()).setScore(score.getScore());
             }
         }

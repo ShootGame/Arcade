@@ -31,7 +31,7 @@ public class TutorialCommand extends Command {
         if (args.length > 0) {
             page = this.parseInteger(args[0], 0);
         }
-        this.handleTutorial(sender, tutorial, page);
+        handleTutorial(sender, tutorial, page);
     }
     
     @Override
@@ -39,7 +39,7 @@ public class TutorialCommand extends Command {
         return 0;
     }
     
-    private void handleTutorial(Sender sender, Tutorial tutorial, int page) {
+    public static void handleTutorial(Sender sender, Tutorial tutorial, int page) {
         if (tutorial.isEmpty()) {
             sender.sendError("Przepraszamy, na tej mapie poradnik nie jest dostepny.");
             sender.sendError("Staramy sie go dodac jak najszybciej!");

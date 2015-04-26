@@ -60,7 +60,9 @@ public class Points extends Library {
     
     @Override
     public String[] getMatchInfo(Team team) {
-        return new String[] {Color.GOLD + "Punkty" + Color.RED + ": " + Color.DARK_AQUA + Color.BOLD + get(team)};
+        return new String[] {
+            Color.GOLD + "Punkty" + Color.RED + ": " + Color.DARK_AQUA + Color.BOLD + get(team)
+        };
     }
     
     @Override
