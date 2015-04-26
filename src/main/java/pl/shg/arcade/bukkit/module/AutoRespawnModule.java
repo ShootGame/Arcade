@@ -11,12 +11,14 @@ import java.io.File;
 import java.util.Date;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
+import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
 /**
  *
@@ -48,7 +50,12 @@ public class AutoRespawnModule extends Module implements BListener {
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-        Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
-        player.respawn();
+        final Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.respawn();
+            }
+        }.runTaskLater(ArcadeBukkitPlugin.getPlugin(), 10L);
     }
 }
