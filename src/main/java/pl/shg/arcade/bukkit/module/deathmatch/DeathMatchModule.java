@@ -22,6 +22,7 @@ import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
+import pl.shg.arcade.bukkit.ScoreboardManager;
 import pl.shg.arcade.bukkit.module.lib.Points;
 
 /**
@@ -98,7 +99,11 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     }
     
     @Override
-    public void makeScoreboard() {}
+    public void makeScoreboard() {
+        for (Team team : Arcade.getTeams().getTeams()) {
+            ScoreboardManager.Sidebar.getScore(team.getDisplayName(), 0);
+        }
+    }
     
     @Override
     public boolean objectiveScored(Team team) {
@@ -121,5 +126,8 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     private void handleDeath(Player player) {
         Team team = Arcade.getServer().getPlayer(player.getUniqueId()).getTeam();
         Points.addOne(team);
+        
+        ScoreboardManager.Sidebar.getScore(team.getDisplayName(), Points.get(team));
+        ScoreboardManager.Sidebar.updateScoreboard();
     }
 }

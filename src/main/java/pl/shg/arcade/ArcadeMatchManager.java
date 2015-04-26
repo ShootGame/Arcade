@@ -20,7 +20,6 @@ import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
-import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
  *
@@ -65,7 +64,6 @@ public class ArcadeMatchManager implements MatchManager {
         this.broadcastStart();
         
         PlayerManagement players = Arcade.getPlayerManagement();
-        ScoreboardManager.Sidebar.updateScoreboard(); // TODO nie mozna uzywac tutaj bukkit api
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             if (player.isObserver()) {
                 players.setGhost(player, true);
