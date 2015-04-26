@@ -14,6 +14,8 @@ import pl.shg.arcade.api.map.team.kit.KitType;
  * @author Aleksander
  */
 public interface PlayerManagement {
+    boolean isGhost(Player player);
+    
     void playSound(Player player, Sound sound);
     
     void refreshHiderForAll();
@@ -21,4 +23,6 @@ public interface PlayerManagement {
     void setAsObserver(Player player, boolean fullKit, boolean hider);
     
     void setAsPlayer(Player player, KitType kit, boolean hider, boolean sendTitle);
+    
+    void setGhost(Player player, boolean ghost);
 }

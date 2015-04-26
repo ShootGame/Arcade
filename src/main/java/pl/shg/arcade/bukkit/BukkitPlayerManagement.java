@@ -51,9 +51,16 @@ public class BukkitPlayerManagement implements PlayerManagement {
     }
     
     @Override
+    public boolean isGhost(pl.shg.arcade.api.human.Player player) {
+        Validate.notNull(player, "player can not be null");
+        return ((Player) player.getPlayer()).hasPotionEffect(PotionEffectType.INVISIBILITY);
+    }
+    
+    @Override
     public void playSound(pl.shg.arcade.api.human.Player player, pl.shg.arcade.api.Sound sound) {
         Validate.notNull(player, "player can not be null");
         Validate.notNull(sound, "sound can not be null");
+        
         Sound result = null;
         switch (sound) {
             case BEGINING: result = Sound.ORB_PICKUP; break;
@@ -145,6 +152,16 @@ public class BukkitPlayerManagement implements PlayerManagement {
         
         if (sendTitle) {
             player.sendTitle(Color.GREEN + "Powodzenia!");
+        }
+    }
+    
+    @Override
+    public void setGhost(pl.shg.arcade.api.human.Player player, boolean ghost) {
+        Validate.notNull(player, "player can not be null");
+        if (ghost) {
+            ((Player) player.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0));
+        } else {
+            ((Player) player.getPlayer()).removePotionEffect(PotionEffectType.INVISIBILITY);
         }
     }
     
