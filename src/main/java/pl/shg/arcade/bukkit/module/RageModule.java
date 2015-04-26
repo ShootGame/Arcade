@@ -55,7 +55,11 @@ public class RageModule extends Module implements BListener {
         }
         
         if (e.getDamager() instanceof Player) {
-            e.setDamage(DAMAGE);
+            if (((Player) e.getDamager()).isDead()) {
+                e.setCancelled(true);
+            } else {
+                e.setDamage(DAMAGE);
+            }
         } else if (e.getDamager() instanceof Arrow && ((Arrow) e.getDamager()).getShooter() instanceof Player) {
             e.setDamage(DAMAGE);
         }

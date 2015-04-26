@@ -16,6 +16,8 @@ import pl.shg.arcade.api.map.Spawn;
 public interface HumanEntity extends Damageable, Feedable, Titleable {
     Location getLocation();
     
+    boolean isDead();
+    
     void teleport(Location location);
     
     void teleport(Spawn spawn);

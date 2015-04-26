@@ -138,6 +138,11 @@ public class BukkitPlayer extends ArcadePlayer {
     }
     
     @Override
+    public boolean isDead() {
+        return this.player.isDead();
+    }
+    
+    @Override
     public boolean kickToLobby(String reason) {
         if (reason != null) {
             this.sendMessage(reason);
