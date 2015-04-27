@@ -2,12 +2,14 @@
  * Copyright (C) 2015 TheMolkaPL - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
+ * Written by Aleksander JagieĹ‚Ĺ‚o <themolkapl@gmail.com>, 2015
  */
 package pl.shg.arcade.bukkit.module.blitz;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.SortedMap;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -30,8 +32,8 @@ import pl.shg.arcade.bukkit.ScoreboardManager;
 public class BlitzModule extends ObjectiveModule implements BListener {
     public BlitzModule() {
         super(new Date(2015, 4, 26), "blitz", "1.0");
-        this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
-                "w której ostatni zostaną gracze.");
+        this.getDocs().setDescription("Dodaje tryb gry, w ktĂłrym wygrywa druĹĽyna " +
+                "w ktĂłrej ostatni zostanÄ… gracze.");
         this.deploy(true);
     }
     
@@ -68,7 +70,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public Tutorial.Page getTutorial() {
         return new Tutorial.Page("Blitz",
                 "Twoim zadaniem jest przetrwanie ataku druzyny przeciwnej.\n\n" +
-                "Wygrywa druzyna, która jako ostatnia zostanie w grze.");
+                "Wygrywa druzyna, ktĂłra jako ostatnia zostanie w grze.");
     }
     
     @Override
@@ -80,7 +82,17 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     
     @Override
     public boolean objectiveScored(Team team) {
-        return team.getPlayers().isEmpty();
+        List<Team> kicked = new ArrayList<>();
+        for (Team onlineTeam : Arcade.getTeams().getTeams()) {
+            kicked.add(onlineTeam);
+        }
+        
+        if (kicked.size() == 1) {
+            if (kicked.get(0).equals(team)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     @Override
@@ -93,6 +105,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         Arcade.getPlayerManagement().playSound(player, Sound.ELIMINATION);
         ScoreboardManager.Sidebar.getScore(player.getTeam().getDisplayName(), player.getTeam().getPlayers().size());
+        
         this.updateObjectives();
     }
 }
