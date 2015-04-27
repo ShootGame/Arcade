@@ -32,6 +32,8 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(AutoRespawnModule.class); // prefered for the blitz gamemodes
         this.register(BlockPearlTeleportModule.class);
         this.register(CancelDropModule.class);
+        this.register(CancelPickupExpModule.class);
+        this.register(CancelPickupModule.class);
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
         this.register(DelayedRespawnModule.class);

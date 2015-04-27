@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.Date;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.bukkit.BukkitModule;
@@ -19,24 +20,24 @@ import pl.shg.arcade.bukkit.Config;
  *
  * @author Aleksander
  */
-public class CancelDropModule extends BukkitModule {
+public class CancelPickupModule extends BukkitModule {
     private String message;
     
-    public CancelDropModule() {
-        super(new Date(2015, 4, 27), "cancel-drop", "1.0");
-        this.getDocs().setDescription("Ten moduł blokuje dropienie itemów (poprzez " +
-                "klawisz <strong>Q</strong>) z ekwipunku gracza.");
+    public CancelPickupModule() {
+        super(new Date(2015, 4, 27), "cancel-pickup", "1.0");
+        this.getDocs().setDescription("Ten moduł blokuje podnoszenie itemów (poprzez " +
+                "podnoszenie z ziemi) do ekwipunku gracza.");
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
             @Override
             public String getPrefix() {
-                return "Ustaw opcjonalną wiadomość do graczy, który próbuje wyrzucić przedmiot.";
+                return "Ustaw opcjonalną wiadomość do graczy, który próbuje podnieść przedmiot.";
             }
             
             @Override
             public String[] getCode() {
                 return new String[] {
                     "cancel-drop:",
-                    "  message '`cNie mozesz wyrzucac itemów na tej mapie.'"
+                    "  message '`cNie mozesz podnosić itemów na tej mapie.'"
                 };
             }
         });
@@ -54,7 +55,7 @@ public class CancelDropModule extends BukkitModule {
     }
     
     @EventHandler
-    public void onPlayerDropItem(PlayerDropItemEvent e) {
+    public void onPlayerPickupItem(PlayerPickupItemEvent e) {
         e.setCancelled(true);
         if (this.message != null) {
             e.getPlayer().sendMessage(this.message);
