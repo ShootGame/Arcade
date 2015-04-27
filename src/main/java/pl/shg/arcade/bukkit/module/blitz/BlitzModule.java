@@ -2,7 +2,7 @@
  * Copyright (C) 2015 TheMolkaPL - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Aleksander JagieĹ‚Ĺ‚o <themolkapl@gmail.com>, 2015
+ * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
 package pl.shg.arcade.bukkit.module.blitz;
 
@@ -32,8 +32,8 @@ import pl.shg.arcade.bukkit.ScoreboardManager;
 public class BlitzModule extends ObjectiveModule implements BListener {
     public BlitzModule() {
         super(new Date(2015, 4, 26), "blitz", "1.0");
-        this.getDocs().setDescription("Dodaje tryb gry, w ktĂłrym wygrywa druĹĽyna " +
-                "w ktĂłrej ostatni zostanÄ… gracze.");
+        this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
+                "w której ostatni zostaną… gracze.");
         this.deploy(true);
     }
     
@@ -70,7 +70,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public Tutorial.Page getTutorial() {
         return new Tutorial.Page("Blitz",
                 "Twoim zadaniem jest przetrwanie ataku druzyny przeciwnej.\n\n" +
-                "Wygrywa druzyna, ktĂłra jako ostatnia zostanie w grze.");
+                "Wygrywa druzyna, która jako ostatnia zostanie w grze.");
     }
     
     @Override
