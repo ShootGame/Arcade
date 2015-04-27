@@ -6,8 +6,10 @@
  */
 package pl.shg.arcade.bukkit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -50,10 +52,11 @@ public class ScoreboardManager {
     public static class Sidebar {
         public static final String ID = "sidebar";
         private static Objective objective;
-        private static List<ScoreboardScore> scores = new ArrayList<>();
+        private static final Random random = new Random();
+        private static Map<String, ScoreboardScore> scores = new HashMap<>();
         
         public static void clear() {
-            scores = new ArrayList<>();
+            scores = new HashMap<>();
             for (Objective obj : ScoreboardManager.SCOREBOARD.getObjectives()) {
                 if (obj.getName().equals(Sidebar.ID)) {
                     obj.unregister();
@@ -61,30 +64,33 @@ public class ScoreboardManager {
             }
         }
         
-        public static ScoreboardScore getScore(String name, int score) {
-            Validate.notNull(name, "name can not be null");
-            Validate.notNegative(score, "score can not be negative");
-            Validate.notNull(score, "score can not be zero");
+        public static ScoreboardScore getScore(String id, String name, int score) {
+            Validate.notNull(id, "id can not be null");
             
-            for (ScoreboardScore boardScore : getScores()) {
-                if (boardScore.getName().toLowerCase().equals(name.toLowerCase())) {
-                    boardScore.setScore(score);
-                    return boardScore;
+            ScoreboardScore scoreboardScore = scores.get(id.toLowerCase());
+            if (scoreboardScore != null) {
+                if (name != null) {
+                    scoreboardScore.setName(name);
                 }
+                
+                scoreboardScore.setScore(score);
+                return scoreboardScore;
+            } else {
+                Validate.notNull(name, "name can not be null");
+                
+                ScoreboardScore newScore = new ScoreboardScore(name, score);
+                scores.put(id.toLowerCase(), newScore);
+                return newScore;
             }
-            
-            ScoreboardScore boardScore = new ScoreboardScore(name, score);
-            scores.add(boardScore);
-            return boardScore;
         }
         
-        public static List<ScoreboardScore> getScores() {
-            return scores;
+        public static Collection<ScoreboardScore> getScores() {
+            return scores.values();
         }
         
         public static ScoreboardScore getSeparator() {
             ScoreboardScore scoreBoard = new ScoreboardScore("");
-            scores.add(scoreBoard);
+            scores.put("sep-" + random.nextInt(1000), scoreBoard);
             return scoreBoard;
         }
         

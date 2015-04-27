@@ -75,7 +75,7 @@ public class Points extends Library {
     @Override
     public void makeScoreboard() {
         for (Team team : Points.teams()) {
-            ScoreboardManager.Sidebar.getScore(team.getDisplayName(), Points.get(team));
+            ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), Points.get(team));
         }
     }
     
