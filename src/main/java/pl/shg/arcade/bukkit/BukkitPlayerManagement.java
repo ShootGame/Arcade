@@ -93,7 +93,9 @@ public class BukkitPlayerManagement implements PlayerManagement {
         
         bukkitPlayer.setFoodLevel(20);
         bukkitPlayer.setMaxHealth(20.0);
-        bukkitPlayer.setHealth(20.0);
+        if (!player.isDead()) {
+            bukkitPlayer.setHealth(20.0);
+        }
         bukkitPlayer.setGameMode(GameMode.CREATIVE);
         if (hider) {
             PlayerHider.refresh(player);
