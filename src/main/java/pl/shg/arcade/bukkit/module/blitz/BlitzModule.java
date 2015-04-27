@@ -44,14 +44,16 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     
     @Override
     public void enable() {
+        Listeners.register(this);
         for (Team team : Arcade.getTeams().getTeams()) {
-            ScoreboardManager.Sidebar.getScore(team.getDisplayName(), team.getPlayers().size());
+            ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), team.getPlayers().size());
         }
+        ScoreboardManager.Sidebar.updateScoreboard();
     }
     
     @Override
     public void load(File file) throws ConfigurationException {
-        Listeners.register(this);
+        
     }
     
     @Override
@@ -76,19 +78,21 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     @Override
     public void makeScoreboard() {
         for (Team team : Arcade.getTeams().getTeams()) {
-            ScoreboardManager.Sidebar.getScore(team.getDisplayName(), 0);
+            ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), 0);
         }
     }
     
     @Override
     public boolean objectiveScored(Team team) {
-        List<Team> kicked = new ArrayList<>();
+        List<Team> stay = new ArrayList<>();
         for (Team onlineTeam : Arcade.getTeams().getTeams()) {
-            kicked.add(onlineTeam);
+            if (!onlineTeam.getPlayers().isEmpty()) {
+                stay.add(onlineTeam);
+            }
         }
         
-        if (kicked.size() == 1) {
-            if (kicked.get(0).equals(team)) {
+        if (stay.size() == 1) { // if list contains one team
+            if (stay.get(0).equals(team)) { // if this one team is this team
                 return true;
             }
         }
@@ -104,7 +108,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         Arcade.getPlayerManagement().playSound(player, Sound.ELIMINATION);
-        ScoreboardManager.Sidebar.getScore(player.getTeam().getDisplayName(), player.getTeam().getPlayers().size());
+        ScoreboardManager.Sidebar.getScore(player.getTeam().getID(), null, player.getTeam().getPlayers().size());
         
         this.updateObjectives();
     }
