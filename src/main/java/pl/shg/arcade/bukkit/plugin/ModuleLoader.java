@@ -29,8 +29,9 @@ public abstract class ModuleLoader implements IRegistration {
     private void features() {
         this.register(AntiGriefModule.class); // ess
         this.register(AutoJoinModule.class); // prefered for the blitz gamemodes
-        this.register(AutoRespawnModule.class); // prefered for the capture the sheeps
+        this.register(AutoRespawnModule.class); // prefered for the blitz gamemodes
         this.register(BlockPearlTeleportModule.class);
+        this.register(CancelDropModule.class);
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
         this.register(DelayedRespawnModule.class);
@@ -38,8 +39,8 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(DisableMobSpawningModule.class);
         this.register(FeatherFallingModule.class);
         this.register(GameRuleModule.class);
-        this.register(JoinWhenRunningCancelModule.class);
-        this.register(LivesModule.class);
+        this.register(JoinWhenRunningCancelModule.class); // prefered for the blitz gamemodes
+        this.register(LivesModule.class); // prefered for the blitz gamemodes
         this.register(NoDeathDropsModule.class);
         this.register(NoHungerModule.class);
         this.register(NoPvpModule.class);
