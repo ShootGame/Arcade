@@ -33,7 +33,7 @@ public class Development implements IServerRole {
         BeginScheduler.setDefaultSeconds(10);
         CycleScheduler.setDefaultSeconds(10);
         
-        Arcade.getPermissions().registerGroup(new TesterGroup());
+        Arcade.getPermissions().registerDefaultGroup(new TesterGroup());
     }
     
     private void registerCommands() {

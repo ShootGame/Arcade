@@ -31,15 +31,22 @@ import pl.themolka.permissions.User;
  * @author Aleksander
  */
 public class BukkitPermissionsManager implements PermissionsManager {
+    private final List<Group> def;
     private FileConfiguration file;
     private final List<Group> groups;
     private final ObserversTeam observers;
     private final PlayableTeam playable;
     
     public BukkitPermissionsManager() {
+        this.def = new ArrayList<>();
         this.groups = new ArrayList<>();
         this.observers = new ObserversTeam();
         this.playable = new PlayableTeam();
+    }
+    
+    @Override
+    public List<Group> getDefaultGroups() {
+        return this.def;
     }
     
     @Override
@@ -86,6 +93,15 @@ public class BukkitPermissionsManager implements PermissionsManager {
     }
     
     @Override
+    public void registerDefaultGroup(Group group) {
+        Validate.notNull(group, "group can not be null");
+        if (this.getGroup(group.getName()) == null) {
+            this.registerGroup(group);
+        }
+        this.def.add(group);
+    }
+    
+    @Override
     public void registerGroup(Group group) {
         Validate.notNull(group, "group can not be null");
         this.groups.add(group);
@@ -104,10 +120,10 @@ public class BukkitPermissionsManager implements PermissionsManager {
     
     public void setGroupsFor(User user) {
         Validate.notNull(user, "user can not be null");
-        
-        // TOOD Create a new thread and set up all the groups for the specifited player
-        user.addToGroup(this.getGroup("developer"));
-        
+        user.addToGroup(this.getGroup("admin"), false);
+        for (Group group : this.getDefaultGroups()) {
+            user.addToGroup(group, false);
+        }
         user.reload();
         
     }

@@ -16,6 +16,8 @@ import pl.themolka.permissions.Group;
 public interface PermissionsManager {
     public static String SERVER_INTERNAL = "si-";
     
+    List<Group> getDefaultGroups();
+    
     Group getGroup(String name);
     
     List<Group> getGroups();
@@ -26,6 +28,8 @@ public interface PermissionsManager {
     
     @Deprecated
     void loadPermissions(String url);
+    
+    void registerDefaultGroup(Group group);
     
     void registerGroup(Group group);
     
