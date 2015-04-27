@@ -47,8 +47,6 @@ public abstract class ObjectiveModule extends Module {
     public abstract SortedMap<Integer, Team> sortTeams();
     
     public void updateObjectives() {
-        // TOOD Update scoreboard
-        
         for (Team team : Arcade.getTeams().getTeams()) {
             if (this.objectiveScored(team)) {
                 Match match = Arcade.getMatches().getMatch();
@@ -64,6 +62,7 @@ public abstract class ObjectiveModule extends Module {
                 }
                 
                 match.end(winner);
+                return;
             }
         }
     }

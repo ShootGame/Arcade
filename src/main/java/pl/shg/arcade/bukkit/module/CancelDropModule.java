@@ -11,15 +11,17 @@ import java.util.Date;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
+import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
-import pl.shg.arcade.bukkit.BukkitModule;
+import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
+import pl.shg.arcade.bukkit.Listeners;
 
 /**
  *
  * @author Aleksander
  */
-public class CancelDropModule extends BukkitModule {
+public class CancelDropModule extends Module implements BListener {
     private String message;
     
     public CancelDropModule() {
@@ -41,6 +43,16 @@ public class CancelDropModule extends BukkitModule {
             }
         });
         this.deploy(true);
+    }
+    
+    @Override
+    public void disable() {
+        Listeners.unregister(this);
+    }
+    
+    @Override
+    public void enable() {
+        Listeners.register(this);
     }
     
     @Override

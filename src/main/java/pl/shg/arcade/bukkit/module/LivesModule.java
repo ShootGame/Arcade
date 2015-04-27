@@ -10,14 +10,12 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.command.def.JoinCommand;
@@ -108,10 +106,13 @@ public class LivesModule extends Module implements BListener {
     }
     
     @Override
-    public void disable() {}
+    public void disable() {
+        Listeners.unregister(this);
+    }
     
     @Override
     public void enable() {
+        Listeners.register(this);
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             if (!player.getTeam().getID().equals(ObserverTeamBuilder.getTeamID())) {
                 this.lives.put(player.getUUID(), this.defaults);
@@ -125,8 +126,6 @@ public class LivesModule extends Module implements BListener {
     @Override
     public void load(File file) throws ConfigurationException {
         FileConfiguration config = Config.get(file);
-        Listeners.register(this);
-        
         this.defaults = Config.getValueInt(config, this, "lives");
         
         this.kickMessage = Config.getValueMessage(config, this, "kick-message",
@@ -138,7 +137,7 @@ public class LivesModule extends Module implements BListener {
     
     @Override
     public void unload() {
-        Listeners.unregister(this);
+        
     }
     
     @EventHandler(priority = EventPriority.LOW)

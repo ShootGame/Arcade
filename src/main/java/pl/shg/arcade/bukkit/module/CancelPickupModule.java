@@ -9,12 +9,12 @@ package pl.shg.arcade.bukkit.module;
 import java.io.File;
 import java.util.Date;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.bukkit.BukkitModule;
 import pl.shg.arcade.bukkit.Config;
+import pl.shg.arcade.bukkit.Listeners;
 
 /**
  *
@@ -42,6 +42,16 @@ public class CancelPickupModule extends BukkitModule {
             }
         });
         this.deploy(true);
+    }
+    
+    @Override
+    public void disable() {
+        Listeners.unregister(this);
+    }
+    
+    @Override
+    public void enable() {
+        Listeners.register(this);
     }
     
     @Override

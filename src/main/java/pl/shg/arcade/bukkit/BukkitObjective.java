@@ -13,6 +13,7 @@ import pl.shg.arcade.api.module.ObjectiveModule;
  *
  * @author Aleksander
  */
+@Deprecated
 public abstract class BukkitObjective extends ObjectiveModule implements BListener {
     public BukkitObjective(Date date, String id, String version) {
         super(date, id, version);

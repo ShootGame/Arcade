@@ -6,15 +6,14 @@
  */
 package pl.shg.arcade.bukkit;
 
-import java.io.File;
 import java.util.Date;
-import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 
 /**
  *
  * @author Aleksander
  */
+@Deprecated
 public abstract class BukkitModule extends Module implements BListener {
     public BukkitModule(Date date, String id, String version) {
         super(date, id, version);

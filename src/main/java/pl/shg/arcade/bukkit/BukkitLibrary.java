@@ -13,6 +13,7 @@ import pl.shg.arcade.api.module.Library;
  *
  * @author Aleksander
  */
+@Deprecated
 public abstract class BukkitLibrary extends Library implements BListener {
     public BukkitLibrary(Date date, String id, String version) {
         super(date, id, version);

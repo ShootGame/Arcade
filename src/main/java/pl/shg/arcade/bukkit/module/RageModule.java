@@ -13,15 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.api.module.Module;
-import pl.shg.arcade.bukkit.BListener;
-import pl.shg.arcade.bukkit.Listeners;
+import pl.shg.arcade.bukkit.BukkitModule;
 
 /**
  *
  * @author Aleksander
  */
-public class RageModule extends Module implements BListener {
+public class RageModule extends BukkitModule {
     public static final int DAMAGE = 1000;
     
     public RageModule() {
@@ -33,19 +31,13 @@ public class RageModule extends Module implements BListener {
     }
     
     @Override
-    public void disable() {}
-    
-    @Override
-    public void enable() {}
-    
-    @Override
     public void load(File file) throws ConfigurationException {
-        Listeners.register(this);
+        
     }
     
     @Override
     public void unload() {
-        Listeners.unregister(this);
+        
     }
     
     @EventHandler

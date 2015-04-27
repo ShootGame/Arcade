@@ -101,7 +101,7 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     @Override
     public void makeScoreboard() {
         for (Team team : Arcade.getTeams().getTeams()) {
-            ScoreboardManager.Sidebar.getScore(team.getDisplayName(), 0);
+            ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), 0);
         }
     }
     
@@ -127,7 +127,7 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
         Team team = Arcade.getServer().getPlayer(player.getUniqueId()).getTeam();
         Points.addOne(team);
         
-        ScoreboardManager.Sidebar.getScore(team.getDisplayName(), Points.get(team));
+        ScoreboardManager.Sidebar.getScore(team.getID(), null, Points.get(team));
         ScoreboardManager.Sidebar.updateScoreboard();
     }
 }
