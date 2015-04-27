@@ -66,6 +66,8 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         this.loadBukkitListeners();
         this.loadMaps(properties, 2);
         this.loadServers();
+        
+        this.getLogger().log(Level.INFO, "Wczytywanie modulow...");
         new ModuleLoader() {
             
             @Override
