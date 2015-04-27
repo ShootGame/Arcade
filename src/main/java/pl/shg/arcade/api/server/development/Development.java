@@ -28,7 +28,7 @@ public class Development implements IServerRole {
         Log.log(Level.INFO, "#################");
         
         this.registerCommands();
-        //DevelopmentHack.setFinalVariables(); // not working yet :(
+        DevelopmentHack.setVariables();
         
         BeginScheduler.setDefaultSeconds(10);
         CycleScheduler.setDefaultSeconds(10);

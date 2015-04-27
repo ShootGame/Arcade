@@ -9,28 +9,18 @@ package pl.shg.arcade.api.server.development;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pl.shg.arcade.api.scheduler.BeginScheduler;
-import pl.shg.arcade.api.scheduler.CycleScheduler;
+import pl.shg.arcade.api.command.def.SetnextCommand;
 
 /**
  *
  * @author Aleksander
  */
-@Deprecated
 public class DevelopmentHack {
-    public static void setFinalVariables() {
+    public static void setVariables() {
         try {
-            Field field = BeginScheduler.class.getField("DEFAULT_SECONDS");
+            Field field = SetnextCommand.class.getDeclaredField("sameMap");
             field.setAccessible(true);
-            field.setInt(null, 60);
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            Logger.getLogger(DevelopmentHack.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            Field field = CycleScheduler.class.getField("DEFAULT_SECONDS");
-            field.setAccessible(true);
-            field.setInt(null, 60);
+            field.setBoolean(null, true);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(DevelopmentHack.class.getName()).log(Level.SEVERE, null, ex);
         }

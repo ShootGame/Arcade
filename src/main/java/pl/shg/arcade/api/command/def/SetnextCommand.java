@@ -18,6 +18,8 @@ import pl.shg.arcade.api.map.MapManager;
  * @author Aleksander
  */
 public class SetnextCommand extends Command {
+    private static boolean sameMap = false;
+    
     public SetnextCommand() {
         super(new String[] {"setnext", "sn"},
                 "Ustaw nastepna mape w kolejce", "setnext <-r|map...>",
@@ -46,6 +48,11 @@ public class SetnextCommand extends Command {
             }
             
             if (map != null) {
+                if (!sameMap) {
+                    sender.sendError("Nie mozesz ustawic nastepnej mapy, poniewaz jest ona taka sama jak obecna.");
+                    return;
+                }
+                
                 maps.setNextMap(map);
                 sender.sendSuccess("Mapa " + map.getDisplayName() + " zostala ustawiona jako nastepna w kolejce.");
                 if (maps.getCurrentMap().equals(maps.getNextMap())) {
