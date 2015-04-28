@@ -208,6 +208,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     }
     
     private void loadServers() {
+        this.getLogger().log(Level.INFO, "Ladowanie serwerow...");
         TextFileReader reader = new ServersFile("servers.txt").getReader();
         String currentServerName = Arcade.getOptions().getServerName();
         for (TextFileReader.Line line : reader.getLines()) {

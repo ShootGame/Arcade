@@ -13,13 +13,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.bukkit.BukkitModule;
+import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.bukkit.BListener;
+import pl.shg.arcade.bukkit.Listeners;
 
 /**
  *
  * @author Aleksander
  */
-public class RageModule extends BukkitModule {
+public class RageModule extends Module implements BListener {
     public static final int DAMAGE = 1000;
     
     public RageModule() {
@@ -28,6 +30,16 @@ public class RageModule extends BukkitModule {
                 "na dotyk. Aby zabić gracza na w tym module, wystaczy go " +
                 "tylko dotknąć łapką, lub strzelić w niego strzałą.");
         this.deploy(true);
+    }
+    
+    @Override
+    public void disable() {
+        Listeners.unregister(this);
+    }
+    
+    @Override
+    public void enable() {
+        Listeners.register(this);
     }
     
     @Override
