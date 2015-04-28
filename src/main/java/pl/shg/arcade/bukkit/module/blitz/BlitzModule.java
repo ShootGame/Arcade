@@ -33,7 +33,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public BlitzModule() {
         super(new Date(2015, 4, 26), "blitz", "1.0");
         this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
-                "w której ostatni zostaną… gracze.");
+                "w której ostatni zostaną. gracze.");
         this.deploy(true);
     }
     
