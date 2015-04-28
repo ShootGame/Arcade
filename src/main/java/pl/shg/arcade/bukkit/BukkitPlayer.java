@@ -41,7 +41,6 @@ import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.map.team.TeamColor;
-import pl.shg.arcade.api.permissions.PermissionsManager;
 import pl.shg.arcade.api.server.ArcadeServer;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
@@ -159,13 +158,6 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void reloadPermissions() {
-        for (Group group : Arcade.getPermissions().getGroups()) {
-            if (group.getName().startsWith(PermissionsManager.SERVER_INTERNAL)
-                    || !this.getPermissions().getGroups().contains(group)) {
-                this.getPermissions().addToGroup(group, false);
-            }
-        }
-        
         this.player.recalculatePermissions();
     }
     
