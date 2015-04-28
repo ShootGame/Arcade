@@ -114,9 +114,18 @@ public class ObserverKitListeners implements Listener {
     }
     
     private void handleTutorial(Player player, Tutorial tutorial, boolean rightClicked) {
-        if (rightClicked && tutorial.isEmpty()) {
+        // TOOD temporary tutorial fix
+        /*if (rightClicked && tutorial.isEmpty()) {
             player.sendError("Przepraszamy, na tej mapie poradnik nie jest dostepny.");
             player.sendError("Staramy sie go dodac jak najszybciej!");
+        }*/
+        if (rightClicked) {
+            if (tutorial.isEmpty()) {
+                player.sendError("Przepraszamy, na tej mapie poradnik nie jest dostepny.");
+                player.sendError("Staramy sie go dodac jak najszybciej!");
+            } else {
+                pl.shg.arcade.api.command.def.TutorialCommand.handleTutorial(player, tutorial, 1);
+            }
         }
     }
 }
