@@ -6,8 +6,10 @@
  */
 package pl.shg.arcade.api.scheduler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Log;
@@ -72,8 +74,17 @@ public class CycleScheduler implements Runnable {
         
         TeamManager teams = Arcade.getTeams();
         PlayerManagement players = Arcade.getPlayerManagement();
+        
+        List<UUID> forceRespawn = new ArrayList<>();
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             if (player.isDead()) {
+                forceRespawn.add(player.getUUID());
+            }
+        }
+        
+        for (UUID respawn : forceRespawn) {
+            Player player = Arcade.getServer().getPlayer(respawn);
+            if (player != null) {
                 player.kick(); // TODO we kick dead players, but respawn would be better
             }
         }
