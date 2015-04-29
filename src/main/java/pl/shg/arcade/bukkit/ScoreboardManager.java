@@ -106,8 +106,8 @@ public class ScoreboardManager {
         }
         
         public static void updateScoreboard() {
-            for (ScoreboardScore score : getScores()) {
-                objective.getScore(score.getName()).setScore(score.getScore());
+            for (String score : scores.keySet()) {
+                objective.getScore(score).setScore(scores.get(score).getScore());
             }
         }
     }
