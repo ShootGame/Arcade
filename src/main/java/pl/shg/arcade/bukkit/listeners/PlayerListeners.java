@@ -11,6 +11,7 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -72,13 +73,25 @@ public class PlayerListeners implements Listener {
     
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof org.bukkit.entity.Player && e.getDamager() instanceof org.bukkit.entity.Player) {
+        if (e.getEntity() instanceof org.bukkit.entity.Player) {
             Player entity = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
-            Player damager = Arcade.getServer().getPlayer(e.getDamager().getUniqueId());
             
-            if (entity.getTeam().equals(damager.getTeam())) {
+            if (e.getDamager() instanceof org.bukkit.entity.Player) { // Player vs player direct
+                Player damager = Arcade.getServer().getPlayer(e.getDamager().getUniqueId());
                 if (entity.getTeam().isFrendlyFire()) {
-                    e.setCancelled(true);
+                    if (entity.getTeam().equals(damager.getTeam())) {
+                        e.setCancelled(true);
+                    }
+                }
+            } else if (e.getDamager() instanceof Projectile && ((Projectile) e.getDamager())
+                    .getShooter() instanceof org.bukkit.entity.Player) { // Arrows, snowballs, etc...
+                Projectile projectile = (Projectile) e.getDamager();
+                Player damager = Arcade.getServer().getPlayer(projectile.getUniqueId());
+                if (entity.getTeam().isFrendlyFire()) {
+                    if (entity.getTeam().equals(damager.getTeam())) {
+                        e.setCancelled(true);
+                        projectile.setBounce(true);
+                    }
                 }
             }
         }
