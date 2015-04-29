@@ -25,7 +25,6 @@ import pl.shg.arcade.bukkit.Listeners;
  * @author Aleksander
  */
 public class PlayableAreaModule extends Module implements BListener {
-    public static final String DEFAULT_MESSAGE = Color.RED + "Nie mozesz budowac ani niszczyc poza granica mapy.";
     private String message;
     private int xMax, yMax = 256, zMax, xMin, yMin = 0, zMin;
     
@@ -60,7 +59,8 @@ public class PlayableAreaModule extends Module implements BListener {
         for (String option : Config.getOptions(config, this)) {
             switch (option.toLowerCase()) {
                 case "message":
-                    this.message = Config.getValueMessage(config, this, PlayableAreaModule.DEFAULT_MESSAGE, true);
+                    this.message = Config.getValueMessage(config, this,
+                            "Nie mozesz budowac ani niszczyc poza granica mapy.", true);
                     break;
                 case "x-max":
                     this.xMax = Config.getValueInt(config, this, option);
@@ -81,6 +81,10 @@ public class PlayableAreaModule extends Module implements BListener {
                     this.zMin = Config.getValueInt(config, this, option);
                     break;
             }
+        }
+        
+        if (this.xMax == 0 && this.xMin == 0 && this.zMax == 0 && this.zMin == 0) {
+            // TODO register an events that listen to the PlayerGetKitEvent or something similar
         }
     }
     
