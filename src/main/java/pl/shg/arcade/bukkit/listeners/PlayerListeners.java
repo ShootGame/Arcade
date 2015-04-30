@@ -32,7 +32,6 @@ import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitServer;
-import pl.shg.arcade.bukkit.ScoreboardManager;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
 /**
@@ -86,7 +85,8 @@ public class PlayerListeners implements Listener {
             } else if (e.getDamager() instanceof Projectile && ((Projectile) e.getDamager())
                     .getShooter() instanceof org.bukkit.entity.Player) { // Arrows, snowballs, etc...
                 Projectile projectile = (Projectile) e.getDamager();
-                Player damager = Arcade.getServer().getPlayer(projectile.getUniqueId());
+                Player damager = Arcade.getServer().getPlayer(
+                        ((org.bukkit.entity.Player) projectile.getShooter()).getUniqueId());
                 if (entity.getTeam().isFrendlyFire()) {
                     if (entity.getTeam().equals(damager.getTeam())) {
                         e.setCancelled(true);
