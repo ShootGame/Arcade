@@ -125,7 +125,7 @@ public class PlayerListeners implements Listener {
         player.setTabList(Arcade.getServer().getGlobalTabList());
     }
     
-    @EventHandler
+    //@EventHandler
     public void setPlayerKick(PlayerKickEvent e) {
         this.handleLogout(e.getPlayer());
     }
