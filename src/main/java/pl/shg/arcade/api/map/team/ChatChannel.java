@@ -41,7 +41,7 @@ public abstract class ChatChannel {
         if (!event.isCancel()) {
             this.sendServerMessage(sender, format);
             if (this.isSpy()) {
-                this.handleSpy(sender, author + Color.RESET + Color.GRAY + ": " + event.getMessage());
+                this.handleSpy(sender, format);
             }
         }
     }
@@ -49,7 +49,7 @@ public abstract class ChatChannel {
     private void handleSpy(Sender sender, String message) {
         message = Color.LIGHT_PURPLE + Color.ITALIC + "[Spy] " + Color.RESET + message;
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
-            if (this.testSpy(sender, player) && player.isSpying()) {
+            if (player.isSpying() && this.testSpy(sender, player)) {
                 player.sendMessage(message);
             }
         }
