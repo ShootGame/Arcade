@@ -7,7 +7,6 @@
 package pl.shg.arcade.api.server.development;
 
 import java.util.Arrays;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.permissions.PermissionsManager;
 import pl.themolka.permissions.Group;
 
@@ -40,7 +39,7 @@ public class TesterGroup extends Group {
     
     public TesterGroup() {
         super(NAME);
-        this.setPrefix(Color.BLUE + "-");
+        this.setPrefix(null);
         this.setPermissions(Arrays.asList(permissions));
     }
 }
