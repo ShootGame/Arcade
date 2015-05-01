@@ -8,11 +8,13 @@ package pl.shg.arcade.bukkit.listeners;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.ChatMessage;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.event.PlayerChatEvent;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.map.team.TeamChat;
 
 /**
  *
@@ -39,6 +41,12 @@ public class ArcadeEventListeners {
                     Player player = Arcade.getServer().getPlayer(word.substring(1));
                     if (player != null) {
                         builder.append(player.getChatName()).append(Color.GRAY).append(" ");
+                        if (e.getChannel() instanceof TeamChat && !((TeamChat) e.getChannel()).getTeam().equals(player.getTeam())) {
+                            continue;
+                        }
+                        
+                        Arcade.getPlayerManagement().playSound(player, Sound.MENTION);
+                        player.sendMessage(Color.YELLOW + e.getSender().getName() + " oznaczyl/a Ciebie w wiadomosci na chacie.");
                         continue;
                     }
                 }

@@ -41,7 +41,6 @@ public class Broadcaster {
         this.index++;
         Sender console = Arcade.getCommands().getConsoleSender();
         
-        Log.log(Level.INFO, "[Broadcaster] " + message);
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             player.sendChatMessage(console, new BroadcasterMessage(this.translate(
                     Color.translate(format), Color.translate(message), player)));

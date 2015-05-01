@@ -46,22 +46,23 @@ public class SetnextCommand extends Command {
             if (map == null) {
                 map = maps.getMap(mapString);
             }
+            if (map == null) {
+                sender.sendError("Podana przez Ciebie mapa nie istnieje.");
+                return;
+            }
             
-            if (map != null) {
-                if (!sameMap) {
-                    sender.sendError("Nie mozesz ustawic nastepnej mapy, poniewaz jest ona taka sama jak obecna.");
-                    return;
-                }
-                
-                maps.setNextMap(map);
-                sender.sendSuccess("Mapa " + map.getDisplayName() + " zostala ustawiona jako nastepna w kolejce.");
-                if (maps.getCurrentMap().equals(maps.getNextMap())) {
+            if (maps.getCurrentMap().equals(maps.getNextMap())) {
+                if (sameMap) {
                     sender.sendError("Nastepna mapa jest taka sama co obecna!");
                     sender.sendError("Ustawienie obecnej mapy jako nastepnej nie jest zalecane.");
+                } else {
+                    sender.sendError("Nie mozesz ustawic nastepnej mapy takiej samej jak obecna.");
+                    return;
                 }
-            } else {
-                sender.sendError("Podana przez Ciebie mapa nie istnieje.");
             }
+            
+            maps.setNextMap(map);
+            sender.sendSuccess("Mapa " + map.getDisplayName() + " zostala ustawiona jako nastepna w kolejce.");
         }
     }
     

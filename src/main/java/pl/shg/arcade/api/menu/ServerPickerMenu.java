@@ -7,6 +7,7 @@
 package pl.shg.arcade.api.menu;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -23,7 +24,7 @@ import pl.shg.arcade.api.server.status.ServerStatus;
  * @author Aleksander
  */
 public class ServerPickerMenu extends Menu {
-    private SortedMap<Integer, ArcadeServer> servers;
+    private static SortedMap<Integer, ArcadeServer> servers;
     
     public ServerPickerMenu() {
         super(Color.DARK_RED + "Wybierz serwer " + Color.RESET + "ShootGame", 1);
@@ -31,28 +32,30 @@ public class ServerPickerMenu extends Menu {
     
     @Override
     public void onClick(Player player, int slot) {
-        if (this.servers.containsKey(slot)) {
-            player.connect(this.servers.get(slot));
-            player.close();
+        if (servers.containsKey(slot)) {
+            player.connect(servers.get(slot));
+            this.close(player);
         }
     }
     
     @Override
     public void onCreate(Player player) {
-        this.servers = new TreeMap<>();
-        List<ArcadeServer> serverList = Arcade.getServers().getServers();
-        player.sendSuccess("Ladowanie " + serverList.size() + " serwerów ShootGame...");
-        for (int i = 0; i < serverList.size(); i++) {
-            ArcadeServer server = serverList.get(i);
-            if (server.isProtected() && !player.hasPermission("arcade.protected-servers")) {
-                continue;
-            }
-            this.servers.put(i, server);
-            
-            if (Arcade.getServers().getCurrentServer().equals(server)) {
-                this.addItem(this.createCurrentServer(server), i);
-            } else {
-                this.addItem(this.createTargetServer(player, server), i);
+        if (servers == null) {
+            servers = new TreeMap<>();
+            List<ArcadeServer> serverList = Arcade.getServers().getServers();
+            player.sendSuccess("Ladowanie " + serverList.size() + " serwerów ShootGame...");
+            for (int i = 0; i < serverList.size(); i++) {
+                ArcadeServer server = serverList.get(i);
+                if (server.isProtected() && !player.hasPermission("arcade.protected-servers")) {
+                    continue;
+                }
+                servers.put(i, server);
+                
+                if (Arcade.getServers().getCurrentServer().equals(server)) {
+                    this.addItem(this.createCurrentServer(server), i);
+                } else {
+                    this.addItem(this.createTargetServer(player, server), i);
+                }
             }
         }
     }
@@ -83,5 +86,13 @@ public class ServerPickerMenu extends Menu {
             }
         }
         return description;
+    }
+    
+    public static Collection<ArcadeServer> getServers() {
+        return servers.values();
+    }
+    
+    public static void reset() {
+        servers = null;
     }
 }

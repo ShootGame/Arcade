@@ -68,6 +68,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
             case ELIMINATION: result = Sound.IRONGOLEM_DEATH; break;
             case ENEMY_LOST: result = Sound.WITHER_DEATH; break;
             case ENEMY_WON: result = Sound.WITHER_SPAWN; break;
+            case MENTION: result = Sound.NOTE_PIANO; break;
         }
         if (result != null) {
             Player bukkitPlayer = (Player) player.getPlayer();

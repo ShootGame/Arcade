@@ -60,7 +60,7 @@ public class BukkitServer extends ArcadeServer {
     }
     
     @Override
-    public Player getPlayer(String name) {
+    public synchronized Player getPlayer(String name) {
         Validate.notNull(name, "name can not be null");
         for (Player player : this.getOnlinePlayers()) {
             if (player.getName().toLowerCase().contains(name.toLowerCase())) {

@@ -19,7 +19,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import pl.shg.arcade.api.Arcade;
@@ -74,25 +73,25 @@ public class PlayerListeners implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof org.bukkit.entity.Player) {
             Player entity = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
+            if (!entity.getTeam().isFrendlyFire()) {
+                return;
+            }
+            Player damager = null;
+            Projectile projectile = null;
             
             if (e.getDamager() instanceof org.bukkit.entity.Player) { // Player vs player direct
-                Player damager = Arcade.getServer().getPlayer(e.getDamager().getUniqueId());
-                if (entity.getTeam().isFrendlyFire()) {
-                    if (entity.getTeam().equals(damager.getTeam())) {
-                        e.setCancelled(true);
-                    }
-                }
+                damager = Arcade.getServer().getPlayer(e.getDamager().getUniqueId());
             } else if (e.getDamager() instanceof Projectile && ((Projectile) e.getDamager())
                     .getShooter() instanceof org.bukkit.entity.Player) { // Arrows, snowballs, etc...
-                Projectile projectile = (Projectile) e.getDamager();
-                Player damager = Arcade.getServer().getPlayer(
-                        ((org.bukkit.entity.Player) projectile.getShooter()).getUniqueId());
-                if (entity.getTeam().isFrendlyFire()) {
-                    if (entity.getTeam().equals(damager.getTeam())) {
-                        e.setCancelled(true);
-                        projectile.setBounce(true);
-                    }
-                }
+                projectile = (Projectile) e.getDamager();
+                damager = Arcade.getServer().getPlayer(((org.bukkit.entity.Player) projectile.getShooter()).getUniqueId());
+            }
+            
+            if (damager != null && entity.getTeam().equals(damager.getTeam())) {
+                e.setCancelled(true);
+            }
+            if (projectile != null) {
+                projectile.setBounce(true);
             }
         }
     }
@@ -125,14 +124,13 @@ public class PlayerListeners implements Listener {
         player.setTabList(Arcade.getServer().getGlobalTabList());
     }
     
-    //@EventHandler
-    public void setPlayerKick(PlayerKickEvent e) {
-        this.handleLogout(e.getPlayer());
-    }
-    
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
-        this.handleLogout(e.getPlayer());
+        try {
+            this.server.removePlayer(this.server.getPlayer(e.getPlayer().getUniqueId()));
+        } catch (IllegalArgumentException ex) {
+            Log.noteAdmins("Nie udalo sie usunac gracza " + e.getPlayer() + " poniewaz nie istnial", Log.NoteLevel.SEVERE);
+        }
     }
     
     @EventHandler
@@ -148,21 +146,14 @@ public class PlayerListeners implements Listener {
             
             @Override
             public void run() {
-                if (player.isObserver()) {
+                if (player == null) {
+                    return;
+                } else if (player.isObserver()) {
                     Arcade.getPlayerManagement().setAsObserver(player, true, false);
                 } else {
                     Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
                 }
             }
-        }, 20L);
-    }
-    
-    private void handleLogout(org.bukkit.entity.Player bPlayer) {
-        try {
-            this.server.removePlayer(this.server.getPlayer(bPlayer.getUniqueId()));
-        } catch (IllegalArgumentException ex) {
-            Log.noteAdmins("Nie udalo sie usunac gracza " + bPlayer + " poniewaz nie istnial",
-                    Log.NoteLevel.SEVERE);
-        }
+        }, 1L);
     }
 }

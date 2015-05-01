@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.util.Validate;
 
@@ -40,6 +41,13 @@ public class Menu extends MenuListener {
         this.id = UUID.randomUUID();
         
         this.items = new HashMap<>();
+    }
+    
+    public void close(Player player) {
+        if (player != null) {
+            player.close();
+        }
+        Menu.unregister(this);
     }
     
     public Object create() {

@@ -7,6 +7,7 @@
 package pl.shg.arcade.api.menu;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -24,7 +25,7 @@ import pl.shg.arcade.api.map.team.TeamColor;
  * @author Aleksander
  */
 public class TeamSelectorMenu extends Menu {
-    private SortedMap<Integer, Team> teams;
+    private static SortedMap<Integer, Team> teams;
     
     public TeamSelectorMenu() {
         super(Color.DARK_BLUE + "Wybierz swoja druzyne", 1);
@@ -34,44 +35,46 @@ public class TeamSelectorMenu extends Menu {
     public void onClick(Player player, int slot) {
         if (slot == 0) {
             Arcade.getCommands().perform("join", player, new String[] {"-r"});
-            player.close();
-        } else if (this.teams.containsKey(slot)) {
-            Arcade.getCommands().perform("join", player, new String[] {this.teams.get(slot).getName()});
-            player.close();
+            this.close(player);
+        } else if (teams.containsKey(slot)) {
+            Arcade.getCommands().perform("join", player, new String[] {teams.get(slot).getName()});
+            this.close(player);
         }
     }
     
     @Override
     public void onCreate(Player player) {
-        this.teams = new TreeMap<>();
-        
-        Item auto = new Item(new Material(399), Color.Wool.ORANGE.getID());
-        auto.setName(Color.DARK_AQUA + "Losuj druzyne");
-        auto.setDescription(Arrays.asList(
-                Color.GRAY + "Dolacz do druzyny w której jest najmniej graczy",
-                ChatColor.GOLD + "Dostep: " + Color.GREEN + "Wszyscy"));
-        this.addItem(auto, 0);
-        
-        List<Team> teamList = Arcade.getTeams().getTeams();
-        for (int i = 0; i < teamList.size(); i++) {
-            Team team = teamList.get(i);
-            int slot = i + 1;
-            this.teams.put(slot, team);
+        if (teams == null) {
+            teams = new TreeMap<>();
             
-            int freeSlots = team.getSlots() - team.getPlayers().size();
-            if (freeSlots < 0) {
-                freeSlots = 0;
+            Item auto = new Item(new Material(399), Color.Wool.ORANGE.getID());
+            auto.setName(Color.DARK_AQUA + "Losuj druzyne");
+            auto.setDescription(Arrays.asList(
+                    Color.GRAY + "Dolacz do druzyny w której jest najmniej graczy",
+                    ChatColor.GOLD + "Dostep: " + Color.GREEN + "Wszyscy"));
+            this.addItem(auto, 0);
+            
+            List<Team> teamList = Arcade.getTeams().getTeams();
+            for (int i = 0; i < teamList.size(); i++) {
+                Team team = teamList.get(i);
+                int slot = i + 1;
+                teams.put(slot, team);
+                
+                int freeSlots = team.getSlots() - team.getPlayers().size();
+                if (freeSlots < 0) {
+                    freeSlots = 0;
+                }
+                
+                Item item = new Item(new Material(35, this.teamToWool(team.getTeamColor()).getID()), freeSlots);
+                
+                item.setName(Color.DARK_AQUA + "Dolacz do " + team.getDisplayName());
+                item.setDescription(Arrays.asList(
+                        Color.GOLD + "Stan graczy: " + Color.DARK_RED + Color.BOLD + team.getPlayers().size()
+                                + Color.RESET + Color.RED + "/" + team.getSlots(),
+                        Color.GRAY + "Dolacz do wybranej przez Ciebie druzyny",
+                        Color.GOLD + "Dostep: " + Color.RED + "Ranga VIP"));
+                this.addItem(item, slot);
             }
-            
-            Item item = new Item(new Material(35, this.teamToWool(team.getTeamColor()).getID()), freeSlots);
-            
-            item.setName(Color.DARK_AQUA + "Dolacz do " + team.getDisplayName());
-            item.setDescription(Arrays.asList(
-                    Color.GOLD + "Stan graczy: " + Color.DARK_RED + Color.BOLD + team.getPlayers().size()
-                            + Color.RESET + Color.RED + "/" + team.getSlots(),
-                    Color.GRAY + "Dolacz do wybranej przez Ciebie druzyny",
-                    Color.GOLD + "Dostep: " + Color.RED + "Ranga VIP"));
-            this.addItem(item, slot);
         }
     }
     
@@ -88,5 +91,13 @@ public class TeamSelectorMenu extends Menu {
             case YELLOW: return Color.Wool.YELLOW;
             default: return Color.Wool.WHITE;
         }
+    }
+    
+    public static Collection<Team> getTeams() {
+        return teams.values();
+    }
+    
+    public static void reset() {
+        teams = null;
     }
 }

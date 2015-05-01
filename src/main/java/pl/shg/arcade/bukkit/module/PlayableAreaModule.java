@@ -98,7 +98,7 @@ public class PlayableAreaModule extends Module implements BListener {
         if (this.isOutside(e.getBlock().getLocation())) {
             e.setCancelled(true);
             if (this.message != null) {
-                e.getPlayer().sendMessage(Color.translate(this.message));
+                e.getPlayer().sendMessage(Color.RED + Color.translate(this.message));
             }
         }
     }
@@ -108,7 +108,7 @@ public class PlayableAreaModule extends Module implements BListener {
         if (this.isOutside(e.getBlock().getLocation())) {
             e.setCancelled(true);
             if (this.message != null) {
-                e.getPlayer().sendMessage(Color.translate(this.message));
+                e.getPlayer().sendMessage(Color.RED + Color.translate(this.message));
             }
         }
     }

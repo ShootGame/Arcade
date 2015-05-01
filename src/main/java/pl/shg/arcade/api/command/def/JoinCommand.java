@@ -83,7 +83,7 @@ public class JoinCommand extends Command {
                 }
             }
             
-            if (canBegin) {
+            if (canBegin && !manager.isBeginRunning()) {
                 manager.runBegin(BeginScheduler.getDefaultSeconds());
             }
         }
