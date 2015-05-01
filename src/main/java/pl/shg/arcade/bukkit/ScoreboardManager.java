@@ -89,6 +89,38 @@ public class ScoreboardManager {
             }
         }
         
+        public static ScoreboardScore getScore(String id, String name, int score, String prefix, String suffix) {
+            Validate.notNull(id, "id can not be null");
+            Validate.notNull(prefix, "prefix can not be null");
+            Validate.notNull(suffix, "suffix can not be null");
+            
+            ScoreboardScore scoreboardScore = getScore(id);
+            if (scoreboardScore != null) {
+                if (name != null) {
+                    scoreboardScore.setName(name);
+                }
+                scoreboardScore.setPrefix(prefix);
+                scoreboardScore.setScore(score);
+                scoreboardScore.setSuffix(suffix);
+                return scoreboardScore;
+            } else {
+                Validate.notNull(name, "name can not be null");
+                org.bukkit.scoreboard.Team team = ScoreboardManager.SCOREBOARD.getTeam(name) == null ?
+                        ScoreboardManager.SCOREBOARD.registerNewTeam(name) :
+                        ScoreboardManager.SCOREBOARD.getTeam(name);
+                if (prefix != null) {
+                    team.setPrefix(prefix);
+                }
+                if (suffix != null) {
+                    team.setSuffix(suffix);
+                }
+                team.add(name);
+                ScoreboardScore newScore = new ScoreboardScore(prefix, suffix, name, score);
+                scores.put(id.toLowerCase(), newScore);
+                return newScore;
+            }
+        }
+        
         public static Collection<ScoreboardScore> getScores() {
             return scores.values();
         }
@@ -113,6 +145,16 @@ public class ScoreboardManager {
         public static void updateScoreboard() {
             for (String score : scores.keySet()) {
                 ScoreboardScore obj = scores.get(score);
+                org.bukkit.scoreboard.Team team = ScoreboardManager.SCOREBOARD.getTeam(obj.getName()) == null ?
+                        ScoreboardManager.SCOREBOARD.registerNewTeam(obj.getName()) :
+                        ScoreboardManager.SCOREBOARD.getTeam(obj.getName());
+                if (obj.getPrefix() != null) {
+                    team.setPrefix(obj.getPrefix());
+                }
+                if (obj.getSuffix() != null) {
+                    team.setSuffix(obj.getSuffix());
+                }
+                team.add(obj.getName());
                 if (obj.isNameEdited()) {
                     objective.getScoreboard().resetScores(obj.getOldName());
                 }

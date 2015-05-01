@@ -13,7 +13,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class ScoreboardScore {
-    private String name, oldName;
+    private String name, oldName, prefix, suffix;
     private int score;
     
     public ScoreboardScore(String name) throws IllegalArgumentException {
@@ -21,9 +21,16 @@ public class ScoreboardScore {
         this.setScore(0);
     }
     
-    public ScoreboardScore(String name, int score) throws IllegalArgumentException {
+     public ScoreboardScore(String name, int score) throws IllegalArgumentException {
         this.setName(name);
         this.setScore(score);
+    }
+     
+    public ScoreboardScore(String prefix, String suffix, String name, int score) throws IllegalArgumentException {
+        this.setName(name);
+        this.setPrefix(prefix);
+        this.setScore(score);
+        this.setSuffix(suffix);
     }
     
     public String getName() {
@@ -34,8 +41,16 @@ public class ScoreboardScore {
         return this.oldName;
     }
     
+    public String getPrefix() {
+        return this.prefix;
+    }
+    
     public int getScore() {
         return this.score;
+    }
+    
+    public String getSuffix() {
+        return this.suffix;
     }
     
     public boolean isNameEdited() {
@@ -56,7 +71,15 @@ public class ScoreboardScore {
         this.name = name;
     }
     
+    public final void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+    
     public final void setScore(int score) {
         this.score = score;
+    }
+    
+    public final void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }
