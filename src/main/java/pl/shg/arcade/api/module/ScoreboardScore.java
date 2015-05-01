@@ -13,7 +13,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class ScoreboardScore {
-    private String name;
+    private String name, oldName;
     private int score;
     
     public ScoreboardScore(String name) throws IllegalArgumentException {
@@ -30,8 +30,19 @@ public class ScoreboardScore {
         return this.name;
     }
     
+    public String getOldName() {
+        return this.oldName;
+    }
+    
     public int getScore() {
         return this.score;
+    }
+    
+    public boolean isNameEdited() {
+        if (this.getOldName() != null) {
+            return !this.getOldName().equals(this.getName());
+        }
+        return false;
     }
     
     public boolean isSeparator() {
@@ -41,6 +52,7 @@ public class ScoreboardScore {
     public final void setName(String name) {
         Validate.notNull(name, "name can not be null");
         Validate.isTrue(name.length() > 16, "name is too long");
+        this.oldName = this.name;
         this.name = name;
     }
     
