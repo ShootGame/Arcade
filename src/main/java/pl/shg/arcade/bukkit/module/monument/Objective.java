@@ -67,6 +67,10 @@ public class Objective {
         return this.owner;
     }
     
+    public String getScoreboardID() {
+        return (this.getOwner().getID() + "-" + this.getName()).toLowerCase();
+    }
+    
     public Status getStatus() {
         if (this.isDestroyed()) {
             return Status.DESTROYED;

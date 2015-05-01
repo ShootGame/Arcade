@@ -123,8 +123,12 @@ public class MonumentModule extends ObjectiveModule {
             i--;
             
             for (Objective objective : this.objectives.get(team)) {
-                ScoreboardManager.Sidebar.getScore(team.getID() + "-" + objective.getName(),
-                        Color.GREEN + objective.getDisplayName(), i);
+                ScoreboardManager.Sidebar.getScore(
+                        objective.getScoreboardID(),
+                        objective.getDisplayName(),
+                        i,
+                        "  " + Color.GREEN,
+                        null);
                 i--;
             }
         }

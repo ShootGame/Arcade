@@ -66,35 +66,17 @@ public class ScoreboardManager {
         
         public static ScoreboardScore getScore(String id) {
             Validate.notNull(id, "id can not be null");
-            return scores.get(id);
+            return scores.get(id.toLowerCase());
         }
         
         public static ScoreboardScore getScore(String id, String name, int score) {
-            Validate.notNull(id, "id can not be null");
-            
-            ScoreboardScore scoreboardScore = getScore(id);
-            if (scoreboardScore != null) {
-                if (name != null) {
-                    scoreboardScore.setName(name);
-                }
-                
-                scoreboardScore.setScore(score);
-                return scoreboardScore;
-            } else {
-                Validate.notNull(name, "name can not be null");
-                
-                ScoreboardScore newScore = new ScoreboardScore(name, score);
-                scores.put(id.toLowerCase(), newScore);
-                return newScore;
-            }
+            return getScore(id, name, score, null, null);
         }
         
         public static ScoreboardScore getScore(String id, String name, int score, String prefix, String suffix) {
             Validate.notNull(id, "id can not be null");
-            Validate.notNull(prefix, "prefix can not be null");
-            Validate.notNull(suffix, "suffix can not be null");
             
-            ScoreboardScore scoreboardScore = getScore(id);
+            ScoreboardScore scoreboardScore = getScore(id.toLowerCase());
             if (scoreboardScore != null) {
                 if (name != null) {
                     scoreboardScore.setName(name);
@@ -132,7 +114,7 @@ public class ScoreboardManager {
         }
         
         public static void newScoreboard() {
-            String name = Color.GREEN + Arcade.getMaps().getCurrentMap().getDisplayName();
+            String name = Color.YELLOW + Arcade.getMaps().getCurrentMap().getDisplayName();
             Scoreboard board = ScoreboardManager.SCOREBOARD;
             
             objective = board.registerNewObjective(Sidebar.ID, "dummy");

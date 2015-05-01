@@ -126,8 +126,8 @@ public class Monument extends GameableBlock {
     }
     
     private void updateScoreboard() {
-        ScoreboardScore score = ScoreboardManager.Sidebar.getScore(this.getOwner().getID() + "-" + this.getObjective().getName());
-        score.setName(Color.DARK_RED + this.getObjective().getDisplayName());
+        ScoreboardScore score = ScoreboardManager.Sidebar.getScore(this.getObjective().getScoreboardID());
+        score.setPrefix("  " + Color.DARK_RED);
         ScoreboardManager.Sidebar.updateScoreboard();
     }
 }
