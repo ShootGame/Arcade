@@ -168,7 +168,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void respawn() {
-        player.getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        this.player.getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
     }
     
     @Override
