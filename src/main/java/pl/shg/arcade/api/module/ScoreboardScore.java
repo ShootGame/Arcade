@@ -56,8 +56,7 @@ public class ScoreboardScore {
         this.name = name;
     }
     
-    public final void setScore(int score) throws IllegalArgumentException {
-        Validate.notNegative(score, "score can not be negative");
+    public final void setScore(int score) {
         this.score = score;
     }
 }

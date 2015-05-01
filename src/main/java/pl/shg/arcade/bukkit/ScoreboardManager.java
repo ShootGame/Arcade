@@ -64,10 +64,15 @@ public class ScoreboardManager {
             }
         }
         
+        public static ScoreboardScore getScore(String id) {
+            Validate.notNull(id, "id can not be null");
+            return scores.get(id);
+        }
+        
         public static ScoreboardScore getScore(String id, String name, int score) {
             Validate.notNull(id, "id can not be null");
             
-            ScoreboardScore scoreboardScore = scores.get(id.toLowerCase());
+            ScoreboardScore scoreboardScore = getScore(id);
             if (scoreboardScore != null) {
                 if (name != null) {
                     scoreboardScore.setName(name);

@@ -117,7 +117,17 @@ public class MonumentModule extends ObjectiveModule {
     
     @Override
     public void makeScoreboard() {
-        
+        int i = -1;
+        for (Team team : this.objectives.keySet()) {
+            ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), i);
+            i--;
+            
+            for (Objective objective : this.objectives.get(team)) {
+                ScoreboardManager.Sidebar.getScore(team.getID() + "-" + objective.getName(),
+                        Color.GREEN + objective.getDisplayName(), i);
+                i--;
+            }
+        }
     }
     
     @Override

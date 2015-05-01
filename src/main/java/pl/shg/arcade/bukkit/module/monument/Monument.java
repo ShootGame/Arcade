@@ -16,7 +16,9 @@ import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.GameableBlock;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.team.Team;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
  *
@@ -63,6 +65,7 @@ public class Monument extends GameableBlock {
         bLocation.getBlock().setType(org.bukkit.Material.AIR);
         
         if (this.getObjective().isDestroyed()) {
+            this.updateScoreboard();
             this.getObjective().getModule().updateObjectives();
             
             StringBuilder builder = new StringBuilder();
@@ -120,5 +123,11 @@ public class Monument extends GameableBlock {
     
     public void setDestroyed(Team team) {
         this.destroyed = team;
+    }
+    
+    private void updateScoreboard() {
+        ScoreboardScore score = ScoreboardManager.Sidebar.getScore(this.getOwner().getID() + "-" + this.getObjective().getName());
+        score.setName(Color.DARK_RED + this.getObjective().getDisplayName());
+        ScoreboardManager.Sidebar.updateScoreboard();
     }
 }
