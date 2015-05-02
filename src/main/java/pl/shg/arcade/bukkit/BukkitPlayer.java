@@ -41,7 +41,6 @@ import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.map.team.TeamColor;
-import pl.shg.arcade.api.server.ArcadeServer;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
 import pl.themolka.permissions.Group;
@@ -143,17 +142,8 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public boolean kickToLobby(String reason) {
-        if (reason != null) {
-            this.sendMessage(reason);
-        }
-        
-        ArcadeServer lobby = Arcade.getServers().getLobbyServer();
-        if (lobby != null) {
-            this.connect(lobby);
-            return true;
-        } else {
-            return false;
-        }
+        this.disconnect(reason);
+        return true;
     }
     
     @Override

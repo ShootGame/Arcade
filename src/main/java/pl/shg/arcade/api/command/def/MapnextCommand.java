@@ -12,6 +12,7 @@ import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.NotLoadedMap;
+import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
 
 /**
@@ -31,7 +32,7 @@ public class MapnextCommand extends Command {
         if (next != null) {
             MapinfoCommand.show(sender, next);
         } else {
-            Rotation rotation = this.getPlugin().getServers().getCurrentServer().getRotation();
+            Rotation rotation = MiniGameServer.ONLINE.getRotation();
             for (Map map : rotation.getMaps()) {
                 if (!(map instanceof NotLoadedMap)) {
                     sender.sendMessage(Color.RED + "Wczesniej serwer zostanie zrestartowany!");

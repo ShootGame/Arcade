@@ -17,6 +17,7 @@ import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.map.WorldManager;
+import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
 import pl.shg.arcade.api.util.Validate;
 
@@ -54,7 +55,7 @@ public class ArcadeMapManager implements MapManager {
     public void updateCurrentMap() {
         // check if currently running...
         this.current = this.getNextMap();
-        Rotation rotation = Arcade.getServers().getCurrentServer().getRotation();
+        Rotation rotation = MiniGameServer.ONLINE.getRotation();
         
         boolean nextMap = false;
         for (int i = 0; i < rotation.getMaps().size(); i++) {
@@ -137,11 +138,11 @@ public class ArcadeMapManager implements MapManager {
         Validate.notNull(worlds, "worlds can not be null");
         this.worlds = worlds;
         
-        Rotation rotation = Arcade.getServers().getCurrentServer().getRotation();
+        Rotation rotation = MiniGameServer.ONLINE.getRotation();
         if (this.getNextMap() != null) {
             this.getWorlds().load(this.getNextMap().getName());
         } else if (rotation.getMaps().isEmpty()) {
-            Log.log(Level.SEVERE, "Brak map w rotacji " + rotation.getName() + " dla serwera " + rotation.getServer().getName());
+            Log.log(Level.SEVERE, "Brak map w rotacji serwera " + MiniGameServer.ONLINE.getShoot().getID());
         } else {
             for (Map map : rotation.getMaps()) {
                 if (!(map instanceof NotLoadedMap)) {

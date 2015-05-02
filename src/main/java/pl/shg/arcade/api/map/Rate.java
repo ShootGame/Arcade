@@ -9,6 +9,7 @@ package pl.shg.arcade.api.map;
 import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.shootgame.api.server.Servers;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Rate extends Rating {
                 Arcade.getMaps().getCurrentMap(),
                 player.getUUID(),
                 rate,
-                Arcade.getServers().getCurrentServer().getName(),
+                Servers.getOnline().getID(),
                 System.currentTimeMillis()
         );
         this.player = player;

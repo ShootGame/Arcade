@@ -13,7 +13,6 @@ import pl.shg.arcade.api.Plugin;
 import pl.shg.arcade.api.PluginProperties;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.command.CommandManager;
-import pl.shg.arcade.api.server.ServerManager;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.match.MatchManager;
 import pl.shg.arcade.api.map.team.TeamManager;
@@ -37,7 +36,6 @@ public class ArcadePlugin implements Plugin {
     private Plugin plugin;
     private final ProxyServer proxy;
     private final Server server;
-    private final ServerManager servers;
     private final String settings;
     private final TeamManager teams;
     
@@ -55,7 +53,6 @@ public class ArcadePlugin implements Plugin {
         this.permissions = properties.getPermissions();
         this.playerManagement = properties.getPlayerManagement();
         this.proxy = properties.getProxyServer();
-        this.servers = new ArcadeServerManager();
         this.settings = properties.getSettingsDirectory();
         this.teams = new ArcadeTeamManager();
         
@@ -110,11 +107,6 @@ public class ArcadePlugin implements Plugin {
     @Override
     public Server getServer() {
         return this.server;
-    }
-    
-    @Override
-    public ServerManager getServers() {
-        return this.servers;
     }
     
     @Override

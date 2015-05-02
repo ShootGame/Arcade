@@ -14,8 +14,8 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.server.ArcadeServer;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
@@ -29,9 +29,9 @@ public abstract class ArcadePlayer implements Player {
     private Team team;
     
     @Override
-    public void connect(ArcadeServer server) {
+    public void connect(TargetServer server) {
         Validate.notNull(server, "server can not be null");
-        this.connect(server.getName());
+        this.connect(server.getID());
     }
     
     @Override

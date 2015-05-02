@@ -6,25 +6,23 @@
  */
 package pl.shg.arcade.api.menu;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
-import pl.shg.arcade.api.server.ArcadeServer;
-import pl.shg.arcade.api.server.status.ServerStatus;
+import pl.shg.shootgame.api.server.Servers;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
  * @author Aleksander
  */
 public class ServerPickerMenu extends Menu {
-    private static SortedMap<Integer, ArcadeServer> servers;
+    private static SortedMap<Integer, TargetServer> servers;
     
     public ServerPickerMenu() {
         super(Color.DARK_RED + "Wybierz serwer " + Color.RESET + "ShootGame", 1);
@@ -42,53 +40,27 @@ public class ServerPickerMenu extends Menu {
     public void onCreate(Player player) {
         if (servers == null) {
             servers = new TreeMap<>();
-            List<ArcadeServer> serverList = Arcade.getServers().getServers();
+            List<TargetServer> serverList = Servers.getServers();
             player.sendSuccess("Ladowanie " + serverList.size() + " serwerów ShootGame...");
             for (int i = 0; i < serverList.size(); i++) {
-                ArcadeServer server = serverList.get(i);
-                if (server.isProtected() && !player.hasPermission("arcade.protected-servers")) {
+                TargetServer server = serverList.get(i);
+                if (!server.isPublic() && !player.hasPermission("arcade.protected-servers")) {
                     continue;
                 }
-                servers.put(i, server);
                 
-                if (Arcade.getServers().getCurrentServer().equals(server)) {
-                    this.addItem(this.createCurrentServer(server), i);
-                } else {
-                    this.addItem(this.createTargetServer(player, server), i);
-                }
+                servers.put(i, server);
+                this.addItem(this.createTargetServer(player, server), i);
             }
         }
     }
     
-    private Item createCurrentServer(ArcadeServer server) {
-        Item item = new Item(new Material(35, Color.Wool.ORANGE.getID()));
-        item.setName(Color.RED + Color.UNDERLINE + server.getName());
-        item.setDescription(this.getItemDescription(null,
-                server.getStatus(), "Obecnie znajdujesz sie na " + server.getName() + "."));
-        return item;
-    }
-    
-    private Item createTargetServer(Player player, ArcadeServer server) {
+    private Item createTargetServer(Player player, TargetServer server) {
         Item item = new Item(new Material(35, Color.Wool.CYAN.getID()));
         item.setName(Color.GREEN + Color.BOLD + Color.UNDERLINE + server.getName());
-        item.setDescription(this.getItemDescription(player,
-                server.getStatus(), "Przejdz na " + server.getName() + "."));
         return item;
     }
     
-    private List<String> getItemDescription(Player player, ServerStatus status, String first) {
-        List<String> description = new ArrayList<>();
-        description.add(Color.GRAY + first);
-        if (status != null && status.enabled()) {
-            description.add(Color.GRAY + first);
-            if (status.canConnect(player) != null) {
-                description.add(Color.RED + status.canConnect(player));
-            }
-        }
-        return description;
-    }
-    
-    public static Collection<ArcadeServer> getServers() {
+    public static Collection<TargetServer> getServers() {
         return servers.values();
     }
     

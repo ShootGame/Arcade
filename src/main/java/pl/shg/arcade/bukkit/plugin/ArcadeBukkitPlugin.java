@@ -26,12 +26,8 @@ import pl.shg.arcade.api.map.Loader;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.URLMapLoader;
 import pl.shg.arcade.api.module.Module;
-import pl.shg.arcade.api.server.ArcadeServer;
-import pl.shg.arcade.api.server.ArcadeServerRepoNotFoundException;
-import pl.shg.arcade.api.server.Broadcaster;
+import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Role;
-import pl.shg.arcade.api.server.ServersFile;
-import pl.shg.arcade.api.util.TextFileReader;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPermissionsManager;
 import pl.shg.arcade.bukkit.BukkitPlayer;
@@ -50,6 +46,9 @@ import pl.shg.arcade.bukkit.listeners.PlayerListeners;
 import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
 import pl.shg.arcade.bukkit.listeners.WorldListeners;
+import pl.shg.shootgame.api.server.ArcadeTarget;
+import pl.shg.shootgame.api.server.Servers;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
@@ -66,7 +65,6 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         this.registerOnlinePlayers();
         this.loadBukkitListeners();
         this.loadMaps(properties, 2);
-        this.loadServers();
         
         this.getLogger().log(Level.INFO, "Wczytywanie modulow...");
         new ModuleLoader() {
@@ -84,18 +82,6 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
             }
         }.init();
         Arcade.getMaps().setWorlds(new BukkitWorldManager(this.getServer()));
-        
-        // Broadcaster
-        Broadcaster broadcaster = Arcade.getServers().getCurrentServer().getBroadcaster();
-        if (broadcaster != null) {
-            this.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
-                
-                @Override
-                public void run() {
-                    Arcade.getServers().getCurrentServer().getBroadcaster().broadcast();
-                }
-            }, 20L, broadcaster.getSettings().getTime() * 20L);
-        }
     }
     
     @Override
@@ -208,22 +194,18 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
             builder.append(map.getDisplayName()).append(", ");
         }
         Log.log(Level.INFO, "Zaladowano mapy: " + builder.toString());
+        
+        this.loadRotations();
     }
     
-    private void loadServers() {
-        this.getLogger().log(Level.INFO, "Ladowanie serwerow...");
-        TextFileReader reader = new ServersFile("servers.txt").getReader();
-        String currentServerName = Arcade.getOptions().getServerName();
-        for (TextFileReader.Line line : reader.getLines()) {
-            try {
-                String value = line.getValue();
-                if (Arcade.getServers().getServer(value) == null) {
-                    ArcadeServer server = new ArcadeServer(value, currentServerName.equals(value));
-                    Arcade.getServers().addServer(server);
-                }
-            } catch (ArcadeServerRepoNotFoundException ex) {
-                // TODO log to the console
-                //Logger.getLogger(ArcadeBukkitPlugin.class.getName()).log(Level.SEVERE, null, ex);
+    private void loadRotations() {
+        MiniGameServer.Online online = MiniGameServer.ONLINE;
+        MiniGameServer.loadRotation(Servers.getConfiguration().getString("arcade." + online.getShoot().getID() + ".rotation"), online.getRotation());
+        
+        for (TargetServer arcade : Servers.getServers()) {
+            if (arcade instanceof ArcadeTarget) {
+                MiniGameServer server = MiniGameServer.of((ArcadeTarget) arcade);
+                MiniGameServer.loadRotation(server.getShoot().getSetting("rotation"), server.getRotation());
             }
         }
     }

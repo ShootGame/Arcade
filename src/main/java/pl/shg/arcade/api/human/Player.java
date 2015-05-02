@@ -7,14 +7,14 @@
 package pl.shg.arcade.api.human;
 
 import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.server.ArcadeServer;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
  * @author Aleksander
  */
 public interface Player extends Classable, MinecraftPlayer, NamnedPlayer {
-    void connect(ArcadeServer server);
+    void connect(TargetServer server);
     
     void connect(String server);
     

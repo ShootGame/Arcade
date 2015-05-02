@@ -8,7 +8,6 @@ package pl.shg.arcade.api;
 
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.command.CommandManager;
-import pl.shg.arcade.api.server.ServerManager;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.match.MatchManager;
 import pl.shg.arcade.api.map.team.TeamManager;
@@ -62,10 +61,6 @@ public final class Arcade {
     
     public static Server getServer() {
         return getPlugin().getServer();
-    }
-    
-    public static ServerManager getServers() {
-        return getPlugin().getServers();
     }
     
     public static String getSettingsDirectory() {

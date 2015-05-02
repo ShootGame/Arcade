@@ -14,10 +14,12 @@ import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.NotLoadedMap;
-import pl.shg.arcade.api.server.ArcadeServer;
+import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
-import pl.shg.arcade.api.server.ServerManager;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.shootgame.api.server.ArcadeTarget;
+import pl.shg.shootgame.api.server.Servers;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
@@ -32,19 +34,18 @@ public class RotationCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        ServerManager servers = Arcade.getServers();
         if (args.length == 0) {
-            ArcadeServer server = servers.getCurrentServer();
-            sender.sendMessage(Command.getTitle("Rotacja " + server.getName(), null));
+            MiniGameServer.Online server = MiniGameServer.ONLINE;
+            sender.sendMessage(Command.getTitle("Rotacja " + server.getShoot().getName(), null));
             sender.sendMessage(this.rotation(server.getRotation()));
         } else {
             String targetServer = this.getStringFromArgs(0, args);
             int found = 0;
-            Rotation rotation = null;
-            for (ArcadeServer server : servers.getServers()) {
-                if (server.getName().toLowerCase().contains(targetServer.toLowerCase())) {
+            MiniGameServer rotation = null;
+            for (TargetServer server : Servers.getServers()) {
+                if (server instanceof ArcadeTarget && server.getName().toLowerCase().contains(targetServer.toLowerCase())) {
                     found++;
-                    rotation = server.getRotation();
+                    rotation = MiniGameServer.of((ArcadeTarget) server);
                 }
             }
             
@@ -55,8 +56,8 @@ public class RotationCommand extends Command {
             if (rotation == null) {
                 sender.sendError("Nie znaleziono zadnego serwera o podanej kryteriach.");
             } else {
-                sender.sendMessage(Command.getTitle("Rotacja " + rotation.getServer().getName(), null));
-                sender.sendMessage(this.rotation(rotation));
+                sender.sendMessage(Command.getTitle("Rotacja " + rotation.getShoot().getName(), null));
+                sender.sendMessage(this.rotation(rotation.getRotation()));
                 sender.sendMessage(Color.GOLD + "Nie tego szukasz? Uzyj lepszej nazwy lub wcisnij [TAB].");
             }
         }
@@ -82,7 +83,7 @@ public class RotationCommand extends Command {
             
             if (map instanceof NotLoadedMap) {
                 builder.append(Color.RED).append(Color.ITALIC).append(map.getDisplayName());
-                builder.append(Color.DARK_PURPLE ).append(" not loaded");
+                builder.append(Color.DARK_PURPLE ).append(" nie zaladowana");
             } else {
                 builder.append(Color.GOLD).append(map.getDisplayName());
                 builder.append(Color.DARK_PURPLE).append(" by ").append(map.getAuthorsString(Color.RED, Color.DARK_PURPLE));
