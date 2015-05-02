@@ -45,6 +45,7 @@ import pl.shg.arcade.bukkit.listeners.GameableBlockListeners;
 import pl.shg.arcade.bukkit.listeners.InventorySpyListeners;
 import pl.shg.arcade.bukkit.listeners.ObserverKitListeners;
 import pl.shg.arcade.bukkit.listeners.ObserverListeners;
+import pl.shg.arcade.bukkit.listeners.PingDataListener;
 import pl.shg.arcade.bukkit.listeners.PlayerListeners;
 import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
@@ -161,12 +162,14 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         if (Arcade.getOptions().isBungeeCordEnabled()) {
             BungeeCordProxy.register(this.getServer());
         }
+        
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new BukkitMenuListener(), this);
         manager.registerEvents(new GameableBlockListeners(), this);
         manager.registerEvents(new InventorySpyListeners(), this);
         manager.registerEvents(new ObserverKitListeners(), this);
         manager.registerEvents(new ObserverListeners(), this);
+        manager.registerEvents(new PingDataListener(), this);
         manager.registerEvents(new PlayerListeners(this.bukkitServer), this);
         manager.registerEvents(new PlayerMoveListener(), this);
         manager.registerEvents(new RegionListeners(), this);
