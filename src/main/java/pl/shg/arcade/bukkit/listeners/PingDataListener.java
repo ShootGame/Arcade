@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.team.Team;
+import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.shootgame.api.util.ArcadeData;
 
 /**
@@ -21,6 +22,10 @@ import pl.shg.shootgame.api.util.ArcadeData;
 public class PingDataListener implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent e) {
+        if (Arcade.getMatches().getStatus() == MatchStatus.NOTHING) {
+            e.setMotd(ArcadeData.toData(new Object[] {null, 0, 0, 0}));
+        }
+        
         Object[] data = new Object[] {
             this.getMap(),
             this.getStatus(),
