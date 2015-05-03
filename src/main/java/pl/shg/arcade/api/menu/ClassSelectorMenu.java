@@ -16,6 +16,7 @@ import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.map.ArcadeClass;
+import pl.shg.arcade.api.map.Map;
 
 /**
  *
@@ -23,9 +24,11 @@ import pl.shg.arcade.api.map.ArcadeClass;
  */
 public class ClassSelectorMenu extends Menu {
     private static SortedMap<Integer, ArcadeClass> classes;
+    private static Map map;
     
     public ClassSelectorMenu() {
         super(Color.DARK_PURPLE + "Zmien swoja klase", 1);
+        this.register();
     }
     
     @Override
@@ -38,9 +41,12 @@ public class ClassSelectorMenu extends Menu {
     
     @Override
     public void onCreate(Player player) {
-        if (classes == null) {
+        Map current = Arcade.getMaps().getCurrentMap();
+        if (classes == null || !map.equals(current)) {
             classes = new TreeMap<>();
-            List<ArcadeClass> classList = Arcade.getMaps().getCurrentMap().getClasses();
+            map = current;
+            
+            List<ArcadeClass> classList = current.getClasses();
             for (int i = 0; i < classList.size(); i++) {
                 ArcadeClass clazz = classList.get(i);
                 classes.put(i, clazz);

@@ -32,11 +32,6 @@ public class ObserverKitListeners implements Listener {
     private final ServerPickerMenu picker = new ServerPickerMenu();
     private final TeamSelectorMenu selector = new TeamSelectorMenu();
     
-    public ObserverKitListeners() {
-        this.picker.register();
-        this.selector.register();
-    }
-    
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent e) {
         if (e.getItem() == null) {

@@ -17,6 +17,7 @@ import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
+import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.map.team.TeamColor;
 
@@ -25,10 +26,12 @@ import pl.shg.arcade.api.map.team.TeamColor;
  * @author Aleksander
  */
 public class TeamSelectorMenu extends Menu {
+    private static Map map;
     private static SortedMap<Integer, Team> teams;
     
     public TeamSelectorMenu() {
         super(Color.DARK_BLUE + "Wybierz swoja druzyne", 1);
+        this.register();
     }
     
     @Override
@@ -44,7 +47,9 @@ public class TeamSelectorMenu extends Menu {
     
     @Override
     public void onCreate(Player player) {
-        if (teams == null) {
+        Map current = Arcade.getMaps().getCurrentMap();
+        if (teams == null || !map.equals(current)) {
+            map = current;
             teams = new TreeMap<>();
             
             Item auto = new Item(new Material(399), Color.Wool.ORANGE.getID());
