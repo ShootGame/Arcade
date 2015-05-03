@@ -28,6 +28,7 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.map.team.kit.KitType;
 import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitServer;
@@ -62,7 +63,7 @@ public class PlayerListeners implements Listener {
     }
     
     @EventHandler
-    public void onAsyncPlayerLoginEvent(AsyncPlayerPreLoginEvent e) {
+    public void onAsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent e) {
         if (Arcade.getMatches().getStatus() == MatchStatus.NOTHING) {
             e.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST);
             e.setKickMessage(Color.RED + "Serwer jest teraz restartowany...");
@@ -131,6 +132,7 @@ public class PlayerListeners implements Listener {
         } catch (IllegalArgumentException ex) {
             Log.noteAdmins("Nie udalo sie usunac gracza " + e.getPlayer() + " poniewaz nie istnial", Log.NoteLevel.SEVERE);
         }
+        ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
     }
     
     @EventHandler
