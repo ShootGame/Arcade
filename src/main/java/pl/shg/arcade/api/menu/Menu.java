@@ -47,7 +47,6 @@ public class Menu extends MenuListener {
         if (player != null) {
             player.close();
         }
-        Menu.unregister(this);
     }
     
     public Object create() {
