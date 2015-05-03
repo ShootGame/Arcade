@@ -17,10 +17,10 @@ import pl.shg.arcade.api.match.MatchStatus;
 public class PlayerHider {
     public static void refresh(Player player) {
         MatchStatus status = Arcade.getMatches().getStatus();
-        if (!player.isObserver() || status == MatchStatus.ENDING || status == MatchStatus.STARTING) {
-            show(getBukkit(player));
-        } else {
+        if (player.isObserver() && status == MatchStatus.PLAYING) {
             hide(getBukkit(player));
+        } else {
+            show(getBukkit(player));
         }
     }
     

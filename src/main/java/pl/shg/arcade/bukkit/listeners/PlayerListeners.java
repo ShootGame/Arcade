@@ -149,7 +149,7 @@ public class PlayerListeners implements Listener {
                 if (player == null) {
                     return;
                 } else if (player.isObserver()) {
-                    Arcade.getPlayerManagement().setAsObserver(player, true, false);
+                    Arcade.getPlayerManagement().setAsObserver(player, true, true);
                 } else {
                     Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
                 }
