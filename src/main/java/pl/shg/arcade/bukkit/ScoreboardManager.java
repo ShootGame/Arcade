@@ -114,7 +114,7 @@ public class ScoreboardManager {
         }
         
         public static void newScoreboard() {
-            String name = Color.YELLOW + Arcade.getMaps().getCurrentMap().getDisplayName();
+            String name = Arcade.getMaps().getCurrentMap().getDisplayName();
             Scoreboard board = ScoreboardManager.SCOREBOARD;
             
             objective = board.registerNewObjective(Sidebar.ID, "dummy");

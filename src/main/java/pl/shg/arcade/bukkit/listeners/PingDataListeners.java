@@ -25,7 +25,7 @@ public class PingDataListeners implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent e) {
         if (Arcade.getMatches().getStatus() == MatchStatus.NOTHING) {
-            e.setMotd(ArcadeData.toData(new Object[] {null, 0, 0, 0}));
+            e.setMotd(ArcadeData.toData(new Object[] {new String(), 0, 0, 0}));
         } else {
             Object[] data = new Object[] {
                 this.getMap(),

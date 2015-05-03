@@ -43,6 +43,10 @@ public class Menu extends MenuListener {
         this.items = new HashMap<>();
     }
     
+    public void clear() {
+        this.items.clear();
+    }
+    
     public void close(Player player) {
         if (player != null) {
             player.close();

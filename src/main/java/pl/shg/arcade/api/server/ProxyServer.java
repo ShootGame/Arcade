@@ -7,13 +7,14 @@
 package pl.shg.arcade.api.server;
 
 import pl.shg.arcade.api.human.Player;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
  * @author Aleksander
  */
 public interface ProxyServer {
-    void connect(Player player, String server);
+    void connect(Player player, TargetServer server);
     
     String getProxyName();
 }

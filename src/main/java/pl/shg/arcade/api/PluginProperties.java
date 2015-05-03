@@ -12,6 +12,7 @@ import pl.shg.arcade.api.map.ConfigurationTechnology;
 import pl.shg.arcade.api.permissions.PermissionsManager;
 import pl.shg.arcade.api.server.ProxyServer;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
@@ -80,7 +81,7 @@ public class PluginProperties {
             return new ProxyServer() {
                 
                 @Override
-                public void connect(Player player, String server) {
+                public void connect(Player player, TargetServer server) {
                     throw new UnsupportedOperationException("Proxy server is not installed.");
                 }
                 

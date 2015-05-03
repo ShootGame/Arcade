@@ -43,6 +43,7 @@ public class ClassSelectorMenu extends Menu {
     public void onCreate(Player player) {
         Map current = Arcade.getMaps().getCurrentMap();
         if (classes == null || !map.equals(current)) {
+            this.clear();
             classes = new TreeMap<>();
             map = current;
             

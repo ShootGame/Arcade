@@ -29,7 +29,7 @@ public class ServerPickerMenu extends Menu {
     private static SortedMap<Integer, TargetServer> servers;
     
     public ServerPickerMenu() {
-        super(Color.DARK_RED + "Wybierz serwer " + Color.RESET + "ShootGame", 1);
+        super(Color.DARK_RED + "Wybierz serwer " + Color.RESET + "ShootGame", 2);
         menu = this;
         this.register();
     }
@@ -48,6 +48,7 @@ public class ServerPickerMenu extends Menu {
     }
     
     public void update() {
+        this.clear();
         servers = new TreeMap<>();
         int lobbies = 0;
         
@@ -59,7 +60,7 @@ public class ServerPickerMenu extends Menu {
                     servers.put(i, server);
                     addItem(this.createTargetServer((ArcadeTarget) server), i);
                 } else if (server instanceof LobbyTarget) {
-                    int slot = this.getSlots() - lobbies;
+                    int slot = this.getSlots() - lobbies - 1;
                     servers.put(slot, server);
                     addItem(this.createLobbyServer((LobbyTarget) server), slot);
                 }

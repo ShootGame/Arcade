@@ -49,6 +49,7 @@ public class TeamSelectorMenu extends Menu {
     public void onCreate(Player player) {
         Map current = Arcade.getMaps().getCurrentMap();
         if (teams == null || !map.equals(current)) {
+            this.clear();
             map = current;
             teams = new TreeMap<>();
             

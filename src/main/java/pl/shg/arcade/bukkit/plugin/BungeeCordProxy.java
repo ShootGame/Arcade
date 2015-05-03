@@ -11,6 +11,7 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.server.ProxyServer;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.shootgame.api.server.Servers;
+import pl.shg.shootgame.api.server.TargetServer;
 
 /**
  *
@@ -18,10 +19,10 @@ import pl.shg.shootgame.api.server.Servers;
  */
 public class BungeeCordProxy implements ProxyServer {
     @Override
-    public void connect(Player player, String server) {
+    public void connect(Player player, TargetServer server) {
         Validate.notNull(player, "player can not be null");
         Validate.notNull(server, "server can not be null");
-        Servers.getProxy().connect((org.bukkit.entity.Player) player.getPlayer(), Servers.getServer(server));
+        Servers.getProxy().connect((org.bukkit.entity.Player) player.getPlayer(), server);
     }
     
     @Override

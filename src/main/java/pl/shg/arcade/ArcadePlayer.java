@@ -15,6 +15,7 @@ import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.shootgame.api.server.Servers;
 import pl.shg.shootgame.api.server.TargetServer;
 
 /**
@@ -31,13 +32,13 @@ public abstract class ArcadePlayer implements Player {
     @Override
     public void connect(TargetServer server) {
         Validate.notNull(server, "server can not be null");
-        this.connect(server.getID());
+        Arcade.getProxy().connect(this, server);
     }
     
     @Override
     public void connect(String server) {
         Validate.notNull(server, "server can not be null");
-        Arcade.getProxy().connect(this, server);
+        this.connect(Servers.getServer(server));
     }
     
     @Override
