@@ -15,11 +15,13 @@ import org.bukkit.ChatColor;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.map.team.TeamColor;
+import pl.shg.arcade.api.match.MatchStatus;
 
 /**
  *
@@ -37,10 +39,10 @@ public class TeamSelectorMenu extends Menu {
     @Override
     public void onClick(Player player, int slot) {
         if (slot == 0) {
-            Arcade.getCommands().perform("join", player, new String[] {"-r"});
+            JoinCommand.random(player, Arcade.getMatches().getStatus());
             this.close(player);
         } else if (teams.containsKey(slot)) {
-            Arcade.getCommands().perform("join", player, new String[] {teams.get(slot).getName()});
+            JoinCommand.team(player, teams.get(slot), Arcade.getMatches().getStatus());
             this.close(player);
         }
     }

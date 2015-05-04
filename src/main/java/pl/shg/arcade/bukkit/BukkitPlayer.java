@@ -6,20 +6,14 @@
  */
 package pl.shg.arcade.bukkit;
 
-import java.lang.reflect.Field;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
 import net.minecraft.server.v1_8_R1.EnumClientCommand;
-import net.minecraft.server.v1_8_R1.EnumTitleAction;
 import net.minecraft.server.v1_8_R1.IChatBaseComponent;
 import net.minecraft.server.v1_8_R1.Packet;
 import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_8_R1.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_8_R1.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -43,6 +37,7 @@ import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.map.team.TeamColor;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.shootgame.api.util.NMSHacks;
 import pl.themolka.permissions.Group;
 import pl.themolka.permissions.User;
 
@@ -52,12 +47,14 @@ import pl.themolka.permissions.User;
  */
 public class BukkitPlayer extends ArcadePlayer {
     private static final CraftServer server = (CraftServer) Bukkit.getServer();
+    private final NMSHacks nms;
     private final EntityPlayer handle;
     private final User permissions;
     private final CraftPlayer player;
     
     public BukkitPlayer(Player player) {
         Validate.notNull(player, "player can not be null");
+        this.nms = NMSHacks.of(player);
         this.permissions = new User(player);
         this.player = (CraftPlayer) player;
         this.handle = this.player.getHandle();
@@ -165,9 +162,7 @@ public class BukkitPlayer extends ArcadePlayer {
     public void sendActionMessage(ActionMessageType type, String message) {
         Validate.notNull(type, "type can not be null");
         Validate.notNull(message, "message can not be null");
-        
-        this.sendPacket(new PacketPlayOutChat(this.toJSONText(
-                type.getColor().toString() + message), (byte) 2)); // action bar
+        this.nms.sendActionMessage(type.getColor().toString() + message);
     }
     
     @Override
@@ -184,26 +179,26 @@ public class BukkitPlayer extends ArcadePlayer {
         PlayerReceiveChatEvent event = new PlayerReceiveChatEvent(this, sender, message);
         Event.callEvent(event);
         if (!event.isCancel()) {
-            this.sendChatPacket(event.getMessage().getText(), (byte) 0); // classic hidable message
+            this.nms.sendChatMessage(event.getMessage().getText());
         }
     }
     
     @Override
     public void sendMessage(String message) {
         Validate.notNull(message, "message can not be null");
-        this.sendChatPacket(message, (byte) 1); // fake command message
+        this.nms.sendMessage(message);
     }
     
     @Override
     public void sendSubtitle(String subtitle) {
         Validate.notNull(subtitle, "subtitle can not be null");
-        this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, this.toJSONText(subtitle)));
+        this.nms.sendSubtitle(subtitle);
     }
     
     @Override
     public void sendTitle(String title) {
         Validate.notNull(title, "title can not be null");
-        this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, this.toJSONText(title)));
+        this.nms.sendTitle(title);
     }
     
     @Override
@@ -217,17 +212,7 @@ public class BukkitPlayer extends ArcadePlayer {
         if (tabList.hasFooter()) {
             footer = tabList.getFooter();
         }
-        
-        PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter(this.toJSONText(header));
-        try {
-            Field field = packet.getClass().getDeclaredField("b");
-            field.setAccessible(true);
-            field.set(packet, this.toJSONText(footer));
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            Logger.getLogger(BukkitPlayer.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            this.sendPacket(packet);
-        }
+        this.nms.setTabList(header, footer);
     }
     
     @Override
