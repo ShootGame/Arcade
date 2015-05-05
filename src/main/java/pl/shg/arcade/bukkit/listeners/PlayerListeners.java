@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.PlayerRespawnMatchEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Spawn;
@@ -141,7 +142,9 @@ public class PlayerListeners implements Listener {
         final Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
         List<Spawn> spawns = player.getTeam().getSpawns();
         Spawn spawn = spawns.get(this.random.nextInt(spawns.size()));
+        
         PlayerRespawnMatchEvent event = new PlayerRespawnMatchEvent(player, spawn);
+        Event.callEvent(event);
         
         String world = Arcade.getMaps().getCurrentMap().getName();
         e.setRespawnLocation(new Location(Bukkit.getWorld(world), event.getSpawn().getX(), event.getSpawn().getY(),
