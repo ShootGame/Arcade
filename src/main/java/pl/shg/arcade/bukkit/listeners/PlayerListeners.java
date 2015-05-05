@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.event.PlayerRespawnMatchEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.map.team.kit.KitType;
@@ -138,24 +139,27 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent e) {
         final Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
-        String world = Arcade.getMaps().getCurrentMap().getName();
         List<Spawn> spawns = player.getTeam().getSpawns();
         Spawn spawn = spawns.get(this.random.nextInt(spawns.size()));
-        e.setRespawnLocation(new Location(Bukkit.getWorld(world), spawn.getX(), spawn.getY(), spawn.getZ(),
-                spawn.getYaw(), spawn.getPitch()));
+        PlayerRespawnMatchEvent event = new PlayerRespawnMatchEvent(player, spawn);
         
-        Bukkit.getScheduler().runTaskLater(ArcadeBukkitPlugin.getPlugin(), new Runnable() {
-            
-            @Override
-            public void run() {
-                if (player == null) {
-                    return;
-                } else if (player.isObserver()) {
-                    Arcade.getPlayerManagement().setAsObserver(player, true, true);
-                } else {
-                    Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
+        String world = Arcade.getMaps().getCurrentMap().getName();
+        e.setRespawnLocation(new Location(Bukkit.getWorld(world), event.getSpawn().getX(), event.getSpawn().getY(),
+                event.getSpawn().getZ(), event.getSpawn().getYaw(), event.getSpawn().getPitch()));
+        
+        if (!event.isCancel()) {
+            Bukkit.getScheduler().runTaskLater(ArcadeBukkitPlugin.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    if (player == null) {
+                        return;
+                    } else if (player.isObserver()) {
+                        Arcade.getPlayerManagement().setAsObserver(player, true, true);
+                    } else {
+                        Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
+                    }
                 }
-            }
-        }, 1L);
+            }, 1L);
+        }
     }
 }
