@@ -81,6 +81,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 }
             }
         }.init();
+        ModuleLoader.registerVariableCommand();
         Arcade.getMaps().setWorlds(new BukkitWorldManager(this.getServer()));
     }
     

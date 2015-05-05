@@ -14,6 +14,7 @@ import pl.shg.arcade.api.command.Sender;
  *
  * @author Aleksander
  */
+@Deprecated
 public class ChangelogCommand extends Command {
     public ChangelogCommand() {
         super(new String[] {"changelog", "changes", "zmiany", "history", "historia"},

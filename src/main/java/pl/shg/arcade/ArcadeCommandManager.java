@@ -138,5 +138,6 @@ public abstract class ArcadeCommandManager implements CommandManager {
         this.registerCommand(new SpyCommand());
         this.registerCommand(new TeamsCommand());
         this.registerCommand(new TutorialCommand());
+        this.registerCommand(new VariableCommand());
     }
 }

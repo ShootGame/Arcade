@@ -27,7 +27,7 @@ import pl.shg.arcade.bukkit.ScoreboardManager;
  */
 public class Points extends Library {
     private static Library library;
-    private static int maxScore = 300;
+    private static int maxScore = 0;
     private static final HashMap<Team, Integer> points = new HashMap<>();
     
     public Points() {
