@@ -53,7 +53,7 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
         }
         
         sender.sendMessage(Color.RED + "Nieznaleziono klasy wykonujacej dla komendy " + command.getName() + ".");
-        sender.sendMessage(Color.RED + "Zglos to do niezwlocznie administracji serwera!");
+        sender.sendMessage(Color.RED + "Zglos to niezwlocznie do administracji serwera!");
         return true;
     }
     
@@ -76,10 +76,8 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
         bukkitCommand.setPermission(command.getPermission());
         bukkitCommand.setUsage(Command.buildUsage(command));
         
-        Field field = null;
         try {
-            field = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            
+            Field field = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             if (field != null) {
                 field.setAccessible(true);
                 CommandMap map = (CommandMap) field.get(Bukkit.getServer());
@@ -104,13 +102,18 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
         }
         
         try {
-            command.execute(sender, args);
+            if (command.minArguments() < args.length) {
+                command.execute(sender, args);
+            } else {
+                sender.sendError(command.getDescription());
+                sender.sendError(command.getUsage());
+            }
         } catch (CommandException ex) {
             sender.sendError(ex.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
             sender.sendError("Nie udalo sie wykonac komendy " + command.getCommands()[0] + " poniewaz wykryto naganny blad.");
-            sender.sendMessage(Color.RED + "Zglos to do niezwlocznie administracji serwera!");
+            sender.sendMessage(Color.RED + "Zglos to niezwlocznie do administracji serwera!");
         }
     }
     

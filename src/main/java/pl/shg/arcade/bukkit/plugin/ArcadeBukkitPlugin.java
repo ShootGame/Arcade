@@ -20,6 +20,7 @@ import pl.shg.arcade.ArcadePlugin;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PluginProperties;
+import pl.shg.arcade.api.command.def.VariableCommand;
 import pl.shg.arcade.api.map.DynamicMapLoader;
 import pl.shg.arcade.api.map.FileMapLoader;
 import pl.shg.arcade.api.map.Loader;
@@ -81,7 +82,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 }
             }
         }.init();
-        ModuleLoader.registerVariableCommand();
+        VariableCommand.setPerformer(new PerformerImpl());
         Arcade.getMaps().setWorlds(new BukkitWorldManager(this.getServer()));
     }
     
@@ -166,6 +167,19 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         arcadeListeners.registerListeners();
     }
     
+    /**
+     * Generating a list of maps and save. This will also invoke a
+     * {@link #loadRotations()} method.
+     * @param properties PluginProperites to get plugin's configuration
+     * @param impl The type of implementation to use. The following values are
+     * acceptable:<br />
+     * <strong>0</strong> - load a list of specifited maps from the URL (must be
+     * maps.txt file).<br />
+     * <strong>1</strong> - load a list of specifited maps from flat (must be
+     * maps.txt file).<br />
+     * <strong>2</strong> - use dynamic loader, also method that loop are maps
+     * in the directory and check it's validate of configuration.
+     */
     private void loadMaps(PluginProperties properties, int impl) {
         Loader loader = null;
         switch (impl) {
@@ -178,7 +192,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 loader = new FileMapLoader(new File(properties.getMapsDirectory() + File.separator + "maps.txt"));
                 break;
             case 2:
-                // gettings a list of maps from the folders of maps
+                // gettings a list of maps from the directory of maps
                 loader = new DynamicMapLoader();
                 break;
         }

@@ -30,10 +30,7 @@ public class SetnextCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        if (args.length == 0) {
-            sender.sendError("Podaj nazwe mapy do ustawienia jako nastepnej!");
-            sender.sendError(this.getUsage());
-        } else if (this.hasFlag(args, 'r')) {
+        if (this.hasFlag(args, 'r')) {
             if (!this.canNot(sender, "arcade.command.setnext.restart")) {
                 Arcade.getMaps().setNextMap(null);
                 sender.sendSuccess("Po zakonczeniu meczu serwer zostanie zrestartowany.");

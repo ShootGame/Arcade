@@ -29,26 +29,21 @@ public class GlobalCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        if (args.length == 0) {
-            sender.sendError("Podaj tresc wiadomosci do wyslania!");
-            sender.sendError(this.getUsage());
-        } else {
-            String message = this.getStringFromArgs(0, args);
-            ChatChannel channel = Arcade.getTeams().getGlobalChannel();
-            if (this.hasFlag(args, 'f')) {
-                if (!this.canNot(sender, "arcade.command.global.fake")) {
-                    if (args.length > 1) {
-                        this.sendAsConsole(channel, message);
-                    } else {
-                        sender.sendError("Podaj tresc wiadomosci do wyslania!");
-                        sender.sendError("/global -f <message...>");
-                    }
+        String message = this.getStringFromArgs(0, args);
+        ChatChannel channel = Arcade.getTeams().getGlobalChannel();
+        if (this.hasFlag(args, 'f')) {
+            if (!this.canNot(sender, "arcade.command.global.fake")) {
+                if (args.length > 1) {
+                    this.sendAsConsole(channel, message);
+                } else {
+                    sender.sendError("Podaj tresc wiadomosci do wyslania!");
+                    sender.sendError("/global -f <message...>");
                 }
-            } else if (sender instanceof Player) {
-                this.sendAsPlayer(channel, (Player) sender, message);
-            } else {
-                this.sendAsConsole(channel, message);
             }
+        } else if (sender instanceof Player) {
+            this.sendAsPlayer(channel, (Player) sender, message);
+        } else {
+            this.sendAsConsole(channel, message);
         }
     }
     

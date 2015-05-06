@@ -20,16 +20,17 @@ public class VariableCommand extends Command {
     public VariableCommand() {
         super(new String[] {"variable", "var"},
                 "Pokaz lub zmien wartosc zmiennej w danym module",
-                "variable <[package/]module> [variable] [value]");
+                "variable <[package/]module-class> [variable] [-null|value]");
+        this.setOption("-null", "Ustaw wartosc na null");
         this.setPermission("arcade.command.variable");
     }
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        if (args.length == 0) {
-            sender.sendError("Podaj nazwe klasy modulu!");
-            sender.sendError(this.getUsage());
-        } else if (getPerformer() != null) {
+        if (getPerformer() != null) {
+            if (args.length > 2 && args[2].equals("-null")) {
+                args[2] = null;
+            }
             getPerformer().perform(sender, args[0].replace("/", "."), args);
         } else {
             sender.sendError("Brak implementacji dla tej komendy.");
