@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
-import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.map.team.TeamManager;
-import pl.shg.arcade.api.map.team.ChatChannel;
-import pl.shg.arcade.api.map.team.GlobalChat;
-import pl.shg.arcade.api.map.team.kit.Kit;
+import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.team.ChatChannel;
+import pl.shg.arcade.api.team.GlobalChat;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.util.Validate;
 
 /**

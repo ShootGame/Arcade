@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.permissions;
 
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
 
 /**
  *

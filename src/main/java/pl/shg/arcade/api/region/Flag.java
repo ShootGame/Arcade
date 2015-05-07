@@ -4,11 +4,11 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
-package pl.shg.arcade.api.map.region;
+package pl.shg.arcade.api.region;
 
 import java.util.List;
 import pl.shg.arcade.api.chat.Color;
-import pl.shg.arcade.api.map.team.kit.Kit;
+import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.util.Validate;
 
 /**

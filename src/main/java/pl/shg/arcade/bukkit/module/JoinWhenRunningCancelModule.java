@@ -13,10 +13,10 @@ import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.event.PlayerJoinTeamEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.bukkit.Config;
 
 /**

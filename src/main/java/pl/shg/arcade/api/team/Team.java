@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
-package pl.shg.arcade.api.map.team;
+package pl.shg.arcade.api.team;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import java.util.List;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.map.Spawn;
-import pl.shg.arcade.api.map.team.kit.Kit;
-import pl.shg.arcade.api.map.team.kit.KitType;
 import pl.shg.arcade.api.permissions.ArcadeTeam;
 import pl.shg.arcade.api.util.Validate;
 

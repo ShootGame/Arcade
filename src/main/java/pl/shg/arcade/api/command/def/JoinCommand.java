@@ -11,19 +11,20 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.Color;
-import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.command.Command;
+import pl.shg.arcade.api.command.Command.CommandMessage;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.PlayerJoinTeamEvent;
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
-import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.map.team.kit.KitType;
+import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
 import pl.shg.arcade.api.server.ArcadeTabList;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *

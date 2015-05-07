@@ -8,7 +8,7 @@ package pl.shg.arcade.api.event;
 
 import pl.shg.arcade.api.chat.ChatMessage;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.map.team.ChatChannel;
+import pl.shg.arcade.api.team.ChatChannel;
 import pl.shg.arcade.api.util.Validate;
 
 /**

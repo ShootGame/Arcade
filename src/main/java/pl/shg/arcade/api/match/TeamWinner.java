@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.match;
 
-import pl.shg.arcade.api.map.team.Team;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 
 /**

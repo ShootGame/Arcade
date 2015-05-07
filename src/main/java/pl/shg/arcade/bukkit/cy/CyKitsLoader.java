@@ -18,11 +18,11 @@ import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.EnchantmentType;
 import pl.shg.arcade.api.inventory.Enchantments;
 import pl.shg.arcade.api.inventory.Item;
-import pl.shg.arcade.api.map.team.kit.Kit;
-import pl.shg.arcade.api.map.team.kit.KitItem;
-import pl.shg.arcade.api.map.team.kit.KitItemBuilder;
-import pl.shg.arcade.api.map.team.kit.KitType;
-import pl.shg.arcade.api.map.team.kit.Option;
+import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitItem;
+import pl.shg.arcade.api.kit.KitItemBuilder;
+import pl.shg.arcade.api.kit.KitType;
+import pl.shg.arcade.api.kit.Option;
 import pl.shg.arcade.api.util.Validate;
 
 /**

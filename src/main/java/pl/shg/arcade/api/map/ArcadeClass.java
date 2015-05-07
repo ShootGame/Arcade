@@ -9,8 +9,8 @@ package pl.shg.arcade.api.map;
 import java.util.HashMap;
 import java.util.List;
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.map.team.kit.Kit;
-import pl.shg.arcade.api.map.team.kit.KitType;
+import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.util.Validate;
 
 /**

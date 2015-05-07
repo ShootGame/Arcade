@@ -11,9 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.menu.ServerPickerMenu;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.shootgame.api.server.ServersPingedEvent;
 import pl.shg.shootgame.api.util.ArcadeData;
 

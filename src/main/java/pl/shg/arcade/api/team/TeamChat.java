@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
-package pl.shg.arcade.api.map.team;
+package pl.shg.arcade.api.team;
 
 import java.util.logging.Level;
 import pl.shg.arcade.api.Arcade;

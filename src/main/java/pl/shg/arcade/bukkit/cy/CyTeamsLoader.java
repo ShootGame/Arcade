@@ -7,20 +7,17 @@
 package pl.shg.arcade.bukkit.cy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Spawn;
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
-import pl.shg.arcade.api.map.team.PlayableTeamBuilder;
-import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.map.team.TeamColor;
-import pl.shg.arcade.api.map.team.GlobalChat;
-import pl.shg.arcade.api.map.team.TeamChat;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.PlayableTeamBuilder;
+import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.team.TeamColor;
+import pl.shg.arcade.api.team.GlobalChat;
+import pl.shg.arcade.api.team.TeamChat;
 import pl.shg.arcade.api.util.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
-import pl.shg.arcade.api.map.team.kit.Kit;
-import pl.shg.arcade.api.map.team.kit.KitType;
 
 /**
  *

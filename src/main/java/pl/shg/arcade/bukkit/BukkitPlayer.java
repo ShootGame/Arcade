@@ -34,7 +34,7 @@ import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Spawn;
-import pl.shg.arcade.api.map.team.TeamColor;
+import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.shootgame.api.util.NMSHacks;

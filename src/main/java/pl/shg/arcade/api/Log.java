@@ -6,9 +6,10 @@
  */
 package pl.shg.arcade.api;
 
-import pl.shg.arcade.api.human.Player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.util.Validate;
 
 /**

@@ -16,9 +16,9 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.module.ScoreboardScore;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 
 /**

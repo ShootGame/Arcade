@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.SortedMap;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *

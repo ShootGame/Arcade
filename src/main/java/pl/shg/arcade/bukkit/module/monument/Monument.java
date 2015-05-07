@@ -15,8 +15,8 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.GameableBlock;
 import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.module.ScoreboardScore;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 

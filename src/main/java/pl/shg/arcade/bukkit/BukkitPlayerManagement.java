@@ -26,14 +26,14 @@ import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.Item;
+import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitItem;
+import pl.shg.arcade.api.kit.KitType;
+import pl.shg.arcade.api.kit.Option;
 import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.map.team.Team;
-import pl.shg.arcade.api.map.team.kit.Kit;
-import pl.shg.arcade.api.map.team.kit.KitItem;
-import pl.shg.arcade.api.map.team.kit.KitType;
-import pl.shg.arcade.api.map.team.kit.Option;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 
 /**

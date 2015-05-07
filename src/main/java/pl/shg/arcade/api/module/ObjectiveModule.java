@@ -10,11 +10,11 @@ import java.util.Date;
 import java.util.SortedMap;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.match.Match;
 import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *

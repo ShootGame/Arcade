@@ -19,9 +19,9 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.MapManager;
-import pl.shg.arcade.api.map.region.Flag;
-import pl.shg.arcade.api.map.region.Region;
 import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.arcade.api.region.Flag;
+import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.util.Validate;
 
 /**

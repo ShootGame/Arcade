@@ -12,9 +12,9 @@ import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *

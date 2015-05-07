@@ -8,7 +8,7 @@ package pl.shg.arcade.bukkit.module.wool;
 
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.Block;
-import pl.shg.arcade.api.map.team.Team;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.SimpleFactory;
 
 /**

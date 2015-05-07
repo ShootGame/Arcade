@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.human;
 
-import pl.shg.arcade.api.map.team.Team;
+import pl.shg.arcade.api.team.Team;
 import pl.shg.shootgame.api.server.TargetServer;
 
 /**
