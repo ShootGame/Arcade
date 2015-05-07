@@ -262,7 +262,7 @@ public class BukkitPlayer extends ArcadePlayer {
         StringBuilder builder = new StringBuilder();
         for (Group group : this.getPermissions().getGroups()) {
             if (group.hasPrefix()) {
-                builder.append(group.getPrefix()).append(pl.shg.arcade.api.Color.RESET);
+                builder.append(group.getPrefix()).append(pl.shg.arcade.api.chat.Color.RESET);
             }
         }
         this.setChatPrefixes(builder.toString());

@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Date;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerBedEnterEvent;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.bukkit.BListener;

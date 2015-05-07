@@ -9,8 +9,8 @@ package pl.shg.arcade.api.map;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.region.RegionManager;
 import pl.shg.arcade.api.util.Validate;
 

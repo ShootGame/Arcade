@@ -7,9 +7,9 @@
 package pl.shg.arcade.api.map.team;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.chat.ActionMessageType;
 import pl.shg.arcade.api.chat.ChatMessage;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;

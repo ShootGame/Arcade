@@ -8,8 +8,8 @@ package pl.shg.arcade.api.command;
 
 import java.util.HashMap;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Plugin;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

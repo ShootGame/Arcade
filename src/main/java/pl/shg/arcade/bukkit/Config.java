@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.util.Validate;

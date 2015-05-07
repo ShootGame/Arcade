@@ -26,7 +26,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.team.TeamManager;
 import pl.shg.arcade.api.match.MatchManager;
 import pl.shg.arcade.api.match.MatchStatus;

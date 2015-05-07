@@ -8,9 +8,9 @@ package pl.shg.arcade.bukkit.module.monument;
 
 import org.bukkit.Bukkit;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.chat.ActionMessageType;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.GameableBlock;

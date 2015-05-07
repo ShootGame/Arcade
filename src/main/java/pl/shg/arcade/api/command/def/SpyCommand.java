@@ -9,7 +9,7 @@ package pl.shg.arcade.api.command.def;
 import java.util.ArrayList;
 import java.util.List;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;

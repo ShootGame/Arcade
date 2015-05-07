@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Location;

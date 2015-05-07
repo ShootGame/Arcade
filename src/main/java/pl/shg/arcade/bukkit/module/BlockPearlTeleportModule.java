@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.region.Region;

@@ -13,15 +13,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import org.bukkit.ChatColor;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.team.Team;
 import pl.shg.arcade.api.map.team.TeamColor;
-import pl.shg.arcade.api.match.MatchStatus;
 
 /**
  *

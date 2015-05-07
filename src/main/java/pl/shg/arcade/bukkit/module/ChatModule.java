@@ -9,7 +9,7 @@ package pl.shg.arcade.bukkit.module;
 import java.io.File;
 import java.util.Date;
 import org.bukkit.configuration.file.FileConfiguration;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.event.PlayerChatEvent;

@@ -25,7 +25,7 @@ import org.bukkit.help.HelpTopicComparator;
 import org.bukkit.help.IndexHelpTopic;
 import pl.shg.arcade.ArcadeCommandManager;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;

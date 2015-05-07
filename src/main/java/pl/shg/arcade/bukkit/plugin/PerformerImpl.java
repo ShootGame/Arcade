@@ -8,7 +8,7 @@ package pl.shg.arcade.bukkit.plugin;
 
 import java.lang.reflect.Field;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.command.def.VariableCommand;
 import pl.shg.arcade.api.module.Module;

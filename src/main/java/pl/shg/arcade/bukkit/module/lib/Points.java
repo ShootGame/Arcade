@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.map.team.Team;

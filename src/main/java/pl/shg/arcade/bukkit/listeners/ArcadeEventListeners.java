@@ -7,9 +7,9 @@
 package pl.shg.arcade.bukkit.listeners;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.ChatMessage;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.event.PlayerChatEvent;

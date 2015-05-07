@@ -7,8 +7,8 @@
 package pl.shg.arcade.api.scheduler;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.Color;
 import pl.shg.arcade.api.Sound;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.map.team.Team;
