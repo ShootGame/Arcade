@@ -240,6 +240,6 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     }
     
     public static Plugin getPlugin() {
-        return ArcadeBukkitPlugin.getProvidingPlugin(ArcadeBukkitPlugin.class);
+        return ArcadeBukkitPlugin.getPlugin(ArcadeBukkitPlugin.class);
     }
 }
