@@ -118,7 +118,7 @@ public abstract class ArcadeCommandManager implements CommandManager {
     private void registerDefaultCommands() {
         this.registerCommand(new BeginCommand());
         this.registerCommand(new CancelCommand());
-        //this.registerCommand(new ChangelogCommand());
+        this.registerCommand(new ChangelogCommand());
         this.registerCommand(new ClassCommand());
         this.registerCommand(new ClassesCommand());
         this.registerCommand(new CycleCommand());

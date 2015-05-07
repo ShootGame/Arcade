@@ -56,9 +56,10 @@ import pl.shg.shootgame.api.server.TargetServer;
  * @author Aleksander
  */
 public final class ArcadeBukkitPlugin extends JavaPlugin {
-    private BukkitServer bukkitServer;
     public static final String PLUGIN_NAME = "Arcade";
     public static final String RUN_CMD = "-Xms1024M -Xmx1024M -jar sportbukkit-1.8-R0.1.jar";
+    private static pl.shg.arcade.api.Plugin implementation;
+    private static BukkitServer server;
     
     @Override
     public void onEnable() {
@@ -107,7 +108,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         }
         
         // Create Bukkit implementation of the Arcade API server
-        this.bukkitServer = new BukkitServer(RUN_CMD, Bukkit.getServer());
+        server = new BukkitServer(RUN_CMD, Bukkit.getServer());
         
         // Make a new small setup properties to the API
         PluginProperties properties = new PluginProperties();
@@ -120,7 +121,8 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         properties.setSettingsDirectory("plugins" + File.pathSeparator + PLUGIN_NAME + File.pathSeparator);
         
         // Setup Arcade API
-        Arcade.setPlugin(new ArcadePlugin(this.bukkitServer, properties));
+        implementation = new ArcadePlugin(server, properties);
+        Arcade.setPlugin(getAPI());
         
         // Call the server role enable method
         Role role = Arcade.getOptions().getRole();
@@ -158,7 +160,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         manager.registerEvents(new ObserverKitListeners(), this);
         manager.registerEvents(new ObserverListeners(), this);
         manager.registerEvents(new PingDataListeners(), this);
-        manager.registerEvents(new PlayerListeners(this.bukkitServer), this);
+        manager.registerEvents(new PlayerListeners(server), this);
         manager.registerEvents(new PlayerMoveListener(), this);
         manager.registerEvents(new RegionListeners(), this);
         manager.registerEvents(new WorldListeners(), this);
@@ -228,7 +230,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     private void registerOnlinePlayers() {
         int reg = 0;
         for (Player player : Bukkit.getOnlinePlayers()) {
-            this.bukkitServer.addPlayer(new BukkitPlayer(player));
+            server.addPlayer(new BukkitPlayer(player));
             reg++;
         }
         
@@ -239,7 +241,15 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         }
     }
     
+    public static pl.shg.arcade.api.Plugin getAPI() {
+        return ArcadeBukkitPlugin.implementation;
+    }
+    
     public static Plugin getPlugin() {
         return ArcadeBukkitPlugin.getPlugin(ArcadeBukkitPlugin.class);
+    }
+    
+    public static BukkitServer getBukkit() {
+        return server;
     }
 }
