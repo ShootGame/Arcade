@@ -44,6 +44,10 @@ public class FileMapLoader implements Loader {
             Scanner scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().replace(" ", "_");
+                if (line.length() > Loader.MAX_NAME_LENGTH) {
+                    continue;
+                }
+                
                 File mapFile = new File(Arcade.getMaps().getMapsDirectory().getPath() + File.separator + line + File.separator + Configuration.FILE);
                 if (mapFile.exists()) {
                     lines.add(line);

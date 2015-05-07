@@ -14,6 +14,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.command.def.MapinfoCommand;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.MapLoadedEvent;
@@ -54,6 +55,11 @@ public class CycleScheduler implements Runnable {
     
     @Override
     public void run() {
+        if (CancelCommand.isDisabled()) {
+            Arcade.getServer().getScheduler().cancel(getID());
+            return;
+        }
+        
         this.print();
         
         if (this.seconds <= 0) {
@@ -109,7 +115,7 @@ public class CycleScheduler implements Runnable {
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             player.setTeam(teams.getObservers());
             player.teleport(spawns.get(new Random().nextInt(spawns.size())));
-            players.setAsObserver(player, true, false);
+            players.setAsObserver(player, true, false, false);
             player.setArcadeClass(null);
             MapinfoCommand.show(player, map);
         }

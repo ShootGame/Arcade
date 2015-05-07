@@ -16,11 +16,14 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Direction;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
@@ -64,8 +67,10 @@ public class EscapeModule extends ObjectiveModule implements BListener {
     }
     
     @Override
-    public String[] getMatchInfo(Team team) {
-        return null;
+    public ScoreboardScore[] getMatchInfo(Team team) {
+        return new ScoreboardScore[] {
+            new Score(Color.GOLD, "Gracze" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + team.getPlayers().size())
+        };
     }
     
     @Override

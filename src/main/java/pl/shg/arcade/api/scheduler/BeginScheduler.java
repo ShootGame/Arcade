@@ -9,6 +9,7 @@ package pl.shg.arcade.api.scheduler;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.Server;
@@ -37,7 +38,7 @@ public class BeginScheduler implements Runnable {
     
     @Override
     public void run() {
-        if (!this.checkEnd()) {
+        if (CancelCommand.isDisabled() || !this.checkEnd()) {
             Arcade.getServer().getScheduler().cancel(getID());
             return;
         }

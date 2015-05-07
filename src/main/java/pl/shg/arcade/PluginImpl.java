@@ -25,7 +25,7 @@ import pl.shg.arcade.api.util.Validate;
  *
  * @author Aleksander
  */
-public class ArcadePlugin implements Plugin {
+public class PluginImpl implements Plugin {
     private final CommandManager commands;
     private final MapManager maps;
     private final MatchManager matches;
@@ -39,7 +39,7 @@ public class ArcadePlugin implements Plugin {
     private final String settings;
     private final TeamManager teams;
     
-    public ArcadePlugin(Server server, PluginProperties properties) {
+    public PluginImpl(Server server, PluginProperties properties) {
         Validate.notNull(server, "server can not be null");
         Validate.notNull(properties, "properties can not be null");
         this.options = new ArcadeOptions();
@@ -56,7 +56,7 @@ public class ArcadePlugin implements Plugin {
         this.settings = properties.getSettingsDirectory();
         this.teams = new ArcadeTeamManager();
         
-        this.arcadeSetup();
+        this.setup();
     }
     
     @Override
@@ -119,7 +119,7 @@ public class ArcadePlugin implements Plugin {
         return this.teams;
     }
     
-    private void arcadeSetup() {
+    private void setup() {
         this.getPermissions().loadPermissions(this.getOptions().getGlobalPermissionsURL());
     }
     

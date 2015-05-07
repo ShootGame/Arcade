@@ -23,6 +23,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.ScoreboardManager;
@@ -85,8 +86,8 @@ public class MonumentModule extends ObjectiveModule {
     public void unload() {}
     
     @Override
-    public String[] getMatchInfo(Team team) {
-        List<String> info = new ArrayList<>();
+    public ScoreboardScore[] getMatchInfo(Team team) {
+        List<ScoreboardScore> info = new ArrayList<>();
         for (int i = 0; i < this.objectives.get(team).size(); i++) {
             Objective objective = this.objectives.get(team).get(i);
             StringBuilder builder = new StringBuilder();
@@ -103,9 +104,9 @@ public class MonumentModule extends ObjectiveModule {
             }
             builder.append(Color.RESET).append("\n");
             
-            info.add(builder.toString());
+            info.add(new ScoreboardScore(builder.toString()));
         }
-        return info.toArray(new String[info.size()]);
+        return info.toArray(new ScoreboardScore[info.size()]);
     }
     
     @Override

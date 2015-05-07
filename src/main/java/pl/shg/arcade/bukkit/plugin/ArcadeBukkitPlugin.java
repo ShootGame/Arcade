@@ -16,8 +16,8 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.shg.arcade.ArcadePlugin;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.ArcadeFactory;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PluginProperties;
 import pl.shg.arcade.api.command.def.VariableCommand;
@@ -121,7 +121,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         properties.setSettingsDirectory("plugins" + File.pathSeparator + PLUGIN_NAME + File.pathSeparator);
         
         // Setup Arcade API
-        implementation = new ArcadePlugin(server, properties);
+        implementation = ArcadeFactory.newInstance(getBukkit(), properties);
         Arcade.setPlugin(getAPI());
         
         // Call the server role enable method
@@ -221,8 +221,8 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         
         for (TargetServer arcade : Servers.getServers()) {
             if (arcade instanceof ArcadeTarget) {
-                MiniGameServer server = MiniGameServer.of((ArcadeTarget) arcade);
-                MiniGameServer.loadRotation(server.getShoot().getSetting("rotation"), server.getRotation());
+                MiniGameServer miniGame = MiniGameServer.of((ArcadeTarget) arcade);
+                MiniGameServer.loadRotation(miniGame.getShoot().getSetting("rotation"), miniGame.getRotation());
             }
         }
     }

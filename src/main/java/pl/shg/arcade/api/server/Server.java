@@ -23,11 +23,7 @@ public interface Server extends MinecraftServer {
     
     SchedulerManager getScheduler();
     
-    String getServerName();
-    
     void setGlobalTabList(TabList tabList);
-    
-    void setServerName(String name);
     
     boolean isDev();
 }

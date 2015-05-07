@@ -34,12 +34,13 @@ public abstract class ObjectiveModule extends Module {
         return this.sortTeams().get(0);
     }
     
-    public abstract String[] getMatchInfo(Team team);
+    public abstract ScoreboardScore[] getMatchInfo(Team team);
     
     public Tutorial.Page getTutorial() {
         return null;
     }
     
+    @Deprecated
     public abstract void makeScoreboard();
     
     public abstract boolean objectiveScored(Team team);

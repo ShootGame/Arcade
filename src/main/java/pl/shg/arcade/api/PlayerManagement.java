@@ -20,9 +20,9 @@ public interface PlayerManagement {
     
     void refreshHiderForAll();
     
-    void setAsObserver(Player player, boolean fullKit, boolean hider);
+    void setAsObserver(Player player, boolean fullKit, boolean hider, boolean perms);
     
-    void setAsPlayer(Player player, KitType kit, boolean hider, boolean sendTitle);
+    void setAsPlayer(Player player, KitType kit, boolean hider, boolean sendTitle, boolean perms);
     
     void setGhost(Player player, boolean ghost);
 }

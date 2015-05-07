@@ -58,6 +58,7 @@ public class BeginCommand extends Command {
         } else if (seconds < this.minSeconds) {
             sender.sendError("Przykro mi, lecz nie mozna ustawic tak krótkiego odliczania. Spróbuj go zwiekszyc.");
         } else {
+            CancelCommand.setDisabled(false);
             SchedulerManager schedulers = Arcade.getServer().getScheduler();
             schedulers.cancel();
             schedulers.runBegin(seconds);

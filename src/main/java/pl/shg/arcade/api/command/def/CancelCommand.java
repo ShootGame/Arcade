@@ -19,15 +19,18 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class CancelCommand extends Command {
+    private static boolean disabled = false;
+    
     public CancelCommand() {
         super(new String[] {"cancel"},
-                "Zatrzymaj i anuluj obecne odliczanie", "cancel");
+                "Zatrzymaj i anuluj obecne odliczanie", "cancel [-h]");
+        this.setOption("-h", "wlacz/wylacz automatyczne odliczanie");
         this.setPermission("arcade.command.cancel");
     }
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        this.cancel(sender, Arcade.getMatches().getStatus());
+        this.cancel(sender, Arcade.getMatches().getStatus(), this.hasFlag(args, 'h'));
     }
     
     @Override
@@ -35,10 +38,17 @@ public class CancelCommand extends Command {
         return 0;
     }
     
-    private void cancel(Sender sender, MatchStatus status) {
+    private void cancel(Sender sender, MatchStatus status, boolean hard) {
         Validate.notNull(sender, "sender can not be null");
         Validate.notNull(status, "status can not be null");
-        if (status == MatchStatus.STARTING || status == MatchStatus.ENDING) {
+        if (hard) {
+            setDisabled(!isDisabled());
+            if (isDisabled()) {
+                sender.sendSuccess("Wylaczono automatyczne odliczanie.");
+            } else {
+                sender.sendSuccess("Wlaczono automatyczne odliczanie.");
+            }
+        } else if (status == MatchStatus.STARTING || status == MatchStatus.ENDING) {
             SchedulerManager schedulers = Arcade.getServer().getScheduler();
             int amount = schedulers.getIDs().size();
             if (amount != 0) {
@@ -50,5 +60,13 @@ public class CancelCommand extends Command {
         } else {
             sender.sendError("Obecny tryb gry nie jest startujacy, ani konczacy!");
         }
+    }
+    
+    public static boolean isDisabled() {
+        return disabled;
+    }
+    
+    public static void setDisabled(boolean disabled) {
+        CancelCommand.disabled = disabled;
     }
 }

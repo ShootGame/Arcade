@@ -102,11 +102,11 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
         }
         
         try {
-            if (command.minArguments() < args.length) {
-                command.execute(sender, args);
-            } else {
+            if (command.minArguments() > args.length) {
                 sender.sendError(command.getDescription());
                 sender.sendError(command.getUsage());
+            } else {
+                command.execute(sender, args);
             }
         } catch (CommandException ex) {
             sender.sendError(ex.getMessage());

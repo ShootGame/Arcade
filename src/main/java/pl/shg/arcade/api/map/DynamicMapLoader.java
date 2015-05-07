@@ -32,7 +32,7 @@ public class DynamicMapLoader implements Loader {
         File mapsDir = Arcade.getMaps().getMapsDirectory();
         for (String directory : mapsDir.list()) {
             File file = new File(mapsDir + File.separator + directory);
-            if (file.exists() && file.isDirectory()) {
+            if (file.exists() && file.isDirectory() && file.getName().length() <= Loader.MAX_NAME_LENGTH) {
                 this.load(directory, new File(mapsDir + File.separator + directory + File.separator + Configuration.FILE));
             }
         }

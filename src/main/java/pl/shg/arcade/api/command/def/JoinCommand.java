@@ -136,7 +136,7 @@ public class JoinCommand extends Command {
             player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));
             
             if (status == MatchStatus.PLAYING) {
-                Arcade.getPlayerManagement().setAsPlayer(player, KitType.JOIN, true, true);
+                Arcade.getPlayerManagement().setAsPlayer(player, KitType.JOIN, true, true, true);
             }
             
             ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();

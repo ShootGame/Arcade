@@ -10,6 +10,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
@@ -34,6 +35,7 @@ public class DcycleCommand extends Command {
         } else if (args.length > 0) {
             Arcade.getCommands().perform("setnext", sender, args);
         }
+        CancelCommand.setDisabled(false);
         SchedulerManager manager = Arcade.getServer().getScheduler();
         manager.cancel();
         

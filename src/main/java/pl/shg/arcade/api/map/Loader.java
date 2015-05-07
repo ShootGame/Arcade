@@ -13,6 +13,8 @@ import java.util.List;
  * @author Aleksander
  */
 public interface Loader {
+    static final int MAX_NAME_LENGTH = 16;
+    
     List<Map> getMaps();
     
     void loadMapList();

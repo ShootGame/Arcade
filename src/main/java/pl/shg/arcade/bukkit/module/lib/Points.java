@@ -17,6 +17,8 @@ import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.Library;
+import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.ScoreboardManager;
@@ -59,9 +61,9 @@ public class Points extends Library {
     }
     
     @Override
-    public String[] getMatchInfo(Team team) {
-        return new String[] {
-            Color.GOLD + "Punkty" + Color.RED + ": " + Color.DARK_AQUA + Color.BOLD + get(team)
+    public ScoreboardScore[] getMatchInfo(Team team) {
+        return new ScoreboardScore[] {
+            new Score(Color.GOLD, "Punkty" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + Points.get(team))
         };
     }
     

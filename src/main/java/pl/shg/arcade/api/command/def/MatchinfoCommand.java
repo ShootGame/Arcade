@@ -14,6 +14,7 @@ import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 
 /**
@@ -39,11 +40,21 @@ public class MatchinfoCommand extends Command {
             
             for (Module module : Arcade.getModules().getActiveModules()) {
                 if (module instanceof ObjectiveModule) {
-                    String[] info = ((ObjectiveModule) module).getMatchInfo(team);
+                    ScoreboardScore[] info = ((ObjectiveModule) module).getMatchInfo(team);
                     if (info != null) {
                         dataGiven = true;
-                        for (String i : info) {
-                            sender.sendMessage(prefix + i);
+                        for (ScoreboardScore score : info) {
+                            StringBuilder builder = new StringBuilder();
+                            if (score.getPrefix() != null) {
+                                builder.append(score.getPrefix());
+                            }
+                            if (score.getName() != null) {
+                                builder.append(score.getName());
+                            }
+                            if (score.getSuffix() != null) {
+                                builder.append(score.getSuffix());
+                            }
+                            sender.sendMessage(prefix + builder.toString());
                         }
                     }
                 }

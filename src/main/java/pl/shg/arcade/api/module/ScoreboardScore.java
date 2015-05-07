@@ -26,7 +26,7 @@ public class ScoreboardScore {
         this.setScore(score);
     }
      
-    public ScoreboardScore(String prefix, String suffix, String name, int score) throws IllegalArgumentException {
+    public ScoreboardScore(String prefix, String suffix, String name, @Deprecated int score) throws IllegalArgumentException {
         this.setName(name);
         this.setPrefix(prefix);
         this.setScore(score);
@@ -45,6 +45,7 @@ public class ScoreboardScore {
         return this.prefix;
     }
     
+    @Deprecated
     public int getScore() {
         return this.score;
     }
@@ -75,6 +76,7 @@ public class ScoreboardScore {
         this.prefix = prefix;
     }
     
+    @Deprecated
     public final void setScore(int score) {
         this.score = score;
     }

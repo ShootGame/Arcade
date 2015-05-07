@@ -121,7 +121,7 @@ public class PlayerListeners implements Listener {
         List<Spawn> spawns = player.getTeam().getSpawns();
         Spawn spawn = spawns.get(this.random.nextInt(spawns.size()));
         World world = Bukkit.getWorld(Arcade.getMaps().getCurrentMap().getName());
-        Arcade.getPlayerManagement().setAsObserver(player, true, true);
+        Arcade.getPlayerManagement().setAsObserver(player, true, true, true);
         e.getPlayer().teleport(new Location(world, spawn.getX(), spawn.getY(), spawn.getZ(), spawn.getYaw(), spawn.getPitch()));
         
         player.setTabList(Arcade.getServer().getGlobalTabList());
@@ -157,9 +157,9 @@ public class PlayerListeners implements Listener {
                     if (player == null) {
                         return;
                     } else if (player.isObserver()) {
-                        Arcade.getPlayerManagement().setAsObserver(player, true, true);
+                        Arcade.getPlayerManagement().setAsObserver(player, true, true, true);
                     } else {
-                        Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
+                        Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false, false);
                     }
                 }
             }, 1L);

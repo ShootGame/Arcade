@@ -137,7 +137,7 @@ public abstract class Command {
         Validate.notNull(args, "args can not be null");
         Validate.notNull(flag, "flag can not be null");
         for (String arg : args) {
-            if (arg.toLowerCase().startsWith("-" + flag)) {
+            if (arg.toLowerCase().equals("-" + flag)) {
                 return true;
             }
         }

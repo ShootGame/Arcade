@@ -48,7 +48,7 @@ public class Match {
         
         PlayerManagement players = Arcade.getPlayerManagement();
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
-            players.setAsObserver(player, false, false);
+            players.setAsObserver(player, false, false, true);
         }
         players.refreshHiderForAll();
         

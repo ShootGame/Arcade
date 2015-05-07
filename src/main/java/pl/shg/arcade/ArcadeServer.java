@@ -22,7 +22,6 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public abstract class ArcadeServer implements Server {
-    private String name;
     private TabList tabList;
     
     @Override
@@ -58,20 +57,9 @@ public abstract class ArcadeServer implements Server {
     }
     
     @Override
-    public String getServerName() {
-        return this.name;
-    }
-    
-    @Override
     public void setGlobalTabList(TabList tabList) {
         Validate.notNull(tabList, "tabList can not be null");
         this.tabList = tabList;
-    }
-    
-    @Override
-    public void setServerName(String name) {
-        Validate.notNull(name, "name can not be null");
-        this.name = name;
     }
     
     @Override

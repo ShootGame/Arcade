@@ -99,7 +99,7 @@ public class DelayedRespawnModule extends Module implements BListener {
     
     public void respawn(UUID uuid) {
         Player player = Arcade.getServer().getPlayer(uuid);
-        Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false);
+        Arcade.getPlayerManagement().setAsPlayer(player, KitType.RESPAWN, false, false, false);
         player.sendMessage("Zostales/as odrodzony/a po " + seconds + " sekundach.");
     }
     

@@ -31,11 +31,11 @@ public class ArcadeOptions extends Options {
     }
     
     public Role getRole() {
-        Role defaults = Role.DEVELOPMENT;
+        Role def = Role.DEVELOPMENT;
         try {
-            return Role.valueOf(this.getValue("role", defaults.name()));
+            return Role.valueOf(this.getValue("role", def.name()));
         } catch (IllegalArgumentException ex) {
-            return defaults;
+            return def;
         }
     }
     

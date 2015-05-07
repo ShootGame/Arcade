@@ -32,11 +32,10 @@ public class MyteamCommand extends Command {
         if (sender.isConsole()) {
             this.throwMessage(sender, CommandMessage.PLAYER_NEEDED);
         } else if (this.hasFlag(args, 'r')) {
-            Team team = ((Player) sender).getTeam();
-            sender.sendMessage(Color.YELLOW + team.getName());
+            sender.sendMessage(Color.YELLOW + ((Player) sender).getTeam().getName());
         } else {
-            Team team = ((Player) sender).getTeam();
-            sender.sendMessage(Color.GRAY + "Obecnie znajdujesz sie w druzynie " + team.getDisplayName() + Color.RESET + Color.GRAY + ".");
+            sender.sendMessage(Color.GRAY + "Obecnie znajdujesz sie w druzynie " +
+                    ((Player) sender).getTeam().getDisplayName() + Color.RESET + Color.GRAY + ".");
         }
     }
     

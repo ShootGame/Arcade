@@ -20,6 +20,8 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
@@ -33,7 +35,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public BlitzModule() {
         super(new Date(2015, 4, 26), "blitz", "1.0");
         this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
-                "w której ostatni zostaną. gracze.");
+                "w której ostatni zostaną gracze.");
         this.deploy(true);
     }
     
@@ -62,9 +64,9 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     }
     
     @Override
-    public String[] getMatchInfo(Team team) {
-        return new String[] {
-            Color.GOLD + "Gracze" + Color.RED + ": " + Color.DARK_AQUA + Color.BOLD + team.getPlayers().size()
+    public ScoreboardScore[] getMatchInfo(Team team) {
+        return new ScoreboardScore[] {
+            new Score(Color.GOLD, "Gracze" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + team.getPlayers().size())
         };
     }
     

@@ -82,13 +82,15 @@ public class BukkitPlayerManagement implements PlayerManagement {
     }
     
     @Override
-    public void setAsObserver(pl.shg.arcade.api.human.Player player, boolean fullKit, boolean hider) {
+    public void setAsObserver(pl.shg.arcade.api.human.Player player, boolean fullKit, boolean hider, boolean perms) {
         Validate.notNull(player, "player can not be null");
         Player bukkitPlayer = (Player) player.getPlayer();
         
-        player.getPermissions().removeFromTeams(false);
-        player.getPermissions().addToGroup(Arcade.getPermissions().getObservers());
-        player.reloadPermissions();
+        if (perms) {
+            player.getPermissions().removeFromTeams(false);
+            player.getPermissions().addToGroup(Arcade.getPermissions().getObservers());
+            player.reloadPermissions();
+        }
         
         bukkitPlayer.setCollidesWithEntities(false);
         
@@ -114,14 +116,16 @@ public class BukkitPlayerManagement implements PlayerManagement {
     }
     
     @Override
-    public void setAsPlayer(pl.shg.arcade.api.human.Player player, KitType kit, boolean hider, boolean sendTitle) {
+    public void setAsPlayer(pl.shg.arcade.api.human.Player player, KitType kit, boolean hider, boolean sendTitle, boolean perms) {
         Validate.notNull(player, "player can not be null");
         Player bukkitPlayer = (Player) player.getPlayer();
         Team team = player.getTeam();
         
-        player.getPermissions().removeFromTeams(false);
-        player.getPermissions().addToGroup(Arcade.getPermissions().getPlayable());
-        player.reloadPermissions();
+        if (perms) {
+            player.getPermissions().removeFromTeams(false);
+            player.getPermissions().addToGroup(Arcade.getPermissions().getPlayable());
+            player.reloadPermissions();
+        }
         
         bukkitPlayer.setCollidesWithEntities(true);
         

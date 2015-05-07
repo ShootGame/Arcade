@@ -17,6 +17,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ModuleException;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
@@ -87,8 +88,8 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     }
     
     @Override
-    public String[] getMatchInfo(Team team) {
-        return null;
+    public ScoreboardScore[] getMatchInfo(Team team) {
+        return null; // Let the Points library do this
     }
     
     @Override

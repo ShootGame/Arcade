@@ -68,7 +68,7 @@ public class ArcadeMatchManager implements MatchManager {
             if (player.isObserver()) {
                 players.setGhost(player, true);
             } else {
-                players.setAsPlayer(player, KitType.BEGIN, false, true);
+                players.setAsPlayer(player, KitType.BEGIN, false, true, true);
             }
         }
         players.refreshHiderForAll();
