@@ -11,5 +11,5 @@ package pl.shg.arcade.api;
  * @author Aleksander
  */
 public enum Sound {
-    BEGINING, BEGINS, ELIMINATION, ENEMY_LOST, ENEMY_WON, MENTION;
+    BEGINING, BEGINS, ELIMINATION, ENEMY_LOST, ENEMY_WON, MENTION, TICK;
 }

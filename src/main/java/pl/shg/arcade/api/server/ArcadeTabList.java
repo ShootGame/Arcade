@@ -8,6 +8,8 @@ package pl.shg.arcade.api.server;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.event.Event;
+import pl.shg.arcade.api.event.TabListUpdateEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.team.Team;
@@ -17,12 +19,14 @@ import pl.shg.arcade.api.team.Team;
  * @author Aleksander
  */
 public class ArcadeTabList extends TabList {
-    public void update() {
+    public String getRawHeader() {
         Map map = Arcade.getMaps().getCurrentMap();
-        String header = Color.GOLD + Color.BOLD + map.getDisplayName() + Color.RESET +
+        return Color.GOLD + Color.BOLD + map.getDisplayName() + Color.RESET +
                 Color.GRAY + " v" + map.getVersionString() + Color.DARK_PURPLE +
                 " by " + map.getAuthorsString(Color.GOLD, Color.DARK_PURPLE);
-        
+    }
+    
+    public String getRawFooter() {
         StringBuilder builder = new StringBuilder();
         for (Team team : Arcade.getTeams().getTeams()) {
             builder.append(team.getDisplayName()).append(Color.GOLD).append(" - ")
@@ -30,13 +34,25 @@ public class ArcadeTabList extends TabList {
                     .append(Color.RESET).append(Color.GOLD).append("/").append(team.getSlots())
                     .append(Color.GRAY).append(", ");
         }
-        String footer = builder.toString().substring(0, builder.toString().length() - 2);
-        
-        this.setHeader(header);
-        this.setFooter(footer);
-        
+        return builder.toString().substring(0, builder.toString().length() - 2);
+    }
+    
+    public void push() {
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
             player.setTabList(this);
+        }
+    }
+    
+    public void update() {
+        TabListUpdateEvent event = new TabListUpdateEvent(this);
+        Event.callEvent(event);
+        
+        if (!event.isCancel() && event.getTabList() instanceof ArcadeTabList) {
+            ArcadeTabList arcadeTabList = (ArcadeTabList) event.getTabList();
+            this.setHeader(arcadeTabList.getRawHeader());
+            this.setFooter(arcadeTabList.getRawFooter());
+            
+            this.push();
         }
     }
 }

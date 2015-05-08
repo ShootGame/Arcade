@@ -41,6 +41,10 @@ public class Match {
      * <code>null</code> - match fails
      */
     public void end(Winner winner) {
+        if (Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+            throw new UnsupportedOperationException("Can not end the match when it is not running.");
+        }
+        
         Arcade.getMatches().setStatus(MatchStatus.ENDING);
         this.broadcastEnd(winner);
         this.playEndSound(winner);
