@@ -119,7 +119,7 @@ public class MatchTimerModule extends Module {
                 
                 Arcade.getServer().broadcast(Color.GREEN + "Do konca meczu pozostalo " +
                         Color.GOLD + Color.BOLD + this.minutesInt + Color.GREEN + minute);
-            } else if (this.minutesInt == 0 && (this.secondsInt == 15 || this.secondsInt == 30 || this.secondsInt == 45)) {
+            } else if (this.minutesInt == 0 && (this.secondsInt == 10 || this.secondsInt == 15 || this.secondsInt == 30 || this.secondsInt == 45)) {
                 Arcade.getServer().broadcast(Color.GREEN + "Do konca meczu pozostalo " +
                         Color.GOLD + Color.BOLD + this.secondsInt + Color.GREEN + " sekund.");
             } else if (this.minutesInt == 0 && this.secondsInt <= 5) {
@@ -184,7 +184,7 @@ public class MatchTimerModule extends Module {
         }
         
         private void playSound() {
-            if (this.minutesInt == 0 && this.secondsInt < 10) {
+            if (this.minutesInt == 0 && this.secondsInt < 10 && this.secondsInt > 0) {
                 PlayerManagement players = Arcade.getPlayerManagement();
                 for (Player player : Arcade.getServer().getOnlinePlayers()) {
                     players.playSound(player, Sound.TICK);
