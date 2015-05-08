@@ -23,7 +23,6 @@ import pl.shg.arcade.api.map.Direction;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
-import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
@@ -67,9 +66,10 @@ public class EscapeModule extends ObjectiveModule implements BListener {
     }
     
     @Override
-    public ScoreboardScore[] getMatchInfo(Team team) {
-        return new ScoreboardScore[] {
-            new Score(Color.GOLD, "Gracze" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + team.getPlayers().size())
+    public Score[] getMatchInfo(Team team) {
+        return new Score[] {
+            Score.byID(team, "escape", new Score(new String(),
+                    Color.GOLD, "Gracze" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + team.getPlayers().size()))
         };
     }
     

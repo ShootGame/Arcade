@@ -34,7 +34,7 @@ public abstract class ObjectiveModule extends Module {
         return this.sortTeams().get(0);
     }
     
-    public abstract ScoreboardScore[] getMatchInfo(Team team);
+    public abstract Score[] getMatchInfo(Team team);
     
     public Tutorial.Page getTutorial() {
         return null;

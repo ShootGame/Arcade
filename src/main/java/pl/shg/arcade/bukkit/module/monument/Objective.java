@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit.module.monument;
 
 import java.util.ArrayList;
 import java.util.List;
+import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.GameableBlock;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
@@ -35,6 +36,15 @@ public class Objective {
         Validate.notNull(monument, "monument can be null");
         this.monuments.add(monument);
         GameableBlock.register(monument);
+    }
+    
+    public String getColor() {
+        switch (this.getStatus()) {
+            case DESTROYED: return Color.DARK_RED;
+            case TOUCHED: return Color.GREEN; //return Color.YELLOW;
+            case UNTOUCHED: return Color.GREEN;
+            default: return null;
+        }
     }
     
     public int getDestroyed() {

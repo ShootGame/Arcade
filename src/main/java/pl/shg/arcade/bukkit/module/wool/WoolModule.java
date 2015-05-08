@@ -15,7 +15,7 @@ import java.util.SortedMap;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
-import pl.shg.arcade.api.module.ScoreboardScore;
+import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
 
 /**
@@ -46,8 +46,8 @@ public class WoolModule extends ObjectiveModule {
     }
     
     @Override
-    public ScoreboardScore[] getMatchInfo(Team team) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Score[] getMatchInfo(Team team) {
+        return null;
     }
     
     @Override

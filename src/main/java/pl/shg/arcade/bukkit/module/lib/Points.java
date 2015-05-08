@@ -61,9 +61,10 @@ public class Points extends Library {
     }
     
     @Override
-    public ScoreboardScore[] getMatchInfo(Team team) {
-        return new ScoreboardScore[] {
-            new Score(Color.GOLD, "Punkty" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + Points.get(team))
+    public Score[] getMatchInfo(Team team) {
+        return new Score[] {
+            Score.byID(team, "points", new Score(new String(),
+                    Color.GOLD, "Punkty" + Color.RED + ": ", Color.DARK_AQUA + Color.BOLD + Points.get(team)))
         };
     }
     

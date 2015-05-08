@@ -23,6 +23,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.Config;
@@ -86,27 +87,14 @@ public class MonumentModule extends ObjectiveModule {
     public void unload() {}
     
     @Override
-    public ScoreboardScore[] getMatchInfo(Team team) {
-        List<ScoreboardScore> info = new ArrayList<>();
+    public Score[] getMatchInfo(Team team) {
+        List<Score> info = new ArrayList<>();
         for (int i = 0; i < this.objectives.get(team).size(); i++) {
             Objective objective = this.objectives.get(team).get(i);
-            StringBuilder builder = new StringBuilder();
-            
-            builder.append(Color.GOLD).append(Color.BOLD).append(objective.getDisplayName().trim()).append(Color.RESET);
-            builder.append(Color.RED).append(" - ");
-            switch (objective.getStatus()) {
-                case DESTROYED:
-                    builder.append(Color.DARK_RED).append(Color.ITALIC).append("ZNISZCZONY");
-                    break;
-                case TOUCHED: case UNTOUCHED:
-                    builder.append(Color.GREEN).append(Color.ITALIC).append("AKTYWNY");
-                    break;
-            }
-            builder.append(Color.RESET).append("\n");
-            
-            info.add(new ScoreboardScore(builder.toString()));
+            info.add(Score.byID(team, objective.getName(), new Score(new String(),
+                    objective.getColor(), objective.getDisplayName())));
         }
-        return info.toArray(new ScoreboardScore[info.size()]);
+        return info.toArray(new Score[info.size()]);
     }
     
     @Override
