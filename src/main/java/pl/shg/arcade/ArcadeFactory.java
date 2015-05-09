@@ -4,9 +4,10 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api;
+package pl.shg.arcade;
 
-import pl.shg.arcade.PluginImpl;
+import pl.shg.arcade.api.Plugin;
+import pl.shg.arcade.api.PluginProperties;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.util.Validate;
 
