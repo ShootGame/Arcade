@@ -6,10 +6,14 @@
  */
 package pl.shg.arcade.api.server.party;
 
+import java.io.File;
+
 /**
  *
  * @author Aleksander
  */
 public interface Partyable {
     String[] getPartyTutorial();
+    
+    void loadParty(File file);
 }

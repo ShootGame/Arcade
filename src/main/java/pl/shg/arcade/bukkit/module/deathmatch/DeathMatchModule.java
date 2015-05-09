@@ -35,7 +35,6 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     
     public DeathMatchModule() {
         super(new Date(2014, 11, 15), "death-match", "1.0");
-        this.addDependency(DependencyType.STRONG, Points.class);
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.INT) {
             @Override
             public String getPrefix() {
@@ -52,6 +51,11 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
             }
         });
         this.deploy(true);
+    }
+    
+    @Override
+    public void loadDependencies() {
+        this.addDependency(DependencyType.STRONG, Points.class);
     }
     
     @Override

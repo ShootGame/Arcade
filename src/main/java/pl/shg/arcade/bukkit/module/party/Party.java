@@ -9,14 +9,25 @@ package pl.shg.arcade.bukkit.module.party;
 import java.io.File;
 import java.util.Date;
 import java.util.SortedMap;
+import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
+import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.server.party.Partyable;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
+import pl.shg.arcade.bukkit.module.AntiGriefModule;
+import pl.shg.arcade.bukkit.module.AutoJoinModule;
+import pl.shg.arcade.bukkit.module.AutoRespawnModule;
+import pl.shg.arcade.bukkit.module.DeathMessagesModule;
+import pl.shg.arcade.bukkit.module.JoinWhenRunningCancelModule;
+import pl.shg.arcade.bukkit.module.LivesModule;
+import pl.shg.arcade.bukkit.module.NoRainModule;
+import pl.shg.arcade.bukkit.module.NoThunderModule;
 import pl.shg.arcade.bukkit.plugin.ModuleLoader;
 
 /**
@@ -24,8 +35,24 @@ import pl.shg.arcade.bukkit.plugin.ModuleLoader;
  * @author Aleksander
  */
 public abstract class Party extends ObjectiveModule implements BListener, Partyable {
-    public Party(Date date, String id, String version) {
+    private final String name;
+    
+    public Party(Date date, String id, String name, String version) {
         super(date, "party-" + id, version);
+        Validate.notNull(name, "name can not be null");
+        this.name = name;
+    }
+    
+    @Override
+    public void loadDependencies() {
+        this.addDependency(DependencyType.PARTY, AntiGriefModule.class);
+        this.addDependency(DependencyType.PARTY, AutoJoinModule.class);
+        this.addDependency(DependencyType.PARTY, AutoRespawnModule.class);
+        this.addDependency(DependencyType.PARTY, DeathMessagesModule.class);
+        this.addDependency(DependencyType.PARTY, JoinWhenRunningCancelModule.class);
+        this.addDependency(DependencyType.PARTY, LivesModule.class);
+        this.addDependency(DependencyType.PARTY, NoRainModule.class);
+        this.addDependency(DependencyType.PARTY, NoThunderModule.class);
     }
     
     @Override
@@ -40,7 +67,12 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
     
     @Override
     public void load(File file) throws ConfigurationException {
-        
+        for (Module module : Arcade.getModules().getActiveModules()) {
+            if (module instanceof ObjectiveModule) {
+                throw new ConfigurationException("Systemu gier party nie mozna laczyc z zadna inna gra.");
+            }
+        }
+        this.loadParty(file);
     }
     
     @Override
@@ -59,7 +91,7 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
         for (String line : this.getPartyTutorial()) {
             builder.append(line).append("\n");
         }
-        return new Tutorial.Page("Party - " + this.getID(), builder.toString());
+        return new Tutorial.Page("Party - " + this.getName(), builder.toString());
     }
     
     @Override
@@ -77,7 +109,12 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
         return null;
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
     public static void registerPartyModules(ModuleLoader loader) {
-        loader.register(DanceParty.class);
+        loader.register(SheepsParty.class);
+        loader.register(WoolscapeParty.class);
     }
 }

@@ -8,7 +8,6 @@ package pl.shg.arcade.bukkit.module;
 
 import java.io.File;
 import java.util.Date;
-import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
@@ -17,7 +16,6 @@ import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.NotUsableDeprecation;
-import pl.shg.arcade.bukkit.Config;
 
 /**
  *
@@ -40,10 +38,6 @@ public class ChatModule extends Module {
     
     @Override
     public void load(File file) throws ConfigurationException {
-        FileConfiguration config = Config.get(file);
-        if (!Config.isSet(config, this)) {
-            return;
-        }
         this.listeners = new EventListener[] {
                 new PlayerChat(this), new PlayerReceiveChat(this)
         };

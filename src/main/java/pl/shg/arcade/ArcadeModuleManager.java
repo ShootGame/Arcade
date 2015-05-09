@@ -101,7 +101,6 @@ public class ArcadeModuleManager implements ModuleManager {
             Module object = this.asObject(module);
             if (module != null) {
                 this.modules.put(object.getID(), module);
-                //Log.log(Level.INFO, "Modul " + module.getCanonicalName() + " zostal zarejestrowany");
                 Log.log(Level.INFO, "Modul " + module.getSimpleName() + " zostal zarejestrowany");
             }
         }

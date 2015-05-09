@@ -38,8 +38,9 @@ public abstract class Module implements IModule {
         this.docs = new ModuleDescription(this);
         this.examples = new ArrayList<>();
         
-        this.dependencies.put(DependencyType.OPTIONAL, new ArrayList<Class<? extends Module>>());
-        this.dependencies.put(DependencyType.STRONG, new ArrayList<Class<? extends Module>>());
+        for (DependencyType type : DependencyType.values()) {
+            this.dependencies.put(type, new ArrayList<Class<? extends Module>>());
+        }
     }
     
     public void addDependency(DependencyType type, Class<? extends Module> dependency) {
@@ -98,6 +99,8 @@ public abstract class Module implements IModule {
         return this.deploy;
     }
     
+    public void loadDependencies() {}
+    
     public final void setDate(Date date) {
         Validate.notNull(date, "date can not be null");
         this.date = date;
@@ -123,6 +126,6 @@ public abstract class Module implements IModule {
     }
     
     public static enum DependencyType {
-        OPTIONAL, STRONG;
+        OPTIONAL, PARTY, STRONG;
     }
 }

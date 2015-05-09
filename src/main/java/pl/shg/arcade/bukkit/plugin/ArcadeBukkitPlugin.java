@@ -68,7 +68,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         this.loadBukkitListeners();
         this.loadMaps(properties, 2);
         
-        this.getLogger().log(Level.INFO, "Wczytywanie modulow...");
+        Log.log(Level.INFO, "Wczytywanie modulow...");
         new ModuleLoader() {
             
             @Override
@@ -83,6 +83,11 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 }
             }
         }.init();
+        for (Class<? extends Module> module : Arcade.getModules().getModules()) {
+            Module object = Arcade.getModules().asObject(module);
+            object.loadDependencies();
+        }
+        
         VariableCommand.setPerformer(new PerformerImpl());
         Arcade.getMaps().setWorlds(new BukkitWorldManager(this.getServer()));
     }

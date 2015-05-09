@@ -35,7 +35,7 @@ public class PerformerImpl implements VariableCommand.Performer {
             }
             
             if (result == null) {
-                this.error(sender, "Klasa " + clazz.getCanonicalName() + " nie jest module lub nie jest aktywna.");
+                this.error(sender, "Klasa " + clazz.getCanonicalName() + " nie jest modulem lub nie jest aktywna.");
             } else if (args.length == 1) {
                 this.printList(sender, result);
             } else if (args.length == 2) {

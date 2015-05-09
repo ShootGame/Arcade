@@ -18,7 +18,6 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.Library;
 import pl.shg.arcade.api.module.Score;
-import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.ScoreboardManager;
