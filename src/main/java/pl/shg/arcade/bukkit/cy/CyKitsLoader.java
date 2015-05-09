@@ -23,6 +23,7 @@ import pl.shg.arcade.api.kit.KitItem;
 import pl.shg.arcade.api.kit.KitItemBuilder;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.kit.Option;
+import pl.shg.arcade.api.kit.PotionOption;
 import pl.shg.arcade.api.util.Validate;
 
 /**
@@ -93,10 +94,26 @@ public class CyKitsLoader {
         List<Option> options = new ArrayList<>();
         if (this.f.isConfigurationSection(path + ".options")) {
             for (String option : this.f.getConfigurationSection(path + ".options").getKeys(false)) {
-                // get option and load it
+                // TODO get option and load it
+                switch (option.toLowerCase()) {
+                    case "potions":
+                        options.addAll(this.getOptionPotions(path + ".options." + option.toLowerCase()));
+                        break;
+                }
             }
         }
         return options;
+    }
+    
+    private List<PotionOption> getOptionPotions(String path) {
+        List<PotionOption> list = new ArrayList<>();
+        for (String potion : this.f.getConfigurationSection(path + ".potion").getKeys(false)) {
+            String id = this.f.getString(path + "." + potion + ".id");
+            int level = this.f.getInt(path + "." + potion + ".level");
+            int time = this.f.getInt(path + "." + potion + ".time");
+            list.add(new PotionOption(id, level, time));
+        }
+        return list;
     }
     
     private void loadKit(String kit) {

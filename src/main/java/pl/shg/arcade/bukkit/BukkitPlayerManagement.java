@@ -51,6 +51,15 @@ public class BukkitPlayerManagement implements PlayerManagement {
     }
     
     @Override
+    public void addPotion(pl.shg.arcade.api.human.Player player, String id, int level, int time) {
+        Validate.notNull(player, "player can not be null");
+        Validate.notNull(id, "id can not be null");
+        Validate.notNegative(level, "level can not be negative");
+        Validate.notNegative(time, "time can not be negative");
+        ((Player) player.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.getByName(id), time, level), true);
+    }
+    
+    @Override
     public boolean isGhost(pl.shg.arcade.api.human.Player player) {
         Validate.notNull(player, "player can not be null");
         return ((Player) player.getPlayer()).hasPotionEffect(PotionEffectType.INVISIBILITY);
@@ -179,6 +188,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
             if (kitObj == null) {
                 continue;
             }
+            
             // Items
             if (kitObj.hasItems()) {
                 for (KitItem item : kitObj.getItems()) {
@@ -191,10 +201,11 @@ public class BukkitPlayerManagement implements PlayerManagement {
                     }
                 }
             }
+            
             // Options
             if (kitObj.hasOptions()) {
                 for (Option option : kitObj.getOptions()) {
-                    option.perform(player);
+                    option.apply(player);
                 }
             }
         }

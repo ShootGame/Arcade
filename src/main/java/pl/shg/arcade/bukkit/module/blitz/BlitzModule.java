@@ -19,6 +19,7 @@ import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
+import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
@@ -86,15 +87,19 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     
     @Override
     public boolean objectiveScored(Team team) {
+        MatchType matchType = Arcade.getMatches().getMatch().getType();
         List<Team> stay = new ArrayList<>();
+        
         for (Team onlineTeam : Arcade.getTeams().getTeams()) {
-            if (!onlineTeam.getPlayers().isEmpty()) {
+            if (!onlineTeam.getPlayers().isEmpty() || matchType == MatchType.PLAYERS) {
                 stay.add(onlineTeam);
             }
         }
         
         if (stay.size() == 1) { // if list contains one team
-            if (stay.get(0).equals(team)) { // if this one team is this team
+            if (matchType == MatchType.PLAYERS && stay.get(0).getPlayers().size() <= 1) { // if type is players
+                return true;
+            } else if (stay.get(0).equals(team)) { // if this one team is this team
                 return true;
             }
         }

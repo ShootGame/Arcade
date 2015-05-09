@@ -24,7 +24,6 @@ import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
-import pl.shg.arcade.api.module.ScoreboardScore;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.ScoreboardManager;

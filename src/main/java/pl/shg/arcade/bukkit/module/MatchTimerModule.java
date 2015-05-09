@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit.module;
 
 import java.io.File;
 import java.util.Date;
+import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.Sound;
@@ -19,6 +20,7 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.UnresolvedWinner;
+import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.server.ArcadeTabList;
@@ -31,7 +33,8 @@ import pl.shg.arcade.bukkit.Config;
 public class MatchTimerModule extends Module {
     private TabListUpdate tabListUpdate;
     private int taskID;
-    public long ticks;
+    private long ticks = 300L;
+    private String winner = "auto";
     
     public MatchTimerModule() {
         super(new Date(2015, 5, 8), "match-timer", "1.0");
@@ -47,7 +50,7 @@ public class MatchTimerModule extends Module {
             @Override
             public String[] getCode() {
                 return new String[] {
-                    "match-timer",
+                    "match-timer:",
                     "  time: 300"
                 };
             }
@@ -56,6 +59,28 @@ public class MatchTimerModule extends Module {
             public String getSuffix() {
                 return "W powyższym przykładzie mecz zakończy się po <code>300" +
                         "</code> sekundach (5 minut).";
+            }
+        });
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.WINNER) {
+            @Override
+            public String getPrefix() {
+                return "Możesz ustawić drużynę, która wygra po zakończeniu trwania " +
+                        "meczu. Nie ma możliwości podania dokładnej nazwy drużyny " +
+                        "lub gracza.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "match-timer:",
+                    "  winner: auto"
+                };
+            }
+            
+            @Override
+            public String getSuffix() {
+                return "W powyższym przykładzie po zakończeniu odliczania, mecz " +
+                        "wygra najlepsza drużyna lub gracz.";
             }
         });
         this.deploy(true);
@@ -73,7 +98,9 @@ public class MatchTimerModule extends Module {
     
     @Override
     public void load(File file) throws ConfigurationException {
-        this.ticks = Config.getValueLong(Config.get(file), this, "time") * 20L;
+        FileConfiguration config = Config.get(file);
+        this.ticks = Config.getValueLong(config, this, "time") * 20L;
+        this.winner = Config.getValueString(config, this, "winner");
         
         this.tabListUpdate = new TabListUpdate();
         Event.registerListener(this.tabListUpdate);
@@ -139,12 +166,8 @@ public class MatchTimerModule extends Module {
         }
         
         private String getColor() {
-            if (this.minutesInt <= 0 && this.secondsInt < 15) {
-                if ((this.secondsInt & 1) == 0) {
-                    return Color.DARK_RED;
-                } else {
-                    return Color.RED;
-                }
+            if (this.minutesInt <= 0 && this.secondsInt < 15 && (this.secondsInt & 1) == 0) {
+                return Color.DARK_RED;
             }
             return Color.GOLD;
         }
@@ -178,9 +201,7 @@ public class MatchTimerModule extends Module {
         }
         
         private String getTime() {
-            String color = this.getColor();
-            return Color.DARK_PURPLE + "Pozostaly czas: " + color + this.getMinutes() +
-                    Color.GOLD + ":" + color + this.getSeconds();
+            return Color.DARK_PURPLE + "Pozostaly czas: " + this.getColor() + this.getMinutes() + ":" + this.getSeconds();
         }
         
         private void playSound() {
@@ -215,8 +236,28 @@ public class MatchTimerModule extends Module {
             ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
             
             if (MatchTimerModule.this.ticks <= 0) {
-                Arcade.getMatches().getMatch().end(new UnresolvedWinner()); // TOOD call correctly
+                this.finish();
             }
+        }
+        
+        private Winner findAuto() {
+            Winner winner = new UnresolvedWinner();
+            // TOOD find best team or player in the current match
+            return winner;
+        }
+        
+        private void finish() {
+            Winner winner = null;
+            switch (MatchTimerModule.this.winner.toLowerCase()) {
+                case "auto":
+                    winner = this.findAuto();
+                    break;
+                case "unresolved":
+                    winner = new UnresolvedWinner();
+                    break;
+                default: break; // null - match failed
+            }
+            Arcade.getMatches().getMatch().end(winner);
         }
     }
 }

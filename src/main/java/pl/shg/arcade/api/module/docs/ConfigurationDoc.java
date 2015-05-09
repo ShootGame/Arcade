@@ -49,6 +49,8 @@ public abstract class ConfigurationDoc {
         MESSAGE_ERROR,
         MESSAGE_SUCCESS,
         SECONDS,
-        TICKS;
+        TICKS,
+        WINNER
+        ;
     }
 }

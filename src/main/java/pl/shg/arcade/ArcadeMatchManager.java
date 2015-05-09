@@ -14,7 +14,6 @@ import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.match.Match;
 import pl.shg.arcade.api.match.MatchManager;
 import pl.shg.arcade.api.match.MatchStatus;
-import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
@@ -50,7 +49,7 @@ public class ArcadeMatchManager implements MatchManager {
     
     @Override
     public Winner getWinner() {
-        switch (this.getType()) {
+        switch (this.getMatch().getType()) {
             case PLAYERS: return this.getWinnerPlayer();
             case TEAMS: return this.getWinnerTeam();
             default: return null;
@@ -59,15 +58,13 @@ public class ArcadeMatchManager implements MatchManager {
     
     @Override
     public void startNew() {
-        this.match = new Match(this.getType());
+        this.match = new Match();
         this.setStatus(MatchStatus.PLAYING);
         this.broadcastStart();
         
         PlayerManagement players = Arcade.getPlayerManagement();
         for (Player player : Arcade.getServer().getOnlinePlayers()) {
-            if (player.isObserver()) {
-                players.setGhost(player, true);
-            } else {
+            if (!player.isObserver()) {
                 players.setAsPlayer(player, KitType.BEGIN, false, true, true);
             }
         }
@@ -96,13 +93,5 @@ public class ArcadeMatchManager implements MatchManager {
     private TeamWinner getWinnerTeam() {
         
         return null;
-    }
-    
-    private MatchType getType() {
-        if (Arcade.getTeams().getTeams().size() == 1) {
-            return MatchType.PLAYERS;
-        } else {
-            return MatchType.TEAMS;
-        }
     }
 }

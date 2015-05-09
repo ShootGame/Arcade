@@ -14,6 +14,8 @@ import pl.shg.arcade.api.kit.KitType;
  * @author Aleksander
  */
 public interface PlayerManagement {
+    void addPotion(Player player, String id, int level, int time);
+    
     boolean isGhost(Player player);
     
     void playSound(Player player, Sound sound);

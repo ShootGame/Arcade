@@ -126,15 +126,19 @@ public class Config {
         
         String value = getValueString(config, module, path);
         if (value == null) {
-            return Color.translate(message);
-        } else if (value.equalsIgnoreCase("none")) {
+            value = "default";
+        }
+        if (value.equalsIgnoreCase("none")) {
             if (nullable) {
                 return null;
             } else {
                 throw new ConfigurationException(path + " nie moze byc 'none'");
             }
         } else if (value.equalsIgnoreCase("default")) {
-            return Color.translate(message);
+            if (message != null) {
+                message = Color.translate(message);
+            }
+            return message;
         } else {
             return value;
         }

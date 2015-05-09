@@ -13,7 +13,6 @@ import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.Server;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -23,10 +22,14 @@ public class Match {
     private final Time time;
     private final MatchType type;
     
-    public Match(MatchType type) {
-        Validate.notNull(type, "type can not be null");
+    public Match() {
         this.time = new Time();
-        this.type = type;
+        
+        if (Arcade.getTeams().getTeams().size() == 1) {
+            this.type = MatchType.PLAYERS;
+        } else {
+            this.type = MatchType.TEAMS;
+        }
     }
     
     public void end() {

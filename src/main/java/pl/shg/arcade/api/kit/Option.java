@@ -6,6 +6,8 @@
  */
 package pl.shg.arcade.api.kit;
 
+import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.util.Validate;
 
@@ -14,6 +16,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public abstract class Option {
+    public static final PlayerManagement PLAYERS = Arcade.getPlayerManagement();
     private final String name;
     private String value;
     
@@ -39,11 +42,11 @@ public abstract class Option {
         return this.value;
     }
     
-    public abstract void perform(Player player);
+    public abstract void apply(Player player);
     
     public static String[] fromString(String string) {
         Validate.notNull(string, "string can not be null");
-        String[] split = string.split(":");
+        String[] split = string.split("-");
         String name = split[0];
         if (split.length > 1) {
             return new String[] {name, split[1]};

@@ -7,13 +7,13 @@
 package pl.shg.arcade.bukkit.plugin;
 
 import pl.shg.arcade.bukkit.module.*;
-import pl.shg.arcade.bukkit.module.blitz.BlitzModule;
-import pl.shg.arcade.bukkit.module.deathmatch.DeathMatchModule;
-import pl.shg.arcade.bukkit.module.escape.EscapeModule;
-import pl.shg.arcade.bukkit.module.lib.Points;
-import pl.shg.arcade.bukkit.module.monument.MonumentModule;
-import pl.shg.arcade.bukkit.module.paintball.PaintballModule;
-import pl.shg.arcade.bukkit.module.wool.WoolModule;
+import pl.shg.arcade.bukkit.module.blitz.*;
+import pl.shg.arcade.bukkit.module.deathmatch.*;
+import pl.shg.arcade.bukkit.module.escape.*;
+import pl.shg.arcade.bukkit.module.lib.*;
+import pl.shg.arcade.bukkit.module.monument.*;
+import pl.shg.arcade.bukkit.module.party.*;
+import pl.shg.arcade.bukkit.module.wool.*;
 
 /**
  *
@@ -22,8 +22,9 @@ import pl.shg.arcade.bukkit.module.wool.WoolModule;
 public abstract class ModuleLoader implements IRegistration {
     public void init() {
         this.features();
+        this.games();
         this.libraries();
-        this.objectives();
+        Party.registerPartyModules(this);
     }
     
     private void features() {
@@ -55,16 +56,17 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(StaticChestItemsModule.class);
     }
     
-    private void libraries() {
-        this.register(Points.class);
-    }
-    
-    private void objectives() {
+    private void games() {
         this.register(BlitzModule.class);
         this.register(DeathMatchModule.class);
         this.register(EscapeModule.class);
         this.register(MonumentModule.class);
         this.register(PaintballModule.class);
+        this.register(SpleefModule.class);
         this.register(WoolModule.class);
+    }
+    
+    private void libraries() {
+        this.register(Points.class);
     }
 }

@@ -9,6 +9,7 @@ package pl.shg.arcade.api.server;
 import pl.shg.arcade.api.server.blitz.CommunityBlitz;
 import pl.shg.arcade.api.server.community.Community;
 import pl.shg.arcade.api.server.development.Development;
+import pl.shg.arcade.api.server.party.Party;
 import pl.shg.arcade.api.server.tournament.Tournament;
 
 /**
@@ -19,6 +20,7 @@ public enum Role {
     BLITZ(new CommunityBlitz()),
     COMMUNITY(new Community()),
     DEVELOPMENT(new Development()),
+    PARTY(new Party()),
     TOURNAMENT(new Tournament());
     
     private IServerRole role;
@@ -27,7 +29,7 @@ public enum Role {
         if (role != null) {
             this.role = role;
         } else {
-            throw new UnsupportedOperationException("Defined role is not supported yet.");
+            throw new UnsupportedOperationException("The defined role is not supported yet.");
         }
     }
     

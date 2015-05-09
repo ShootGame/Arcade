@@ -62,7 +62,7 @@ public class AutoJoinModule extends Module {
     
     @Override
     public void load(File file) throws ConfigurationException {
-        this.listener = new MapLoaded(this);
+        this.listener = new MapLoaded();
         Event.registerListener(this.listener);
         this.message = Config.getValueMessage(Config.get(file), this, null, true);
     }
@@ -73,12 +73,6 @@ public class AutoJoinModule extends Module {
     }
     
     private class MapLoaded implements EventListener {
-        private final AutoJoinModule module;
-        
-        public MapLoaded(AutoJoinModule module) {
-            this.module = module;
-        }
-        
         @Override
         public Class<? extends Event> getEvent() {
             return MapLoadedEvent.class;
@@ -88,15 +82,11 @@ public class AutoJoinModule extends Module {
         public void handle(Event event) {
             MatchStatus status = Arcade.getMatches().getStatus();
             for (Player player : Arcade.getServer().getOnlinePlayers()) {
-                if (!JoinCommand.hasTeam(player)) {
-                    if (this.module.message != null) {
-                        player.sendSuccess(this.module.message);
-                        JoinCommand.random(player, status);
-                    }
+                if (!JoinCommand.hasTeam(player) && AutoJoinModule.this.message != null) {
+                    player.sendSuccess(AutoJoinModule.this.message);
+                    JoinCommand.random(player, status);
                 }
             }
-            
-            JoinCommand.checkForSchedule();
         }
     }
 }
