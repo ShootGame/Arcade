@@ -58,11 +58,13 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
     @Override
     public void disable() {
         Listeners.unregister(this);
+        this.onMatchFinish();
     }
     
     @Override
     public void enable() {
         Listeners.register(this);
+        this.onMatchStart();
     }
     
     @Override
@@ -113,7 +115,16 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
         return this.name;
     }
     
+    public void onMatchStart() {
+        
+    }
+    
+    public void onMatchFinish() {
+        
+    }
+    
     public static void registerPartyModules(ModuleLoader loader) {
+        loader.register(AnvilParty.class);
         loader.register(SheepsParty.class);
         loader.register(WoolscapeParty.class);
     }
