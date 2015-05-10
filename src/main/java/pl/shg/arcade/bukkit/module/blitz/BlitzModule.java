@@ -19,9 +19,11 @@ import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
+import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
@@ -115,8 +117,14 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         Arcade.getPlayerManagement().playSound(player, Sound.ELIMINATION);
-        ScoreboardManager.Sidebar.getScore(player.getTeam().getID(), null, player.getTeam().getPlayers().size());
         
-        this.updateObjectives();
+        Team team = player.getTeam();
+        if (!team.getID().equals(ObserverTeamBuilder.getTeamID())) {
+            ScoreboardManager.Sidebar.getScore(team.getID(), null, team.getPlayers().size());
+        }
+        
+        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+            this.updateObjectives();
+        }
     }
 }

@@ -20,6 +20,7 @@ import pl.shg.arcade.api.map.Direction;
 import pl.shg.arcade.api.region.BreakFlag;
 import pl.shg.arcade.api.region.Flag;
 import pl.shg.arcade.api.region.InteractFlag;
+import pl.shg.arcade.api.region.KillFlag;
 import pl.shg.arcade.api.region.MoveFlag;
 import pl.shg.arcade.api.region.PlaceFlag;
 import pl.shg.arcade.api.region.Region;
@@ -52,7 +53,6 @@ public class CyRegionsLoader {
     
     public Flag getFlag(String flag, Team owner, String path) {
         Validate.notNull(flag, "flag can not be null");
-        Validate.notNull(owner, "owner can not be null");
         Validate.notNull(path, "path can not be null");
         
         List<Block> allowed = new ArrayList<>();
@@ -79,6 +79,9 @@ public class CyRegionsLoader {
                 break;
             case "interact":
                 flagObj = new InteractFlag(allowed, owner, message);
+                break;
+            case "kill":
+                flagObj = new KillFlag(owner, message);
                 break;
             case "move":
                 flagObj = new MoveFlag(owner, message);

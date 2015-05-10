@@ -167,7 +167,7 @@ public class LivesModule extends Module implements BListener {
         }
     }
     
-    private void handleMatchQuit(Player player) {
+    private void handleMatchQuit(final Player player) {
         this.lives.remove(player.getUUID());
         if (this.kickMessage != null) {
             player.sendMessage(String.format(this.kickMessage, this.defaults));
@@ -175,7 +175,6 @@ public class LivesModule extends Module implements BListener {
         
         Team team = Arcade.getTeams().getObservers();
         player.setTeam(team);
-        player.setHealth(0.0);
         player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));
         
         ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
@@ -185,6 +184,6 @@ public class LivesModule extends Module implements BListener {
             public void run() {
                 Arcade.getServer().checkEndMatch();
             }
-        }.runTaskLater(ArcadeBukkitPlugin.getPlugin(), 5L);
+        }.runTaskLaterAsynchronously(ArcadeBukkitPlugin.getPlugin(), 5L);
     }
 }
