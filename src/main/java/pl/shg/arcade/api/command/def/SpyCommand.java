@@ -55,7 +55,7 @@ public class SpyCommand extends Command {
     
     private void showList(Sender sender) {
         List<Player> spy = new ArrayList<>();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isSpying()) {
                 spy.add(player);
             }

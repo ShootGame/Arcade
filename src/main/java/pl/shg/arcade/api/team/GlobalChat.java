@@ -37,7 +37,7 @@ public class GlobalChat extends ChatChannel {
         Validate.notNull(message, "message can not be null");
         
         Log.log(Level.INFO, "[Action] " + message);
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.sendActionMessage(type, message);
         }
     }
@@ -54,7 +54,7 @@ public class GlobalChat extends ChatChannel {
         chat.setSender(sender);
         chat.setText(message);
         
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.sendChatMessage(sender, chat);
         }
     }

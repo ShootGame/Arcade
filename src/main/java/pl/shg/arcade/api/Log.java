@@ -24,7 +24,7 @@ public class Log {
     public static void error(String message) {
         Validate.notNull(message, "message can not be null");
         log(Level.WARNING, "Blad: " + message);
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isStaff()) {
                 player.sendMessage(Color.RED + "[" + Color.DARK_RED + "Blad" + Color.RED + "] " + Color.YELLOW + message);
             }
@@ -34,7 +34,7 @@ public class Log {
     public static void infoAdmins(String message) {
         Validate.notNull(message, "message can not be null");
         log(Level.INFO, message);
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isStaff()) {
                 player.sendMessage(Color.DARK_AQUA + "[" + Color.AQUA + "INFO" + Color.DARK_AQUA + "] " + Color.YELLOW + message);
             }
@@ -57,7 +57,7 @@ public class Log {
         Validate.notNull(message, "message can not be null");
         Validate.notNull(level, "level can not be null");
         log(Level.INFO, "[Notify - " + level.toString() + "] " + message);
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.hasPermission(getPermissionByLevel(level))) {
                 player.sendMessage(getColorByLevel(level) + " " + message);
             }

@@ -28,7 +28,7 @@ public abstract class ArcadeServer implements Server {
     public void broadcast(String message) {
         Validate.notNull(message, "message can not be null");
         Log.log(Level.INFO, message);
-        for (Player player : this.getOnlinePlayers()) {
+        for (Player player : this.getConnectedPlayers()) {
             player.sendMessage(message);
         }
     }

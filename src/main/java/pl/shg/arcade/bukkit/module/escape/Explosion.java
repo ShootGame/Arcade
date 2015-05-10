@@ -79,7 +79,7 @@ public class Explosion {
         PacketPlayOutExplosion packet = new PacketPlayOutExplosion(this.getDirection().getX(),
                 this.getDirection().getY(), this.getDirection().getZ(), 0F, new ArrayList<>(), null);
         
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             ((BukkitPlayer) player).sendPacket(packet);
         }
         

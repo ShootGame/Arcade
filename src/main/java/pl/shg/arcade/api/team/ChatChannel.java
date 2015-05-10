@@ -48,7 +48,7 @@ public abstract class ChatChannel {
     
     private void handleSpy(Sender sender, String message) {
         message = Color.LIGHT_PURPLE + Color.ITALIC + "[Spy] " + Color.RESET + message;
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isSpying() && this.testSpy(sender, player)) {
                 player.sendMessage(message);
             }

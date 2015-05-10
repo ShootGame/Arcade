@@ -82,7 +82,7 @@ public class CycleScheduler implements Runnable {
         PlayerManagement players = Arcade.getPlayerManagement();
         
         List<UUID> forceRespawn = new ArrayList<>();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isDead()) {
                 forceRespawn.add(player.getUUID());
             }
@@ -112,7 +112,7 @@ public class CycleScheduler implements Runnable {
         
         Map map = Arcade.getMaps().getCurrentMap();
         List<Spawn> spawns = teams.getObservers().getSpawns();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.setTeam(teams.getObservers());
             player.teleport(spawns.get(new Random().nextInt(spawns.size())));
             players.setAsObserver(player, true, false, false);

@@ -63,7 +63,7 @@ public class ArcadeMatchManager implements MatchManager {
         this.broadcastStart();
         
         PlayerManagement players = Arcade.getPlayerManagement();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (!player.isObserver()) {
                 players.setAsPlayer(player, KitType.BEGIN, false, true, true);
             }

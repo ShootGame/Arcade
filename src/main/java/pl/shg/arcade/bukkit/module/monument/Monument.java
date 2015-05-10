@@ -75,7 +75,7 @@ public class Monument extends GameableBlock {
             }
             String by = builder.toString().substring(0, builder.toString().length() - 2);
             
-            for (Player online : Arcade.getServer().getOnlinePlayers()) {
+            for (Player online : Arcade.getServer().getConnectedPlayers()) {
                 if (online.getTeam().equals(player.getTeam())) {
                     // send to destroyers team
                     online.sendActionMessage(ActionMessageType.SUCCESS,

@@ -207,7 +207,7 @@ public class MatchTimerModule extends Module {
         private void playSound() {
             if (this.minutesInt == 0 && this.secondsInt < 10 && this.secondsInt > 0) {
                 PlayerManagement players = Arcade.getPlayerManagement();
-                for (Player player : Arcade.getServer().getOnlinePlayers()) {
+                for (Player player : Arcade.getServer().getConnectedPlayers()) {
                     players.playSound(player, Sound.TICK);
                 }
             }

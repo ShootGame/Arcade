@@ -38,7 +38,7 @@ public class ArcadeTabList extends TabList {
     }
     
     public void push() {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.setTabList(this);
         }
     }

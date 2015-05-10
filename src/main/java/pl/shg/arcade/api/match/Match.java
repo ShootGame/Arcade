@@ -54,7 +54,7 @@ public class Match {
         Arcade.getServer().getScheduler().runCycle(-1);
         
         PlayerManagement players = Arcade.getPlayerManagement();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             players.setAsObserver(player, false, false, true);
         }
         players.refreshHiderForAll();
@@ -93,7 +93,7 @@ public class Match {
     
     private void playEndSound(Winner winner) {
         PlayerManagement players = Arcade.getPlayerManagement();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (winner != null) {
                 player.sendSubtitle(winner.getMessage());
             }

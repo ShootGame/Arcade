@@ -113,7 +113,7 @@ public class LivesModule extends Module implements BListener {
     @Override
     public void enable() {
         Listeners.register(this);
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (!player.getTeam().getID().equals(ObserverTeamBuilder.getTeamID())) {
                 this.lives.put(player.getUUID(), this.defaults);
                 if (this.respawnMessage != null) {

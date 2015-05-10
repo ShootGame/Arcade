@@ -111,7 +111,7 @@ public class ArcadeTeamManager implements TeamManager {
     
     @Override
     public void resetClasses() {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.setArcadeClass(null);
         }
     }

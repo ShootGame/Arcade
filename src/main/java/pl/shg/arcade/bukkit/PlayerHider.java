@@ -25,7 +25,7 @@ public class PlayerHider {
     }
     
     public static void refreshAll() {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             refresh(player);
         }
     }
@@ -35,7 +35,7 @@ public class PlayerHider {
     }
     
     private static void hide(org.bukkit.entity.Player bukkitPlayer) {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (!player.isObserver()) {
                 getBukkit(player).hidePlayer(bukkitPlayer);
             }
@@ -43,7 +43,7 @@ public class PlayerHider {
     }
     
     private static void show(org.bukkit.entity.Player bukkitPlayer) {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             getBukkit(player).showPlayer(bukkitPlayer);
         }
     }

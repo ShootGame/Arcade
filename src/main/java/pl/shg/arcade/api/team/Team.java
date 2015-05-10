@@ -115,7 +115,7 @@ public class Team {
     
     public List<Player> getPlayers() {
         List<Player> list = new ArrayList<>();
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.getTeam().equals(this)) {
                 list.add(player);
             }

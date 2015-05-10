@@ -39,7 +39,7 @@ public class Wool extends Item {
         this.setCaptured(player.getTeam());
         this.getMonument().getModule().updateObjectives();
         
-        for (Player online : Arcade.getServer().getOnlinePlayers()) {
+        for (Player online : Arcade.getServer().getConnectedPlayers()) {
             if (online.getTeam().equals(player.getTeam())) {
                 // send to capturers team
                 online.sendActionMessage(ActionMessageType.SUCCESS,

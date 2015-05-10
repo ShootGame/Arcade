@@ -18,9 +18,9 @@ import pl.shg.arcade.api.menu.Menu;
 public interface MinecraftServer {
     Object createMenu(Menu menu);
     
-    String getName();
+    Collection<Player> getConnectedPlayers();
     
-    Collection<Player> getOnlinePlayers();
+    String getName();
     
     Player getPlayer(String name);
     

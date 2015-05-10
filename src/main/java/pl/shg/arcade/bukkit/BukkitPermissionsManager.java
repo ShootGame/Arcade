@@ -109,7 +109,7 @@ public class BukkitPermissionsManager implements PermissionsManager {
     
     @Override
     public void reloadAll() {
-        for (Player player : Arcade.getServer().getOnlinePlayers()) {
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.getPermissions().reload();
         }
     }

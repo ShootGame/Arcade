@@ -81,7 +81,7 @@ public class AutoJoinModule extends Module {
         @Override
         public void handle(Event event) {
             MatchStatus status = Arcade.getMatches().getStatus();
-            for (Player player : Arcade.getServer().getOnlinePlayers()) {
+            for (Player player : Arcade.getServer().getConnectedPlayers()) {
                 if (!JoinCommand.hasTeam(player) && AutoJoinModule.this.message != null) {
                     player.sendSuccess(AutoJoinModule.this.message);
                     JoinCommand.random(player, status);

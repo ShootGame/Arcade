@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import org.bukkit.Server;
@@ -50,19 +51,21 @@ public class BukkitServer extends ArcadeServer {
     }
     
     @Override
+    public Collection<Player> getConnectedPlayers() {
+        return online.values();
+    }
+    
+    @Override
     public String getName() {
         return this.server.getServerName();
     }
     
     @Override
-    public Collection<Player> getOnlinePlayers() {
-        return online.values();
-    }
-    
-    @Override
-    public synchronized Player getPlayer(String name) {
+    public Player getPlayer(String name) {
         Validate.notNull(name, "name can not be null");
-        for (Player player : this.getOnlinePlayers()) {
+        Iterator<Player> it = this.getConnectedPlayers().iterator();
+        while (it.hasNext()) {
+            Player player = it.next();
             if (player.getName().toLowerCase().contains(name.toLowerCase())) {
                 return player;
             }
@@ -89,7 +92,7 @@ public class BukkitServer extends ArcadeServer {
     @Override
     public void shutdown() {
         List<UUID> players = new ArrayList<>();
-        for (Player player : this.getOnlinePlayers()) {
+        for (Player player : this.getConnectedPlayers()) {
             players.add(player.getUUID());
         }
         

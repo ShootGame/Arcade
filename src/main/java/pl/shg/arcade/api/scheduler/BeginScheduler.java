@@ -46,14 +46,14 @@ public class BeginScheduler implements Runnable {
         
         switch (this.seconds) {
             case 0:
-                for (Player player : Arcade.getServer().getOnlinePlayers()) {
+                for (Player player : Arcade.getServer().getConnectedPlayers()) {
                     player.sendTitle("");
                     player.sendSubtitle(Color.DARK_PURPLE + "Mecz sie rozpoczal!");
                     Arcade.getPlayerManagement().playSound(player, Sound.BEGINS);
                 }
                 break;
             case 1: case 2: case 3:
-                for (Player player : Arcade.getServer().getOnlinePlayers()) {
+                for (Player player : Arcade.getServer().getConnectedPlayers()) {
                     if (!player.isObserver()) {
                         player.sendTitle(Color.GREEN + this.seconds);
                     }
