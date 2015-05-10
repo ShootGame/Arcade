@@ -19,9 +19,9 @@ import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.util.TextFileReader;
 import pl.shg.arcade.api.util.Validate;
-import pl.shg.shootgame.api.server.ArcadeTarget;
-import pl.shg.shootgame.api.server.OnlineServer;
-import pl.shg.shootgame.api.server.Servers;
+import pl.shg.commons.server.ArcadeTarget;
+import pl.shg.commons.server.OnlineServer;
+import pl.shg.commons.server.Servers;
 
 /**
  *
@@ -31,20 +31,20 @@ public class MiniGameServer {
     public static final Online ONLINE = new Online();
     private static final HashMap<ArcadeTarget, MiniGameServer> servers = new HashMap<>();
     
+    private final ArcadeTarget commons;
     private final Rotation rotation = new Rotation();
-    private final ArcadeTarget shoot;
     
-    public MiniGameServer(ArcadeTarget shoot) {
-        Validate.notNull(shoot, "shoot can not be null");
-        this.shoot = shoot;
+    public MiniGameServer(ArcadeTarget commons) {
+        Validate.notNull(commons, "commons can not be null");
+        this.commons = commons;
+    }
+    
+    public ArcadeTarget getCommons() {
+        return this.commons;
     }
     
     public Rotation getRotation() {
         return this.rotation;
-    }
-    
-    public ArcadeTarget getShoot() {
-        return this.shoot;
     }
     
     public static void loadRotation(String url, Rotation rotation) {

@@ -9,7 +9,7 @@ package pl.shg.arcade.api.map;
 import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.shootgame.api.server.Servers;
+import pl.shg.commons.server.Servers;
 
 /**
  *

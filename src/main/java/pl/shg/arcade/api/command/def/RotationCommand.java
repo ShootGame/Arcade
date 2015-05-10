@@ -17,9 +17,9 @@ import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
 import pl.shg.arcade.api.util.Validate;
-import pl.shg.shootgame.api.server.ArcadeTarget;
-import pl.shg.shootgame.api.server.Servers;
-import pl.shg.shootgame.api.server.TargetServer;
+import pl.shg.commons.server.ArcadeTarget;
+import pl.shg.commons.server.Servers;
+import pl.shg.commons.server.TargetServer;
 
 /**
  *
@@ -56,7 +56,7 @@ public class RotationCommand extends Command {
             if (rotation == null) {
                 sender.sendError("Nie znaleziono zadnego serwera o podanej kryteriach.");
             } else {
-                sender.sendMessage(Command.getTitle("Rotacja " + rotation.getShoot().getName(), null));
+                sender.sendMessage(Command.getTitle("Rotacja " + rotation.getCommons().getName(), null));
                 sender.sendMessage(this.rotation(rotation.getRotation()));
                 sender.sendMessage(Color.GOLD + "Nie tego szukasz? Uzyj lepszej nazwy lub wcisnij [TAB].");
             }

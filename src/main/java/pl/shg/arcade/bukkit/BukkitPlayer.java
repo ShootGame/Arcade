@@ -37,7 +37,9 @@ import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
-import pl.shg.shootgame.api.util.NMSHacks;
+import pl.shg.commons.util.Chat;
+import pl.shg.commons.util.Tablist;
+import pl.shg.commons.util.Title;
 import pl.themolka.permissions.Group;
 import pl.themolka.permissions.User;
 
@@ -47,14 +49,12 @@ import pl.themolka.permissions.User;
  */
 public class BukkitPlayer extends ArcadePlayer {
     private static final CraftServer server = (CraftServer) Bukkit.getServer();
-    private final NMSHacks nms;
     private final EntityPlayer handle;
     private final User permissions;
     private final CraftPlayer player;
     
     public BukkitPlayer(Player player) {
         Validate.notNull(player, "player can not be null");
-        this.nms = NMSHacks.of(player);
         this.permissions = new User(player);
         this.player = (CraftPlayer) player;
         this.handle = this.player.getHandle();
@@ -162,7 +162,7 @@ public class BukkitPlayer extends ArcadePlayer {
     public void sendActionMessage(ActionMessageType type, String message) {
         Validate.notNull(type, "type can not be null");
         Validate.notNull(message, "message can not be null");
-        this.nms.sendActionMessage(type.getColor().toString() + message);
+        Chat.sendAction(this.player, type.getColor().toString() + message);
     }
     
     @Override
@@ -179,26 +179,26 @@ public class BukkitPlayer extends ArcadePlayer {
         PlayerReceiveChatEvent event = new PlayerReceiveChatEvent(this, sender, message);
         Event.callEvent(event);
         if (!event.isCancel()) {
-            this.nms.sendChatMessage(event.getMessage().getText());
+            Chat.sendChat(this.player, event.getMessage().getText());
         }
     }
     
     @Override
     public void sendMessage(String message) {
         Validate.notNull(message, "message can not be null");
-        this.nms.sendMessage(message);
+        Chat.sendMessage(this.player, message);
     }
     
     @Override
     public void sendSubtitle(String subtitle) {
         Validate.notNull(subtitle, "subtitle can not be null");
-        this.nms.sendSubtitle(subtitle);
+        Title.send(this.player, null, subtitle);
     }
     
     @Override
     public void sendTitle(String title) {
         Validate.notNull(title, "title can not be null");
-        this.nms.sendTitle(title);
+        Title.send(this.player, title, null);
     }
     
     @Override
@@ -212,7 +212,7 @@ public class BukkitPlayer extends ArcadePlayer {
         if (tabList.hasFooter()) {
             footer = tabList.getFooter();
         }
-        this.nms.setTabList(header, footer);
+        Tablist.sendHeaderFooter(this.player, header, footer);
     }
     
     @Override

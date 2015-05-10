@@ -15,10 +15,10 @@ import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
-import pl.shg.shootgame.api.server.ArcadeTarget;
-import pl.shg.shootgame.api.server.LobbyTarget;
-import pl.shg.shootgame.api.server.Servers;
-import pl.shg.shootgame.api.server.TargetServer;
+import pl.shg.commons.server.ArcadeTarget;
+import pl.shg.commons.server.LobbyTarget;
+import pl.shg.commons.server.Servers;
+import pl.shg.commons.server.TargetServer;
 
 /**
  *

@@ -47,9 +47,9 @@ import pl.shg.arcade.bukkit.listeners.PlayerListeners;
 import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
 import pl.shg.arcade.bukkit.listeners.WorldListeners;
-import pl.shg.shootgame.api.server.ArcadeTarget;
-import pl.shg.shootgame.api.server.Servers;
-import pl.shg.shootgame.api.server.TargetServer;
+import pl.shg.commons.server.ArcadeTarget;
+import pl.shg.commons.server.Servers;
+import pl.shg.commons.server.TargetServer;
 
 /**
  *
@@ -227,7 +227,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         for (TargetServer arcade : Servers.getServers()) {
             if (arcade instanceof ArcadeTarget) {
                 MiniGameServer miniGame = MiniGameServer.of((ArcadeTarget) arcade);
-                MiniGameServer.loadRotation(miniGame.getShoot().getSetting("rotation"), miniGame.getRotation());
+                MiniGameServer.loadRotation(miniGame.getCommons().getSetting("rotation"), miniGame.getRotation());
             }
         }
     }

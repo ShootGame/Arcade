@@ -14,8 +14,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.menu.ServerPickerMenu;
 import pl.shg.arcade.api.team.Team;
-import pl.shg.shootgame.api.server.ServersPingedEvent;
-import pl.shg.shootgame.api.util.ArcadeData;
+import pl.shg.commons.server.ArcadeData;
+import pl.shg.commons.server.ServersPingedEvent;
 
 /**
  *

@@ -7,7 +7,7 @@
 package pl.shg.arcade.api.server;
 
 import pl.shg.arcade.api.human.Player;
-import pl.shg.shootgame.api.server.TargetServer;
+import pl.shg.commons.server.TargetServer;
 
 /**
  *

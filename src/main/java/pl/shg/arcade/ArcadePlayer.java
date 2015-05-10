@@ -15,8 +15,8 @@ import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
-import pl.shg.shootgame.api.server.Servers;
-import pl.shg.shootgame.api.server.TargetServer;
+import pl.shg.commons.server.Servers;
+import pl.shg.commons.server.TargetServer;
 
 /**
  *
