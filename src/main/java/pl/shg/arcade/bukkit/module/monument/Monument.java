@@ -11,6 +11,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.chat.ActionMessageType;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.GameableBlock;
@@ -55,6 +56,12 @@ public class Monument extends GameableBlock {
     }
     
     public void destroy(Player player) {
+        MonumentDestroyEvent destroy = new MonumentDestroyEvent(this, player);
+        Event.callEvent(destroy);
+        if (destroy.isCancel()) {
+            return;
+        }
+        
         this.setDestroyed(player.getTeam());
         Location location = this.getBlock().getLocation();
         org.bukkit.Location bLocation = new org.bukkit.Location(
@@ -103,6 +110,8 @@ public class Monument extends GameableBlock {
                     Color.DARK_GREEN + " zniszczyl kawalek " + this.getObjective().getDisplayName() +
                     Color.DARK_GREEN + " druzyny " + this.getOwner().getDisplayName() + Color.DARK_GREEN + ".");
         }
+        
+        Event.callEvent(new MonumentDestroyedEvent(this, player));
     }
     
     public Team getDestroyed() {
