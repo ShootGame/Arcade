@@ -62,34 +62,52 @@ public class Config {
         return config.getConfigurationSection(path).getKeys(false);
     }
     
-    public static boolean getValueBoolean(FileConfiguration config, Module module, String path) {
+    public static boolean getValueBoolean(FileConfiguration config, Module module, String path, boolean def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
+        
+        String value = getValueString(config, module, path);
+        if (value == null) {
+            return def;
+        }
+        
         try {
-            return Boolean.valueOf(getValueString(config, module, path));
+            return Boolean.valueOf(value);
         } catch (Throwable ex) {
             throw new ConfigurationException(path + " nie moze zostac uznane za boolean");
         }
     }
     
-    public static double getValueDouble(FileConfiguration config, Module module, String path) {
+    public static double getValueDouble(FileConfiguration config, Module module, String path, double def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
+        
+        String value = getValueString(config, module, path);
+        if (value == null) {
+            return def;
+        }
+        
         try {
-            return Double.valueOf(getValueString(config, module, path));
+            return Double.valueOf(value);
         } catch (Throwable ex) {
             throw new ConfigurationException(path + " nie moze zostac uznane za double");
         }
     }
     
-    public static int getValueInt(FileConfiguration config, Module module, String path) {
+    public static int getValueInt(FileConfiguration config, Module module, String path, int def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
+        
+        String value = getValueString(config, module, path);
+        if (value == null) {
+            return def;
+        }
+        
         try {
-            return Integer.valueOf(getValueString(config, module, path));
+            return Integer.valueOf(value);
         } catch (Throwable ex) {
             throw new ConfigurationException(path + " nie moze zostac uznane za int");
         }
@@ -102,12 +120,18 @@ public class Config {
         return config.getStringList(module.getConfigPath() + "." + path);
     }
     
-    public static long getValueLong(FileConfiguration config, Module module, String path) {
+    public static long getValueLong(FileConfiguration config, Module module, String path, long def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
+        
+        String value = getValueString(config, module, path);
+        if (value == null) {
+            return def;
+        }
+        
         try {
-            return Long.valueOf(getValueString(config, module, path));
+            return Long.valueOf(value);
         } catch (Throwable ex) {
             throw new ConfigurationException(path + " nie moze zostac uznane za long");
         }
@@ -117,7 +141,7 @@ public class Config {
         return getValueMessage(config, module, null, message, nullable);
     }
     
-    public static String getValueMessage(FileConfiguration config, Module module, String path, String message, boolean nullable) {
+    public static String getValueMessage(FileConfiguration config, Module module, String path, String def, boolean nullable) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         if (path == null) {
@@ -135,10 +159,10 @@ public class Config {
                 throw new ConfigurationException(path + " nie moze byc 'none'");
             }
         } else if (value.equalsIgnoreCase("default")) {
-            if (message != null) {
-                message = Color.translate(message);
+            if (def != null) {
+                def = Color.translate(def);
             }
-            return message;
+            return def;
         } else {
             return value;
         }
@@ -148,6 +172,7 @@ public class Config {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
+        
         try {
             return config.getString(module.getConfigPath() + "." + path);
         } catch (Throwable ex) {

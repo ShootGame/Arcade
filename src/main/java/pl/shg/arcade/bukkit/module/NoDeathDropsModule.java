@@ -38,7 +38,7 @@ public class NoDeathDropsModule extends Module implements BListener {
     @Override
     public void load(File file) throws ConfigurationException {
         Listeners.register(this);
-        this.ignoreObservers = Config.getValueBoolean(Config.get(file), this, "ignore-observers");
+        this.ignoreObservers = Config.getValueBoolean(Config.get(file), this, "ignore-observers", false);
     }
     
     @Override

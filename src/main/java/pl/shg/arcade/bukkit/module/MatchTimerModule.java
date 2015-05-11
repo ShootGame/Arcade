@@ -99,7 +99,7 @@ public class MatchTimerModule extends Module {
     @Override
     public void load(File file) throws ConfigurationException {
         FileConfiguration config = Config.get(file);
-        this.ticks = Config.getValueLong(config, this, "time") * 20L;
+        this.ticks = Config.getValueLong(config, this, "time", 120) * 20L;
         this.winner = Config.getValueString(config, this, "winner");
         
         this.tabListUpdate = new TabListUpdate();

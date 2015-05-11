@@ -37,7 +37,7 @@ public class AnvilParty extends Party {
     @Override
     public void loadParty(File file) {
         FileConfiguration config = Config.get(file);
-        this.ticks = Config.getValueInt(config, this, "ticks");
+        this.ticks = Config.getValueInt(config, this, "ticks", 10);
     }
     
     @Override

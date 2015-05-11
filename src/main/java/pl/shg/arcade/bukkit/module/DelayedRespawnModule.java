@@ -71,7 +71,7 @@ public class DelayedRespawnModule extends Module implements BListener {
     public void load(File file) throws ConfigurationException {
         Listeners.register(this);
         FileConfiguration config = Config.get(file);
-        seconds = Config.getValueInt(config, this, "seconds");
+        seconds = Config.getValueInt(config, this, "seconds", 10);
     }
     
     @Override

@@ -140,7 +140,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     @Override
     public void load(File file) throws ConfigurationException {
         FileConfiguration config = Config.get(file);
-        this.defaults = Config.getValueInt(config, this, "lives");
+        this.defaults = Config.getValueInt(config, this, "lives", 1);
         
         this.kickMessage = Config.getValueMessage(config, this, "kick-message",
                 Color.RED + "Straciles/as wszystkie (%s) zycia, odpadasz z gry!", true);

@@ -79,7 +79,7 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
         for (String option : Config.getOptions(config, this)) {
             switch (option.toLowerCase()) {
                 case "max-score":
-                    this.maxScore = Config.getValueInt(config, this, option);
+                    this.maxScore = Config.getValueInt(config, this, option, 0);
                     Points.addMaxScore(this.maxScore);
                     break;
             }

@@ -63,22 +63,22 @@ public class PlayableAreaModule extends Module implements BListener {
                             "Nie mozesz budowac ani niszczyc poza granica mapy.", true);
                     break;
                 case "x-max":
-                    this.xMax = Config.getValueInt(config, this, option);
+                    this.xMax = Config.getValueInt(config, this, option, 0);
                     break;
                 case "y-max":
-                    this.yMax = Config.getValueInt(config, this, option);
+                    this.yMax = Config.getValueInt(config, this, option, 0);
                     break;
                 case "z-max":
-                    this.zMax = Config.getValueInt(config, this, option);
+                    this.zMax = Config.getValueInt(config, this, option, 0);
                     break;
                 case "x-min":
-                    this.xMin = Config.getValueInt(config, this, option);
+                    this.xMin = Config.getValueInt(config, this, option, 0);
                     break;
                 case "y-min":
-                    this.yMin = Config.getValueInt(config, this, option);
+                    this.yMin = Config.getValueInt(config, this, option, 0);
                     break;
                 case "z-min":
-                    this.zMin = Config.getValueInt(config, this, option);
+                    this.zMin = Config.getValueInt(config, this, option, 0);
                     break;
             }
         }
