@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.plugin;
 import pl.shg.arcade.bukkit.module.*;
 import pl.shg.arcade.bukkit.module.blitz.*;
 import pl.shg.arcade.bukkit.module.deathmatch.*;
+import pl.shg.arcade.bukkit.module.destroyable.*;
 import pl.shg.arcade.bukkit.module.escape.*;
 import pl.shg.arcade.bukkit.module.lib.*;
 import pl.shg.arcade.bukkit.module.monument.*;
@@ -38,6 +39,7 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
         this.register(DelayedRespawnModule.class);
+        this.register(DestroyableModesModule.class); // prefered for the 'destroyable' objective-module
         this.register(DisableBedsModule.class); // ess
         this.register(DisableMobSpawningModule.class);
         this.register(FakePlayerDamageModule.class);
@@ -58,10 +60,10 @@ public abstract class ModuleLoader implements IRegistration {
     private void games() {
         this.register(BlitzModule.class);
         this.register(DeathMatchModule.class);
+        this.register(DestroyableModule.class);
         this.register(EscapeModule.class);
         this.register(MonumentModule.class);
         this.register(PaintballModule.class);
-        this.register(SpleefModule.class);
         this.register(WoolModule.class);
     }
     

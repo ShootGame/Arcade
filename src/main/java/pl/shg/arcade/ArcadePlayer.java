@@ -51,7 +51,7 @@ public abstract class ArcadePlayer implements Player {
         Validate.notNull(reason, "reason can not be null");
         StringBuilder builder = new StringBuilder();
         for (String r : reason) {
-            builder.append(reason).append("\n");
+            builder.append(r).append("\n");
         }
         this.disconnect(builder.toString());
     }

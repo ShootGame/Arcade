@@ -56,6 +56,6 @@ public class AutoRespawnModule extends Module implements BListener {
             public void run() {
                 player.respawn();
             }
-        }.runTaskLaterAsynchronously(ArcadeBukkitPlugin.getPlugin(), 12L);
+        }.runTaskLater(ArcadeBukkitPlugin.getPlugin(), 12L);
     }
 }

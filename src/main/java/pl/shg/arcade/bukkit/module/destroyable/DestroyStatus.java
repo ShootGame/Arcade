@@ -4,27 +4,28 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.chat;
+package pl.shg.arcade.bukkit.module.destroyable;
 
-import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.chat.Color;
 
 /**
  *
  * @author Aleksander
  */
-public enum ActionMessageType {
-    ERROR(new Color('4')),
-    INFO(new Color('F')),
-    SUCCESS(new Color('2'));
+public enum DestroyStatus {
+    UNTOUCHED(Color.GREEN),
+    TOUCHED(Color.YELLOW),
+    TOUCHED_SILENT(Color.GREEN),
+    DESTROYED(Color.DARK_RED),
+    ;
     
-    private final Color color;
+    private final String color;
     
-    private ActionMessageType(Color color) {
-        Validate.notNull(color, "color can not be null");
+    private DestroyStatus(String color) {
         this.color = color;
     }
     
-    public Color getColor() {
+    public String getColor() {
         return this.color;
     }
 }

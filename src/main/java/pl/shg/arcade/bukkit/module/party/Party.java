@@ -124,6 +124,7 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
     public static void registerPartyModules(ModuleLoader loader) {
         loader.register(AnvilParty.class);
         loader.register(SheepsParty.class);
+        loader.register(SpleefParty.class);
         loader.register(WoolscapeParty.class);
     }
 }
