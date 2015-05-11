@@ -9,13 +9,20 @@ package pl.shg.arcade.bukkit.module.blitz;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
+import java.util.UUID;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
@@ -23,21 +30,87 @@ import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BListener;
+import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
 import pl.shg.arcade.bukkit.ScoreboardManager;
+import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
 /**
  *
  * @author Aleksander
  */
 public class BlitzModule extends ObjectiveModule implements BListener {
+    private int defaults = 3;
+    private final HashMap<UUID, Integer> lives = new HashMap<>();
+    private String kickMessage, respawnMessage;
+    
     public BlitzModule() {
         super(new Date(2015, 4, 26), "blitz", "1.0");
         this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
-                "w której ostatni zostaną gracze.");
+                "w której ostatni zostaną gracze. Gracz ma do dyspozycji określoną " +
+                "ilość żyć, po śmierci zostaje on przeniesiony do obserwatorów.");
+        this.addExample(new ConfigurationDoc(true, ConfigurationDoc.Type.INT) {
+            @Override
+            public String getPrefix() {
+                return "Oczywiście istnieje możliwość ustawienia ilości żyć dla " +
+                        "gracza. Domyślnie są to <code>3</code> życia. Na mapach " +
+                        "zaleca się ustawienie jednego życia, rozgrywka z taką " +
+                        "ilością zyć trwa bardzo krótko.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "blitz:",
+                    "  lives: 3"
+                };
+            }
+            
+            @Override
+            public String getSuffix() {
+                return "Minimalna ilość żyć to <code>1</code>. Nie zaleca się " +
+                        "ustawiania większej ilości niż <code>10</code>, ponieważ " +
+                        "gra stanie się monotonna.";
+            }
+        });
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
+            @Override
+            public String getPrefix() {
+                return "Możesz zmienić wszelkie wiadomości do graczy, jakie wysyła ten " +
+                        "moduł. Poniżej znajduje się wiadomość przy wyrzuceniu " +
+                        "meczu. Następuje to po skończeniu wszyskich żyć. Gracz " +
+                        "zostaje przeniesiony do obserwatorów.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "blitz:",
+                    "  kick-message: '`cStraciles/as wszystkie (%s) zycia, odpadasz z gry!'",
+                };
+            }
+        });
+        this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {
+            @Override
+            public String getPrefix() {
+                return "Możesz zmienić wszelkie wiadomości do graczy, jakie wysyła ten " +
+                        "moduł. Poniżej znajduje się wiadomość przy odradzaniu " +
+                        "gracza oraz przy rozpoczęciu meczu.";
+            }
+            
+            @Override
+            public String[] getCode() {
+                return new String[] {
+                    "blitz:",
+                    "  respawn-message: '`aPozostalo Ci jeszcze `3`l%s zyc`r`a.'"
+                };
+            }
+        });
         this.deploy(true);
     }
     
@@ -53,11 +126,27 @@ public class BlitzModule extends ObjectiveModule implements BListener {
             ScoreboardManager.Sidebar.getScore(team.getID(), team.getDisplayName(), team.getPlayers().size());
         }
         ScoreboardManager.Sidebar.updateScoreboard();
+        
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
+            if (!player.getTeam().getID().equals(ObserverTeamBuilder.getTeamID())) {
+                this.lives.put(player.getUUID(), this.defaults);
+                if (this.respawnMessage != null) {
+                    player.sendMessage(String.format(this.respawnMessage, this.defaults));
+                }
+            }
+        }
     }
     
     @Override
     public void load(File file) throws ConfigurationException {
+        FileConfiguration config = Config.get(file);
+        this.defaults = Config.getValueInt(config, this, "lives");
         
+        this.kickMessage = Config.getValueMessage(config, this, "kick-message",
+                Color.RED + "Straciles/as wszystkie (%s) zycia, odpadasz z gry!", true);
+        this.respawnMessage = Config.getValueMessage(config, this, "respawn-message",
+                Color.GREEN + "Pozostalo Ci jeszcze " + Color.DARK_AQUA + Color.BOLD
+                        + "%s" + " zyc" + Color.RESET + Color.GREEN + ".", true);
     }
     
     @Override
@@ -115,16 +204,58 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
+        if (e.getDeathMessage() == null) {
+            return;
+        }
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         Arcade.getPlayerManagement().playSound(player, Sound.ELIMINATION);
         
-        Team team = player.getTeam();
-        if (!team.getID().equals(ObserverTeamBuilder.getTeamID())) {
-            ScoreboardManager.Sidebar.getScore(team.getID(), null, team.getPlayers().size());
+        Team oldTeam = player.getTeam();
+        UUID uuid = e.getEntity().getUniqueId();
+        if (!this.lives.containsKey(uuid)) {
+            this.lives.put(uuid, this.defaults - 1);
         }
         
-        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
-            this.updateObjectives();
+        int newState = this.lives.get(uuid) - 1;
+        if (newState > 0) {
+            this.lives.put(uuid, newState);
+        } else {
+            this.handleMatchQuit(player);
+            if (!oldTeam.getID().equals(ObserverTeamBuilder.getTeamID())) {
+                ScoreboardManager.Sidebar.getScore(oldTeam.getID(), null, oldTeam.getPlayers().size());
+            }
+            
+            if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+                this.updateObjectives();
+            }
         }
+    }
+    
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerRespawn(PlayerRespawnEvent e) {
+        UUID uuid = e.getPlayer().getUniqueId();
+        if (this.lives.containsKey(uuid) && this.lives.get(uuid) > 0 && this.respawnMessage != null) {
+            e.getPlayer().sendMessage(String.format(this.respawnMessage, this.lives.get(uuid)));
+        }
+    }
+    
+    private void handleMatchQuit(final Player player) {
+        this.lives.remove(player.getUUID());
+        if (this.kickMessage != null) {
+            player.sendMessage(String.format(this.kickMessage, this.defaults));
+        }
+        
+        Team team = Arcade.getTeams().getObservers();
+        player.setTeam(team);
+        player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));
+        
+        ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
+        
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Arcade.getServer().checkEndMatch();
+            }
+        }.runTaskLaterAsynchronously(ArcadeBukkitPlugin.getPlugin(), 5L);
     }
 }

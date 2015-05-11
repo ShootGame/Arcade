@@ -44,7 +44,6 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(FeatherFallingModule.class);
         this.register(GameRuleModule.class);
         this.register(JoinWhenRunningCancelModule.class); // prefered for the blitz gamemodes
-        this.register(LivesModule.class); // prefered for the blitz gamemodes
         this.register(MatchTimerModule.class);
         this.register(NoDeathDropsModule.class);
         this.register(NoHungerModule.class);

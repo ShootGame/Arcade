@@ -25,7 +25,6 @@ import pl.shg.arcade.bukkit.module.AutoJoinModule;
 import pl.shg.arcade.bukkit.module.AutoRespawnModule;
 import pl.shg.arcade.bukkit.module.DeathMessagesModule;
 import pl.shg.arcade.bukkit.module.JoinWhenRunningCancelModule;
-import pl.shg.arcade.bukkit.module.LivesModule;
 import pl.shg.arcade.bukkit.module.NoRainModule;
 import pl.shg.arcade.bukkit.module.NoThunderModule;
 import pl.shg.arcade.bukkit.plugin.ModuleLoader;
@@ -50,7 +49,6 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
         this.addDependency(DependencyType.PARTY, AutoRespawnModule.class);
         this.addDependency(DependencyType.PARTY, DeathMessagesModule.class);
         this.addDependency(DependencyType.PARTY, JoinWhenRunningCancelModule.class);
-        this.addDependency(DependencyType.PARTY, LivesModule.class);
         this.addDependency(DependencyType.PARTY, NoRainModule.class);
         this.addDependency(DependencyType.PARTY, NoThunderModule.class);
     }
