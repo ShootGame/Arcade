@@ -37,7 +37,7 @@ public class CancelPickupExpModule extends Module implements BListener {
             @Override
             public String[] getCode() {
                 return new String[] {
-                    "cancel-drop:",
+                    "cancel-pickup-exp:",
                     "  message '`cNie mozesz podnosić doświadczeń na tej mapie.'"
                 };
             }

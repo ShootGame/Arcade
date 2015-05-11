@@ -36,7 +36,7 @@ public class CancelPickupModule extends BukkitModule {
             @Override
             public String[] getCode() {
                 return new String[] {
-                    "cancel-drop:",
+                    "cancel-pickup:",
                     "  message '`cNie mozesz podnosić itemów na tej mapie.'"
                 };
             }
