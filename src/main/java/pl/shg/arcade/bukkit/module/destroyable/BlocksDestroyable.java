@@ -7,8 +7,10 @@
 package pl.shg.arcade.bukkit.module.destroyable;
 
 import java.util.List;
-import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.map.BlockLocation;
+import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -16,40 +18,50 @@ import pl.shg.arcade.api.human.Player;
  */
 public class BlocksDestroyable implements Destroyable {
     private final List<Monument> monuments;
+    private final String name;
+    private final Team team;
     
-    public BlocksDestroyable(List<Monument> monuments) {
+    public BlocksDestroyable(List<Monument> monuments, String name, Team team) {
         this.monuments = monuments;
+        this.name = name;
+        this.team = team;
     }
     
     @Override
-    public boolean canDestroy(Player player) {
+    public boolean canDestroy(Player player, BlockLocation block) {
         return false;
     }
     
     @Override
-    public void destroy(Player player) {
-        if (this.canDestroy(player)) {
-            DestroyableDestroyEvent destroy = new DestroyableDestroyEvent(this);
-            Event.callEvent(destroy);
-            
-            if (!destroy.isCancel()) {
-                DestroyableDestroyedEvent destroyed = new DestroyableDestroyedEvent(this);
-                Event.callEvent(destroyed);
+    public int getPercent() {
+        int percents = 0;
+        for (Monument monument : this.getMonuments()) {
+            if (monument.isDestroyed()) {
+                percents++;
             }
         }
-    }
-    
-    @Override
-    public int getPercent() {
-        return 100;
+        return (100 / this.getMonuments().size()) * percents;
     }
     
     @Override
     public DestroyStatus getStatus() {
-        return null;
+        return DestroyStatus.UNTOUCHED;
+    }
+    
+    public void addMonument(BlockLocation block) {
+        Validate.notNull(block, "block can not be null");
+        this.monuments.add(new Monument(block, this));
     }
     
     public List<Monument> getMonuments() {
         return this.monuments;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public Team getTeam() {
+        return this.team;
     }
 }

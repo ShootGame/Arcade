@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.bukkit.module.destroyable;
 
-import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.region.Region;
 
 /**
@@ -22,21 +22,8 @@ public class RegionDestroyable implements Destroyable {
     }
     
     @Override
-    public boolean canDestroy(Player player) {
+    public boolean canDestroy(Player player, BlockLocation block) {
         return false;
-    }
-    
-    @Override
-    public void destroy(Player player) {
-        if (this.canDestroy(player)) {
-            DestroyableDestroyEvent destroy = new DestroyableDestroyEvent(this);
-            Event.callEvent(destroy);
-            
-            if (!destroy.isCancel()) {
-                DestroyableDestroyedEvent destroyed = new DestroyableDestroyedEvent(this);
-                Event.callEvent(destroyed);
-            }
-        }
     }
     
     @Override
@@ -46,7 +33,7 @@ public class RegionDestroyable implements Destroyable {
     
     @Override
     public DestroyStatus getStatus() {
-        return null;
+        return DestroyStatus.UNTOUCHED;
     }
     
     public Region getRegion() {
