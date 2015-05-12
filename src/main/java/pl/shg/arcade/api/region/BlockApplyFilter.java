@@ -1,0 +1,54 @@
+/*
+ * Copyright (C) 2015 TheMolkaPL - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
+ */
+package pl.shg.arcade.api.region;
+
+import java.util.ArrayList;
+import java.util.List;
+import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.util.Validate;
+
+/**
+ *
+ * @author Aleksander
+ */
+public class BlockApplyFilter extends RegionFilter {
+    private final List<Material> accept;
+    private final List<Material> deny;
+    
+    public BlockApplyFilter(List<Material> accept, List<Material> deny) {
+        if (accept == null) {
+            this.accept = new ArrayList<>();
+        } else {
+            this.accept = accept;
+        }
+        
+        if (deny == null) {
+            this.deny = new ArrayList<>();
+        } else {
+            this.deny = new ArrayList<>();
+        }
+    }
+    
+    @Override
+    public boolean canBuild(Material material) {
+        Validate.notNull(material, "material can not be null");
+        if (!this.getAccept().isEmpty()) {
+            return this.getAccept().contains(material);
+        } else if (!this.getDeny().isEmpty()) {
+            return !this.getDeny().contains(material);
+        }
+        return false;
+    }
+    
+    public List<Material> getAccept() {
+        return this.accept;
+    }
+    
+    public List<Material> getDeny() {
+        return this.deny;
+    }
+}

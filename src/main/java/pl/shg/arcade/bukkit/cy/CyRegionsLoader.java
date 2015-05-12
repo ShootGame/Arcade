@@ -12,11 +12,13 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.map.Direction;
+import pl.shg.arcade.api.region.BlockApplyFilter;
 import pl.shg.arcade.api.region.BreakFlag;
 import pl.shg.arcade.api.region.Flag;
 import pl.shg.arcade.api.region.InteractFlag;
@@ -24,6 +26,7 @@ import pl.shg.arcade.api.region.KillFlag;
 import pl.shg.arcade.api.region.MoveFlag;
 import pl.shg.arcade.api.region.PlaceFlag;
 import pl.shg.arcade.api.region.Region;
+import pl.shg.arcade.api.region.RegionFilter;
 import pl.shg.arcade.api.region.TeleportFlag;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
@@ -49,6 +52,49 @@ public class CyRegionsLoader {
         int y = this.f.getInt(path + ".y");
         int z = this.f.getInt(path + ".z");
         return new BlockLocation(x, y, z);
+    }
+    
+    public RegionFilter getFilter(String filter, String path) {
+        Validate.notNull(filter, "filter can not be null");
+        Validate.notNull(path, "path can not be null");
+        
+        List<Material> accept = new ArrayList<>();
+        for (String listElement : this.f.getStringList(path + ".accept")) {
+            Material material = null;
+            try {
+                material = new Material(listElement);
+            } catch (NumberFormatException ex) {
+                Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
+                        " nie zostalo rozpoznane (accept).", Log.NoteLevel.WARNING);
+            }
+            
+            if (material != null) {
+                accept.add(material);
+            }
+        }
+        
+        List<Material> deny = new ArrayList<>();
+        for (String listElement : this.f.getStringList(path + ".deny")) {
+            Material material = null;
+            try {
+                material = new Material(listElement);
+            } catch (NumberFormatException ex) {
+                Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
+                        " nie zostalo rozpoznane (deny).", Log.NoteLevel.WARNING);
+            }
+            
+            if (material != null) {
+                accept.add(material);
+            }
+        }
+        
+        RegionFilter filterObj = null;
+        switch (filter.toLowerCase()) {
+            case "block-apply":
+                filterObj = new BlockApplyFilter(accept, deny);
+                break;
+        }
+        return filterObj;
     }
     
     public Flag getFlag(String flag, Team owner, String path) {
@@ -125,6 +171,19 @@ public class CyRegionsLoader {
         }
         if (teamObj != null) {
             regionObj.setOwner(teamObj);
+        }
+        
+        String filterPath = path + ".filters";
+        if (this.f.getConfigurationSection(filterPath) != null) {
+            for (String filter : this.f.getConfigurationSection(filterPath).getKeys(false)) {
+                RegionFilter filterObj = this.getFilter(filter, filterPath + "." + filter);
+                if (filterObj != null) {
+                    regionObj.addFilter(filterObj);
+                } else {
+                    Log.noteAdmins("Filtr '" + filter + "' do regionu '" + regionObj.getPath() +
+                            "' nie zostala rozpoznana", Log.NoteLevel.WARNING);
+                }
+            }
         }
         
         String flagPath = path + ".flags";

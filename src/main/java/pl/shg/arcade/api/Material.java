@@ -6,7 +6,6 @@
  */
 package pl.shg.arcade.api;
 
-import java.util.Arrays;
 import pl.shg.arcade.api.util.Validate;
 
 /**
@@ -14,6 +13,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public final class Material {
+    public static final char ID_SEPARATOR = '-';
     private int id, subID;
     
     public Material(int id) {
@@ -28,7 +28,7 @@ public final class Material {
     
     public Material(String string) throws NumberFormatException {
         Validate.notNull(string, "string can not be null");
-        String[] list = string.split("-", 2);
+        String[] list = string.split(String.valueOf(Material.ID_SEPARATOR), 2);
         int newID = Integer.valueOf(list[0]);
         int newSubID = 0;
         if (list.length > 1) {
@@ -37,6 +37,16 @@ public final class Material {
         
         this.setID(newID);
         this.setSubID(newSubID);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Validate.notNull(obj, "obj can not be null");
+        if (obj instanceof Material) {
+            Material material = (Material) obj;
+            return material.getID() == this.getID() && material.getSubID() == this.getSubID();
+        }
+        return false;
     }
     
     public String asString() {

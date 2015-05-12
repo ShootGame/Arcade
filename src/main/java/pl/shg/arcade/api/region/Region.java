@@ -18,6 +18,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public final class Region {
+    private final List<RegionFilter> filters;
     private final List<Flag> flags;
     private BlockLocation max;
     private BlockLocation min;
@@ -26,10 +27,35 @@ public final class Region {
     
     public Region(BlockLocation min, BlockLocation max, String path) {
         Validate.notNull(path, "path can not be null");
+        this.filters = new ArrayList<>();
         this.flags = new ArrayList<>();
         this.setMax(max);
         this.setMin(min);
         this.path = path;
+    }
+    
+    public void addFilter(RegionFilter filter) {
+        Validate.notNull(filter, "filter can not be null");
+        this.filters.add(filter);
+    }
+    
+    public RegionFilter getFilter(Class<? extends RegionFilter> filter) {
+        Validate.notNull(filter, "filter can not be null");
+        for (RegionFilter target : this.getFilters()) {
+            if (target.getClass().equals(filter)) {
+                return target;
+            }
+        }
+        return null;
+    }
+    
+    public List<RegionFilter> getFilters() {
+        return this.filters;
+    }
+    
+    public boolean hasFilter(Class<? extends RegionFilter> filter) {
+        Validate.notNull(filter, "filter can not be null");
+        return this.getFilter(filter) != null;
     }
     
     public boolean addFlag(Flag flag) {
