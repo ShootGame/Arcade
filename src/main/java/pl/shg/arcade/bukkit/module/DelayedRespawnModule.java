@@ -50,7 +50,7 @@ public class DelayedRespawnModule extends Module implements BListener {
         this.respawnListener = new PlayerRespawnMatch();
         Event.registerListener(this.respawnListener);
         
-        Arcade.getServer().getScheduler().run(new Runnable() {
+        Arcade.getServer().getScheduler().runSync(new Runnable() {
             private final DelayedRespawnModule module = (DelayedRespawnModule) Module.of(DelayedRespawnModule.class);
             private final int defaults = this.module.getSeconds() * 1000;
             

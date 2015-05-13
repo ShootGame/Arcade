@@ -47,7 +47,7 @@ public class DbeginCommand extends Command {
                 Logger.getLogger(DbeginCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            int id = manager.run(begin);
+            int id = manager.runSync(begin);
             BeginScheduler.setID(id);
         }
     }

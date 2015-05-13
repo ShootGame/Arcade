@@ -66,9 +66,17 @@ public class BukkitSchedulerManager implements SchedulerManager {
     }
     
     @Override
-    public int run(Runnable scheduler) {
+    public int runSync(Runnable scheduler) {
+        return this.runSync(scheduler, 20L);
+    }
+    
+    @Override
+    public int runSync(Runnable scheduler, long update) {
         Validate.notNull(scheduler, "scheduler can not be null");
-        int id = this.scheduler.runTaskTimer(ArcadeBukkitPlugin.getPlugin(), scheduler, 1L, 20L).getTaskId();
+        Validate.notNegative(update, "update can not be negative");
+        Validate.notZero(update, "update can not be zero");
+        
+        int id = this.scheduler.runTaskTimer(ArcadeBukkitPlugin.getPlugin(), scheduler, 1L, update).getTaskId();
         this.tasks.add(id);
         return id;
     }
@@ -80,13 +88,13 @@ public class BukkitSchedulerManager implements SchedulerManager {
     
     @Override
     public void runBegin(int seconds) {
-        int id = this.run(new BeginScheduler(seconds));
+        int id = this.runSync(new BeginScheduler(seconds));
         BeginScheduler.setID(id);
     }
     
     @Override
     public void runCycle(int seconds) {
-        int id = this.run(new CycleScheduler(seconds));
+        int id = this.runSync(new CycleScheduler(seconds));
         CycleScheduler.setID(id);
     }
     

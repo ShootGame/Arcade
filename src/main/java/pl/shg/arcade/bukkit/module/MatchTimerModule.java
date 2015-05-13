@@ -93,7 +93,7 @@ public class MatchTimerModule extends Module {
     
     @Override
     public void enable() {
-        this.taskID = Arcade.getServer().getScheduler().run(new Task());
+        this.taskID = Arcade.getServer().getScheduler().runSync(new Task());
     }
     
     @Override

@@ -25,7 +25,9 @@ public interface SchedulerManager {
     
     boolean isRunning(int id);
     
-    int run(Runnable scheduler);
+    int runSync(Runnable scheduler);
+    
+    int runSync(Runnable scheduler, long update);
     
     void runTask(int id);
     
