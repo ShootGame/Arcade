@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.chat.Icons;
 import pl.shg.arcade.api.map.Block;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Location;
@@ -115,7 +116,7 @@ public class MonumentModule extends ObjectiveModule {
                         objective.getScoreboardID(),
                         objective.getDisplayName(),
                         i,
-                        "  " + Color.GREEN,
+                        "  " + Color.GREEN + Icons.YES.getColoredIcon() + " ",
                         null);
                 i--;
             }

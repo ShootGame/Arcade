@@ -6,11 +6,52 @@
  */
 package pl.shg.arcade.api.chat;
 
+import pl.shg.arcade.api.util.Validate;
+
 /**
  *
  * @author Aleksander
  */
-public class Icons {
-    public static final char NO = ' ';
-    public static final char YES = ' ';
+public enum Icons {
+    NO('\u2716', Color.DARK_RED), // ✖
+    YES('\u2714', Color.GREEN), // ✔
+    ;
+    
+    private final char icon;
+    private final String color;
+    
+    private Icons(char icon) {
+        this(icon, null);
+    }
+    
+    private Icons(char icon, String color) {
+        Validate.notNull(icon, "icon can not be null");
+        this.icon = icon;
+        this.color = color;
+    }
+    
+    public String getColoredIcon() {
+        if (this.hasColor()) {
+            return this.getColor() + this.toString();
+        } else {
+            return this.toString();
+        }
+    }
+    
+    public char getIcon() {
+        return this.icon;
+    }
+    
+    public String getColor() {
+        return this.color;
+    }
+    
+    public boolean hasColor() {
+        return this.color != null;
+    }
+    
+    @Override
+    public String toString() {
+        return Character.toString(this.getIcon());
+    }
 }

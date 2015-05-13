@@ -11,6 +11,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.chat.ActionMessageType;
 import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.chat.Icons;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Block;
@@ -136,7 +137,7 @@ public class Monument extends GameableBlock {
     
     private void updateScoreboard() {
         ScoreboardScore score = ScoreboardManager.Sidebar.getScore(this.getObjective().getScoreboardID());
-        score.setPrefix("  " + Color.DARK_RED);
+        score.setPrefix("  " + Color.DARK_RED + Icons.NO.getColoredIcon() + " ");
         ScoreboardManager.Sidebar.updateScoreboard();
     }
 }

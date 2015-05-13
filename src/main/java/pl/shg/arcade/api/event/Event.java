@@ -39,6 +39,10 @@ public class Event {
         
         if (listeners.containsKey(event.getEventClass())) {
             for (EventListener listener : listeners.get(event.getEventClass())) {
+                if (event instanceof CancelableEvent && ((CancelableEvent) event).isCancel()) {
+                    return;
+                }
+                
                 listener.handle(event);
             }
         }

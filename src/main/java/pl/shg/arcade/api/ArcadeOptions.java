@@ -39,10 +39,6 @@ public class ArcadeOptions extends Options {
         }
     }
     
-    public String getServersRepo() {
-        return this.getValue("servers", "https://raw.githubusercontent.com/ShootGame/Servers/master");
-    }
-    
     public boolean isBungeeCordEnabled() {
         boolean def = false;
         try {
