@@ -8,6 +8,7 @@ package pl.shg.arcade.api.human;
 
 import java.util.UUID;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.commons.util.ClientSettings;
 import pl.themolka.permissions.User;
 
 /**
@@ -26,6 +27,8 @@ public interface MinecraftPlayer extends HumanEntity, Sender {
     void disconnect(String reason);
     
     void disconnect(String[] reason);
+    
+    ClientSettings getClientSettings();
     
     void reloadPermissions();
     

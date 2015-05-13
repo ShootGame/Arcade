@@ -37,6 +37,7 @@ import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.commons.util.ClientSettings;
 import pl.shg.commons.util.Messages;
 import pl.shg.commons.util.Tablists;
 import pl.shg.commons.util.Titles;
@@ -52,12 +53,14 @@ public class BukkitPlayer extends ArcadePlayer {
     private final EntityPlayer handle;
     private final User permissions;
     private final CraftPlayer player;
+    private final ClientSettings settings;
     
     public BukkitPlayer(Player player) {
         Validate.notNull(player, "player can not be null");
         this.permissions = new User(player);
         this.player = (CraftPlayer) player;
         this.handle = this.player.getHandle();
+        this.settings = ClientSettings.newInstance(this.player);
         
         this.makePermissions();
     }
@@ -76,6 +79,11 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void disconnect(String reason) {
         this.player.kickPlayer(reason);
+    }
+    
+    @Override
+    public ClientSettings getClientSettings() {
+        return this.settings;
     }
     
     @Override
@@ -115,6 +123,9 @@ public class BukkitPlayer extends ArcadePlayer {
         return this.permissions;
     }
     
+    /**
+     * @deprecated use #bukkit() instead
+     */
     @Deprecated
     @Override
     public Object getPlayer() {
@@ -186,7 +197,7 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void sendMessage(String message) {
         Validate.notNull(message, "message can not be null");
-        Messages.sendChat(this.player, message);
+        Messages.sendMessage(this.player, message);
     }
     
     @Override

@@ -15,6 +15,7 @@ import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.event.PlayerChatEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.team.TeamChat;
+import pl.shg.commons.util.ChatStatus;
 
 /**
  *
@@ -22,10 +23,32 @@ import pl.shg.arcade.api.team.TeamChat;
  */
 public class ArcadeEventListeners {
     public void registerListeners() {
-        Event.registerListener(new PlayerChat());
+        Event.registerListener(new ClientChatListener());
+        Event.registerListener(new MentionListener());
     }
     
-    private class PlayerChat implements EventListener {
+    private class ClientChatListener implements EventListener {
+        @Override
+        public Class<? extends Event> getEvent() {
+            return PlayerChatEvent.class;
+        }
+        
+        @Override
+        public void handle(Event event) {
+            PlayerChatEvent e = (PlayerChatEvent) event;
+            
+            if (e.getSender() instanceof Player) {
+                Player player = (Player) e.getSender();
+                if (player.getClientSettings().getChat() != ChatStatus.ENABLED) {
+                    e.setCancel(true);
+                    player.sendError("Nie udalo sie wyslac Twojej wiadomosci poniewaz wylaczyles/as chat!");
+                    player.sendError("Aby go wlaczyc wejdz w ustawienia chatu w opcjach gry.");
+                }
+            }
+        }
+    }
+    
+    private class MentionListener implements EventListener {
         @Override
         public Class<? extends Event> getEvent() {
             return PlayerChatEvent.class;
