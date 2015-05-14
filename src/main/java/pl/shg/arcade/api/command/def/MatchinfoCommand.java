@@ -44,6 +44,10 @@ public class MatchinfoCommand extends Command {
                     if (info != null) {
                         dataGiven = true;
                         for (ScoreboardScore score : info) {
+                            if (score == null) {
+                                continue;
+                            }
+                            
                             StringBuilder builder = new StringBuilder();
                             if (score.getPrefix() != null) {
                                 builder.append(score.getPrefix());

@@ -16,14 +16,10 @@ import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.ActionMessageType;
@@ -277,34 +273,6 @@ public class BukkitPlayer extends ArcadePlayer {
         if (this.bukkit() != null && this.bukkit().getHandle() != null) {
             this.handle.playerConnection.sendPacket(packet);
         }
-    }
-    
-    public void setArmor() {
-        PlayerInventory inv = this.player.getInventory();
-        
-        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET, 1);
-        LeatherArmorMeta helmetMeta = (LeatherArmorMeta) helmet.getItemMeta();
-        helmetMeta.setColor(this.getBukkitColor(this.getTeam().getTeamColor()));
-        helmet.setItemMeta(helmetMeta);
-        inv.setHelmet(helmet);
-        
-        ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
-        LeatherArmorMeta chestplateMeta = (LeatherArmorMeta) chestplate.getItemMeta();
-        chestplateMeta.setColor(this.getBukkitColor(this.getTeam().getTeamColor()));
-        chestplate.setItemMeta(chestplateMeta);
-        inv.setChestplate(chestplate);
-        
-        ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS, 1);
-        LeatherArmorMeta leggingsMeta = (LeatherArmorMeta) leggings.getItemMeta();
-        leggingsMeta.setColor(this.getBukkitColor(this.getTeam().getTeamColor()));
-        leggings.setItemMeta(leggingsMeta);
-        inv.setLeggings(leggings);
-        
-        ItemStack boots = new ItemStack(Material.LEATHER_BOOTS, 1);
-        LeatherArmorMeta bootsMeta = (LeatherArmorMeta) boots.getItemMeta();
-        bootsMeta.setColor(this.getBukkitColor(this.getTeam().getTeamColor()));
-        boots.setItemMeta(bootsMeta);
-        inv.setBoots(boots);
     }
     
     public IChatBaseComponent toJSONText(String message) {

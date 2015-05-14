@@ -28,7 +28,6 @@ import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.kit.Kit;
-import pl.shg.arcade.api.kit.KitData;
 import pl.shg.arcade.api.kit.KitItem;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.kit.LeatherColorData;
@@ -202,12 +201,6 @@ public class BukkitPlayerManagement implements PlayerManagement {
                         continue;
                     }
                     
-                    if (item.hasSlot()) {
-                        bukkitPlayer.getInventory().setItem(item.getSlot(), stack);
-                    } else {
-                        bukkitPlayer.getInventory().addItem(stack);
-                    }
-                    
                     if (item.hasData()) {
                         ItemMeta meta = stack.getItemMeta();
                         if (item.getData() instanceof LeatherColorData) {
@@ -218,6 +211,12 @@ public class BukkitPlayerManagement implements PlayerManagement {
                                     leather.getColor().getRGB()[2]));
                         }
                         stack.setItemMeta(meta);
+                    }
+                    
+                    if (item.hasSlot()) {
+                        bukkitPlayer.getInventory().setItem(item.getSlot(), stack);
+                    } else {
+                        bukkitPlayer.getInventory().addItem(stack);
                     }
                 }
             }

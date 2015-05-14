@@ -21,9 +21,9 @@ import pl.shg.arcade.api.team.Team;
 public class ArcadeTabList extends TabList {
     public String getRawHeader() {
         Map map = Arcade.getMaps().getCurrentMap();
-        return Color.AQUA + Color.BOLD + map.getDisplayName() + Color.RESET +
-                Color.GRAY + " v" + map.getVersionString() + Color.DARK_PURPLE +
-                " by " + map.getAuthorsString(Color.GOLD, Color.DARK_PURPLE);
+        return Color.AQUA + Color.BOLD + Color.ITALIC + map.getDisplayName() + Color.RESET +
+                Color.GRAY + " v" + map.getVersionString() + Color.DARK_PURPLE + " by " +
+                map.getAuthorsString(Color.GOLD, Color.DARK_PURPLE);
     }
     
     public String getRawFooter() {

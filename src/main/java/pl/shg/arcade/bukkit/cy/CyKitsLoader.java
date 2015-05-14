@@ -45,6 +45,10 @@ public class CyKitsLoader {
     }
     
     public KitData getData(String path) {
+        if (this.f.get(path) == null) {
+            return null;
+        }
+        
         for (String data : this.f.getConfigurationSection(path).getKeys(false)) {
             String value = this.f.getString(path + "." + data);
             

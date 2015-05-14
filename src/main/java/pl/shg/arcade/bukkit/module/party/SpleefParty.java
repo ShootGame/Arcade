@@ -43,10 +43,6 @@ public class SpleefParty extends Party {
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-        if (e.getDeathMessage() == null) {
-            return;
-        }
-        
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         if (!player.isObserver()) {
             Team observers = Arcade.getTeams().getObservers();

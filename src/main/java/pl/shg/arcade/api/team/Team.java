@@ -125,7 +125,7 @@ public class Team {
         if (this.getBuilder() instanceof PlayableTeamBuilder) {
             return ((PlayableTeamBuilder) this.getBuilder()).getTeamColor();
         } else {
-            return null;
+            return TeamColor.AQUA; // observers
         }
     }
 }
