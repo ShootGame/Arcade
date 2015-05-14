@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import pl.shg.arcade.api.Arcade;
@@ -27,8 +28,10 @@ import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitData;
 import pl.shg.arcade.api.kit.KitItem;
 import pl.shg.arcade.api.kit.KitType;
+import pl.shg.arcade.api.kit.LeatherColorData;
 import pl.shg.arcade.api.kit.Option;
 import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.Map;
@@ -196,10 +199,25 @@ public class BukkitPlayerManagement implements PlayerManagement {
                 for (KitItem item : kitObj.getItems()) {
                     ItemStack stack = itemToStack(item);
                     if (stack == null) {
-                    } else if (item.hasSlot()) {
+                        continue;
+                    }
+                    
+                    if (item.hasSlot()) {
                         bukkitPlayer.getInventory().setItem(item.getSlot(), stack);
                     } else {
                         bukkitPlayer.getInventory().addItem(stack);
+                    }
+                    
+                    if (item.hasData()) {
+                        ItemMeta meta = stack.getItemMeta();
+                        if (item.getData() instanceof LeatherColorData) {
+                            LeatherColorData leather = (LeatherColorData) item.getData();
+                            ((LeatherArmorMeta) meta).setColor(org.bukkit.Color.fromRGB(
+                                    leather.getColor().getRGB()[0],
+                                    leather.getColor().getRGB()[1],
+                                    leather.getColor().getRGB()[2]));
+                        }
+                        stack.setItemMeta(meta);
                     }
                 }
             }
@@ -247,8 +265,8 @@ public class BukkitPlayerManagement implements PlayerManagement {
             }
             meta.setLore(lore);
         }
-        
         stack.setItemMeta(meta);
+        
         return stack;
     }
     

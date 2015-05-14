@@ -19,11 +19,14 @@ import pl.shg.arcade.api.inventory.EnchantmentType;
 import pl.shg.arcade.api.inventory.Enchantments;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.kit.Kit;
+import pl.shg.arcade.api.kit.KitData;
 import pl.shg.arcade.api.kit.KitItem;
 import pl.shg.arcade.api.kit.KitItemBuilder;
 import pl.shg.arcade.api.kit.KitType;
+import pl.shg.arcade.api.kit.LeatherColorData;
 import pl.shg.arcade.api.kit.Option;
 import pl.shg.arcade.api.kit.PotionOption;
+import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.util.Validate;
 
 /**
@@ -39,6 +42,18 @@ public class CyKitsLoader {
         Validate.notNull(f, "f can not be null");
         this.f = f;
         this.loadKits();
+    }
+    
+    public KitData getData(String path) {
+        for (String data : this.f.getConfigurationSection(path).getKeys(false)) {
+            String value = this.f.getString(path + "." + data);
+            
+            switch (data.toLowerCase()) {
+                case "leather-color":
+                    return new LeatherColorData(TeamColor.valueOf(value.toUpperCase()));
+            }
+        }
+        return null;
     }
     
     public List<Enchantment> getEnchantments(String path) {
@@ -80,6 +95,7 @@ public class CyKitsLoader {
             builder.description(this.f.getStringList(path + ".items." + item + ".description"));
             builder.slot(this.f.getInt(path + ".items." + item + ".slot", -1));
             builder.enchantments(this.getEnchantments(path + ".items." + item + ".enchantments"));
+            builder.data(this.getData(path + ".items." + item + ".data"));
             
             items.add(builder.toItem());
         }

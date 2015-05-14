@@ -22,6 +22,7 @@ public class KitItemBuilder {
     private final Material type;
     
     private int amount = Item.DEFAULT_AMOUNT;
+    private KitData data;
     private String name;
     private List<String> description;
     private List<Enchantment> enchantments = new ArrayList<>();
@@ -41,8 +42,8 @@ public class KitItemBuilder {
         return this;
     }
     
-    public KitItemBuilder name(String name) {
-        this.name = name;
+    public KitItemBuilder data(KitData data) {
+        this.data = data;
         return this;
     }
     
@@ -68,6 +69,11 @@ public class KitItemBuilder {
         return this;
     }
     
+    public KitItemBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
+    
     public KitItemBuilder slot(int slot) {
         if (slot > 39) {
             throw new IllegalArgumentException("Slot ID can not be greater than 39");
@@ -79,6 +85,7 @@ public class KitItemBuilder {
     public KitItem toItem() {
         KitItem item = new KitItem(this.id, this.type, this.amount);
         item.setAmount(this.amount);
+        item.setData(this.data);
         item.setDescription(this.description);
         item.setName(this.name);
         item.setSlot(this.slot);

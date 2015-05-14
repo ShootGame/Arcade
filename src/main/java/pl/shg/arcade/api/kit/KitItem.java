@@ -15,6 +15,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class KitItem extends Item {
+    private KitData data;
     private final String id;
     private int slot = -1;
     
@@ -22,6 +23,10 @@ public class KitItem extends Item {
         super(type, amount);
         Validate.notNull(id, "id can not be null");
         this.id = id;
+    }
+    
+    public KitData getData() {
+        return this.data;
     }
     
     public String getID() {
@@ -32,8 +37,16 @@ public class KitItem extends Item {
         return this.slot;
     }
     
+    public boolean hasData() {
+        return this.data != null;
+    }
+    
     public boolean hasSlot() {
         return this.slot >= 0;
+    }
+    
+    public void setData(KitData data) {
+        this.data = data;
     }
     
     public void setSlot(int slot) {

@@ -39,7 +39,7 @@ public enum TeamColor {
     private TeamColor(String color, int[] rgb, Color.Wool wool) {
         Validate.notNull(color, "color can not be null");
         Validate.notNull(rgb, "rgb can not be null");
-        Validate.isTrue(rgb.length != 3, "rgb is not valid");
+        Validate.isTrue(rgb.length != 3, "rgb can not be invalid");
         Validate.notNull(wool, "wool can not be null");
         
         this.color = color;
