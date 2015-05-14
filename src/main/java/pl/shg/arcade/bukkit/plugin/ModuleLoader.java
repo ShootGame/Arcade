@@ -39,6 +39,7 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
         this.register(DelayedRespawnModule.class);
+        this.register(DestroyableFireworksModule.class); // prefered for the 'destroyable' objective-module
         this.register(DestroyableModesModule.class); // prefered for the 'destroyable' objective-module
         this.register(DisableBedsModule.class); // ess
         this.register(DisableMobSpawningModule.class);

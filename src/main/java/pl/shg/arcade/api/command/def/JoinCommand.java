@@ -38,7 +38,7 @@ public class JoinCommand extends Command {
                 "Dolacz do losowej lub wybranej druzyny", "join [-r|obs|<team>]",
                 new char[] {'r'});
         this.setOption("-r", "losuj");
-        this.setOption("obs", "przejdz do obserwatorĂłw");
+        this.setOption("obs", "przejdz do obserwatorów");
         this.setPermission("arcade.command.join");
     }
     
