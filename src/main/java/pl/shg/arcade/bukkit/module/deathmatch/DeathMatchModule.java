@@ -31,7 +31,7 @@ import pl.shg.arcade.bukkit.module.lib.Points;
  * @author Aleksander
  */
 public class DeathMatchModule extends ObjectiveModule implements BListener {
-    protected int maxScore = 300;
+    protected int maxScore;
     
     public DeathMatchModule() {
         super(new Date(2014, 11, 15), "death-match", "1.0");
@@ -79,7 +79,7 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
         for (String option : Config.getOptions(config, this)) {
             switch (option.toLowerCase()) {
                 case "max-score":
-                    this.maxScore = Config.getValueInt(config, this, option, 0);
+                    this.maxScore = Config.getValueInt(config, this, option, -1);
                     Points.addMaxScore(this.maxScore);
                     break;
             }

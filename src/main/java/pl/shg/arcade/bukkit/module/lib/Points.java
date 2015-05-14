@@ -28,7 +28,7 @@ import pl.shg.arcade.bukkit.ScoreboardManager;
  */
 public class Points extends Library {
     private static Library library;
-    private static int maxScore = 0;
+    private static int maxScore = -1;
     private static final HashMap<Team, Integer> points = new HashMap<>();
     
     public Points() {
@@ -83,7 +83,11 @@ public class Points extends Library {
     
     @Override
     public boolean objectiveScored(Team team) {
-        return get(team) >= getMaxScore();
+        if (getMaxScore() == -1) {
+            return false;
+        } else {
+            return get(team) >= getMaxScore();
+        }
     }
     
     @Override
@@ -101,9 +105,11 @@ public class Points extends Library {
     }
     
     public static void addMaxScore(int score) {
-        Validate.notNegative(score, "score can not be negative");
-        Validate.notZero(score, "score can not be zero");
-        setMaxScore(getMaxScore() + score);
+        if (score < 0) {
+            setMaxScore(-1);
+        } else {
+            setMaxScore(getMaxScore() + score);
+        }
     }
     
     public static void addOne(Team team) {
