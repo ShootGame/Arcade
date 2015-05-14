@@ -18,6 +18,7 @@ import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleManager;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
@@ -97,7 +98,7 @@ public class CyConfiguration implements ConfigurationTechnology {
         if (build == null) {
             this.throwError(CError.NOT_SET, YAML_BUILD, new Object[] {"cy"});
         } else if (build.startsWith("cy;proto=")) {
-            Protocol proto = Protocol.valueOf(build.split("cy;proto=")[1].toUpperCase());
+            Protocol proto = Protocol.byVersion(Version.valueOf(build.split("cy;proto=")[1].toUpperCase()));
             CyLoader loader = new CyLoader(this.getFile(), this.getConfiguration().getMap(), proto);
             loader.load(test);
         } else {
