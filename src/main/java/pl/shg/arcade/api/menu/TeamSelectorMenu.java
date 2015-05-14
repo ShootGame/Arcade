@@ -21,7 +21,6 @@ import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.team.Team;
-import pl.shg.arcade.api.team.TeamColor;
 
 /**
  *
@@ -76,7 +75,7 @@ public class TeamSelectorMenu extends Menu {
                     freeSlots = 0;
                 }
                 
-                Item item = new Item(new Material(35, this.teamToWool(team.getTeamColor()).getID()), freeSlots);
+                Item item = new Item(new Material(35, team.getTeamColor().getWool().getID()), freeSlots);
                 
                 item.setName(Color.DARK_AQUA + "Dolacz do " + team.getDisplayName());
                 item.setDescription(Arrays.asList(
@@ -86,21 +85,6 @@ public class TeamSelectorMenu extends Menu {
                         Color.GOLD + "Dostep: " + Color.RED + "Ranga VIP"));
                 this.addItem(item, slot);
             }
-        }
-    }
-    
-    private Color.Wool teamToWool(TeamColor color) {
-        switch (color) {
-            case BLACK: return Color.Wool.BLACK;
-            case BLUE: return Color.Wool.BLUE;
-            case GOLD: return Color.Wool.ORANGE;
-            case GRAY: return Color.Wool.GRAY;
-            case GREEN: return Color.Wool.GREEN;
-            case PURPLE: return Color.Wool.PURPLE;
-            case RED: return Color.Wool.RED;
-            case WHITE: return Color.Wool.WHITE;
-            case YELLOW: return Color.Wool.YELLOW;
-            default: return Color.Wool.WHITE;
         }
     }
     

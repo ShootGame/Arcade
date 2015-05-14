@@ -53,21 +53,7 @@ public class Team {
     }
     
     public String getColor() {
-        TeamColor color = this.getTeamColor();
-        if (color != null) {
-            switch (color) {
-                case BLACK: return Color.BLACK;
-                case BLUE: return Color.BLUE;
-                case GOLD: return Color.GOLD;
-                case GRAY: return Color.GRAY;
-                case GREEN: return Color.GREEN;
-                case PURPLE: return Color.LIGHT_PURPLE;
-                case RED: return Color.RED;
-                case WHITE: return Color.WHITE;
-                case YELLOW: return Color.YELLOW;
-            }
-        }
-        return Color.AQUA;
+        return this.getTeamColor().getColor();
     }
     
     public String getDisplayName() {

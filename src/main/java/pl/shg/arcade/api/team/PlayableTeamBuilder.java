@@ -18,7 +18,6 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class PlayableTeamBuilder implements TeamBuilder {
-    private ChatChannel chat;
     private TeamColor color;
     private boolean friendlyFire = true;
     private final String id;

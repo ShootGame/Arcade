@@ -252,19 +252,7 @@ public class BukkitPlayer extends ArcadePlayer {
     }
     
     public Color getBukkitColor(TeamColor color) {
-        Validate.notNull(color, "color can not be null");
-        switch (color) {
-            case BLACK: return Color.BLACK;
-            case BLUE: return Color.BLUE;
-            case GOLD: return Color.ORANGE;
-            case GRAY: return Color.GRAY;
-            case GREEN: return Color.GREEN;
-            case PURPLE: return Color.PURPLE;
-            case RED: return Color.RED;
-            case WHITE: return Color.WHITE;
-            case YELLOW: return Color.YELLOW;
-        }
-        return null;
+        return Color.fromRGB(color.getRGB()[0], color.getRGB()[1], color.getRGB()[2]);
     }
     
     public final void makePermissions() {
