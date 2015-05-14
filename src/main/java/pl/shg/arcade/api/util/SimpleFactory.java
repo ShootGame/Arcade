@@ -37,12 +37,16 @@ public abstract class SimpleFactory implements IFactory {
     }
     
     public Object get(String variable) {
+        return this.get(variable, null);
+    }
+    
+    public Object get(String variable, Object def) {
         Validate.notNull(variable, "variable can not be null");
         Variable var = this.getVariable(variable);
         if (var != null) {
             return var.getValue();
         }
-        return null;
+        return def;
     }
     
     public List<Variable> getAllVariables() {
@@ -72,7 +76,7 @@ public abstract class SimpleFactory implements IFactory {
         this.register(variable, nullable, null);
     }
     
-    public void register(String variable, boolean nullable, Class clazz) {
+    public void register(String variable, boolean nullable, Class<?> clazz) {
         Validate.notNull(variable, "variable can not be null");
         Variable var = this.getVariable(variable);
         if (var != null) {
@@ -89,12 +93,12 @@ public abstract class SimpleFactory implements IFactory {
     }
     
     public class Variable {
-        private final Class clazz;
+        private final Class<?> clazz;
         private final String name;
         private final boolean notNull;
         private Object value;
         
-        public Variable(Class clazz, String name, boolean notNull) {
+        public Variable(Class<?> clazz, String name, boolean notNull) {
             Validate.notNull(name, "name can not be null");
             this.clazz = clazz;
             this.name = name.toLowerCase();
@@ -105,7 +109,7 @@ public abstract class SimpleFactory implements IFactory {
             return this.name;
         }
         
-        public Class getType() {
+        public Class<?> getType() {
             return this.clazz;
         }
         

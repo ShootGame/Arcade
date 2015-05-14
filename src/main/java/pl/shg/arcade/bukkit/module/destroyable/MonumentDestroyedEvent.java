@@ -13,26 +13,26 @@ import pl.shg.arcade.api.human.Player;
  *
  * @author Aleksander
  */
-public class DestroyableDestroyedEvent extends Event {
-    private Destroyable destroyable;
+public class MonumentDestroyedEvent extends Event {
+    private Monument monument;
     private Player player;
     
-    public DestroyableDestroyedEvent(Destroyable destroyable, Player player) {
-        super(DestroyableDestroyedEvent.class);
-        this.setDestroyable(destroyable);
+    public MonumentDestroyedEvent(Monument monument, Player player) {
+        super(MonumentDestroyedEvent.class);
+        this.setMonument(monument);
         this.setPlayer(player);
     }
     
-    public Destroyable getDestroyable() {
-        return this.destroyable;
+    public Monument getMonument() {
+        return this.monument;
     }
     
     public Player getPlayer() {
         return this.player;
     }
     
-    private void setDestroyable(Destroyable destroyable) {
-        this.destroyable = destroyable;
+    private void setMonument(Monument monument) {
+        this.monument = monument;
     }
     
     private void setPlayer(Player player) {

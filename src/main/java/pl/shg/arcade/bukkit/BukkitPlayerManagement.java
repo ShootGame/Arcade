@@ -102,6 +102,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
             player.reloadPermissions();
         }
         
+        bukkitPlayer.setAffectsSpawning(false);
         bukkitPlayer.setCollidesWithEntities(false);
         
         bukkitPlayer.setFoodLevel(20);
@@ -137,6 +138,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
             player.reloadPermissions();
         }
         
+        bukkitPlayer.setAffectsSpawning(true);
         bukkitPlayer.setCollidesWithEntities(true);
         
         bukkitPlayer.getInventory().clear();

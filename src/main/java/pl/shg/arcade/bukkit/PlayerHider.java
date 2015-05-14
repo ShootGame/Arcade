@@ -18,9 +18,9 @@ public class PlayerHider {
     public static void refresh(Player player) {
         MatchStatus status = Arcade.getMatches().getStatus();
         if (player.isObserver() && status == MatchStatus.PLAYING) {
-            hide(getBukkit(player));
+            hide(player, getBukkit(player));
         } else {
-            show(getBukkit(player));
+            show(player, getBukkit(player));
         }
     }
     
@@ -34,17 +34,24 @@ public class PlayerHider {
         return (org.bukkit.entity.Player) player.getPlayer();
     }
     
-    private static void hide(org.bukkit.entity.Player bukkitPlayer) {
-        for (Player player : Arcade.getServer().getConnectedPlayers()) {
-            if (!player.isObserver()) {
-                getBukkit(player).hidePlayer(bukkitPlayer);
+    private static void hide(Player player, org.bukkit.entity.Player bukkitPlayer) {
+        for (Player online : Arcade.getServer().getConnectedPlayers()) {
+            org.bukkit.entity.Player bukkit = getBukkit(player);
+            
+            if (!online.isObserver()) {
+                bukkit.hidePlayer(bukkitPlayer);
             }
         }
     }
     
-    private static void show(org.bukkit.entity.Player bukkitPlayer) {
-        for (Player player : Arcade.getServer().getConnectedPlayers()) {
-            getBukkit(player).showPlayer(bukkitPlayer);
+    private static void show(Player player, org.bukkit.entity.Player bukkitPlayer) {
+        for (Player online : Arcade.getServer().getConnectedPlayers()) {
+            org.bukkit.entity.Player bukkit = getBukkit(player);
+            
+            bukkit.showPlayer(bukkitPlayer);
+            if (online.isObserver()) {
+                bukkitPlayer.hidePlayer(bukkit);
+            }
         }
     }
 }

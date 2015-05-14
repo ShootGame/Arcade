@@ -25,6 +25,7 @@ import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
+import pl.shg.arcade.api.module.docs.NotUsableDeprecation;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.ScoreboardManager;
@@ -38,6 +39,7 @@ public class MonumentModule extends ObjectiveModule {
     
     public MonumentModule() {
         super(new Date(2015, 03, 27), "monument", "1.0");
+        this.getDocs().setDeprecation(new NotUsableDeprecation(NotUsableDeprecation.Reason.OLD));
         this.deploy(true);
     }
     

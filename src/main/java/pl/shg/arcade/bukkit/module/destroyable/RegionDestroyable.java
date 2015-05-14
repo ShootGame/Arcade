@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.bukkit.module.destroyable;
 
+import java.util.HashMap;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.region.Region;
@@ -16,9 +17,16 @@ import pl.shg.arcade.api.region.Region;
  */
 public class RegionDestroyable implements Destroyable {
     private final Region region;
+    private final HashMap<Setting, Object> settings;
     
     public RegionDestroyable(Region region) {
         this.region = region;
+        this.settings = new HashMap<>();
+    }
+    
+    @Override
+    public void appendSetting(Setting setting, Object value) {
+        this.settings.put(setting, value);
     }
     
     @Override
@@ -27,8 +35,18 @@ public class RegionDestroyable implements Destroyable {
     }
     
     @Override
+    public void destroy(Player player) {
+        
+    }
+    
+    @Override
     public int getPercent() {
         return 100;
+    }
+    
+    @Override
+    public Object getSettingValue(Setting setting) {
+        return this.settings.get(setting);
     }
     
     @Override

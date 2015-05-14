@@ -55,6 +55,11 @@ public class Monument extends GameableBlock {
             this.setDestroyer(event.getPlayer().getTeam());
             Location location = BukkitLocation.valueOf(event.getMonument().getBlock().getLocation());
             location.getBlock().setType(org.bukkit.Material.AIR);
+            
+            Event.callEvent(new MonumentDestroyedEvent(this, player));
+            if ((Integer) this.destroyable.getSettingValue(Destroyable.Setting.OBJECTIVE) <= this.destroyable.getPercent()) {
+                this.destroyable.destroy(player);
+            }
         }
     }
     

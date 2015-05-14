@@ -14,9 +14,23 @@ import pl.shg.arcade.api.map.BlockLocation;
  * @author Aleksander
  */
 public interface Destroyable {
+    void appendSetting(Setting setting, Object value);
+    
     boolean canDestroy(Player player, BlockLocation block);
+    
+    void destroy(Player player);
     
     int getPercent();
     
+    Object getSettingValue(Setting setting);
+    
     DestroyStatus getStatus();
+    
+    enum Setting {
+        // Type of scoreboard to show; percents/default/default with the touched option
+        MODE,
+        // Percents to complete this destroyable, should be 100 if whole, never 0
+        OBJECTIVE,
+        ;
+    }
 }
