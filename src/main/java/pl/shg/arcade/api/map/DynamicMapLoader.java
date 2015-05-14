@@ -40,7 +40,7 @@ public class DynamicMapLoader implements Loader {
     
     private void load(String name, File file) {
         if (file.exists() && file.isFile()) {
-            Map map = new Map(null, name, null);
+            Map map = new Map(null, name, null, null);
             
             ConfigurationTechnology loader = Arcade.getMaps().getConfiguration();
             loader.load(new Configuration(map), true);

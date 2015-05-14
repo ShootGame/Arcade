@@ -16,6 +16,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.MapVersion;
+import pl.shg.arcade.api.map.Protocol;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
@@ -26,17 +27,21 @@ import pl.shg.arcade.bukkit.ScoreboardManager;
 public class CyLoader extends CyConfiguration {
     private final FileConfiguration file;
     private final Map map;
+    private final Protocol protocol;
     
-    public CyLoader(FileConfiguration file, Map map) {
+    public CyLoader(FileConfiguration file, Map map, Protocol protocol) {
         Validate.notNull(file, "file can not be null");
         Validate.notNull(map, "map can not be null");
+        Validate.notNull(protocol, "protocol can not be null");
         this.file = file;
         this.map = map;
+        this.protocol = protocol;
     }
     
     public void load(boolean test) throws ConfigurationException {
         FileConfiguration f = this.getFile();
         Map m = this.getMap();
+        m.setMapProto(this.getProtocol()); // Map protocol
         
         // authors - authors of the map
         String author = f.getString("author");
@@ -119,5 +124,9 @@ public class CyLoader extends CyConfiguration {
     
     public Map getMap() {
         return this.map;
+    }
+    
+    public Protocol getProtocol() {
+        return this.protocol;
     }
 }

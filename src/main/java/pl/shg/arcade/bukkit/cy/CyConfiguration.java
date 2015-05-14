@@ -12,6 +12,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Configuration;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.ConfigurationTechnology;
+import pl.shg.arcade.api.map.Protocol;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleManager;
@@ -95,8 +96,9 @@ public class CyConfiguration implements ConfigurationTechnology {
         String build = this.config.getString(CyConfiguration.YAML_BUILD);
         if (build == null) {
             this.throwError(CError.NOT_SET, YAML_BUILD, new Object[] {"cy"});
-        } else if (build.equals("cy")) {
-            CyLoader loader = new CyLoader(this.getFile(), this.getConfiguration().getMap());
+        } else if (build.startsWith("cy;proto=")) {
+            Protocol proto = Protocol.valueOf(build.split("cy;proto=")[1].toUpperCase());
+            CyLoader loader = new CyLoader(this.getFile(), this.getConfiguration().getMap(), proto);
             loader.load(test);
         } else {
             this.throwError(CError.UNKNOWN_VALUE, YAML_BUILD, new Object[] {"cy"});

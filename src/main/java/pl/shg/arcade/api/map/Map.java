@@ -24,18 +24,20 @@ public class Map {
     private final String displayName;
     private final String name;
     private String objective;
+    private Protocol protocol;
     private final MapRatings ratings;
     private final RegionManager regions;
     private boolean switchingClass;
     private final Tutorial tutorial;
     private MapVersion version;
     
-    public Map(String[] authors, String name, MapVersion version) {
+    public Map(String[] authors, String name, Protocol protocol, MapVersion version) {
         Validate.notNull(name, "name can not be null");
         this.authors = authors;
         this.classes = new ArrayList<>();
         this.displayName = name.replace("_", " ");
         this.name = name;
+        this.protocol = protocol;
         this.ratings = new MapRatings();
         this.regions = new RegionManager(this);
         this.switchingClass = true;
@@ -151,6 +153,14 @@ public class Map {
     public void setObjective(String objective) {
         Validate.notNull(objective, "objective can not be null");
         this.objective = objective;
+    }
+    
+    public Protocol getMapProto() {
+        return this.protocol;
+    }
+    
+    public void setMapProto(Protocol protocol) {
+        this.protocol = protocol;
     }
     
     public MapRatings getRatings() {

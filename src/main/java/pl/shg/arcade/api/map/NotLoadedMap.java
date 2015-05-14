@@ -12,7 +12,7 @@ package pl.shg.arcade.api.map;
  */
 public class NotLoadedMap extends Map {
     public NotLoadedMap(String name) {
-        super(null, name, null);
+        super(null, name, null, null);
     }
     
     @Override

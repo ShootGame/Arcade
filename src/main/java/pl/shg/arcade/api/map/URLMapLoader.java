@@ -66,7 +66,7 @@ public class URLMapLoader implements Loader {
         
         MapManager mapManager = Arcade.getMaps();
         for (TextFileReader.Line line : new TextFileReader(lines).getLines()) {
-            Map map = new Map(null, line.getValue(), null);
+            Map map = new Map(null, line.getValue(), null, null);
             
             ConfigurationTechnology loader = mapManager.getConfiguration();
             loader.load(new Configuration(map), true);
