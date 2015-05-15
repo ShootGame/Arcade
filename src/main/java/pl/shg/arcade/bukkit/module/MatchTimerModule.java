@@ -241,21 +241,25 @@ public class MatchTimerModule extends Module {
         }
         
         private Winner findAuto() {
-            Winner winner = new UnresolvedWinner();
             // TOOD find best team or player in the current match
-            return winner;
+            return new UnresolvedWinner();
         }
         
         private void finish() {
-            Winner winner = null;
+            Winner winner;
             switch (MatchTimerModule.this.winner.toLowerCase()) {
                 case "auto":
                     winner = this.findAuto();
                     break;
+                case "none":
+                    winner = null;
+                    break;
                 case "unresolved":
                     winner = new UnresolvedWinner();
                     break;
-                default: break; // null - match failed
+                default:
+                    winner = this.findAuto();
+                    break;
             }
             Arcade.getMatches().getMatch().end(winner);
         }

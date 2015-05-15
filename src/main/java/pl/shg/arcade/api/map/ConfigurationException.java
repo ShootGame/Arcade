@@ -12,7 +12,7 @@ package pl.shg.arcade.api.map;
  */
 public class ConfigurationException extends RuntimeException {
     public ConfigurationException() {
-        super("Nieprawidlowa konfiguracja mapy");
+        super("Nieprawidlowa konfiguracja mapy ");
     }
     
     public ConfigurationException(String message) {

@@ -110,7 +110,7 @@ public class CyConfiguration implements ConfigurationTechnology {
         Validate.notNull(error, "error can not be null");
         Validate.notNull(var, "var can not be null");
         StringBuilder builder = new StringBuilder();
-        builder.append("Wartosc ").append(var);
+        builder.append("(").append(this.getConfiguration().getFile().getPath()).append(") Wartosc ").append(var);
         switch (error) {
             case NOT_SET:
                 builder.append(" nie jest ustawiona!");

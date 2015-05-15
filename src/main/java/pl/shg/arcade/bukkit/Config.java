@@ -59,7 +59,10 @@ public class Config {
     public static Set<String> getOptionsExact(FileConfiguration config, String path) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(path, "path can not be null");
-        return config.getConfigurationSection(path).getKeys(false);
+        if (config.isSet(path)) {
+            return config.getConfigurationSection(path).getKeys(false);
+        }
+        return null;
     }
     
     public static boolean getValueBoolean(FileConfiguration config, Module module, String path, boolean def) {

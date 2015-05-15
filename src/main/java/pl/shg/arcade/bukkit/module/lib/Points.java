@@ -152,7 +152,6 @@ public class Points extends Library {
     }
     
     public static void setMaxScore(int score) {
-        Validate.notNegative(score, "score can not be negative");
         Validate.notZero(score, "score can not be zero");
         maxScore = score;
     }

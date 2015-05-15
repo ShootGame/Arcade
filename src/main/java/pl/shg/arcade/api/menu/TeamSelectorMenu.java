@@ -57,7 +57,7 @@ public class TeamSelectorMenu extends Menu {
             map = current;
             teams = new TreeMap<>();
             
-            Item auto = new Item(new Material(399), Color.Wool.ORANGE.getID());
+            Item auto = new Item(new Material(399));
             auto.setName(Color.DARK_AQUA + "Losuj druzyne");
             auto.setDescription(Arrays.asList(
                     Color.GRAY + "Dolacz do druzyny w której jest najmniej graczy",

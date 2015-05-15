@@ -92,7 +92,7 @@ public abstract class ArcadePlayer implements Player {
     @Override
     public String getDisplayName() {
         if (this.display == null) {
-            this.display = this.getTeam().getColor() + this.getName();
+            this.display = this.getTeam().getColor() + this.getName() + Color.RESET;
         }
         return this.display;
     }
