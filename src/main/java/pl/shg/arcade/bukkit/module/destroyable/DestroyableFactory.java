@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.bukkit.module.destroyable;
 
+import java.util.ArrayList;
 import java.util.List;
-import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.util.SimpleFactory;
 
 /**
@@ -25,41 +25,25 @@ public class DestroyableFactory extends SimpleFactory {
     @Override
     public void build() {
         if (this.canBuild()) {
-            List blocks = (List) this.get("blocks");
-            int objective = (Integer) this.get("objective", 100);
-            Region region = (Region) this.get("region");
-            ScoreMode scoreMode = (ScoreMode) this.get("score-mode");
+            List<BlocksDestroyable> blocks = (List) this.get("blocks");
+            List<RegionsDestroyable> regions = (List) this.get("regions");
             
-            Destroyable destroyable = null;
+            List<Destroyable> destroyables = new ArrayList<>();
             if (blocks != null) {
-                destroyable = this.loadBlocks(blocks);
-            } else if (region != null) {
-                destroyable = this.loadRegion(region);
-            } else {
-                
+                destroyables.addAll(blocks);
+            }
+            if (regions != null) {
+                destroyables.addAll(regions);
             }
             
-            if (destroyable != null) {
-                destroyable.appendSetting(Destroyable.Setting.MODE, scoreMode);
-                destroyable.appendSetting(Destroyable.Setting.OBJECTIVE, objective);
-                
-                // TOOD register in the DestroyableModule class
+            for (Destroyable destroyable : destroyables) {
+                this.module.registerDestroyable(destroyable);
             }
         }
     }
     
-    private Destroyable loadBlocks(List blocks) {
-        return null;
-    }
-    
-    private Destroyable loadRegion(Region region) {
-        return null;
-    }
-    
     private void register() {
         this.register("blocks", true, List.class);
-        this.register("objective", true, Integer.class);
-        this.register("region", true, Region.class);
-        this.register("score-mode", false, ScoreMode.class);
+        this.register("regions", true, List.class);
     }
 }

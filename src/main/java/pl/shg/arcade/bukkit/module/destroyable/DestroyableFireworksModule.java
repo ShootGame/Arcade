@@ -86,8 +86,8 @@ public class DestroyableFireworksModule extends Module {
                 List<Monument> monuments = ((BlocksDestroyable) e.getDestroyable()).getMonuments();
                 Location bukkitLocation = BukkitLocation.valueOf(monuments.get(0).getBlock().getLocation());
                 DestroyableFireworksModule.this.createFirework(bukkitLocation, e.getPlayer().getTeam());
-            } else if (e.getDestroyable() instanceof RegionDestroyable) {
-                Region region = ((RegionDestroyable) e.getDestroyable()).getRegion();
+            } else if (e.getDestroyable() instanceof RegionsDestroyable) {
+                Region region = ((RegionsDestroyable) e.getDestroyable()).getRegion();
                 Location bukkitLocaiton = BukkitLocation.valueOf(region.getMax()); // TODO fix this
                 DestroyableFireworksModule.this.createFirework(bukkitLocaiton, e.getPlayer().getTeam());
             }

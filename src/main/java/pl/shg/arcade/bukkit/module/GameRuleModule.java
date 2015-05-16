@@ -9,13 +9,12 @@ package pl.shg.arcade.bukkit.module;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.bukkit.BukkitLocation;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -68,7 +67,7 @@ public class GameRuleModule extends Module {
     @Override
     public void load(File file) throws ConfigurationException {
         FileConfiguration config = Config.get(file);
-        this.world = Bukkit.getWorld(Arcade.getMaps().getCurrentMap().getName());
+        this.world = BukkitLocation.getWorld();
         
         for (String gameRule : this.world.getGameRules()) {
             this.defaultGameRules.put(gameRule, this.world.getGameRuleValue(gameRule));

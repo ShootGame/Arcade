@@ -15,11 +15,13 @@ import pl.shg.arcade.api.region.Region;
  *
  * @author Aleksander
  */
-public class RegionDestroyable implements Destroyable {
+public class RegionsDestroyable implements Destroyable {
+    private final String name;
     private final Region region;
     private final HashMap<Setting, Object> settings;
     
-    public RegionDestroyable(Region region) {
+    public RegionsDestroyable(String name, Region region) {
+        this.name = name;
         this.region = region;
         this.settings = new HashMap<>();
     }
@@ -37,6 +39,11 @@ public class RegionDestroyable implements Destroyable {
     @Override
     public void destroy(Player player) {
         
+    }
+    
+    @Override
+    public String getName() {
+        return this.name;
     }
     
     @Override

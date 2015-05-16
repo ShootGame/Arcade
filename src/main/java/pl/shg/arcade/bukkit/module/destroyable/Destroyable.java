@@ -20,6 +20,8 @@ public interface Destroyable {
     
     void destroy(Player player);
     
+    String getName();
+    
     int getPercent();
     
     Object getSettingValue(Setting setting);
@@ -27,9 +29,13 @@ public interface Destroyable {
     DestroyStatus getStatus();
     
     enum Setting {
-        // Type of scoreboard to show; percents/default/default with the touched option
+        /**
+         * Type of a scoreboard to show; percents/default/default with the touched option
+         */
         MODE,
-        // Percents to complete this destroyable, should be 100 if whole, never 0
+        /**
+         * Percents to complete this destroyable, should be 100 if whole, never 0
+         */
         OBJECTIVE,
         ;
     }

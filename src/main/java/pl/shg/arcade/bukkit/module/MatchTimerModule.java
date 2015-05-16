@@ -246,20 +246,23 @@ public class MatchTimerModule extends Module {
         }
         
         private void finish() {
-            Winner winner;
-            switch (MatchTimerModule.this.winner.toLowerCase()) {
-                case "auto":
-                    winner = this.findAuto();
-                    break;
-                case "none":
-                    winner = null;
-                    break;
-                case "unresolved":
-                    winner = new UnresolvedWinner();
-                    break;
-                default:
-                    winner = this.findAuto();
-                    break;
+            Winner winner = null;
+            String winnerString = MatchTimerModule.this.winner;
+            if (winnerString != null) {
+                switch (winnerString.toLowerCase()) {
+                    case "auto":
+                        winner = this.findAuto();
+                        break;
+                    case "none":
+                        winner = null;
+                        break;
+                    case "unresolved":
+                        winner = new UnresolvedWinner();
+                        break;
+                    default:
+                        winner = this.findAuto();
+                        break;
+                }
             }
             Arcade.getMatches().getMatch().end(winner);
         }

@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.cy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.map.Configuration;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.ConfigurationTechnology;
@@ -99,8 +100,13 @@ public class CyConfiguration implements ConfigurationTechnology {
             this.throwError(CError.NOT_SET, YAML_BUILD, new Object[] {"cy"});
         } else if (build.startsWith("cy;proto=")) {
             Protocol proto = Protocol.byVersion(Version.valueOf(build.split("cy;proto=")[1].toUpperCase()));
-            CyLoader loader = new CyLoader(this.getFile(), this.getConfiguration().getMap(), proto);
-            loader.load(test);
+            if (Protocol.getCurrent().toVersion().isOlderThan(proto.toVersion())) {
+                Log.noteAdmins("Nie udalo sie zaladowac mapy " + this.getFile().getName() +
+                        ", poniewaz jej protokol jest nowszy, niz obecna wersja Arcade.");
+            } else {
+                CyLoader loader = new CyLoader(this.getFile(), this.getConfiguration().getMap(), proto);
+                loader.load(test);
+            }
         } else {
             this.throwError(CError.UNKNOWN_VALUE, YAML_BUILD, new Object[] {"cy"});
         }

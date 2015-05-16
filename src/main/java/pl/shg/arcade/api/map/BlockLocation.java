@@ -17,7 +17,7 @@ public class BlockLocation extends Location {
     
     public BlockLocation(int x, int y, int z) {
         super(x, y, z);
-        this.block = new Block();
+        this.block = new Block(this);
     }
     
     public BlockLocation(Block block, int x, int y, int z) {

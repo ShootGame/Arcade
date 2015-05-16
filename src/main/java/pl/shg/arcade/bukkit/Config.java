@@ -99,6 +99,10 @@ public class Config {
         }
     }
     
+    public static int getValueInt(FileConfiguration config, Module module, String path) {
+        return getValueInt(config, module, path, 0);
+    }
+    
     public static int getValueInt(FileConfiguration config, Module module, String path, int def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
@@ -172,12 +176,16 @@ public class Config {
     }
     
     public static String getValueString(FileConfiguration config, Module module, String path) {
+        return getValueString(config, module, path, null);
+    }
+    
+    public static String getValueString(FileConfiguration config, Module module, String path, String def) {
         Validate.notNull(config, "config can not be null");
         Validate.notNull(module, "module can not be null");
         Validate.notNull(path, "path can not be null");
         
         try {
-            return config.getString(module.getConfigPath() + "." + path);
+            return config.getString(module.getConfigPath() + "." + path, def);
         } catch (Throwable ex) {
             throw new ConfigurationException(path + " nie moze zostac uznane za string");
         }

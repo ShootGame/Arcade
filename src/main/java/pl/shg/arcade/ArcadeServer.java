@@ -11,6 +11,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
@@ -40,13 +42,7 @@ public abstract class ArcadeServer implements Server {
     
     @Override
     public void checkEndMatch() {
-        MatchStatus status = Arcade.getMatches().getStatus();
-        
-        if (status == MatchStatus.STARTING) {
-            if (Arcade.getServer().getScheduler().isBeginRunning()) {
-                this.checkEnd();
-            }
-        } else if (status == MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
             this.checkEnd();
         }
     }
@@ -69,11 +65,20 @@ public abstract class ArcadeServer implements Server {
     
     private void checkEnd() {
         for (Team team : Arcade.getTeams().getTeams()) {
-            if (!team.getID().equals(ObserverTeamBuilder.getTeamID())) {
-                if (team.getPlayers().size() < team.getMinimum()) {
-                    Arcade.getMatches().getMatch().end();
-                    return;
-                }
+            if (team.getID().equals(ObserverTeamBuilder.getTeamID())) {
+                continue;
+            }
+            
+            if (team.getPlayers().size() < team.getMinimum()) {
+                Arcade.getMatches().getMatch().end();
+                return;
+            }
+        }
+        
+        for (Module module : Arcade.getModules().getActiveModules()) {
+            if (module instanceof ObjectiveModule) {
+                ObjectiveModule objective = (ObjectiveModule) module;
+                // TODO check
             }
         }
     }

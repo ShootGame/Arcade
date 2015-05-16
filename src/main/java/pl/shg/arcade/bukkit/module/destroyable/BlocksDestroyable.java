@@ -12,21 +12,20 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.BlockLocation;
+import pl.shg.arcade.api.map.GameableBlock;
 import pl.shg.arcade.api.team.Team;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
  * @author Aleksander
  */
 public class BlocksDestroyable implements Destroyable {
-    private final List<Monument> monuments;
+    private List<Monument> monuments;
     private final String name;
     private final HashMap<Setting, Object> settings;
     private final Team team;
     
-    public BlocksDestroyable(List<Monument> monuments, String name, Team team) {
-        this.monuments = monuments;
+    public BlocksDestroyable(String name, Team team) {
         this.name = name;
         this.settings = new HashMap<>();
         this.team = team;
@@ -55,6 +54,11 @@ public class BlocksDestroyable implements Destroyable {
     }
     
     @Override
+    public String getName() {
+        return this.name;
+    }
+    
+    @Override
     public int getPercent() {
         int destroyed = 0;
         for (Monument monument : this.getMonuments()) {
@@ -75,20 +79,21 @@ public class BlocksDestroyable implements Destroyable {
         return DestroyStatus.UNTOUCHED;
     }
     
-    public void addMonument(BlockLocation block) {
-        Validate.notNull(block, "block can not be null");
-        this.monuments.add(new Monument(block, this));
-    }
-    
     public List<Monument> getMonuments() {
         return this.monuments;
     }
     
-    public String getName() {
-        return this.name;
-    }
-    
     public Team getTeam() {
         return this.team;
+    }
+    
+    public void setMonuments(List<Monument> monuments) {
+        this.monuments = monuments;
+        
+        if (monuments != null) {
+            for (Monument monument : monuments) {
+                GameableBlock.register(monument);
+            }
+        }
     }
 }
