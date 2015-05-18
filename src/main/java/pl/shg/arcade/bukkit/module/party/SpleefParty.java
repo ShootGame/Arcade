@@ -52,7 +52,7 @@ public class SpleefParty extends Party {
             player.setHealth(0.0);
             
             if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
-                this.updateObjectives();
+                Arcade.getServer().checkEndMatch();
             }
             this.broadcast(player);
         }

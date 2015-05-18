@@ -148,7 +148,7 @@ public class Points extends Library {
     public static void set(Team team, int p) {
         Validate.notNull(team, "team can not be null");
         points.put(team, p);
-        getLibrary().updateObjectives();
+        Arcade.getServer().checkEndMatch();
     }
     
     public static void setMaxScore(int score) {

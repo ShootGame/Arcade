@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit.plugin;
 
 import pl.shg.arcade.bukkit.module.*;
 import pl.shg.arcade.bukkit.module.blitz.*;
+import pl.shg.arcade.bukkit.module.boss.*;
 import pl.shg.arcade.bukkit.module.deathmatch.*;
 import pl.shg.arcade.bukkit.module.destroyable.*;
 import pl.shg.arcade.bukkit.module.escape.*;
@@ -60,6 +61,7 @@ public abstract class ModuleLoader implements IRegistration {
     
     private void games() {
         this.register(BlitzModule.class);
+        this.register(BossModule.class);
         this.register(DeathMatchModule.class);
         this.register(DestroyableModule.class);
         this.register(EscapeModule.class);

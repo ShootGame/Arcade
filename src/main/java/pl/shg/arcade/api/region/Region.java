@@ -105,12 +105,13 @@ public final class Region {
     
     public boolean isIn(Location location) {
         Validate.notNull(location, "location can not be null");
-        return this.max.getBlockX() > location.getX() &&
-                this.max.getBlockY() > location.getY() &&
-                this.max.getBlockZ() > location.getZ() &&
+        return
+                this.max.getBlockX() >= (int) location.getX() &&
+                this.max.getBlockY() >= (int) location.getY() &&
+                this.max.getBlockZ() >= (int) location.getZ() &&
                 
-                this.min.getBlockX() < location.getX() &&
-                this.min.getBlockY() < location.getY() &&
-                this.min.getBlockZ() < location.getZ();
+                this.min.getBlockX() <= (int) location.getX() &&
+                this.min.getBlockY() <= (int) location.getY() &&
+                this.min.getBlockZ() <= (int) location.getZ();
     }
 }
