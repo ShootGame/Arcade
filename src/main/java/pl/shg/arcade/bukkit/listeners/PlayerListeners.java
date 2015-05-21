@@ -31,6 +31,7 @@ import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.ArcadeTabList;
+import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitServer;
@@ -69,6 +70,21 @@ public class PlayerListeners implements Listener {
         if (Arcade.getMatches().getStatus() == MatchStatus.NOTHING) {
             e.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST);
             e.setKickMessage(Color.RED + "Serwer jest teraz restartowany...");
+        }
+        
+        if (this.server.getConnectedPlayers().size() >= this.server.getSlots()) {
+            boolean allowed = false;
+            // TODO MySQL query to check if the players is allowed to join this server
+            
+            if (allowed) {
+                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_FULL,
+                        Color.RED + "Ten serwer jest obecnie pelny. Spróbuj " +
+                        "polaczyc sie ponownie pózniej, lub wybierz inny " +
+                        "serwer. Tylko ranga " + Color.GOLD + Color.BOLD +
+                        "VIP" + Color.RESET + Color.RED + " moze dolaczac " +
+                        "na pelne serwery."
+                );
+            }
         }
     }
     

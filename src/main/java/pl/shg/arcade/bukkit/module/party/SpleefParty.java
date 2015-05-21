@@ -13,10 +13,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.ActionMessageType;
 import pl.shg.arcade.api.chat.Color;
-import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.match.MatchStatus;
-import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.server.ArcadeTabList;
 
 /**
  *
@@ -45,11 +44,8 @@ public class SpleefParty extends Party {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         if (!player.isObserver()) {
-            Team observers = Arcade.getTeams().getObservers();
-            
-            player.setTeam(observers);
-            player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, observers.getDisplayName()));
-            player.setHealth(0.0);
+            player.resetPlayerState();
+            ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
             
             if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
                 Arcade.getServer().checkEndMatch();

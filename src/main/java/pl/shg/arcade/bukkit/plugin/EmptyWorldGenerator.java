@@ -26,11 +26,10 @@ public class EmptyWorldGenerator extends ChunkGenerator {
     
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
-        List<Spawn> spawns = Arcade.getTeams().getTeam(null).getSpawns();
+        List<Spawn> spawns = Arcade.getTeams().getObservers().getSpawns();
         if (spawns != null) {
-            int r = random.nextInt(spawns.size());
-            Spawn spawn = spawns.get(r);
-            return new Location(world, spawn.getX(), spawn.getY(), spawn.getZ());
+            Spawn spawn = spawns.get(random.nextInt(spawns.size()));
+            return new Location(world, spawn.getX(), spawn.getY(), spawn.getZ(), spawn.getYaw(), spawn.getPitch());
         } else {
             return new Location(world, 0, 64, 0);
         }

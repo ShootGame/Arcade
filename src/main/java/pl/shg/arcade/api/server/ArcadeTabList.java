@@ -61,7 +61,7 @@ public class ArcadeTabList extends TabList {
     }
     
     public void update() {
-        this.createCustom();
+//        this.createCustom();
         TabListUpdateEvent event = new TabListUpdateEvent(this);
         Event.callEvent(event);
         

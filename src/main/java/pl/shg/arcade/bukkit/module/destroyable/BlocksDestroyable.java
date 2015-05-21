@@ -48,7 +48,11 @@ public class BlocksDestroyable implements Destroyable {
     
     @Override
     public void destroy(Player player) {
-        Event.callEvent(new DestroyableDestroyedEvent(this, player));
+        DestroyableDestroyedEvent event = new DestroyableDestroyedEvent(this, player);
+        Event.callEvent(event);
+        if (!(event.getDestroyable() instanceof BlocksDestroyable)) {
+            throw new IllegalArgumentException("Destroyable can be only the instance of BlocksDestroyable");
+        }
         
         Arcade.getServer().checkEndMatch();
     }

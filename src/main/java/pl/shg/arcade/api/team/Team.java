@@ -23,6 +23,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class Team {
+    public static final int MINIMUM = 1;
     private final TeamBuilder builder;
     private ChatChannel channel;
     private HashMap<KitType, List<Kit>> kits = new HashMap<>();

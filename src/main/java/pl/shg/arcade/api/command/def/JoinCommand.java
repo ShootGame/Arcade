@@ -24,6 +24,7 @@ import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
 import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.team.RandomTeamComparator;
 import pl.shg.arcade.api.team.Team;
 
 /**
@@ -31,7 +32,7 @@ import pl.shg.arcade.api.team.Team;
  * @author Aleksander
  */
 public class JoinCommand extends Command {
-    public static final String JOIN_MESSAGE = Color.GRAY + "Dolaczyles/as do druzyny %s" + Color.RESET + Color.GRAY + ".";
+    public static final String JOIN_MESSAGE = Color.GRAY + "Dolaczyles/as do %s" + Color.RESET + Color.GRAY + ".";
     
     public JoinCommand() {
         super(new String[] {"join", "play", "dolacz", "graj"},
@@ -99,7 +100,7 @@ public class JoinCommand extends Command {
         if (teams.size() == 1) {
             team(player, teams.get(0), Arcade.getMatches().getStatus());
         } else {
-            SortedMap<Integer, Team> sorted = new TreeMap<>();
+            SortedMap<Integer, Team> sorted = new TreeMap<>(new RandomTeamComparator());
             for (Team team : teams) {
                 sorted.put(team.getPlayers().size(), team);
             }

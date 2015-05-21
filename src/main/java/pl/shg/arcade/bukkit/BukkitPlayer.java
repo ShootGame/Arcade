@@ -2,7 +2,7 @@
  * Copyright (C) 2014 TheMolkaPL - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Aleksander JagieÄąâ€šÄąâ€šo <themolkapl@gmail.com>, 2014
+ * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
 package pl.shg.arcade.bukkit;
 
@@ -157,8 +157,8 @@ public class BukkitPlayer extends ArcadePlayer {
     }
     
     @Override
-    public void reset() {
-        // TODO reset player to the observer state
+    public void resetPlayerState() {
+        Arcade.getPlayerManagement().setAsObserver(this, true, true, true);
     }
     
     @Override
@@ -216,9 +216,9 @@ public class BukkitPlayer extends ArcadePlayer {
         TabCell[] cells = new TabCell[tabList.getCells().size()];
         cells = tabList.getCells().toArray(cells);
         
-        Tablists.sendClearCells(this.player); // clear all cells in the tablist
+//        Tablists.sendClearCells(this.player); // clear all cells in the tablist
         Tablists.sendHeaderFooter(this.player, tabList.getHeader(), tabList.getFooter()); // send header and footer
-        Tablists.sendCells(this.player, cells); // send a new custom tablist
+//        Tablists.sendCells(this.player, cells); // send a new custom tablist
     }
     
     @Override

@@ -18,11 +18,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.Color;
-import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
@@ -38,7 +36,6 @@ import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
 import pl.shg.arcade.bukkit.ScoreboardManager;
-import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
 /**
  *
@@ -245,17 +242,11 @@ public class BlitzModule extends ObjectiveModule implements BListener {
             player.sendMessage(String.format(this.kickMessage, this.defaults));
         }
         
-        Team team = Arcade.getTeams().getObservers();
-        player.setTeam(team);
-        player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));
-        
+        player.resetPlayerState();
         ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
         
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Arcade.getServer().checkEndMatch();
-            }
-        }.runTaskLaterAsynchronously(ArcadeBukkitPlugin.getPlugin(), 5L);
+        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+            Arcade.getServer().checkEndMatch();
+        }
     }
 }

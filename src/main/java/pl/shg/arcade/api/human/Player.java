@@ -42,7 +42,7 @@ public interface Player extends Classable, MinecraftPlayer, NamnedPlayer {
     
     void setTeam(Team team);
     
-    void reset();
+    void resetPlayerState();
     
     void updateTag();
 }
