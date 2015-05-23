@@ -19,16 +19,16 @@ import pl.shg.arcade.api.team.Team;
  *
  * @author Aleksander
  */
-public class BlocksDestroyable implements Destroyable {
+public class BlocksDestroyable extends DestroyableObject {
     private List<Monument> monuments;
     private final String name;
+    private final Team owner;
     private final HashMap<Setting, Object> settings;
-    private final Team team;
     
-    public BlocksDestroyable(String name, Team team) {
+    public BlocksDestroyable(String name, Team owner) {
         this.name = name;
+        this.owner = owner;
         this.settings = new HashMap<>();
-        this.team = team;
     }
     
     @Override
@@ -63,6 +63,11 @@ public class BlocksDestroyable implements Destroyable {
     }
     
     @Override
+    public Team getOwner() {
+        return this.owner;
+    }
+    
+    @Override
     public int getPercent() {
         int destroyed = 0;
         for (Monument monument : this.getMonuments()) {
@@ -85,10 +90,6 @@ public class BlocksDestroyable implements Destroyable {
     
     public List<Monument> getMonuments() {
         return this.monuments;
-    }
-    
-    public Team getTeam() {
-        return this.team;
     }
     
     public void setMonuments(List<Monument> monuments) {

@@ -28,7 +28,7 @@ public class DestroyableFactory extends SimpleFactory {
             List<BlocksDestroyable> blocks = (List) this.get("blocks");
             List<RegionsDestroyable> regions = (List) this.get("regions");
             
-            List<Destroyable> destroyables = new ArrayList<>();
+            List<DestroyableObject> destroyables = new ArrayList<>();
             if (blocks != null) {
                 destroyables.addAll(blocks);
             }
@@ -36,7 +36,7 @@ public class DestroyableFactory extends SimpleFactory {
                 destroyables.addAll(regions);
             }
             
-            for (Destroyable destroyable : destroyables) {
+            for (DestroyableObject destroyable : destroyables) {
                 this.module.registerDestroyable(destroyable);
             }
         }

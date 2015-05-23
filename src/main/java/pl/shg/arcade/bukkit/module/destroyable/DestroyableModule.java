@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.SortedMap;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.chat.Icons;
 import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
@@ -27,7 +28,7 @@ import pl.shg.arcade.bukkit.Config;
  * @author Aleksander
  */
 public class DestroyableModule extends ObjectiveModule {
-    private final List<Destroyable> destroyables = new ArrayList<>();
+    private final List<DestroyableObject> destroyables = new ArrayList<>();
     
     public DestroyableModule() {
         super(new Date(2015, 5, 11), "destroyable", "1.0");
@@ -67,9 +68,17 @@ public class DestroyableModule extends ObjectiveModule {
     
     @Override
     public Score[] getMatchInfo(Team team) {
-        return new Score[] {
+        Score[] scores = new Score[this.getDestroyables().size()];
+        for (int i = 0; i < scores.length; i++) {
+            DestroyableObject destroyable = this.getDestroyables().get(i);
+            Icons icon = destroyable.getIcon();
             
-        };
+            scores[i] = new Score(
+                    this.getID() + "-" + destroyable.getName(),
+                    icon.getColoredIcon() + " " + icon.getColor(),
+                    destroyable.getName());
+        }
+        return scores;
     }
     
     @Override
@@ -86,7 +95,16 @@ public class DestroyableModule extends ObjectiveModule {
     
     @Override
     public boolean objectiveScored(Team team) {
-        return false;
+        int found = 0, destroyed = 0;
+        for (DestroyableObject destroyable : this.getDestroyables()) {
+            if (!destroyable.getOwner().equals(team)) {
+                found++;
+                if (destroyable.isDestroyed()) {
+                    destroyed++;
+                }
+            }
+        }
+        return destroyed >= found;
     }
     
     @Override
@@ -94,11 +112,11 @@ public class DestroyableModule extends ObjectiveModule {
         return null;
     }
     
-    public List<Destroyable> getDestroyables() {
+    public List<DestroyableObject> getDestroyables() {
         return this.destroyables;
     }
     
-    public void registerDestroyable(Destroyable destroyable) {
+    public void registerDestroyable(DestroyableObject destroyable) {
         this.destroyables.add(destroyable);
     }
     

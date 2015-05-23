@@ -16,7 +16,7 @@ import pl.shg.arcade.api.util.Validate;
  *
  * @author Aleksander
  */
-public abstract class Command {
+public abstract class Command implements CommandExecutor {
     private final String[] commands;
     private final String description;
     private final char[] flags;
@@ -56,8 +56,6 @@ public abstract class Command {
             return false;
         }
     }
-    
-    public abstract void execute(Sender sender, String[] args) throws CommandException;
     
     public String[] getCommands() {
         return this.commands;
@@ -163,8 +161,6 @@ public abstract class Command {
         }
         return false;
     }
-    
-    public abstract int minArguments();
     
     public int parseInteger(String string, int def) {
         Validate.notNull(string, "string can not be null");

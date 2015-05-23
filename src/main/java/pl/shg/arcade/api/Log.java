@@ -45,7 +45,9 @@ public class Log {
         Validate.notNull(level, "level can not be null");
         Validate.notNull(message, "message can not be null");
         message = "(Arcade) " + fixColors(message);
-        Logger.getLogger("arcade").log(level, message);
+        
+        Logger logger = Logger.getLogger("arcade");
+        logger.log(level, message);
     }
     
     public static void noteAdmins(String message) {

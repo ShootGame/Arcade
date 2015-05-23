@@ -31,7 +31,6 @@ import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.ArcadeTabList;
-import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitServer;
@@ -58,7 +57,7 @@ public class PlayerListeners implements Listener {
         Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
         MatchStatus matchStatus = Arcade.getMatches().getStatus();
         
-        if (matchStatus != MatchStatus.PLAYING) {
+        if (matchStatus != MatchStatus.PLAYING || Arcade.getTeams().getTeams().size() == 1) {
             Arcade.getTeams().getObservers().getChat().sendMessage(player, message);
         } else {
             player.getTeam().getChat().sendMessage(player, message);
@@ -74,7 +73,7 @@ public class PlayerListeners implements Listener {
         
         if (this.server.getConnectedPlayers().size() >= this.server.getSlots()) {
             boolean allowed = false;
-            // TODO MySQL query to check if the players is allowed to join this server
+            // TODO MySQL query to check if the player is allowed to join this server
             
             if (allowed) {
                 e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_FULL,

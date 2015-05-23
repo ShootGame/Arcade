@@ -44,7 +44,7 @@ public abstract class ArcadeCommandManager implements CommandManager {
     }
     
     @Override
-    public void perform(String command, Sender sender, String[] args) {
+    public boolean perform(String command, Sender sender, String[] args) {
         Validate.notNull(command, "command can not be null");
         if (sender == null) {
             sender = this.getConsoleSender();
@@ -68,12 +68,14 @@ public abstract class ArcadeCommandManager implements CommandManager {
                     sender.sendError("Nie udalo sie wykonac komendy " + cmd.getCommands()[0] + " poniewaz wykryto naganny blad.");
                     sender.sendMessage(Color.RED + "Zglos to do niezwlocznie administracji serwera!");
                 }
+                return true;
             }
         }
+        return false;
     }
     
     @Override
-    public void performAlias(String alias, Sender sender, String[] args) {
+    public boolean performAlias(String alias, Sender sender, String[] args) {
         Validate.notNull(alias, "alias can not be null");
         if (sender == null) {
             sender = this.getConsoleSender();
@@ -98,9 +100,11 @@ public abstract class ArcadeCommandManager implements CommandManager {
                         sender.sendError("Nie udalo sie wykonac komendy " + command.getCommands()[0] + " poniewaz wykryto naganny blad.");
                         sender.sendMessage(Color.RED + "Zglos to do niezwlocznie administracji serwera!");
                     }
+                    return true;
                 }
             }
         }
+        return false;
     }
     
     @Override

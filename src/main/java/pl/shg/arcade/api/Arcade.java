@@ -77,6 +77,7 @@ public final class Arcade {
             throw new UnsupportedOperationException("Cannot redefine singleton plugin");
         } else {
             Arcade.plugin = plugin;
+            getCommands().getConsoleSender().sendSuccess("Ta implementacja jest uruchomiona na Arcade-API.");
         }
     }
 }

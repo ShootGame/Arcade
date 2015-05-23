@@ -30,7 +30,7 @@ public class ArcadeTeamManager implements TeamManager {
     
     public ArcadeTeamManager() {
         this.globalChannel = new GlobalChat();
-        this.obs = new Team(new ObserverTeamBuilder());
+//        this.obs = new Team(new ObserverTeamBuilder());
     }
     
     @Override

@@ -28,7 +28,8 @@ public class GlobalChat extends ChatChannel {
     @Override
     public String getFormat(String[] args) {
         Validate.notNull(args, "args can not be null");
-        return Color.WHITE + "[" + Color.RED + "G" + Color.WHITE + "] " + args[0] + Color.RESET + Color.GRAY + ": " + args[1];
+        return Color.WHITE + "[" + Color.AQUA + "G" + Color.WHITE + "] " +
+                args[0] + Color.RESET + Color.GRAY + ": " + args[1];
     }
     
     @Override

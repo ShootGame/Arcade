@@ -84,7 +84,7 @@ public class Options {
         }
         
         if (this.values.isEmpty()) {
-            Log.log(Level.SEVERE, "Nie znaleziono znadnych ustawien w pliku arcade.proprties!");
+            Log.log(Level.SEVERE, "Nie znaleziono znadnych ustawien w pliku " + FILE + "!");
         }
     }
 }

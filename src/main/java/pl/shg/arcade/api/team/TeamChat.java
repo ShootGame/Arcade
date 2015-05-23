@@ -32,7 +32,8 @@ public class TeamChat extends ChatChannel {
     @Override
     public String getFormat(String[] args) {
         Validate.notNull(args, "args can not be null");
-        return args[0] + Color.RESET + Color.GRAY + ": " + args[1];
+        return Color.WHITE + "[" + this.getTeam().getDisplayName() + Color.WHITE +
+                "] " + args[0] + Color.RESET + Color.GRAY + ": " + args[1];
     }
     
     @Override

@@ -171,6 +171,7 @@ public class BukkitPlayer extends ArcadePlayer {
         Validate.notNull(type, "type can not be null");
         Validate.notNull(message, "message can not be null");
         Messages.sendAction(this.player, message);
+        this.sendMessage(message);
     }
     
     @Override

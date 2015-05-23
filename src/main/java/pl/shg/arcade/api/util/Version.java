@@ -114,9 +114,9 @@ public class Version {
     }
     
     public static Version valueOf(String s, char section) {
-        /*Validate.notNull(s, "s can not be null");
+        Validate.notNull(s, "s can not be null");
         Validate.notNull(section, "section can not be null");
-        String[] parts = s.split(Character.valueOf(section).toString());
+        String[] parts = s.split(Character.toString(section));
         int major, minor = 0, patch = 0;
         
         try {
@@ -130,7 +130,6 @@ public class Version {
             return new Version(major, minor, patch);
         } catch (Exception ex) {
             return null;
-        }*/
-        return new Version(1, 0, 0);
+        }
     }
 }

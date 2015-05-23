@@ -19,6 +19,8 @@ import pl.shg.arcade.api.map.MapManager;
  * @author Aleksander
  */
 public class MaplistCommand extends Command {
+    private String list;
+    
     public MaplistCommand() {
         super(new String[] {"maplist", "maps", "ml"},
                 "Pokaz liste zaladowanych map", "maplist");
@@ -27,17 +29,24 @@ public class MaplistCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        MapManager maps = Arcade.getMaps();
-        StringBuilder builder = new StringBuilder();
-        for (Map map : maps.getMaps()) {
-            builder.append(Color.GOLD).append(map.getDisplayName()).append(Color.DARK_PURPLE).append(", ");
+        if (this.list == null) {
+            this.list = this.build();
         }
-        sender.sendMessage(Command.getTitle("Zaladowane mapy", Color.GRAY + "(" + maps.getMaps().size() + ")"));
-        sender.sendMessage(builder.toString().substring(0, builder.toString().length() - 1));
+        
+        sender.sendMessage(Command.getTitle("Zaladowane mapy", Color.GRAY + "(" + Arcade.getMaps().getMaps().size() + ")"));
+        sender.sendMessage(this.list);
     }
     
     @Override
     public int minArguments() {
         return 0;
+    }
+    
+    private String build() {
+        StringBuilder builder = new StringBuilder();
+        for (Map map : Arcade.getMaps().getMaps()) {
+            builder.append(Color.GOLD).append(map.getDisplayName()).append(Color.DARK_PURPLE).append(", ");
+        }
+        return builder.toString().substring(0, builder.toString().length() - 2);
     }
 }

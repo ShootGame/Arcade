@@ -17,9 +17,9 @@ public interface CommandManager {
     
     ConsoleSender getConsoleSender();
     
-    void perform(String command, Sender sender, String[] args);
+    boolean perform(String command, Sender sender, String[] args);
     
-    void performAlias(String alias, Sender sender, String[] args);
+    boolean performAlias(String alias, Sender sender, String[] args);
     
     void registerCommand(Command command);
 }

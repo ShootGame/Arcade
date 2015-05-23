@@ -29,6 +29,7 @@ import pl.shg.arcade.api.map.URLMapLoader;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Role;
+import pl.shg.arcade.api.server.development.TestCommand;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPermissionsManager;
 import pl.shg.arcade.bukkit.BukkitPlayer;
@@ -47,6 +48,8 @@ import pl.shg.arcade.bukkit.listeners.PlayerListeners;
 import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
 import pl.shg.arcade.bukkit.listeners.WorldListeners;
+import pl.shg.arcade.bukkit.test.DragonDeathTest;
+import pl.shg.arcade.bukkit.test.SoundTest;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;
@@ -136,6 +139,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         
         BukkitCommandExecutor.createHelpTopic();
         
+        this.registerTests();
         return properties;
     }
     
@@ -244,6 +248,12 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         } else {
             Log.log(Level.INFO, "Nie zarejestrowano zadnych graczy online, poniewaz ich brak.");
         }
+    }
+    
+    private void registerTests() {
+        TestCommand.registerDefaults();
+        new DragonDeathTest().register();
+        new SoundTest().register();
     }
     
     public static pl.shg.arcade.api.Plugin getAPI() {

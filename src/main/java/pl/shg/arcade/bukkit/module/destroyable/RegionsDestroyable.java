@@ -10,12 +10,13 @@ import java.util.HashMap;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.region.Region;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *
  * @author Aleksander
  */
-public class RegionsDestroyable implements Destroyable {
+public class RegionsDestroyable extends DestroyableObject {
     private final String name;
     private final Region region;
     private final HashMap<Setting, Object> settings;
@@ -44,6 +45,11 @@ public class RegionsDestroyable implements Destroyable {
     @Override
     public String getName() {
         return this.name;
+    }
+    
+    @Override
+    public Team getOwner() {
+        return null;
     }
     
     @Override

@@ -32,7 +32,7 @@ public enum Icons {
     
     public String getColoredIcon() {
         if (this.hasColor()) {
-            return this.getColor() + this.toString();
+            return this.getColor() + this.toString() + Color.RESET;
         } else {
             return this.toString();
         }

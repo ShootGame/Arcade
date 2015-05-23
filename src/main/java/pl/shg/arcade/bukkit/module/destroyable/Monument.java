@@ -9,15 +9,16 @@ package pl.shg.arcade.bukkit.module.destroyable;
 import org.bukkit.Location;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.BlockLocation;
 import pl.shg.arcade.api.map.GameableBlock;
+import pl.shg.arcade.api.module.ModuleMessage;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.bukkit.BukkitLocation;
-import pl.shg.arcade.bukkit.ModuleMessage;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Monument extends GameableBlock {
     
     @Override
     public boolean canBreak(Player player) {
-        if (player.getTeam().equals(this.getDestroyable().getTeam())) {
+        if (player.getTeam().equals(this.getDestroyable().getOwner())) {
             player.sendError("Nie mozesz niszczyc " + this.getDestroyable().getName() + " swojej druzyny.");
             return false;
         } else {
@@ -44,7 +45,7 @@ public class Monument extends GameableBlock {
     
     @Override
     public boolean canInteract(Player player, Material item) {
-        if (player.getTeam().equals(this.getDestroyable().getTeam())) {
+        if (player.getTeam().equals(this.getDestroyable().getOwner())) {
             player.sendError("Nie mozesz ingerowac w " + this.getDestroyable().getName() + " swojej druzyny.");
         }
         return true;
@@ -100,12 +101,12 @@ public class Monument extends GameableBlock {
                     monumentName = "kawalek " + monumentName;
                 }
                 
-                ModuleMessage.OBSERVER.send(online,
+                ModuleMessage.OBSERVER.player(online).sound(Sound.OBJECTIVE).type(ModuleMessage.Type.S_OBJECTIVE).send(
                         "%s " + Color.RESET + " zniszczyl %s %s" + Color.RESET + " (%s bloków).",
                         
                         monument.getDestroyer().getDisplayName(),
                         monumentName,
-                        monument.getDestroyable().getTeam().getDisplayName(),
+                        monument.getDestroyable().getOwner().getDisplayName(),
                         monument.getDestroyable().getMonuments().size()
                 );
             }
@@ -116,11 +117,11 @@ public class Monument extends GameableBlock {
                     monumentName = "Kawalek " + monumentName;
                 }
                 
-                ModuleMessage.ALLY.send(online,
+                ModuleMessage.ALLY.player(online).sound(Sound.OBJECTIVE_SCORED).type(ModuleMessage.Type.S_OBJECTIVE).send(
                         "%s wroga %s " + Color.RESET + " zostal zniszczony (%s bloków).",
                         
                         monumentName,
-                        monument.getDestroyable().getTeam().getDisplayName(),
+                        monument.getDestroyable().getOwner().getDisplayName(),
                         monument.getDestroyable().getMonuments().size()
                 );
             }
@@ -131,9 +132,9 @@ public class Monument extends GameableBlock {
             }
             
             // if the player in the monument's owner team
-            else if (team.equals(monument.getDestroyable().getTeam())) {
-                ModuleMessage.ENEMY.send(online,
-                        "Twój %s zostal zniszczony przez $s" + Color.RESET + " (%s bloków).",
+            else if (team.equals(monument.getDestroyable().getOwner())) {
+                ModuleMessage.ENEMY.player(online).sound(Sound.OBJECTIVE_LOST).type(ModuleMessage.Type.E_OBJECTIVE).send(
+                        "Twój %s zostal zniszczony przez %s" + Color.RESET + " (%s bloków).",
                         
                         monumentName,
                         monument.getDestroyer().getDisplayName(),
@@ -143,12 +144,12 @@ public class Monument extends GameableBlock {
             
             // if the player in the other team
             else {
-                ModuleMessage.TEAM.send(online,
+                ModuleMessage.TEAM.player(online).sound(Sound.OBJECTIVE).type(ModuleMessage.Type.S_OBJECTIVE).send(
                         "%s " + Color.RESET + " zniszczyl %s %s" + Color.RESET + " (%s bloków).",
                         
                         monument.getDestroyer().getDisplayName(),
                         monumentName,
-                        monument.getDestroyable().getTeam().getDisplayName(),
+                        monument.getDestroyable().getOwner().getDisplayName(),
                         monument.getDestroyable().getMonuments().size()
                 );
             }

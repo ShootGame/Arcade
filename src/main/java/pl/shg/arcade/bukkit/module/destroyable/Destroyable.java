@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit.module.destroyable;
 
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.BlockLocation;
+import pl.shg.arcade.api.team.Team;
 
 /**
  *
@@ -21,6 +22,8 @@ public interface Destroyable {
     void destroy(Player player);
     
     String getName();
+    
+    Team getOwner();
     
     int getPercent();
     
