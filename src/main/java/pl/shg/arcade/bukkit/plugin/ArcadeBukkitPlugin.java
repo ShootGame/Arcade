@@ -49,6 +49,7 @@ import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
 import pl.shg.arcade.bukkit.listeners.WorldListeners;
 import pl.shg.arcade.bukkit.test.DragonDeathTest;
+import pl.shg.arcade.bukkit.test.SQLTest;
 import pl.shg.arcade.bukkit.test.SoundTest;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.Servers;
@@ -73,7 +74,6 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         
         Log.log(Level.INFO, "Wczytywanie modulow...");
         new ModuleLoader() {
-            
             @Override
             public void register(Class<? extends Module> module) {
                 Validate.notNull(module, "module can not be null");
@@ -86,6 +86,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 }
             }
         }.init();
+        
         for (Class<? extends Module> module : Arcade.getModules().getModules()) {
             Module object = Arcade.getModules().asObject(module);
             object.loadDependencies();
@@ -253,6 +254,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     private void registerTests() {
         TestCommand.registerDefaults();
         new DragonDeathTest().register();
+        new SQLTest().register();
         new SoundTest().register();
     }
     
