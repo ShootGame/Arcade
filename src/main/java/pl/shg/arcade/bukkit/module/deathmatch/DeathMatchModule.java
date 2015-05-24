@@ -20,6 +20,7 @@ import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -34,7 +35,7 @@ public class DeathMatchModule extends ObjectiveModule implements BListener {
     protected int maxScore;
     
     public DeathMatchModule() {
-        super(new Date(2014, 11, 15), "death-match", "1.0");
+        super(new Date(2014, 11, 15), "death-match", Version.valueOf("1.0"));
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.INT) {
             @Override
             public String getPrefix() {

@@ -21,6 +21,7 @@ import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -34,7 +35,7 @@ public class DeathMessagesModule extends Module implements BListener {
     private final HashMap<String, String> messages = new HashMap<>();
     
     public DeathMessagesModule() {
-        super(new Date(2015, 4, 21), "death-messages", "1.0");
+        super(new Date(2015, 4, 21), "death-messages", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie własnych " +
                 "wiadomość po śmierci (przykładowo <code>TheMolkaPL hit the " +
                 "ground too hard.</code> może zostać zamienione na <code>TheMolkaPL " +

@@ -35,7 +35,6 @@ import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.util.ClientSettings;
 import pl.shg.commons.util.Messages;
-import pl.shg.commons.util.TabCell;
 import pl.shg.commons.util.Tablists;
 import pl.shg.commons.util.Titles;
 import pl.themolka.permissions.Group;
@@ -213,13 +212,7 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void setTabList(TabList tabList) {
         Validate.notNull(tabList, "tabList can not be null");
-        
-        TabCell[] cells = new TabCell[tabList.getCells().size()];
-        cells = tabList.getCells().toArray(cells);
-        
-//        Tablists.sendClearCells(this.player); // clear all cells in the tablist
         Tablists.sendHeaderFooter(this.player, tabList.getHeader(), tabList.getFooter()); // send header and footer
-//        Tablists.sendCells(this.player, cells); // send a new custom tablist
     }
     
     @Override

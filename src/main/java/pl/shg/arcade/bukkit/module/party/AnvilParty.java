@@ -12,6 +12,7 @@ import java.util.Random;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
@@ -23,7 +24,7 @@ public class AnvilParty extends Party {
     private int task, ticks;
     
     public AnvilParty() {
-        super(new Date(2015, 5, 10), "anvil", "Spadajce kowadla", "1.0");
+        super(new Date(2015, 5, 10), "anvil", "Spadajce kowadla", Version.valueOf("1.0"));
         this.deploy(true);
     }
     

@@ -16,6 +16,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -25,11 +26,12 @@ import pl.shg.arcade.bukkit.Listeners;
  * @author Aleksander
  */
 public class PlayableAreaModule extends Module implements BListener {
+    private boolean cancelAll = false;
     private String message;
     private int xMax, yMax = 256, zMax, xMin, yMin = 0, zMin;
     
     public PlayableAreaModule() {
-        super(new Date(2014, 12, 6), "playable-area", "1.0");
+        super(new Date(2014, 12, 6), "playable-area", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie granicy " +
                 "rozgrywki na mapie. Ustawiając region, w którym znajduje się " +
                 "dana rozgryka blokuje się jednocześnie nisczenie oraz stawianie " +
@@ -84,7 +86,7 @@ public class PlayableAreaModule extends Module implements BListener {
         }
         
         if (this.xMax == 0 && this.xMin == 0 && this.zMax == 0 && this.zMin == 0) {
-            // TODO register an events that listen to the PlayerGetKitEvent or something similar
+            this.cancelAll = true;
         }
     }
     
@@ -95,7 +97,7 @@ public class PlayableAreaModule extends Module implements BListener {
     
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        if (this.isOutside(e.getBlock().getLocation())) {
+        if (this.cancelAll || this.isOutside(e.getBlock().getLocation())) {
             e.setCancelled(true);
             if (this.message != null) {
                 e.getPlayer().sendMessage(Color.RED + Color.translate(this.message));
@@ -105,7 +107,7 @@ public class PlayableAreaModule extends Module implements BListener {
     
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
-        if (this.isOutside(e.getBlock().getLocation())) {
+        if (this.cancelAll || this.isOutside(e.getBlock().getLocation())) {
             e.setCancelled(true);
             if (this.message != null) {
                 e.getPlayer().sendMessage(Color.RED + Color.translate(this.message));

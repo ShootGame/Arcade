@@ -23,6 +23,7 @@ import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -37,7 +38,7 @@ public class DelayedRespawnModule extends Module implements BListener {
     private EventListener respawnListener;
     
     public DelayedRespawnModule() {
-        super(new Date(2015, 4, 25), "delayed-respawn", "1.0");
+        super(new Date(2015, 4, 25), "delayed-respawn", Version.valueOf("1.0"));
     }
     
     @Override

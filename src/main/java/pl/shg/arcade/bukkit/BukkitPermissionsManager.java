@@ -120,14 +120,16 @@ public class BukkitPermissionsManager implements PermissionsManager {
     
     public void setGroupsFor(User user) {
         Validate.notNull(user, "user can not be null");
+        
         // TODO request to out database
         for (Group group : this.getDefaultGroups()) {
             user.addToGroup(group, false);
         }
+        
         // temporary solution
-        if (user.getBukkit().getName().equals("TheMolkaPL") || user.getBukkit().getName().equals("FanBlezzura")) {
+        /*if (user.getBukkit().getName().equals("TheMolkaPL") || user.getBukkit().getName().equals("FanBlezzura")) {
             user.addToGroup(this.getGroup("developer"), false);
-        }
+        }*/
         user.reload();        
     }
     

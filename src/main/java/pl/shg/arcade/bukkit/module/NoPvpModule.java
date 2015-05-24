@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -22,7 +23,7 @@ import pl.shg.arcade.bukkit.Listeners;
  */
 public class NoPvpModule extends Module implements BListener {
     public NoPvpModule() {
-        super(new Date(2015, 4, 20), "no-pvp", "1.0");
+        super(new Date(2015, 4, 20), "no-pvp", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł wyłącza walkę PvP na całej mapie u wszyskich graczy.");
         this.deploy(true);
     }

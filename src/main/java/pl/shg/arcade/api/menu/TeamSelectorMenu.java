@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import org.bukkit.ChatColor;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.chat.Color;
@@ -61,7 +60,7 @@ public class TeamSelectorMenu extends Menu {
             auto.setName(Color.DARK_AQUA + "Losuj druzyne");
             auto.setDescription(Arrays.asList(
                     Color.GRAY + "Dolacz do druzyny w której jest najmniej graczy",
-                    ChatColor.GOLD + "Dostep: " + Color.GREEN + "Wszyscy"));
+                    Color.GOLD + "Dostep: " + Color.GREEN + "Wszyscy"));
             this.addItem(auto, 0);
             
             List<Team> teamList = Arcade.getTeams().getTeams();

@@ -76,7 +76,7 @@ public abstract class ArcadeServer implements Server {
             }
             
             // Check modules to finish the current match
-            if (this.isModulesScored(team)) {
+            if (this.modulesAreScored(team)) {
                 Winner winner = new TeamWinner(team);
                 if (players == 1) {
                     winner = new PlayerWinner(team.getPlayers().get(0));
@@ -88,7 +88,7 @@ public abstract class ArcadeServer implements Server {
         }
     }
     
-    private boolean isModulesScored(Team team) {
+    private boolean modulesAreScored(Team team) {
         for (Module module : Arcade.getModules().getActiveModules()) {
             if (module instanceof ObjectiveModule) {
                 if (!((ObjectiveModule) module).objectiveScored(team)) {

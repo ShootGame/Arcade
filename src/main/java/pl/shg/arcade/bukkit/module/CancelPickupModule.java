@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BukkitModule;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -24,7 +25,7 @@ public class CancelPickupModule extends BukkitModule {
     private String message;
     
     public CancelPickupModule() {
-        super(new Date(2015, 4, 27), "cancel-pickup", "1.0");
+        super(new Date(2015, 4, 27), "cancel-pickup", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł blokuje podnoszenie itemów (poprzez " +
                 "podnoszenie z ziemi) do ekwipunku gracza.");
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {

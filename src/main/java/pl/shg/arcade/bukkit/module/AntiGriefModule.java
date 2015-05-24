@@ -6,7 +6,6 @@
  */
 package pl.shg.arcade.bukkit.module;
 
-import com.mysql.jdbc.NotUpdatable;
 import java.io.File;
 import java.util.Date;
 import org.bukkit.Material;
@@ -17,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.NotUsableDeprecation;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -30,7 +30,7 @@ public class AntiGriefModule extends Module {
     };
     
     public AntiGriefModule() {
-        super(new Date(2015, 4, 18), "anti-grief", "1.0");
+        super(new Date(2015, 4, 18), "anti-grief", Version.valueOf("1.0"));
         this.getDocs().setDeprecation(new NotUsableDeprecation(NotUsableDeprecation.Reason.AUTO_LOAD));
         this.getDocs().setDescription("Ten moduł jest ochroną przez grieferami " +
                 "w drużynie. Moduł ten na czas obecny oferuje tylko jeden sposób " +

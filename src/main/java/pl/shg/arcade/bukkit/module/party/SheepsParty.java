@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.module.party;
 import java.io.File;
 import java.util.Date;
 import org.bukkit.configuration.file.FileConfiguration;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -18,7 +19,7 @@ import pl.shg.arcade.bukkit.Config;
 public class SheepsParty extends Party {
 
     public SheepsParty() {
-        super(new Date(2015, 5, 9), "sheeps", "Capture the sheep", "1.0");
+        super(new Date(2015, 5, 9), "sheeps", "Capture the sheep", Version.valueOf("1.0"));
     }
     
     @Override

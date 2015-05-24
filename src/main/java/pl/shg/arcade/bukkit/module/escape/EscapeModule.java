@@ -19,6 +19,7 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Direction;
 import pl.shg.arcade.api.map.Tutorial;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.module.blitz.BlitzModule;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
@@ -33,7 +34,7 @@ public class EscapeModule extends BlitzModule {
         super();
         this.setDate(new Date(2015, 04, 18));
         this.setID("explosion-escape");
-        this.setVersion("1.0");
+        this.setVersion(Version.valueOf("1.0"));
         
         this.clearExamples();
         this.deploy(true);

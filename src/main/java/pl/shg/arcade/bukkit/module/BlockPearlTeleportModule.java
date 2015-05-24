@@ -20,6 +20,7 @@ import pl.shg.arcade.api.map.Location;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.region.RegionManager;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -33,7 +34,7 @@ public class BlockPearlTeleportModule extends Module implements BListener {
     private final List<String> regions = new ArrayList<>();
     
     public BlockPearlTeleportModule() {
-        super(new Date(2015, 4, 19), "block-pearl-teleport", "1.0");
+        super(new Date(2015, 4, 19), "block-pearl-teleport", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia blokowanie teleportowanie " +
                 "się perłą kresu do określone regiony. Przykładowym regionem " +
                 "może być spawn drużyny przeciwnej.");

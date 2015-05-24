@@ -85,7 +85,7 @@ public class JoinCommand extends Command {
                 }
             }
             
-            if (canBegin && !manager.isBeginRunning()) {
+            if (canBegin) {
                 manager.runBegin(BeginScheduler.getDefaultSeconds());
             }
         }
@@ -124,7 +124,10 @@ public class JoinCommand extends Command {
     }
     
     public static void team(Player player, Team team, MatchStatus status) {
-        if (!player.hasPermission("arcade.command.join.full") && team.getPlayers().size() >= team.getSlots()) {
+        if (!player.hasPermission("arcade.command.join.team")) {
+            player.sendError("Dolaczanie do wybranej druzyny dostepne jest tylko dla rangi "
+                    + Color.GOLD + Color.BOLD + "VIP" + Color.RESET + Color.RED + ".");
+        } else if (!player.hasPermission("arcade.command.join.full") && team.getPlayers().size() >= team.getSlots()) {
             player.sendError("Druzyna " + team.getName() + " jest zapelniona! Poczekaj na zwolnienie miejsca.");
             return;
         }

@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -24,7 +25,7 @@ public class NoDeathDropsModule extends Module implements BListener {
     private boolean ignoreObservers;
     
     public NoDeathDropsModule() {
-        super(new Date(2015, 4, 19), "no-death-drops", "1.0");
+        super(new Date(2015, 4, 19), "no-death-drops", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł wyłącza wyrzucanie przedmiotów z graczy po ich śmierci.");
         this.deploy(true);
     }

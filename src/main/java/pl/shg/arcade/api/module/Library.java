@@ -8,13 +8,14 @@ package pl.shg.arcade.api.module;
 
 import java.util.Date;
 import pl.shg.arcade.api.module.docs.LibDeprecation;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
  * @author Aleksander
  */
 public abstract class Library extends ObjectiveModule {
-    public Library(Date date, String id, String version) {
+    public Library(Date date, String id, Version version) {
         super(date, "lib-" + id, version);
         this.getDocs().setDeprecation(new LibDeprecation());
     }

@@ -14,8 +14,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.chat.ActionMessageType;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.ArcadeTabList;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -23,7 +23,7 @@ import pl.shg.arcade.api.server.ArcadeTabList;
  */
 public class SpleefParty extends Party {
     public SpleefParty() {
-        super(new Date(2015, 5, 11), "spleef", "Spleef", "1.0");
+        super(new Date(2015, 5, 11), "spleef", "Spleef", Version.valueOf("1.0"));
         this.deploy(true);
     }
     
@@ -45,11 +45,9 @@ public class SpleefParty extends Party {
         Player player = Arcade.getServer().getPlayer(e.getEntity().getUniqueId());
         if (!player.isObserver()) {
             player.resetPlayerState();
-            ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
             
-            if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
-                Arcade.getServer().checkEndMatch();
-            }
+            ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
+            Arcade.getServer().checkEndMatch();
             this.broadcast(player);
         }
     }

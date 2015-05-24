@@ -17,6 +17,7 @@ import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -27,7 +28,7 @@ public class JoinWhenRunningCancelModule extends Module {
     private EventListener listener;
     
     public JoinWhenRunningCancelModule() {
-        super(new Date(2015, 4, 19), "join-when-running-cancel", "1.0");
+        super(new Date(2015, 4, 19), "join-when-running-cancel", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł wyłącza możliwość dołączania " +
                 "do drużyn (także rangom premium) w czasie trawnia meczu. Do " +
                 "gry można dołączyć tylko i wyłącznie podczas odliczania do " +

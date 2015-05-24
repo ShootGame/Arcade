@@ -18,6 +18,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -29,7 +30,7 @@ public class AutoJoinModule extends Module {
     private String message;
     
     public AutoJoinModule() {
-        super(new Date(2015, 4, 21), "auto-join", "1.0");
+        super(new Date(2015, 4, 21), "auto-join", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia automatyczne dołączanie " +
                 "do drużyny przez graczy od razu po załadowaniu mapy. Zaleca się " +
                 "użycie tego modułu tylko i wyłącznie na mapach typu <code>Blitz</code>.");

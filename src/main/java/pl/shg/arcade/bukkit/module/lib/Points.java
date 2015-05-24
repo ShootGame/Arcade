@@ -20,6 +20,7 @@ import pl.shg.arcade.api.module.Library;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
@@ -32,7 +33,7 @@ public class Points extends Library {
     private static final HashMap<Team, Integer> points = new HashMap<>();
     
     public Points() {
-        super(new Date(2015, 03, 28), "points", "1.0");
+        super(new Date(2015, 03, 28), "points", Version.valueOf("1.0"));
         this.getDocs().setDescription("Biblioteka ta oferuje system punktów dla " +
                 "drużyn. Obecnie biblioteka jest wykorzystywana poprzez moduł " +
                 "<code>death-match</code>. Biblioteka nie posiada żadnej konfiguracji, " +

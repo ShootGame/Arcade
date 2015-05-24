@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.Date;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -17,7 +18,7 @@ import pl.shg.arcade.api.module.Module;
  */
 public class DestroyableModesModule extends Module {
     public DestroyableModesModule() {
-        super(new Date(2015, 5, 11), "destroyable-modes", "1.0");
+        super(new Date(2015, 5, 11), "destroyable-modes", Version.valueOf("1.0"));
     }
     
     @Override

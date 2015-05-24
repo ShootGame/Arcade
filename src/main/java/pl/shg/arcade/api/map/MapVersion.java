@@ -34,16 +34,4 @@ public class MapVersion extends Version {
     public boolean isDevelopment() {
         return this.getMajor() == 0;
     }
-    
-    public static boolean isValid(String s) {
-        return valueOf(s) != null;
-    }
-    
-    public static MapVersion valueOf(String s) {
-        Version version = Version.valueOf(s);
-        if (version != null) {
-            return new MapVersion(version.getMajor(), version.getMinor(), version.getPatch());
-        }
-        return null;
-    }
 }

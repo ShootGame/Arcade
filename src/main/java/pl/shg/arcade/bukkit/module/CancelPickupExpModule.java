@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerPickupExperienceEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -25,7 +26,7 @@ public class CancelPickupExpModule extends Module implements BListener {
     private String message;
     
     public CancelPickupExpModule() {
-        super(new Date(2015, 4, 27), "cancel-pickup-exp", "1.0");
+        super(new Date(2015, 4, 27), "cancel-pickup-exp", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł blokuje podnoszenie doświadczenia " +
                 "(poprzez podnoszenie z ziemi) dla gracza.");
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.MESSAGE) {

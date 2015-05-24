@@ -13,7 +13,6 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.team.ChatChannel;
 import pl.shg.arcade.api.team.GlobalChat;
-import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.util.Validate;
@@ -23,15 +22,10 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public class ArcadeTeamManager implements TeamManager {
-    private final ChatChannel globalChannel;
+    private final ChatChannel globalChannel = new GlobalChat();
     private List<Kit> kits = new ArrayList<>();
     private Team obs;
     private List<Team> teams;
-    
-    public ArcadeTeamManager() {
-        this.globalChannel = new GlobalChat();
-//        this.obs = new Team(new ObserverTeamBuilder());
-    }
     
     @Override
     public ChatChannel getChannel(String name) {

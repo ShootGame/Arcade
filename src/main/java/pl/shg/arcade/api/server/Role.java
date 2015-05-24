@@ -6,7 +6,6 @@
  */
 package pl.shg.arcade.api.server;
 
-import pl.shg.arcade.api.server.blitz.CommunityBlitz;
 import pl.shg.arcade.api.server.community.Community;
 import pl.shg.arcade.api.server.development.Development;
 import pl.shg.arcade.api.server.party.Party;
@@ -17,7 +16,6 @@ import pl.shg.arcade.api.server.tournament.Tournament;
  * @author Aleksander
  */
 public enum Role {
-    BLITZ(new CommunityBlitz()),
     COMMUNITY(new Community()),
     DEVELOPMENT(new Development()),
     PARTY(new Party()),

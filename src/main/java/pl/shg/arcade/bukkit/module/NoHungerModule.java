@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -21,7 +22,7 @@ import pl.shg.arcade.bukkit.Listeners;
  */
 public class NoHungerModule extends Module implements BListener {
     public NoHungerModule() {
-        super(new Date(2015, 4, 5), "no-hunger", "1.0");
+        super(new Date(2015, 4, 5), "no-hunger", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł wyłącza spadanie paska głodu na całej mapie u wszyskich graczy.");
         this.deploy(true);
     }

@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -21,7 +22,7 @@ import pl.shg.arcade.bukkit.Listeners;
  */
 public class FeatherFallingModule extends Module implements BListener {
     public FeatherFallingModule() {
-        super(new Date(2014, 11, 8), "feather-falling", "1.0");
+        super(new Date(2014, 11, 8), "feather-falling", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł wyłącza uderzenia graczy z " +
                 "upadku. Jest to świetny moduł na mapy, gdzie łatwo o własną " +
                 "śmierć, a nie jest to jej cel.");

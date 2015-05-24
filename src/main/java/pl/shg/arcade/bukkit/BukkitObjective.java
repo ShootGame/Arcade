@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit;
 
 import java.util.Date;
 import pl.shg.arcade.api.module.ObjectiveModule;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -15,7 +16,7 @@ import pl.shg.arcade.api.module.ObjectiveModule;
  */
 @Deprecated
 public abstract class BukkitObjective extends ObjectiveModule implements BListener {
-    public BukkitObjective(Date date, String id, String version) {
+    public BukkitObjective(Date date, String id, Version version) {
         super(date, id, version);
     }
     

@@ -50,9 +50,6 @@ public class BlocksDestroyable extends DestroyableObject {
     public void destroy(Player player) {
         DestroyableDestroyedEvent event = new DestroyableDestroyedEvent(this, player);
         Event.callEvent(event);
-        if (!(event.getDestroyable() instanceof BlocksDestroyable)) {
-            throw new IllegalArgumentException("Destroyable can be only the instance of BlocksDestroyable");
-        }
         
         Arcade.getServer().checkEndMatch();
     }

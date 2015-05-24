@@ -21,6 +21,7 @@ public enum Sound {
     OBJECTIVE_LOST,
     OBJECTIVE_LOST_PIECE,
     OBJECTIVE_SCORED,
-    TICK
+    TICK,
+    TIME_OUT,
     ;
 }

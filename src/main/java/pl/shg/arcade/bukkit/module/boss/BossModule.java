@@ -14,6 +14,7 @@ import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -21,7 +22,7 @@ import pl.shg.arcade.api.team.Team;
  */
 public class BossModule extends ObjectiveModule {
     public BossModule() {
-        super(new Date(2015, 5, 16), "boss", "1.0");
+        super(new Date(2015, 5, 16), "boss", Version.valueOf("1.0"));
     }
     
     @Override

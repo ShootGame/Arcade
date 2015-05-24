@@ -10,13 +10,13 @@ import java.util.logging.Level;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
-import pl.shg.arcade.api.server.IServerRole;
+import pl.shg.arcade.api.server.community.Community;
 
 /**
  *
  * @author Aleksander
  */
-public class Party implements IServerRole {
+public class Party extends Community {
     @Override
     public void onServerEnable() {
         Log.log(Level.INFO, "#################");
@@ -25,5 +25,7 @@ public class Party implements IServerRole {
         
         BeginScheduler.setDefaultSeconds(10);
         CycleScheduler.setDefaultSeconds(5);
+        
+        this.registerDatabase();
     }
 }

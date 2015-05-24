@@ -24,6 +24,7 @@ import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.server.ArcadeTabList;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -37,7 +38,7 @@ public class MatchTimerModule extends Module {
     private String winner = "auto";
     
     public MatchTimerModule() {
-        super(new Date(2015, 5, 8), "match-timer", "1.0");
+        super(new Date(2015, 5, 8), "match-timer", Version.valueOf("1.0"));
         
         this.getDocs().setDescription("Zakończenie meczu po danym w konfiguracji " +
                 "czasie. Dodaje także licznik czasu do listy pod klawiszem TAB.");
@@ -124,6 +125,12 @@ public class MatchTimerModule extends Module {
             }
         }
         
+        // Override Bungee's footer too
+        @Override
+        public String getRawBungeeFooter() {
+            return super.getRawFooter() + "\n\n" + this.getTime();
+        }
+        
         @Override
         public String getRawFooter() {
             return super.getRawFooter() + "\n\n" + this.getTime();
@@ -205,10 +212,16 @@ public class MatchTimerModule extends Module {
         }
         
         private void playSound() {
-            if (this.minutesInt == 0 && this.secondsInt < 10 && this.secondsInt > 0) {
-                PlayerManagement players = Arcade.getPlayerManagement();
+            PlayerManagement players = Arcade.getPlayerManagement();
+            if (this.minutesInt == 0 && this.secondsInt < 20 && this.secondsInt > 0) {
                 for (Player player : Arcade.getServer().getConnectedPlayers()) {
-                    players.playSound(player, Sound.TICK);
+                    players.playSound(player, Sound.TICK, 0.25F, 2F);
+                }
+            }
+            
+            if (this.minutesInt == 0 && this.secondsInt == 5) {
+                for (Player player : Arcade.getServer().getConnectedPlayers()) {
+                    players.playSound(player, Sound.TIME_OUT, 1F, 0.78F);
                 }
             }
         }

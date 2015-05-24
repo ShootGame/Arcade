@@ -79,7 +79,7 @@ public class CyTeamsLoader {
         String path = this.section + "." + team;
         
         PlayableTeamBuilder builder = new PlayableTeamBuilder(team);
-        builder.setFrendlyFire(this.f.getBoolean(path + ".frendly", false));
+        builder.setFrendlyFire(this.f.getBoolean(path + ".frendly", true));
         builder.setMinimum(this.f.getInt(path + ".minimum", 1));
         builder.setName(team);
         builder.setSlots(this.f.getInt(path + ".slots"));

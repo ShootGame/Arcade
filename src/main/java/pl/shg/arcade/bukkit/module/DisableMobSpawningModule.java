@@ -18,6 +18,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleException;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -32,7 +33,7 @@ public class DisableMobSpawningModule extends Module implements BListener {
     private final List<EntityType> disallowed = new ArrayList<>();
     
     public DisableMobSpawningModule() {
-        super(new Date(2014, 11, 8), "disable-mob-spawning", "1.0");
+        super(new Date(2014, 11, 8), "disable-mob-spawning", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie listy " +
                 "mobów, które mogą, lub nie mogę zostać narodzone na mapie. " +
                 "Proszę pamiętać, że moby które będą już narodzone na mapie " +
@@ -130,7 +131,10 @@ public class DisableMobSpawningModule extends Module implements BListener {
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent e) {
         boolean cancel = false;
-        if (this.cancelAll) {
+        
+        if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) {
+            cancel = false;
+        } else if (this.cancelAll) {
             cancel = true;
         } else if (!this.allowed.isEmpty()) { // W liscie dozwolonych znajduja sie moby
             if (!this.allowed.contains(e.getEntityType())) {
@@ -141,6 +145,7 @@ public class DisableMobSpawningModule extends Module implements BListener {
                 cancel = true;
             }
         }
+        
         e.setCancelled(cancel);
     }
 }

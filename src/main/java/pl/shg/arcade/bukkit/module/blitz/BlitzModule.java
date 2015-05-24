@@ -32,6 +32,7 @@ import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -47,7 +48,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
     private String kickMessage, respawnMessage;
     
     public BlitzModule() {
-        super(new Date(2015, 4, 26), "blitz", "1.0");
+        super(new Date(2015, 4, 26), "blitz", Version.valueOf("1.0"));
         this.getDocs().setDescription("Dodaje tryb gry, w którym wygrywa drużyna " +
                 "w której ostatni zostaną gracze. Gracz ma do dyspozycji określoną " +
                 "ilość żyć, po śmierci zostaje on przeniesiony do obserwatorów.");

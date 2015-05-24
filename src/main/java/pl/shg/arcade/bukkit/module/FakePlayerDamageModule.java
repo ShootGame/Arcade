@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -22,7 +23,7 @@ import pl.shg.arcade.bukkit.Listeners;
  */
 public class FakePlayerDamageModule extends Module implements BListener {
     public FakePlayerDamageModule() {
-        super(new Date(2015, 5, 3), "fake-player-damage", "1.0");
+        super(new Date(2015, 5, 3), "fake-player-damage", Version.valueOf("1.0"));
         this.getDocs().setDescription("Anuluje uderzenia na graczu wykonane " +
                 "przez innego gracza. Gracz nie traci życia, lecz dostaje uderzony.");
         this.deploy(true);

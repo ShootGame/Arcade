@@ -16,6 +16,7 @@ import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.NotUsableDeprecation;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ChatModule extends Module {
     private String message;
     
     public ChatModule() {
-        super(new Date(2015, 3, 27), "chat", "1.0");
+        super(new Date(2015, 3, 27), "chat", Version.valueOf("1.0"));
         this.getDocs().setDeprecation(new NotUsableDeprecation(NotUsableDeprecation.Reason.AUTO_LOAD));
     }
     

@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -22,7 +23,7 @@ import pl.shg.arcade.bukkit.Listeners;
  */
 public class DisableBedsModule extends Module implements BListener {
     public DisableBedsModule() {
-        super(new Date(2015, 4, 18), "disable-beds", "1.0");
+        super(new Date(2015, 4, 18), "disable-beds", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł blokuje spawnie na łóżkach " +
                 "przez graczy na obecnej mapie. Moduł ten jest nierozłączym " +
                 "przyjacielem na mapach typu <code>Capture the wool</code> " +

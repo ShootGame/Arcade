@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
 
@@ -25,7 +26,7 @@ public class RageModule extends Module implements BListener {
     public static final int DAMAGE = 1000;
     
     public RageModule() {
-        super(new Date(2014, 11, 8), "rage", "1.0");
+        super(new Date(2014, 11, 8), "rage", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia dodanie zabijania " +
                 "na dotyk. Aby zabić gracza na w tym module, wystaczy go " +
                 "tylko dotknąć łapką, lub strzelić w niego strzałą.");

@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit;
 
 import java.util.Date;
 import pl.shg.arcade.api.module.Library;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -15,7 +16,7 @@ import pl.shg.arcade.api.module.Library;
  */
 @Deprecated
 public abstract class BukkitLibrary extends Library implements BListener {
-    public BukkitLibrary(Date date, String id, String version) {
+    public BukkitLibrary(Date date, String id, Version version) {
         super(date, id, version);
     }
     

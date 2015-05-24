@@ -91,7 +91,7 @@ public class ModuleDescription {
     
     @Docs
     public String getLastVersion() {
-        return this.getModule().getVersion();
+        return this.getModule().getVersion().toString();
     }
     
     @Docs

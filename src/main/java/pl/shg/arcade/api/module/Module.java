@@ -15,6 +15,7 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.module.docs.ModuleDescription;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -27,9 +28,9 @@ public abstract class Module implements IModule {
     private final ModuleDescription docs;
     private final List<ConfigurationDoc> examples;
     private String id;
-    private String version;
+    private Version version;
     
-    public Module(Date date, String id, String version) {
+    public Module(Date date, String id, Version version) {
         this.setDate(date);
         this.setID(id);
         this.setVersion(version);
@@ -87,7 +88,7 @@ public abstract class Module implements IModule {
         return this.id;
     }
     
-    public String getVersion() {
+    public Version getVersion() {
         return this.version;
     }
     
@@ -111,7 +112,7 @@ public abstract class Module implements IModule {
         this.id = id.toLowerCase();
     }
     
-    public final void setVersion(String version) {
+    public final void setVersion(Version version) {
         Validate.notNull(version, "version can not be null");
         this.version = version;
     }

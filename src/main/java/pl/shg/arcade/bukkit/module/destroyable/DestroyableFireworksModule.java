@@ -21,6 +21,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BukkitLocation;
 import pl.shg.commons.util.Fireworks;
 
@@ -32,7 +33,7 @@ public class DestroyableFireworksModule extends Module {
     private EventListener listener;
     
     public DestroyableFireworksModule() {
-        super(new Date(2015, 5, 14), "destroyable-fireworks", "1.0");
+        super(new Date(2015, 5, 14), "destroyable-fireworks", Version.valueOf("1.0"));
         this.deploy(true);
     }
     

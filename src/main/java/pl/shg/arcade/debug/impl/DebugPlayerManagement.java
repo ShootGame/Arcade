@@ -32,6 +32,11 @@ public class DebugPlayerManagement implements PlayerManagement {
     }
     
     @Override
+    public void playSound(Player player, Sound sound, float volume, float pitch) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
     public void refreshHiderForAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

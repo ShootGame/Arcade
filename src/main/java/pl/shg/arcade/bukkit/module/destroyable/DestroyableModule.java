@@ -21,6 +21,7 @@ import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -31,7 +32,7 @@ public class DestroyableModule extends ObjectiveModule {
     private final List<DestroyableObject> destroyables = new ArrayList<>();
     
     public DestroyableModule() {
-        super(new Date(2015, 5, 11), "destroyable", "1.0");
+        super(new Date(2015, 5, 11), "destroyable", Version.valueOf("1.0"));
     }
     
     @Override

@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BukkitLocation;
 import pl.shg.arcade.bukkit.Config;
 
@@ -26,7 +27,7 @@ public class GameRuleModule extends Module {
     private World world;
     
     public GameRuleModule() {
-        super(new Date(2015, 3, 18), "game-rule", "1.0");
+        super(new Date(2015, 3, 18), "game-rule", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie własnych " +
                 "wartości <code>gamerule</code> z Minecraft");
         this.addExample(new ConfigurationDoc(true, ConfigurationDoc.Type.BOOLEAN) {

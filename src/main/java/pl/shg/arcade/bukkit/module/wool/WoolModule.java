@@ -17,6 +17,7 @@ import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -26,7 +27,7 @@ public class WoolModule extends ObjectiveModule {
     private final HashMap<Team, List<WoolMonument>> monuments = new HashMap<>();
     
     public WoolModule() {
-        super(new Date(2015, 03, 26), "wool", "1.0");
+        super(new Date(2015, 03, 26), "wool", Version.valueOf("1.0"));
     }
     
     @Override

@@ -57,7 +57,7 @@ public class BeginScheduler implements Runnable {
                     if (!player.isObserver()) {
                         player.sendTitle(Color.GREEN + this.seconds);
                     }
-                    Arcade.getPlayerManagement().playSound(player, Sound.BEGINING);
+                    Arcade.getPlayerManagement().playSound(player, Sound.BEGINING, 1F, 1.19F);
                 }
                 break;
         }

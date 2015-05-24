@@ -15,13 +15,14 @@ import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
  * @author Aleksander
  */
 public abstract class ObjectiveModule extends Module {
-    public ObjectiveModule(Date date, String id, String version) {
+    public ObjectiveModule(Date date, String id, Version version) {
         super(date, id, version);
     }
     
@@ -48,23 +49,6 @@ public abstract class ObjectiveModule extends Module {
     public abstract SortedMap<Integer, Team> sortTeams();
     
     public void updateObjectives() {
-        for (Team team : Arcade.getTeams().getTeams()) {
-            if (this.objectiveScored(team)) {
-                Match match = Arcade.getMatches().getMatch();
-                
-                Winner winner = null;
-                switch (match.getType()) {
-                    case PLAYERS:
-                        winner = new PlayerWinner(team.getPlayers().get(0));
-                        break;
-                    case TEAMS:
-                        winner = new TeamWinner(team);
-                        break;
-                }
-                
-                match.end(winner);
-                return;
-            }
-        }
+        Arcade.getServer().checkEndMatch();
     }
 }

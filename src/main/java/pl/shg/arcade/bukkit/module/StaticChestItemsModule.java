@@ -24,6 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
@@ -36,7 +37,7 @@ public class StaticChestItemsModule extends Module implements BListener {
     private final List<StaticChest> chests = new ArrayList<>();
     
     public StaticChestItemsModule() {
-        super(new Date(2015, 04, 19), "static-chest-items", "1.0");
+        super(new Date(2015, 04, 19), "static-chest-items", Version.valueOf("1.0"));
         this.getDocs().setDescription("Ten moduł umożliwia ustawienie statycznych " +
                 "przedmiotów w skrzynkach. Przedmioty po wyjęciu ze skrzynki nie " +
                 "są usuwane. Jest to jedno z najważniejszych zabezpieczeń przeciwko " +

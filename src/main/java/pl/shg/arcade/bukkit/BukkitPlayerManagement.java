@@ -69,6 +69,11 @@ public class BukkitPlayerManagement implements PlayerManagement {
     
     @Override
     public void playSound(pl.shg.arcade.api.human.Player player, pl.shg.arcade.api.Sound sound) {
+        this.playSound(player, sound, 5F, 1F);
+    }
+    
+    @Override
+    public void playSound(pl.shg.arcade.api.human.Player player, pl.shg.arcade.api.Sound sound, float volume, float pitch) {
         Validate.notNull(player, "player can not be null");
         Validate.notNull(sound, "sound can not be null");
         
@@ -84,11 +89,12 @@ public class BukkitPlayerManagement implements PlayerManagement {
             case OBJECTIVE_LOST: result = Sound.BLAZE_DEATH; break;
             case OBJECTIVE_SCORED: result = Sound.FIREWORK_TWINKLE2; break;
             case TICK: result = Sound.CLICK; break;
+            case TIME_OUT: result = Sound.PORTAL_TRIGGER; break;
         }
         
         if (result != null) {
             Player bukkitPlayer = (Player) player.getPlayer();
-            bukkitPlayer.playSound(bukkitPlayer.getLocation(), result, 10F, 1F);
+            bukkitPlayer.playSound(bukkitPlayer.getLocation(), result, volume, pitch);
         }
     }
     

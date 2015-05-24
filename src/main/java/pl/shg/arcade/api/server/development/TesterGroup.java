@@ -33,6 +33,7 @@ public class TesterGroup extends Group {
             "arcade.command.myteam",
             //"arcade.command.rate",
             //"arcade.command.rating",
+            "arcade.command.rotation",
             "arcade.command.teams",
             "arcade.command.tutorial"
     };

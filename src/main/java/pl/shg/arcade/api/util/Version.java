@@ -6,12 +6,16 @@
  */
 package pl.shg.arcade.api.util;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Aleksander
  */
 public class Version {
-    public static char SECTION = '.';
+    public static final char SECTION = ' ';
+    public static final Version DEFAULT = new Version(1, 0);
+    
     private final int major, minor, patch;
     
     public Version(int major) {
@@ -80,9 +84,9 @@ public class Version {
     
     public String toString(boolean full) {
         StringBuilder builder = new StringBuilder();
-        builder.append(this.getMajor()).append(Version.SECTION).append(this.getMinor());
+        builder.append(this.getMajor()).append(".").append(this.getMinor());
         if (full || this.hasPatch()) {
-            builder.append(Version.SECTION).append(this.getPatch());
+            builder.append(SECTION).append(this.getPatch());
         }
         return builder.toString();
     }
@@ -110,13 +114,14 @@ public class Version {
     }
     
     public static Version valueOf(String s) {
-        return valueOf(s, Version.SECTION);
+        return valueOf(s, SECTION);
     }
     
     public static Version valueOf(String s, char section) {
         Validate.notNull(s, "s can not be null");
         Validate.notNull(section, "section can not be null");
-        String[] parts = s.split(Character.toString(section));
+        
+        String[] parts = s.split("\\" + Character.toString(section), 3);
         int major, minor = 0, patch = 0;
         
         try {
@@ -128,8 +133,8 @@ public class Version {
                 patch = Integer.valueOf(parts[2]);
             }
             return new Version(major, minor, patch);
-        } catch (Exception ex) {
-            return null;
+        } catch (Throwable ex) {
+            return DEFAULT;
         }
     }
 }

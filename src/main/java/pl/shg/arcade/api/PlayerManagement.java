@@ -20,6 +20,8 @@ public interface PlayerManagement {
     
     void playSound(Player player, Sound sound);
     
+    void playSound(Player player, Sound sound, float volume, float pitch);
+    
     void refreshHiderForAll();
     
     void setAsObserver(Player player, boolean fullKit, boolean hider, boolean perms);

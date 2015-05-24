@@ -18,6 +18,7 @@ import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.MapVersion;
 import pl.shg.arcade.api.map.Protocol;
 import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
@@ -61,7 +62,7 @@ public class CyLoader extends CyConfiguration {
         } else if (!MapVersion.isValid(version)) {
             this.throwError(CError.UNKNOWN_VALUE, "version", null);
         } else {
-            m.setVersion(MapVersion.valueOf(version)); // setup
+            m.setVersion(this.getMapVersion(MapVersion.valueOf(version))); // setup
         }
         
         // game - game on this map
@@ -128,5 +129,9 @@ public class CyLoader extends CyConfiguration {
     
     public Protocol getProtocol() {
         return this.protocol;
+    }
+    
+    private MapVersion getMapVersion(Version version) {
+        return new MapVersion(version.getMajor(), version.getMinor(), version.getPatch());
     }
 }

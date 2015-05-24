@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.module.deathmatch;
 import java.util.Date;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.docs.ConfigurationDoc;
+import pl.shg.arcade.api.util.Version;
 
 /**
  *
@@ -19,7 +20,7 @@ public class PaintballModule extends DeathMatchModule {
         super();
         this.setDate(new Date(2015, 4, 26));
         this.setID("paintball");
-        this.setVersion("1.0");
+        this.setVersion(Version.valueOf("1.0"));
         
         this.clearExamples();
         this.addExample(new ConfigurationDoc(false, ConfigurationDoc.Type.INT) {

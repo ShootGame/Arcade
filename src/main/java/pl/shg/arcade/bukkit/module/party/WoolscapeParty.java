@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.module.party;
 import java.io.File;
 import java.util.Date;
 import org.bukkit.configuration.file.FileConfiguration;
+import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 
 /**
@@ -17,7 +18,7 @@ import pl.shg.arcade.bukkit.Config;
  */
 public class WoolscapeParty extends Party {
     public WoolscapeParty() {
-        super(new Date(2015, 5, 9), "woolscape", "Woolscape", "1.0");
+        super(new Date(2015, 5, 9), "woolscape", "Woolscape", Version.valueOf("1.0"));
         this.deploy(true);
     }
     

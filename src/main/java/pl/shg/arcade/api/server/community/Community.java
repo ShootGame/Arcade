@@ -25,5 +25,11 @@ public class Community implements IServerRole {
         
         BeginScheduler.setDefaultSeconds(20);
         CycleScheduler.setDefaultSeconds(20);
+        
+        this.registerDatabase();
+    }
+    
+    public void registerDatabase() {
+        
     }
 }
