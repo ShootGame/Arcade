@@ -6,8 +6,6 @@
  */
 package pl.shg.arcade.api.util;
 
-import java.util.Arrays;
-
 /**
  *
  * @author Aleksander

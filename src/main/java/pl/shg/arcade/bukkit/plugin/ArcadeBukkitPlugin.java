@@ -51,6 +51,7 @@ import pl.shg.arcade.bukkit.listeners.WorldListeners;
 import pl.shg.arcade.bukkit.test.DragonDeathTest;
 import pl.shg.arcade.bukkit.test.SQLTest;
 import pl.shg.arcade.bukkit.test.SoundTest;
+import pl.shg.arcade.bukkit.test.XPTest;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;
@@ -256,6 +257,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         new DragonDeathTest().register();
         new SQLTest().register();
         new SoundTest().register();
+        new XPTest().register();
     }
     
     public static pl.shg.arcade.api.Plugin getAPI() {

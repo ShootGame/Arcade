@@ -12,7 +12,7 @@ import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.server.development.TestCommand;
 import pl.shg.commons.database.FutureTask;
 import pl.shg.commons.documents.Documents;
-import pl.shg.commons.documents.UserDocument;
+import pl.shg.commons.users.UserDocument;
 
 /**
  *

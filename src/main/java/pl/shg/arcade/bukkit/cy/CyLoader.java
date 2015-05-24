@@ -16,7 +16,7 @@ import pl.shg.arcade.api.map.ConfigurationException;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.MapVersion;
-import pl.shg.arcade.api.map.Protocol;
+import pl.shg.arcade.api.protocol.Protocol;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
