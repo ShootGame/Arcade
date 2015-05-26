@@ -8,6 +8,8 @@ package pl.shg.arcade.api.map;
 
 import java.io.File;
 import java.util.List;
+import pl.shg.arcade.api.configuration.ConfigurationTechnology;
+import pl.shg.arcade.api.location.WorldManager;
 
 /**
  *

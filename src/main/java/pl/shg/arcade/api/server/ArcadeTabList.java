@@ -7,12 +7,12 @@
 package pl.shg.arcade.api.server;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.TabListUpdateEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

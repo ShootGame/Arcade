@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.util.Validate;
 

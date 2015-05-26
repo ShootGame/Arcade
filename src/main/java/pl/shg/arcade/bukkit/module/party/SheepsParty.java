@@ -17,7 +17,6 @@ import pl.shg.arcade.bukkit.Config;
  * @author Aleksander
  */
 public class SheepsParty extends Party {
-
     public SheepsParty() {
         super(new Date(2015, 5, 9), "sheeps", "Capture the sheep", Version.valueOf("1.0"));
     }

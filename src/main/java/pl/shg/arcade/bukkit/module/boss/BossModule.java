@@ -9,7 +9,7 @@ package pl.shg.arcade.bukkit.module.boss;
 import java.io.File;
 import java.util.Date;
 import java.util.SortedMap;
-import pl.shg.arcade.api.map.ConfigurationException;
+import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;

@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.module.docs.ConfigurationDoc;
-import pl.shg.arcade.api.module.docs.ModuleDescription;
+import pl.shg.arcade.api.documentation.ConfigurationDoc;
+import pl.shg.arcade.api.documentation.ModuleDescription;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 

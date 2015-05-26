@@ -11,9 +11,9 @@ import org.bukkit.entity.EnderDragon;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.development.TestCommand;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.server.development.TestCommand;
+import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.bukkit.BukkitLocation;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 

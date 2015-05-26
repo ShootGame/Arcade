@@ -8,13 +8,13 @@ package pl.shg.arcade.debug.impl;
 
 import java.util.UUID;
 import pl.shg.arcade.ArcadePlayer;
-import pl.shg.arcade.api.chat.ActionMessageType;
-import pl.shg.arcade.api.chat.BossBarMessage;
-import pl.shg.arcade.api.chat.ChatMessage;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Location;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.server.TabList;
+import pl.shg.arcade.api.text.ActionMessageType;
+import pl.shg.arcade.api.text.BossBarMessage;
+import pl.shg.arcade.api.text.ChatMessage;
 import pl.shg.arcade.debug.ArcadeDebug;
 import pl.shg.commons.util.ClientSettings;
 import pl.themolka.permissions.User;

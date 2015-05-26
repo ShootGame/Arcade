@@ -8,13 +8,13 @@ package pl.shg.arcade.api.scheduler;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

@@ -6,16 +6,43 @@
  */
 package pl.shg.arcade.bukkit.plugin;
 
-import pl.shg.arcade.bukkit.module.*;
-import pl.shg.arcade.bukkit.module.blitz.*;
-import pl.shg.arcade.bukkit.module.boss.*;
-import pl.shg.arcade.bukkit.module.deathmatch.*;
-import pl.shg.arcade.bukkit.module.destroyable.*;
-import pl.shg.arcade.bukkit.module.escape.*;
-import pl.shg.arcade.bukkit.module.lib.*;
-import pl.shg.arcade.bukkit.module.monument.*;
-import pl.shg.arcade.bukkit.module.party.*;
-import pl.shg.arcade.bukkit.module.wool.*;
+import pl.shg.arcade.bukkit.module.area.PlayableAreaModule;
+import pl.shg.arcade.bukkit.module.beds.DisableBedsModule;
+import pl.shg.arcade.bukkit.module.blitz.BlitzModule;
+import pl.shg.arcade.bukkit.module.boss.BossModule;
+import pl.shg.arcade.bukkit.module.chests.StaticChestItemsModule;
+import pl.shg.arcade.bukkit.module.damage.FakePlayerDamageModule;
+import pl.shg.arcade.bukkit.module.damage.FeatherFallingModule;
+import pl.shg.arcade.bukkit.module.deathmatch.DeathMatchModule;
+import pl.shg.arcade.bukkit.module.deathmatch.PaintballModule;
+import pl.shg.arcade.bukkit.module.deathmessages.DeathMessagesModule;
+import pl.shg.arcade.bukkit.module.destroyable.DestroyableFireworksModule;
+import pl.shg.arcade.bukkit.module.destroyable.DestroyableModesModule;
+import pl.shg.arcade.bukkit.module.destroyable.DestroyableModule;
+import pl.shg.arcade.bukkit.module.drops.CancelDropModule;
+import pl.shg.arcade.bukkit.module.drops.NoDeathDropsModule;
+import pl.shg.arcade.bukkit.module.escape.EscapeModule;
+import pl.shg.arcade.bukkit.module.exp.CancelPickupExpModule;
+import pl.shg.arcade.bukkit.module.gamerules.GameRuleModule;
+import pl.shg.arcade.bukkit.module.grief.AntiGriefModule;
+import pl.shg.arcade.bukkit.module.hunger.NoHungerModule;
+import pl.shg.arcade.bukkit.module.internal.ChatModule;
+import pl.shg.arcade.bukkit.module.join.AutoJoinModule;
+import pl.shg.arcade.bukkit.module.join.JoinWhenRunningCancelModule;
+import pl.shg.arcade.bukkit.module.lib.Points;
+import pl.shg.arcade.bukkit.module.mobs.DisableMobSpawningModule;
+import pl.shg.arcade.bukkit.module.monument.MonumentModule;
+import pl.shg.arcade.bukkit.module.party.Party;
+import pl.shg.arcade.bukkit.module.pearls.BlockPearlTeleportModule;
+import pl.shg.arcade.bukkit.module.pickup.CancelPickupModule;
+import pl.shg.arcade.bukkit.module.pvp.NoPvpModule;
+import pl.shg.arcade.bukkit.module.rage.RageModule;
+import pl.shg.arcade.bukkit.module.respawn.AutoRespawnModule;
+import pl.shg.arcade.bukkit.module.respawn.DelayedRespawnModule;
+import pl.shg.arcade.bukkit.module.timer.MatchTimerModule;
+import pl.shg.arcade.bukkit.module.weather.NoRainModule;
+import pl.shg.arcade.bukkit.module.weather.NoThunderModule;
+import pl.shg.arcade.bukkit.module.wool.WoolModule;
 
 /**
  *

@@ -11,10 +11,10 @@ import java.util.Date;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.ActionMessageType;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.server.ArcadeTabList;
+import pl.shg.arcade.api.text.ActionMessageType;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Version;
 
 /**

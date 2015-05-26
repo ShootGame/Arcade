@@ -7,7 +7,7 @@
 package pl.shg.arcade.api.module;
 
 import java.io.File;
-import pl.shg.arcade.api.map.ConfigurationException;
+import pl.shg.arcade.api.configuration.ConfigurationException;
 
 /**
  *

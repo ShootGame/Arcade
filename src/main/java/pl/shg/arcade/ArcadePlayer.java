@@ -7,13 +7,13 @@
 package pl.shg.arcade;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.ChatMessage;
-import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.ChatMessage;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;

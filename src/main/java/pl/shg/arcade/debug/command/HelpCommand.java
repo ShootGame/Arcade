@@ -7,7 +7,6 @@
 package pl.shg.arcade.debug.command;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
@@ -26,9 +25,9 @@ public class HelpCommand extends Command {
     public void execute(Sender sender, String[] args) throws CommandException {
         if (args.length != 1) {
             sender.sendMessage(Command.getTitle("Pomoc", null));
-            sender.sendMessage(Color.YELLOW + "Poniżej znajduje się lista komend do których posiadasz dostęp");
+            sender.sendMessage("Poniżej znajduje się lista komend do których posiadasz dostęp");
             for (Command command : Arcade.getCommands().getCommands()) {
-                sender.sendMessage(Color.WHITE + command.getUsage().substring(1) + Color.YELLOW + " - " + command.getDescription());
+                sender.sendMessage(command.getUsage().substring(1) + " - " + command.getDescription());
             }
         } else {
             

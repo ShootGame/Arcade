@@ -12,7 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Spawn;
 
 /**
  *

@@ -6,10 +6,10 @@
  */
 package pl.shg.arcade.api.human;
 
-import pl.shg.arcade.api.chat.ActionMessageType;
-import pl.shg.arcade.api.chat.BossBarMessage;
-import pl.shg.arcade.api.chat.ChatMessage;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.text.ActionMessageType;
+import pl.shg.arcade.api.text.BossBarMessage;
+import pl.shg.arcade.api.text.ChatMessage;
 
 /**
  *

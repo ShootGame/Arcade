@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import pl.shg.arcade.api.Log;
-import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.protocol.Protocol;
 import pl.shg.arcade.api.region.RegionManager;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

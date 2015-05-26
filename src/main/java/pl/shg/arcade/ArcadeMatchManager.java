@@ -9,7 +9,6 @@ package pl.shg.arcade;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.match.Match;
 import pl.shg.arcade.api.match.MatchManager;
@@ -19,6 +18,7 @@ import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.Server;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

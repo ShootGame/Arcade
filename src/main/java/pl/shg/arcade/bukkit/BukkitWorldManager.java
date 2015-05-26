@@ -8,12 +8,12 @@ package pl.shg.arcade.bukkit;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.map.WorldManager;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.plugin.EmptyWorldGenerator;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import pl.shg.arcade.api.location.WorldManager;
 
 /**
  *

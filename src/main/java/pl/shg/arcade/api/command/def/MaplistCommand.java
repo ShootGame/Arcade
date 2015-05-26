@@ -7,12 +7,11 @@
 package pl.shg.arcade.api.command.def;
 
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.map.MapManager;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

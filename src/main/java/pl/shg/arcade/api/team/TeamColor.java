@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.team;
 
-import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

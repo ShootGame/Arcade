@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.human;
 
-import pl.shg.arcade.api.map.ArcadeClass;
+import pl.shg.arcade.api.classes.ArcadeClass;
 
 /**
  *

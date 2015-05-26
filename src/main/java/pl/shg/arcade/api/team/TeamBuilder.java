@@ -7,7 +7,7 @@
 package pl.shg.arcade.api.team;
 
 import java.util.List;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.permissions.ArcadeTeam;
 
 /**

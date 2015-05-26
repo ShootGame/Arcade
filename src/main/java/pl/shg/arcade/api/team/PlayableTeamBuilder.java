@@ -8,8 +8,8 @@ package pl.shg.arcade.api.team;
 
 import java.util.List;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.configuration.ConfigurationException;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.permissions.ArcadeTeam;
 import pl.shg.arcade.api.util.Validate;
 

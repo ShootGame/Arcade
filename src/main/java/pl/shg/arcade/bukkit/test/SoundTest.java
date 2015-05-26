@@ -8,11 +8,11 @@ package pl.shg.arcade.bukkit.test;
 
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.development.TestCommand;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.server.development.TestCommand;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.bukkit.BukkitLocation;
 
 /**

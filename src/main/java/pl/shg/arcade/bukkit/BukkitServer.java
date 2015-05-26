@@ -16,10 +16,10 @@ import org.bukkit.Server;
 import org.bukkit.inventory.Inventory;
 import pl.shg.arcade.ArcadeServer;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.menu.Menu;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

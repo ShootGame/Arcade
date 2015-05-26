@@ -24,7 +24,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.PlayerManagement;
-import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.kit.Kit;
@@ -32,10 +32,10 @@ import pl.shg.arcade.api.kit.KitItem;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.kit.LeatherColorData;
 import pl.shg.arcade.api.kit.Option;
-import pl.shg.arcade.api.map.ArcadeClass;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

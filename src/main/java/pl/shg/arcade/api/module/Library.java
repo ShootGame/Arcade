@@ -7,7 +7,7 @@
 package pl.shg.arcade.api.module;
 
 import java.util.Date;
-import pl.shg.arcade.api.module.docs.LibDeprecation;
+import pl.shg.arcade.api.documentation.LibDeprecation;
 import pl.shg.arcade.api.util.Version;
 
 /**

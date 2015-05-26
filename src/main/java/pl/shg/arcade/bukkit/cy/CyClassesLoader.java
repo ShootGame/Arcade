@@ -12,10 +12,10 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.classes.ArcadeClass;
+import pl.shg.arcade.api.classes.ClassBuilder;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.kit.KitType;
-import pl.shg.arcade.api.map.ArcadeClass;
-import pl.shg.arcade.api.map.ClassBuilder;
 import pl.shg.arcade.api.util.Validate;
 
 /**

@@ -9,7 +9,7 @@ package pl.shg.arcade.bukkit.test;
 import java.sql.ResultSet;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.server.development.TestCommand;
+import pl.shg.arcade.api.development.TestCommand;
 import pl.shg.commons.database.FutureTask;
 import pl.shg.commons.documents.Documents;
 import pl.shg.commons.users.UserDocument;

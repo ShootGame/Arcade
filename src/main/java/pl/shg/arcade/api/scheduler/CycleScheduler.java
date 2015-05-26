@@ -13,22 +13,22 @@ import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PlayerManagement;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.command.def.MapinfoCommand;
+import pl.shg.arcade.api.configuration.Configuration;
+import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.MapLoadedEvent;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.Configuration;
-import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.api.map.GameableBlock;
+import pl.shg.arcade.api.location.GameableBlock;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.MapManager;
-import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.TeamManager;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Validate;
 
 /**

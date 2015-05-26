@@ -8,8 +8,8 @@ package pl.shg.arcade.api.region;
 
 import java.util.ArrayList;
 import java.util.List;
-import pl.shg.arcade.api.map.BlockLocation;
-import pl.shg.arcade.api.map.Location;
+import pl.shg.arcade.api.location.BlockLocation;
+import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
 

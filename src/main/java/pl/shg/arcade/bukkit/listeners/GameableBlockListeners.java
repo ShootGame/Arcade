@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.GameableBlock;
-import pl.shg.arcade.api.map.Location;
+import pl.shg.arcade.api.location.GameableBlock;
+import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.match.MatchStatus;
 
 /**

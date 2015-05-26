@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.Command.CommandMessage;
 import pl.shg.arcade.api.command.CommandException;
@@ -26,6 +25,7 @@ import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.RandomTeamComparator;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

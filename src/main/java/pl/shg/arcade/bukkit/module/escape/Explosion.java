@@ -18,7 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.Direction;
+import pl.shg.arcade.api.location.Direction;
 import pl.shg.arcade.api.match.MatchManager;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.bukkit.BukkitPlayer;

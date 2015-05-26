@@ -22,16 +22,16 @@ import org.bukkit.craftbukkit.v1_8_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.ActionMessageType;
-import pl.shg.arcade.api.chat.BossBarMessage;
-import pl.shg.arcade.api.chat.ChatMessage;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
-import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Location;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.server.TabList;
+import pl.shg.arcade.api.text.ActionMessageType;
+import pl.shg.arcade.api.text.BossBarMessage;
+import pl.shg.arcade.api.text.ChatMessage;
 import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.util.ClientSettings;
 import pl.shg.commons.util.Messages;
@@ -250,7 +250,7 @@ public class BukkitPlayer extends ArcadePlayer {
         StringBuilder builder = new StringBuilder();
         for (Group group : this.getPermissions().getGroups()) {
             if (group.hasPrefix()) {
-                builder.append(group.getPrefix()).append(pl.shg.arcade.api.chat.Color.RESET);
+                builder.append(group.getPrefix()).append(pl.shg.arcade.api.text.Color.RESET);
             }
         }
         this.setChatPrefixes(builder.toString());

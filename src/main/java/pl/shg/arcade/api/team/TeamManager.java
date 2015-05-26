@@ -7,6 +7,7 @@
 package pl.shg.arcade.api.team;
 
 import java.util.List;
+import pl.shg.arcade.api.channels.ChatChannel;
 import pl.shg.arcade.api.kit.Kit;
 
 /**

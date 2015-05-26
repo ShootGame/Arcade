@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.bukkit.module.wool;
 
-import pl.shg.arcade.api.map.Block;
+import pl.shg.arcade.api.location.Block;
 
 /**
  *

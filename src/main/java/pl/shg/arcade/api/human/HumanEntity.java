@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.human;
 
-import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Location;
+import pl.shg.arcade.api.location.Spawn;
 
 /**
  *

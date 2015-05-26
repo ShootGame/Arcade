@@ -9,15 +9,15 @@ package pl.shg.arcade.bukkit.cy;
 import java.util.ArrayList;
 import java.util.List;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.map.Spawn;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.PlayableTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamColor;
-import pl.shg.arcade.api.team.GlobalChat;
-import pl.shg.arcade.api.team.TeamChat;
 import pl.shg.arcade.api.util.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
+import pl.shg.arcade.api.channels.GlobalChat;
+import pl.shg.arcade.api.channels.TeamsChannel;
+import pl.shg.arcade.api.location.Spawn;
 
 /**
  *
@@ -87,7 +87,7 @@ public class CyTeamsLoader {
         builder.setTeamColor(TeamColor.valueOf(this.f.getString(path + ".color", TeamColor.BLACK.toString()).toUpperCase()));
         
         Team t = new Team(builder);
-        t.setChat(new TeamChat(t));
+        t.setChat(new TeamsChannel(t));
         t.setKits(CyKitsLoader.getDefinedKits(this.f, path));
         for (Spawn spawn : builder.getSpawns()) {
             spawn.setTeam(t);

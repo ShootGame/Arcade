@@ -7,7 +7,7 @@
 package pl.shg.arcade.api.region;
 
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.map.BlockLocation;
+import pl.shg.arcade.api.location.BlockLocation;
 import pl.shg.arcade.api.util.Validate;
 
 /**

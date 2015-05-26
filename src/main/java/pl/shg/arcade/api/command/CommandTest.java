@@ -8,7 +8,7 @@ package pl.shg.arcade.api.command;
 
 import java.util.UUID;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.server.development.TestCommand;
+import pl.shg.arcade.api.development.TestCommand;
 
 /**
  *

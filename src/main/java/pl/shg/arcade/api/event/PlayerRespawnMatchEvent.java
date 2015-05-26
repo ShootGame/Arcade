@@ -7,8 +7,8 @@
 package pl.shg.arcade.api.event;
 
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.Location;
-import pl.shg.arcade.api.map.Spawn;
+import pl.shg.arcade.api.location.Location;
+import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.util.Validate;
 
 /**

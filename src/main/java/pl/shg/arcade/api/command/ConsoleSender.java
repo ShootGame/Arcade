@@ -8,9 +8,9 @@ package pl.shg.arcade.api.command;
 
 import java.util.logging.Level;
 import pl.shg.arcade.api.Log;
-import pl.shg.arcade.api.chat.ActionMessageType;
-import pl.shg.arcade.api.chat.BossBarMessage;
-import pl.shg.arcade.api.chat.ChatMessage;
+import pl.shg.arcade.api.text.ActionMessageType;
+import pl.shg.arcade.api.text.BossBarMessage;
+import pl.shg.arcade.api.text.ChatMessage;
 import pl.shg.arcade.api.util.Validate;
 
 /**

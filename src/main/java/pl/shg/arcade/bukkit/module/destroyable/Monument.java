@@ -10,14 +10,14 @@ import org.bukkit.Location;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.Sound;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.BlockLocation;
-import pl.shg.arcade.api.map.GameableBlock;
+import pl.shg.arcade.api.location.BlockLocation;
+import pl.shg.arcade.api.location.GameableBlock;
 import pl.shg.arcade.api.module.ModuleMessage;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.bukkit.BukkitLocation;
 
 /**

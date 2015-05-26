@@ -8,7 +8,7 @@ package pl.shg.arcade.bukkit.module.destroyable;
 
 import java.io.File;
 import java.util.Date;
-import pl.shg.arcade.api.map.ConfigurationException;
+import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.util.Version;
 

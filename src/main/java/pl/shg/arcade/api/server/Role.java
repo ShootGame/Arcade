@@ -6,10 +6,10 @@
  */
 package pl.shg.arcade.api.server;
 
-import pl.shg.arcade.api.server.community.Community;
-import pl.shg.arcade.api.server.development.Development;
-import pl.shg.arcade.api.server.party.Party;
-import pl.shg.arcade.api.server.tournament.Tournament;
+import pl.shg.arcade.api.community.Community;
+import pl.shg.arcade.api.development.Development;
+import pl.shg.arcade.api.party.Party;
+import pl.shg.arcade.api.tournament.Tournament;
 
 /**
  *
@@ -19,7 +19,8 @@ public enum Role {
     COMMUNITY(new Community()),
     DEVELOPMENT(new Development()),
     PARTY(new Party()),
-    TOURNAMENT(new Tournament());
+    TOURNAMENT(new Tournament()),
+    ;
     
     private IServerRole role;
     

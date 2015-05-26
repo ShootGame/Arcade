@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.SortedMap;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.chat.Icons;
-import pl.shg.arcade.api.map.BlockLocation;
-import pl.shg.arcade.api.map.ConfigurationException;
+import pl.shg.arcade.api.configuration.ConfigurationException;
+import pl.shg.arcade.api.location.BlockLocation;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.arcade.api.text.Icons;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
 

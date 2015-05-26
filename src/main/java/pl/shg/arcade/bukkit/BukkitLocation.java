@@ -20,7 +20,7 @@ public class BukkitLocation {
         return Bukkit.getWorld(Arcade.getMaps().getCurrentMap().getName());
     }
     
-    public static Location valueOf(pl.shg.arcade.api.map.Location location) {
+    public static Location valueOf(pl.shg.arcade.api.location.Location location) {
         return new Location(getWorld(), location.getX(), location.getY(), location.getZ());
     }
     

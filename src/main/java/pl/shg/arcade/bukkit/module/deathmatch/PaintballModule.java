@@ -7,8 +7,8 @@
 package pl.shg.arcade.bukkit.module.deathmatch;
 
 import java.util.Date;
+import pl.shg.arcade.api.documentation.ConfigurationDoc;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.module.docs.ConfigurationDoc;
 import pl.shg.arcade.api.util.Version;
 
 /**

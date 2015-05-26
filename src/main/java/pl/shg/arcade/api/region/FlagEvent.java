@@ -8,7 +8,7 @@ package pl.shg.arcade.api.region;
 
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.map.Block;
+import pl.shg.arcade.api.location.Block;
 
 /**
  *

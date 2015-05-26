@@ -15,13 +15,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
-import pl.shg.arcade.api.chat.Color;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.menu.ClassSelectorMenu;
 import pl.shg.arcade.api.menu.ServerPickerMenu;
 import pl.shg.arcade.api.menu.TeamSelectorMenu;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

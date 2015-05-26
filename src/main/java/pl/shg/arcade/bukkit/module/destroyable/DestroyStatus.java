@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.bukkit.module.destroyable;
 
-import pl.shg.arcade.api.chat.Color;
+import pl.shg.arcade.api.text.Color;
 
 /**
  *

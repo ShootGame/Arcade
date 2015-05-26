@@ -6,9 +6,9 @@
  */
 package pl.shg.arcade.debug.impl;
 
-import pl.shg.arcade.api.map.Configuration;
-import pl.shg.arcade.api.map.ConfigurationException;
-import pl.shg.arcade.api.map.ConfigurationTechnology;
+import pl.shg.arcade.api.configuration.Configuration;
+import pl.shg.arcade.api.configuration.ConfigurationException;
+import pl.shg.arcade.api.configuration.ConfigurationTechnology;
 
 /**
  *
