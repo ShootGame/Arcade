@@ -8,6 +8,7 @@ package pl.shg.arcade.bukkit.listeners;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
+import pl.shg.arcade.api.channels.GlobalChannel;
 import pl.shg.arcade.api.channels.TeamsChannel;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
@@ -24,6 +25,7 @@ import pl.shg.commons.util.ChatStatus;
 public class ArcadeEventListeners {
     public void registerListeners() {
         Event.registerListener(new ClientChatListener());
+        Event.registerListener(new GlobalKeyListener());
         Event.registerListener(new MentionListener());
     }
     
@@ -41,9 +43,33 @@ public class ArcadeEventListeners {
                 Player player = (Player) e.getSender();
                 if (player.getClientSettings().getChat() != ChatStatus.ENABLED) {
                     e.setCancel(true);
+                    
                     player.sendError("Nie udalo sie wyslac Twojej wiadomosci poniewaz wylaczyles/as chat!");
                     player.sendError("Aby go wlaczyc wejdz w ustawienia chatu w opcjach gry.");
                 }
+            }
+        }
+    }
+    
+    private class GlobalKeyListener implements EventListener {
+        @Override
+        public Class<? extends Event> getEvent() {
+            return PlayerChatEvent.class;
+        }
+        
+        @Override
+        public void handle(Event event) {
+            PlayerChatEvent e = (PlayerChatEvent) event;
+            
+            if (e.getChannel() instanceof GlobalChannel) {
+                return;
+            }
+            
+            String source = e.getMessage().getSource();
+            if (source.length() > 1 && source.startsWith("!")) {
+                // we need to cancel this event because it is executed already in the team's channel
+                e.setCancel(true);
+                Arcade.getTeams().getGlobalChannel().sendMessage(e.getSender(), source.substring(1));
             }
         }
     }
@@ -59,13 +85,14 @@ public class ArcadeEventListeners {
             PlayerChatEvent e = (PlayerChatEvent) event;
             
             StringBuilder builder = new StringBuilder();
-            for (String word : e.getMessage().getText().split(" ")) {
+            for (String word : e.getMessage().getSource().split(" ")) {
                 if (word.startsWith("@")) {
                     Player player = Arcade.getServer().getPlayer(word.substring(1));
                     if (player != null) {
                         builder.append(player.getChatName()).append(Color.GRAY).append(" ");
                         if (e.getChannel() instanceof TeamsChannel &&
                                 !((TeamsChannel) e.getChannel()).getTeam().equals(player.getTeam())) {
+                            // don't notify players that can's see this message
                             continue;
                         }
                         
@@ -78,9 +105,10 @@ public class ArcadeEventListeners {
             }
             
             String message = builder.toString();
+            
             ChatMessage chat = new ChatMessage();
             chat.setSender(e.getSender());
-            chat.setText(message.substring(0, message.length() - 1));
+            chat.setSource(message.substring(0, message.length() - 1));
             e.setMessage(chat);
         }
     }
