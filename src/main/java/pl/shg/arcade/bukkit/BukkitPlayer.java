@@ -187,7 +187,7 @@ public class BukkitPlayer extends ArcadePlayer {
         PlayerReceiveChatEvent event = new PlayerReceiveChatEvent(this, sender, message);
         Event.callEvent(event);
         if (!event.isCancel()) {
-            Messages.sendChat(this.player, event.getMessage().getText());
+            Messages.sendChat(this.player, event.getMessage().getSource());
         }
     }
     

@@ -49,7 +49,7 @@ public class ConsoleSender implements Sender {
     @Override
     public void sendChatMessage(Sender sender, ChatMessage message) {
         Validate.notNull(message, "message can not be null");
-        this.sendMessage(message.getText());
+        this.sendMessage(message.getSource());
     }
     
     @Override

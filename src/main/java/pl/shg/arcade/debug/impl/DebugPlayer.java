@@ -172,12 +172,12 @@ public class DebugPlayer extends ArcadePlayer {
     
     @Override
     public void sendBossBarMessage(BossBarMessage message) {
-        this.sendMessage("[Boss]: " + message.getText());
+        this.sendMessage("[Boss]: " + message.getSource());
     }
     
     @Override
     public void sendChatMessage(Sender sender, ChatMessage message) {
-        this.sendMessage("[Chat]: " + message.getText());
+        this.sendMessage("[Chat]: " + message.getSource());
     }
     
     @Override

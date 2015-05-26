@@ -32,12 +32,12 @@ public abstract class ChatChannel {
     private void handle(Sender sender, String author, String message) {
         ChatMessage chat = new ChatMessage();
         chat.setSender(sender);
-        chat.setText(message);
+        chat.setSource(message);
         
         PlayerChatEvent event = new PlayerChatEvent(this, chat, sender);
         Event.callEvent(event);
         
-        String format = this.getFormat(new String[] {author, event.getMessage().getText()});
+        String format = this.getFormat(new String[] {author, event.getMessage().getSource()});
         if (!event.isCancel()) {
             this.sendServerMessage(sender, format);
             if (this.isSpy()) {

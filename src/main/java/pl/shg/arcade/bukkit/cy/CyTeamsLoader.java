@@ -15,7 +15,7 @@ import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.util.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
-import pl.shg.arcade.api.channels.GlobalChat;
+import pl.shg.arcade.api.channels.GlobalChannel;
 import pl.shg.arcade.api.channels.TeamsChannel;
 import pl.shg.arcade.api.location.Spawn;
 
@@ -67,7 +67,7 @@ public class CyTeamsLoader {
         builder.setSpawns(this.getSpawns(builder.getID()));
         
         Team team = new Team(builder);
-        team.setChat(new GlobalChat());
+        team.setChat(new GlobalChannel());
         for (Spawn spawn : builder.getSpawns()) {
             spawn.setTeam(team);
         }

@@ -6,36 +6,12 @@
  */
 package pl.shg.arcade.api.text;
 
-import pl.shg.arcade.api.util.Validate;
-
 /**
  *
  * @author Aleksander
  */
-public class BossBarMessage {
-    private String text;
-    
-    public BossBarMessage() {}
-    
-    public BossBarMessage(String text) {
-        this.setText(text);
-    }
-    
-    public void appendText(String text) {
-        Validate.notNull(text, "text can not be null");
-        String current = "";
-        if (this.getText() != null) {
-            current = this.getText();
-        }
-        this.setText(current + text);
-    }
-    
-    public String getText() {
-        return this.text;
-    }
-    
-    public final void setText(String text) {
-        Validate.notNull(text, "text can not be null");
-        this.text = text;
+public class BossBarMessage extends AppendableMessage {
+    public BossBarMessage(String message) {
+        super(message);
     }
 }

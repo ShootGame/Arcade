@@ -12,24 +12,19 @@ import pl.shg.arcade.api.command.Sender;
  *
  * @author Aleksander
  */
-public class ChatMessage {
+public class ChatMessage extends Message {
     private Sender sender;
-    private String text;
+    
+    public ChatMessage() {
+        super();
+    }
     
     public Sender getSender() {
         return this.sender;
     }
     
-    public String getText() {
-        return this.text;
-    }
-    
     public boolean hasSender() {
         return this.sender != null;
-    }
-    
-    public boolean hasText() {
-        return this.text != null;
     }
     
     public boolean isOffensive() {
@@ -38,9 +33,5 @@ public class ChatMessage {
     
     public void setSender(Sender sender) {
         this.sender = sender;
-    }
-    
-    public void setText(String text) {
-        this.text = text;
     }
 }

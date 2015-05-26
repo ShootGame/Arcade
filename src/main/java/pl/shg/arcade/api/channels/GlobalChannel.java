@@ -20,8 +20,8 @@ import pl.shg.arcade.api.util.Validate;
  *
  * @author Aleksander
  */
-public class GlobalChat extends ChatChannel {
-    public GlobalChat() {
+public class GlobalChannel extends ChatChannel {
+    public GlobalChannel() {
         super(false);
     }
     
@@ -53,7 +53,7 @@ public class GlobalChat extends ChatChannel {
         
         ChatMessage chat = new ChatMessage();
         chat.setSender(sender);
-        chat.setText(message);
+        chat.setSource(message);
         
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.sendChatMessage(sender, chat);

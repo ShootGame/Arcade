@@ -58,7 +58,7 @@ public class TeamsChannel extends ChatChannel {
         
         ChatMessage chat = new ChatMessage();
         chat.setSender(sender);
-        chat.setText(message);
+        chat.setSource(message);
         
         for (Player player : this.getTeam().getPlayers()) {
             player.sendChatMessage(sender, chat);

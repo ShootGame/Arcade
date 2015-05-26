@@ -70,7 +70,7 @@ public class ChatModule extends Module {
             if (!e.getSender().isConsole() && e.getMessage().isOffensive()) {
                 e.setCancel(true);
                 e.getSender().sendError(String.format(this.module.message, "Powstrzymaj slowa"));
-                e.getSender().sendError(e.getMessage().getText());
+                e.getSender().sendError(e.getMessage().getSource());
             }
         }
     }
