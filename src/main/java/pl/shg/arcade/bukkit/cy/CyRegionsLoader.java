@@ -13,12 +13,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.filter.ApplyFilter;
+import pl.shg.arcade.api.filter.Filter;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.location.Block;
 import pl.shg.arcade.api.location.BlockLocation;
 import pl.shg.arcade.api.location.Direction;
-import pl.shg.arcade.api.region.BlockApplyFilter;
 import pl.shg.arcade.api.region.BreakFlag;
 import pl.shg.arcade.api.region.Flag;
 import pl.shg.arcade.api.region.InteractFlag;
@@ -26,7 +27,6 @@ import pl.shg.arcade.api.region.KillFlag;
 import pl.shg.arcade.api.region.MoveFlag;
 import pl.shg.arcade.api.region.PlaceFlag;
 import pl.shg.arcade.api.region.Region;
-import pl.shg.arcade.api.region.RegionFilter;
 import pl.shg.arcade.api.region.TeleportFlag;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.util.Validate;
@@ -54,7 +54,7 @@ public class CyRegionsLoader {
         return new BlockLocation(x, y, z);
     }
     
-    public RegionFilter getFilter(String filter, String path) {
+    public Filter getFilter(String filter, String path) {
         Validate.notNull(filter, "filter can not be null");
         Validate.notNull(path, "path can not be null");
         
@@ -88,10 +88,10 @@ public class CyRegionsLoader {
             }
         }
         
-        RegionFilter filterObj = null;
+        Filter filterObj = null;
         switch (filter.toLowerCase()) {
-            case "block-apply":
-                filterObj = new BlockApplyFilter(accept, deny);
+            case "apply":
+                filterObj = new ApplyFilter(accept, deny);
                 break;
         }
         return filterObj;
@@ -176,7 +176,7 @@ public class CyRegionsLoader {
         String filterPath = path + ".filters";
         if (this.f.getConfigurationSection(filterPath) != null) {
             for (String filter : this.f.getConfigurationSection(filterPath).getKeys(false)) {
-                RegionFilter filterObj = this.getFilter(filter, filterPath + "." + filter);
+                Filter filterObj = this.getFilter(filter, filterPath + "." + filter);
                 if (filterObj != null) {
                     regionObj.addFilter(filterObj);
                 } else {

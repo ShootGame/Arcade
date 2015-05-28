@@ -8,6 +8,7 @@ package pl.shg.arcade.api.region;
 
 import java.util.ArrayList;
 import java.util.List;
+import pl.shg.arcade.api.filter.Filter;
 import pl.shg.arcade.api.location.BlockLocation;
 import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.team.Team;
@@ -18,7 +19,7 @@ import pl.shg.arcade.api.util.Validate;
  * @author Aleksander
  */
 public final class Region {
-    private final List<RegionFilter> filters;
+    private final List<Filter> filters;
     private final List<Flag> flags;
     private BlockLocation max;
     private BlockLocation min;
@@ -34,14 +35,14 @@ public final class Region {
         this.path = path;
     }
     
-    public void addFilter(RegionFilter filter) {
+    public void addFilter(Filter filter) {
         Validate.notNull(filter, "filter can not be null");
         this.filters.add(filter);
     }
     
-    public RegionFilter getFilter(Class<? extends RegionFilter> filter) {
+    public Filter getFilter(Class<? extends Filter> filter) {
         Validate.notNull(filter, "filter can not be null");
-        for (RegionFilter target : this.getFilters()) {
+        for (Filter target : this.getFilters()) {
             if (target.getClass().equals(filter)) {
                 return target;
             }
@@ -49,11 +50,11 @@ public final class Region {
         return null;
     }
     
-    public List<RegionFilter> getFilters() {
+    public List<Filter> getFilters() {
         return this.filters;
     }
     
-    public boolean hasFilter(Class<? extends RegionFilter> filter) {
+    public boolean hasFilter(Class<? extends Filter> filter) {
         Validate.notNull(filter, "filter can not be null");
         return this.getFilter(filter) != null;
     }

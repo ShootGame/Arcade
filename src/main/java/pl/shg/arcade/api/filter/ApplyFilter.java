@@ -4,22 +4,22 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.region;
+package pl.shg.arcade.api.filter;
 
 import java.util.ArrayList;
 import java.util.List;
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.util.Validate;
+import pl.shg.arcade.api.location.Location;
 
 /**
  *
  * @author Aleksander
  */
-public class BlockApplyFilter extends RegionFilter {
+public class ApplyFilter extends Filter {
     private final List<Material> accept;
     private final List<Material> deny;
     
-    public BlockApplyFilter(List<Material> accept, List<Material> deny) {
+    public ApplyFilter(List<Material> accept, List<Material> deny) {
         if (accept == null) {
             this.accept = new ArrayList<>();
         } else {
@@ -34,13 +34,17 @@ public class BlockApplyFilter extends RegionFilter {
     }
     
     @Override
-    public boolean canBuild(Material material) {
-        Validate.notNull(material, "material can not be null");
+    public boolean canBuild(Location location, Material material) {
+        if (material == null) {
+            return false;
+        }
+        
         if (!this.getAccept().isEmpty()) {
             return this.getAccept().contains(material);
         } else if (!this.getDeny().isEmpty()) {
             return !this.getDeny().contains(material);
         }
+        
         return false;
     }
     
