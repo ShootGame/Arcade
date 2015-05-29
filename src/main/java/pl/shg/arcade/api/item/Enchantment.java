@@ -6,6 +6,8 @@
  */
 package pl.shg.arcade.api.item;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  *
  * @author Aleksander
@@ -14,7 +16,13 @@ public class Enchantment extends EnchantmentType {
     private int level;
     
     public Enchantment(EnchantmentType type) {
+        this(type, 0);
+    }
+    
+    public Enchantment(EnchantmentType type, int level) {
         super(type.getEID(), type.getMaxLevel(), type.getName());
+        Validate.isTrue(level >= 0);
+        this.level = level;
     }
     
     public int getLevel() {
