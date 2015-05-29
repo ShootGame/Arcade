@@ -4,7 +4,7 @@
   <groupId>pl.shg</groupId>
   <artifactId>arcade</artifactId>
   <name>Arcade</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <description>Zarzadzanie mini-grami w jednym pluginie</description>
   <build>
     <resources>
@@ -15,14 +15,13 @@
     </resources>
     <plugins>
       <plugin>
-        <groupId>net.md-5</groupId>
-        <artifactId>scriptus</artifactId>
-        <version>0.1</version>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>2.1.0</version>
         <executions>
           <execution>
-            <phase>initialize</phase>
             <goals>
-              <goal>describe</goal>
+              <goal>revision</goal>
             </goals>
           </execution>
         </executions>
@@ -96,7 +95,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <plugin.minecraft>MC1.8</plugin.minecraft>
+    <plugin.minecraft>1.8</plugin.minecraft>
     <plugin.bukkit.mainClass>pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin</plugin.bukkit.mainClass>
     <maven.compiler.source>1.7</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

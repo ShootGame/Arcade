@@ -1,9 +1,7 @@
 {
-    "arcade": {
-        "name": "Arcade",
-        "version": "${project.version}",
-        "commit": "${describe}",
-        "minecraft": "${plugin.minecraft}",
-        "java": "${maven.compiler.target}"
-    }
+    "name": "Arcade",
+    "version": "${project.version}",
+    "commit": "${git.commit.id.abbrev}",
+    "minecraft": "${plugin.minecraft}",
+    "encoding": "${maven.compiler.target}"
 }
