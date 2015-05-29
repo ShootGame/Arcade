@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.server;
+package pl.shg.arcade.api.tablist;
 
 /**
  *

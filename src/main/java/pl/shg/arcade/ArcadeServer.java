@@ -18,7 +18,7 @@ import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.server.Server;
-import pl.shg.arcade.api.server.TabList;
+import pl.shg.arcade.api.tablist.TabList;
 import pl.shg.arcade.api.team.Team;
 
 /**

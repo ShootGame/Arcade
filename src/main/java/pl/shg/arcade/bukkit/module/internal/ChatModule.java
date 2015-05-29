@@ -8,12 +8,12 @@ package pl.shg.arcade.bukkit.module.internal;
 
 import java.io.File;
 import java.util.Date;
+import pl.shg.arcade.api.channels.PlayerChatEvent;
+import pl.shg.arcade.api.channels.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.documentation.NotUsableDeprecation;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
-import pl.shg.arcade.api.event.PlayerChatEvent;
-import pl.shg.arcade.api.event.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Version;

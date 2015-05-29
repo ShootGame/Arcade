@@ -4,13 +4,13 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.server;
+package pl.shg.arcade.api.tablist;
 
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.event.Event;
-import pl.shg.arcade.api.event.TabListUpdateEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
 

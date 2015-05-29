@@ -4,11 +4,10 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.event;
+package pl.shg.arcade.api.match;
 
 import org.apache.commons.lang3.Validate;
-import pl.shg.arcade.api.match.Match;
-import pl.shg.arcade.api.match.Winner;
+import pl.shg.arcade.api.event.Event;
 
 /**
  *

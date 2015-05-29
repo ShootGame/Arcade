@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.human;
 
-import pl.shg.arcade.api.server.TabList;
+import pl.shg.arcade.api.tablist.TabList;
 
 /**
  *

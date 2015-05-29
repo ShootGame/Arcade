@@ -4,10 +4,11 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.event;
+package pl.shg.arcade.api.channels;
 
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.event.CancelableEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.text.ChatMessage;
 

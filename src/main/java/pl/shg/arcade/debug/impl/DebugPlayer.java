@@ -11,7 +11,7 @@ import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.location.Spawn;
-import pl.shg.arcade.api.server.TabList;
+import pl.shg.arcade.api.tablist.TabList;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;

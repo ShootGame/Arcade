@@ -4,41 +4,41 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.api.event;
+package pl.shg.arcade.api.team;
 
 import org.apache.commons.lang3.Validate;
-import pl.shg.arcade.api.classes.ArcadeClass;
+import pl.shg.arcade.api.event.CancelableEvent;
 import pl.shg.arcade.api.human.Player;
 
 /**
  *
  * @author Aleksander
  */
-public final class PlayerSetClassEvent extends CancelableEvent {
-    private ArcadeClass clazz;
+public final class PlayerJoinTeamEvent extends CancelableEvent {
     private Player player;
+    private Team team;
     
-    public PlayerSetClassEvent(ArcadeClass clazz, Player player) {
-        super(PlayerSetClassEvent.class);
-        this.setNewClass(clazz);
+    public PlayerJoinTeamEvent(Player player, Team team) {
+        super(PlayerJoinTeamEvent.class);
         this.setPlayer(player);
+        this.setTeam(team);
     }
     
-    public ArcadeClass getNewClass() {
-        return this.clazz;
-    }
-    
-    public ArcadeClass getOldClass() {
-        return this.getPlayer().getArcadeClass();
+    public Team getOldTeam() {
+        return this.getPlayer().getTeam();
     }
     
     public Player getPlayer() {
         return this.player;
     }
     
-    public void setNewClass(ArcadeClass clazz) {
-        Validate.notNull(clazz, "clazz can not be null");
-        this.clazz = clazz;
+    public Team getTeam() {
+        return this.team;
+    }
+    
+    public void setTeam(Team team) {
+        Validate.notNull(team, "team can not be null");
+        this.team = team;
     }
     
     private void setPlayer(Player player) {

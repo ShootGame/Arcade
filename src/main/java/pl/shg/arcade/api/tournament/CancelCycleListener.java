@@ -9,7 +9,7 @@ package pl.shg.arcade.api.tournament;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
-import pl.shg.arcade.api.event.MatchEndedEvent;
+import pl.shg.arcade.api.match.MatchEndedEvent;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
 
 /**

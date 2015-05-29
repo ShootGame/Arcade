@@ -19,15 +19,15 @@ import pl.shg.arcade.api.command.def.MapinfoCommand;
 import pl.shg.arcade.api.configuration.Configuration;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.event.Event;
-import pl.shg.arcade.api.event.MapLoadedEvent;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.GameableBlock;
 import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.map.MapLoadedEvent;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.match.MatchStatus;
-import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.server.Server;
+import pl.shg.arcade.api.tablist.ArcadeTabList;
 import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.text.Color;
 

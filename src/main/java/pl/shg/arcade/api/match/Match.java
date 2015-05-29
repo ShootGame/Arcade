@@ -11,7 +11,6 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.event.Event;
-import pl.shg.arcade.api.event.MatchEndedEvent;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.text.Color;
