@@ -120,6 +120,7 @@ public abstract class ArcadeCommandManager implements CommandManager {
     public abstract boolean registerServerCommand(Command command);
     
     private void registerDefaultCommands() {
+        this.registerCommand(new ArcadeCommand());
         this.registerCommand(new BeginCommand());
         this.registerCommand(new CancelCommand());
         this.registerCommand(new ChangelogCommand());

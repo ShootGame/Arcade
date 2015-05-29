@@ -38,18 +38,27 @@ public class Event {
         Validate.notNull(event, "event can not be null");
         
         if (listeners.containsKey(event.getEventClass())) {
-            for (EventListener listener : listeners.get(event.getEventClass())) {
-                if (event instanceof CancelableEvent && ((CancelableEvent) event).isCancel()) {
-                    return;
-                }
-                
-                listener.handle(event);
-            }
+            callPriority(event, Priority.MONITOR); // this priority can't be canceled by the listener
+            callPriority(event, Priority.HIGHEST);
+            callPriority(event, Priority.HIGH);
+            callPriority(event, Priority.NORMAL);
+            callPriority(event, Priority.LOW);
+            callPriority(event, Priority.LOWEST);
         }
+    }
+    
+    public static EventExtra getExtra(EventListener listener) {
+        Validate.notNull(listener, "listener can not be null");
+        return listener.getClass().getDeclaredAnnotation(EventExtra.class);
     }
     
     public static Set<Class<? extends Event>> getRegisteredListeners() {
         return listeners.keySet();
+    }
+    
+    public static boolean hasExtra(EventListener listener) {
+        Validate.notNull(listener, "listener can not be null");
+        return getExtra(listener) != null;
     }
     
     public static void registerListener(EventListener listener) {
@@ -79,6 +88,24 @@ public class Event {
         Validate.notNull(listeners, "listeners can not be null");
         for (EventListener listener : listeners) {
             unregisterListener(listener);
+        }
+    }
+    
+    private static void callPriority(Event event, Priority priority) {
+        for (EventListener listener : listeners.get(event.getEventClass())) {
+            EventExtra extra = getExtra(listener);
+            Priority listenerPriority = Priority.NORMAL;
+            if (extra != null) {
+                listenerPriority = extra.priority();
+            }
+            
+            if (listenerPriority == priority) {
+                listener.handle(event);
+                
+                if (event instanceof CancelableEvent && priority.isCancelable() && ((CancelableEvent) event).isCancel()) {
+                    break;
+                }
+            }
         }
     }
 }
