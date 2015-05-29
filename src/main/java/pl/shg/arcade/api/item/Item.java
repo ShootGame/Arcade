@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
-package pl.shg.arcade.api.inventory;
+package pl.shg.arcade.api.item;
 
 import java.util.ArrayList;
 import java.util.List;

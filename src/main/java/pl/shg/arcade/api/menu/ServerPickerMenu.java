@@ -13,7 +13,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.inventory.Item;
+import pl.shg.arcade.api.item.Item;
 import pl.shg.arcade.api.text.Color;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.LobbyTarget;
