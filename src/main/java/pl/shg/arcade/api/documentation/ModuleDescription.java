@@ -9,8 +9,8 @@ package pl.shg.arcade.api.documentation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.module.Module;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

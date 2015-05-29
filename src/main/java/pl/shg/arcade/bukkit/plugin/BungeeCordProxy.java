@@ -6,10 +6,10 @@
  */
 package pl.shg.arcade.bukkit.plugin;
 
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Server;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.server.ProxyServer;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;
 

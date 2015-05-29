@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *

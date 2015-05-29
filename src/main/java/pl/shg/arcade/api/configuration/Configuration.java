@@ -7,9 +7,9 @@
 package pl.shg.arcade.api.configuration;
 
 import java.io.File;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -36,7 +37,6 @@ import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -56,8 +56,8 @@ public class BukkitPlayerManagement implements PlayerManagement {
     public void addPotion(pl.shg.arcade.api.human.Player player, String id, int level, int time) {
         Validate.notNull(player, "player can not be null");
         Validate.notNull(id, "id can not be null");
-        Validate.notNegative(level, "level can not be negative");
-        Validate.notNegative(time, "time can not be negative");
+        Validate.isTrue(level >= 0);
+        Validate.isTrue(time >= 0);
         ((Player) player.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.getByName(id), time, level), true);
     }
     

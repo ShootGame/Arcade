@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.loader;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.location.WorldManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

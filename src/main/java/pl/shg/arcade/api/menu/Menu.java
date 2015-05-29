@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.inventory.Item;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -34,8 +34,7 @@ public class Menu extends MenuListener {
     
     public Menu(String name, int rows) {
         Validate.notNull(name, "name can not be null");
-        Validate.notNegative(rows, "rows can not be negative");
-        Validate.notZero(rows, "rows can not be zero");
+        Validate.isTrue(rows > 0);
         this.name = name;
         this.slots = 9 * rows;
         this.id = UUID.randomUUID();
@@ -81,12 +80,12 @@ public class Menu extends MenuListener {
     
     public void addItem(Item item, int slot) {
         Validate.notNull(item, "item can not be null");
-        Validate.notNegative(slot, "slot can not be negative");
+        Validate.isTrue(slot >= 0);
         this.items.put(slot, item);
     }
     
     public Item getItem(int slot) {
-        Validate.notNegative(slot, "slot can not be negative");
+        Validate.isTrue(slot >= 0);
         return this.items.get(slot);
     }
     

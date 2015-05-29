@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.api;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.command.CommandManager;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.match.MatchManager;
@@ -14,7 +15,6 @@ import pl.shg.arcade.api.permissions.PermissionsManager;
 import pl.shg.arcade.api.server.ProxyServer;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.TeamManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

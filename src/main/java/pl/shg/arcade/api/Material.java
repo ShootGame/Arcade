@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api;
 
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *
@@ -62,8 +62,7 @@ public final class Material {
     }
     
     private void setID(int id) {
-        Validate.notNegative(id, "id can not be negative");
-        Validate.notZero(id, "id can not be zero");
+        Validate.isTrue(id > 0);
         this.id = id;
     }
     
@@ -76,7 +75,7 @@ public final class Material {
     }
     
     private void setSubID(int subId) {
-        Validate.notNegative(subId, "subId can not be negative");
+        Validate.isTrue(subId >= 0);
         this.subID = subId;
     }
 }

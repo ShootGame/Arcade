@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleException;
 import pl.shg.arcade.api.module.ModuleManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.text;
 
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *

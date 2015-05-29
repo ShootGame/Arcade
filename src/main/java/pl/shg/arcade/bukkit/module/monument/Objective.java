@@ -11,7 +11,6 @@ import java.util.List;
 import pl.shg.arcade.api.location.GameableBlock;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -24,16 +23,12 @@ public class Objective {
     private final Team owner;
     
     public Objective(MonumentModule module, String name, Team owner) {
-        Validate.notNull(module, "module can not be null");
-        Validate.notNull(name, "name can not be null");
-        Validate.notNull(owner, "owner can not be null");
         this.module = module;
         this.name = name;
         this.owner = owner;
     }
     
     public void addMonument(Monument monument) {
-        Validate.notNull(monument, "monument can be null");
         this.monuments.add(monument);
         GameableBlock.register(monument);
     }
@@ -96,7 +91,6 @@ public class Objective {
     }
     
     public boolean removeMonument(Monument monument) {
-        Validate.notNull(monument, "monument can not be null");
         return this.monuments.remove(monument);
     }
     

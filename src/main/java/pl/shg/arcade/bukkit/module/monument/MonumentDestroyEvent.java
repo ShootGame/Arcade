@@ -8,7 +8,6 @@ package pl.shg.arcade.bukkit.module.monument;
 
 import pl.shg.arcade.api.event.CancelableEvent;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -43,12 +42,10 @@ public class MonumentDestroyEvent extends CancelableEvent {
     }
     
     private void setMonument(Monument monument) {
-        Validate.notNull(monument, "monument can not be null");
         this.monument = monument;
     }
     
     private void setPlayer(Player player) {
-        Validate.notNull(player, "player can not be null");
         this.player = player;
     }
 }

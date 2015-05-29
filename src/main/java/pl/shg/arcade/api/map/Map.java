@@ -9,18 +9,20 @@ package pl.shg.arcade.api.map;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.protocol.Protocol;
 import pl.shg.arcade.api.region.RegionManager;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
  * @author Aleksander
  */
 public class Map {
+    public static final int MAX_NAME_LENGTH = 16;
+    
     private String[] authors;
     private final List<ArcadeClass> classes;
     private final String displayName;
@@ -35,6 +37,7 @@ public class Map {
     
     public Map(String[] authors, String name, Protocol protocol, MapVersion version) {
         Validate.notNull(name, "name can not be null");
+        Validate.isTrue(name.length() <= MAX_NAME_LENGTH);
         this.authors = authors;
         this.classes = new ArrayList<>();
         this.displayName = name.replace("_", " ");

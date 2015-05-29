@@ -6,6 +6,8 @@
  */
 package pl.shg.arcade.api.util;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  *
  * @author Aleksander
@@ -25,9 +27,7 @@ public class Version {
     }
     
     public Version(int major, int minor, int patch) {
-        Validate.notNegative(major, "major can not be negative");
-        Validate.notNegative(minor, "minor can not be negative");
-        Validate.notNegative(patch, "patch can not be negative");
+        Validate.isTrue(major >= 0 && minor >= 0 && patch >= 0);
         
         this.major = major;
         this.minor = minor;

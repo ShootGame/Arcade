@@ -8,10 +8,10 @@ package pl.shg.arcade.api.classes;
 
 import java.util.HashMap;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.kit.KitType;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

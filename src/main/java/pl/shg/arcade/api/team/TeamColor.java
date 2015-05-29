@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.team;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -39,7 +39,7 @@ public enum TeamColor {
     private TeamColor(String color, int[] rgb, Color.Wool wool) {
         Validate.notNull(color, "color can not be null");
         Validate.notNull(rgb, "rgb can not be null");
-        Validate.isTrue(rgb.length != 3, "rgb can not be invalid");
+        Validate.isTrue(rgb.length == 3, "rgb can not be invalid");
         Validate.notNull(wool, "wool can not be null");
         
         this.color = color;

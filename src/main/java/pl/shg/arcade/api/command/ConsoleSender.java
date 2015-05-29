@@ -7,11 +7,11 @@
 package pl.shg.arcade.api.command;
 
 import java.util.logging.Level;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -37,7 +37,6 @@ public class ConsoleSender implements Sender {
     public void sendActionMessage(ActionMessageType type, String message) {
         Validate.notNull(type, "type can not be null");
         Validate.notNull(message, "message can not be null");
-        
         this.sendMessage("[Action-" + type.toString() + "]" + message); // send to the console as the classic message
     }
     

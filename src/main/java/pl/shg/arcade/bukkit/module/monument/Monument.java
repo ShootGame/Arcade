@@ -19,7 +19,6 @@ import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.text.Icons;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
 /**
@@ -32,8 +31,6 @@ public class Monument extends GameableBlock {
     
     public Monument(Block block, Objective objective) {
         super(block);
-        
-        Validate.notNull(objective, "objective can not be null");
         this.objective = objective;
     }
     

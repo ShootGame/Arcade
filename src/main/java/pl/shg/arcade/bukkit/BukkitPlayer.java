@@ -14,6 +14,7 @@ import net.minecraft.server.v1_8_R1.IChatBaseComponent;
 import net.minecraft.server.v1_8_R1.Packet;
 import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
@@ -32,7 +33,6 @@ import pl.shg.arcade.api.server.TabList;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.util.ClientSettings;
 import pl.shg.commons.util.Messages;
 import pl.shg.commons.util.Tablists;
@@ -68,7 +68,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void damage(double amount) {
-        Validate.notNegative(amount, "amount can not be negative");
+        Validate.isTrue(amount >= 0);
         this.setHealth(this.getHealth() - amount);
     }
     
@@ -89,7 +89,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void setFeedLevel(int feed) {
-        Validate.notNegative(feed, "feed can not be negative");
+        Validate.isTrue(feed >= 0);
         this.player.setFoodLevel(feed);
     }
     

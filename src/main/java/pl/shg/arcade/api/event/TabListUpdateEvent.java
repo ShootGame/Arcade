@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.event;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.server.TabList;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

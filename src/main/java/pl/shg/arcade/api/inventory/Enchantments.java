@@ -8,7 +8,7 @@ package pl.shg.arcade.api.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *

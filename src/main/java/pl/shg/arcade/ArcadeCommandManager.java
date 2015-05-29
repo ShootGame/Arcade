@@ -9,6 +9,7 @@ package pl.shg.arcade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
@@ -17,7 +18,6 @@ import pl.shg.arcade.api.command.ConsoleSender;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.command.def.*; // commands
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

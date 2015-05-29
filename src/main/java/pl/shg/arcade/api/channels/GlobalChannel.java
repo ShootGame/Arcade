@@ -7,6 +7,7 @@
 package pl.shg.arcade.api.channels;
 
 import java.util.logging.Level;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.command.Sender;
@@ -14,7 +15,6 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.ChatMessage;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

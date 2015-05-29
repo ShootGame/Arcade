@@ -18,7 +18,6 @@ import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleManager;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.protocol.Protocol;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
@@ -41,7 +40,6 @@ public class CyConfiguration implements ConfigurationTechnology {
     
     @Override
     public void load(Configuration configuration, boolean test) throws ConfigurationException {
-        Validate.notNull(configuration, "configuration can not be null");
         this.config = YamlConfiguration.loadConfiguration(configuration.getFile());
         this.configuration = configuration;
         this.loadConfiguration(test);
@@ -113,8 +111,6 @@ public class CyConfiguration implements ConfigurationTechnology {
     }
     
     protected void throwError(CError error, String var, Object[] available) throws ConfigurationException {
-        Validate.notNull(error, "error can not be null");
-        Validate.notNull(var, "var can not be null");
         StringBuilder builder = new StringBuilder();
         builder.append("(").append(this.getConfiguration().getFile().getPath()).append(") Wartosc ").append(var);
         switch (error) {
@@ -136,8 +132,6 @@ public class CyConfiguration implements ConfigurationTechnology {
     }
     
     protected void throwWarning(CLevel level, String var) throws ConfigurationException {
-        Validate.notNull(level, "level can not be null");
-        Validate.notNull(var, "var can not be null");
         StringBuilder builder = new StringBuilder();
         builder.append("Wartosc ").append(var);
         switch (level) {

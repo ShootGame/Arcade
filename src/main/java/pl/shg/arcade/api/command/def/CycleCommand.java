@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.api.command.def;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
@@ -13,7 +14,6 @@ import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -50,7 +50,7 @@ public class CycleCommand extends Command {
     
     private void cycle(Sender sender, int seconds) {
         Validate.notNull(sender, "sender can not be null");
-        Validate.notNegative(seconds, "seconds can not be negative");
+        Validate.isTrue(seconds >= 0);
         MatchStatus status = Arcade.getMatches().getStatus();
         if (status == MatchStatus.PLAYING) {
             sender.sendError("Obecny tryb gry nie jest startujacy, ani konczacy!");

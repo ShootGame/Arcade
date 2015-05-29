@@ -13,7 +13,6 @@ import pl.shg.arcade.api.inventory.Item;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -27,9 +26,6 @@ public class Wool extends Item {
     
     public Wool(Color.Wool color, Team owner) {
         super(new Material(Color.Wool.WOOL.getID()));
-        
-        Validate.notNull(color, "color can not be null");
-        Validate.notNull(owner, "owner can not be null");
         this.setType(new Material(Color.Wool.WOOL.getID(), color.getID()));
         this.color = color;
         this.owner = owner;

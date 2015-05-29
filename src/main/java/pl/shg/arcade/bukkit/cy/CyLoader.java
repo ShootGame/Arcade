@@ -17,7 +17,6 @@ import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.MapVersion;
 import pl.shg.arcade.api.protocol.Protocol;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
@@ -31,9 +30,6 @@ public class CyLoader extends CyConfiguration {
     private final Protocol protocol;
     
     public CyLoader(FileConfiguration file, Map map, Protocol protocol) {
-        Validate.notNull(file, "file can not be null");
-        Validate.notNull(map, "map can not be null");
-        Validate.notNull(protocol, "protocol can not be null");
         this.file = file;
         this.map = map;
         this.protocol = protocol;

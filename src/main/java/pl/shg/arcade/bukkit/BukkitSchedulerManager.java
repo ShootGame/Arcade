@@ -8,12 +8,12 @@ package pl.shg.arcade.bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
 
 /**
@@ -73,8 +73,7 @@ public class BukkitSchedulerManager implements SchedulerManager {
     @Override
     public int runSync(Runnable scheduler, long update) {
         Validate.notNull(scheduler, "scheduler can not be null");
-        Validate.notNegative(update, "update can not be negative");
-        Validate.notZero(update, "update can not be zero");
+        Validate.isTrue(update > 0);
         
         int id = this.scheduler.runTaskTimer(ArcadeBukkitPlugin.getPlugin(), scheduler, 1L, update).getTaskId();
         this.tasks.add(id);

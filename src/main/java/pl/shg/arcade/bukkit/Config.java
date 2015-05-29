@@ -11,12 +11,12 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

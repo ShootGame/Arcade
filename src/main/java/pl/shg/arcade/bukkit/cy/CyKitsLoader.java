@@ -27,7 +27,6 @@ import pl.shg.arcade.api.kit.LeatherColorData;
 import pl.shg.arcade.api.kit.Option;
 import pl.shg.arcade.api.kit.PotionOption;
 import pl.shg.arcade.api.team.TeamColor;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -39,7 +38,6 @@ public class CyKitsLoader {
     private List<Kit> kits;
     
     public CyKitsLoader(FileConfiguration f) {
-        Validate.notNull(f, "f can not be null");
         this.f = f;
         this.loadKits();
     }
@@ -137,7 +135,6 @@ public class CyKitsLoader {
     }
     
     private void loadKit(String kit) {
-        Validate.notNull(kit, "kit can not be null");
         String path = this.section + "." + kit;
         
         Kit obj = new Kit(kit);
@@ -162,8 +159,6 @@ public class CyKitsLoader {
     }
     
     public static HashMap<KitType, List<Kit>> getDefinedKits(FileConfiguration f, String path) {
-        Validate.notNull(f, "f can not be null");
-        Validate.notNull(path, "path can not be null");
         HashMap<KitType, List<Kit>> kits = new HashMap<>();
         
         path += ".kits";

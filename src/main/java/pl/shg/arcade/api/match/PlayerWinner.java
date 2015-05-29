@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.match;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

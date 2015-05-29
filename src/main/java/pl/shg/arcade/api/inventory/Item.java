@@ -8,8 +8,8 @@ package pl.shg.arcade.api.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -49,7 +49,6 @@ public class Item {
     }
     
     public final void setAmount(int amount) {
-        Validate.notNegative(amount, "amount can not be negative");
         this.amount = amount;
     }
     

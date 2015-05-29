@@ -7,11 +7,11 @@
 package pl.shg.arcade.api.team;
 
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.permissions.ArcadeTeam;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -63,7 +63,7 @@ public class PlayableTeamBuilder implements TeamBuilder {
     }
     
     public void setMinimum(int minimum) {
-        Validate.notNegative(minimum, "minimum can not be negative");
+        Validate.isTrue(minimum >= 0);
         this.minimum = minimum;
     }
     
@@ -87,8 +87,7 @@ public class PlayableTeamBuilder implements TeamBuilder {
     }
     
     public void setSlots(int slots) {
-        Validate.notNegative(slots, "slots must be positive");
-        Validate.notZero(slots, "slots can not be zero");
+        Validate.isTrue(slots > 0);
         if (slots > Arcade.getServer().getSlots()) {
             throw new ConfigurationException("Ilosc slotów mapy wieksza od serwera");
         }

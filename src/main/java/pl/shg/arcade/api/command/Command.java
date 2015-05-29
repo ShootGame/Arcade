@@ -7,10 +7,10 @@
 package pl.shg.arcade.api.command;
 
 import java.util.HashMap;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Plugin;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -107,7 +107,7 @@ public abstract class Command implements CommandExecutor {
     }
     
     public String getStringFromArgs(int index, String[] args) {
-        Validate.notNegative(index, "index must be positive (or zero)");
+        Validate.isTrue(index >= 0);
         Validate.notNull(args, "args can not be null");
         StringBuilder builder = new StringBuilder();
         for (int i = index; i < args.length; i++) {

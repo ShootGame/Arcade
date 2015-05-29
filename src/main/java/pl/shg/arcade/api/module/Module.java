@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.documentation.ConfigurationDoc;
 import pl.shg.arcade.api.documentation.ModuleDescription;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 
 /**

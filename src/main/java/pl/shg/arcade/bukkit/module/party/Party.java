@@ -17,7 +17,6 @@ import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.party.Partyable;
 import pl.shg.arcade.api.team.Team;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
@@ -39,7 +38,6 @@ public abstract class Party extends ObjectiveModule implements BListener, Partya
     
     public Party(Date date, String id, String name, Version version) {
         super(date, "party-" + id, version);
-        Validate.notNull(name, "name can not be null");
         this.name = name;
     }
     

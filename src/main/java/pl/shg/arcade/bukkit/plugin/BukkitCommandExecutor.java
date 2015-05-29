@@ -29,7 +29,6 @@ import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -64,7 +63,6 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
     
     @Override
     public boolean registerServerCommand(Command command) {
-        Validate.notNull(command, "command can not be null");
         org.bukkit.command.Command bukkitCommand = new CommandPerformer(this, command.getCommands()[0]);
         
         List<String> aliases = new ArrayList<>();

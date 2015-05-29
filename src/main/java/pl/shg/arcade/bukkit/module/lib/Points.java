@@ -19,7 +19,6 @@ import pl.shg.arcade.api.module.Library;
 import pl.shg.arcade.api.module.Score;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.ScoreboardManager;
 
@@ -101,7 +100,6 @@ public class Points extends Library {
     }
     
     public static void add(Team team, int p) {
-        Validate.notNull(team, "team can not be null");
         set(team, get(team) + 1);
     }
     
@@ -118,7 +116,6 @@ public class Points extends Library {
     }
     
     public static void del(Team team, int p) {
-        Validate.notNull(team, "team can not be null");
         set(team, get(team) - p);
     }
     
@@ -127,7 +124,6 @@ public class Points extends Library {
     }
     
     public static int get(Team team) {
-        Validate.notNull(team, "team can not be null");
         if (points.containsKey(team)) {
             return points.get(team);
         } else {
@@ -147,13 +143,11 @@ public class Points extends Library {
     }
     
     public static void set(Team team, int p) {
-        Validate.notNull(team, "team can not be null");
         points.put(team, p);
         Arcade.getServer().checkEndMatch();
     }
     
     public static void setMaxScore(int score) {
-        Validate.notZero(score, "score can not be zero");
         maxScore = score;
     }
     

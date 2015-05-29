@@ -6,10 +6,10 @@
  */
 package pl.shg.arcade;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Plugin;
 import pl.shg.arcade.api.PluginProperties;
 import pl.shg.arcade.api.server.Server;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

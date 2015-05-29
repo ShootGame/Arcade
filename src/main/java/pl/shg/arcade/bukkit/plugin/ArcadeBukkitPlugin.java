@@ -9,6 +9,7 @@ package pl.shg.arcade.bukkit.plugin;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
@@ -30,7 +31,6 @@ import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Role;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPermissionsManager;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitPlayerManagement;
@@ -147,7 +147,6 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     
     @Deprecated
     private void loadBukkitCommands(String[] commands) {
-        Validate.notNull(commands, "commands can not be null");
         BukkitCommandExecutor executor = new BukkitCommandExecutor();
         for (String cmd : commands) {
             PluginCommand pluginCmd = this.getServer().getPluginCommand(cmd.toLowerCase());

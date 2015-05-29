@@ -7,10 +7,10 @@
 package pl.shg.arcade.api.team;
 
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.permissions.ArcadeTeam;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

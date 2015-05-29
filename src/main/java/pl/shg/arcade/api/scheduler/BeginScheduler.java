@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.api.scheduler;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.command.def.CancelCommand;
@@ -15,7 +16,6 @@ import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -109,7 +109,7 @@ public class BeginScheduler implements Runnable {
     }
     
     public static void setDefaultSeconds(int seconds) {
-        Validate.isTrue(seconds <= 3, "seconds are incorrent");
+        Validate.isTrue(seconds >= 3);
         defaultSeconds = seconds;
     }
     

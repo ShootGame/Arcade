@@ -8,10 +8,10 @@ package pl.shg.arcade.api.kit;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.inventory.Enchantment;
 import pl.shg.arcade.api.inventory.Item;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -36,8 +36,6 @@ public class KitItemBuilder {
     }
     
     public KitItemBuilder amount(int amount) {
-        Validate.notZero(amount, "amount can not be zero");
-        Validate.notNegative(amount, "amount can not be negative");
         this.amount = amount;
         return this;
     }

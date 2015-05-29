@@ -22,7 +22,6 @@ import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.region.Flag;
 import pl.shg.arcade.api.region.Region;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -143,14 +142,11 @@ public class RegionListeners implements Listener {
     }
     
     private List<Region> getRegions(org.bukkit.Location bukkitLocation) {
-        Validate.notNull(bukkitLocation, "bukkitLocation can not be null");
         Location location = new Location(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ());
         return this.map.getCurrentMap().getRegions().getRegions(location);
     }
     
     private boolean isIn(Region region, org.bukkit.Location bukkitLocation) {
-        Validate.notNull(region, "region can not be null");
-        Validate.notNull(bukkitLocation, "bukkitLocation can not be null");
         return region.isIn(new Location(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ()));
     }
     

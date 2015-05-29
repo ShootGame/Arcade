@@ -7,6 +7,7 @@
 package pl.shg.arcade.api.command.def;
 
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
@@ -16,7 +17,6 @@ import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;

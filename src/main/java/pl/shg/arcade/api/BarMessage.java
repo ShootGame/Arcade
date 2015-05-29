@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api;
 
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *
@@ -37,8 +37,7 @@ public final class BarMessage {
     }
     
     public void setHealth(long health) {
-        Validate.notNegative(health, "health can not be negative");
-        Validate.notZero(health, "health can not be zero");
+        Validate.isTrue(health > 0);
         this.health = health;
     }
     
@@ -56,8 +55,7 @@ public final class BarMessage {
     }
     
     public void setSeconds(int seconds) {
-        Validate.notNegative(seconds, "seconds can not be negative");
-        Validate.notZero(seconds, "seconds can not be zero");
+        Validate.isTrue(seconds > 0);
         this.seconds = seconds;
     }
 }

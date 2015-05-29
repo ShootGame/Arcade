@@ -16,7 +16,6 @@ import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.classes.ClassBuilder;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.kit.KitType;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -29,7 +28,6 @@ public class CyClassesLoader {
     private List<ArcadeClass> classes;
     
     public CyClassesLoader(FileConfiguration f) {
-        Validate.notNull(f, "f can not be null");
         this.f = f;
         this.loadClasses();
     }
@@ -88,7 +86,6 @@ public class CyClassesLoader {
     }
     
     private void loadClass(String clazz) {
-        Validate.notNull(clazz, "clazz can not be null");
         String path = this.section + "." + clazz;
         
         ClassBuilder builder = new ClassBuilder();

@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.module;
 
-import pl.shg.arcade.api.util.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  *
@@ -67,7 +67,7 @@ public class ScoreboardScore {
     
     public final void setName(String name) {
         Validate.notNull(name, "name can not be null");
-        Validate.isTrue(name.length() > 16, "name is too long");
+        Validate.isTrue(name.length() <= 16, "name is too long");
         this.oldName = this.name;
         this.name = name;
     }

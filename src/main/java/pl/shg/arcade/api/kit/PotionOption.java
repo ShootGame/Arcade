@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.kit;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -20,7 +20,7 @@ public class PotionOption extends Option {
     public PotionOption(String id, int level, int time) {
         super("potion");
         Validate.notNull(id, "id can not be null");
-        Validate.notNegative(level, "level can not be negative");
+        Validate.isTrue(level > 0);
         Validate.notNull(time, "time can not be negative");
         this.id = id;
         this.level = level;

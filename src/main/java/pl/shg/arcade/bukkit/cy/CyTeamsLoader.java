@@ -13,7 +13,6 @@ import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.PlayableTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamColor;
-import pl.shg.arcade.api.util.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.channels.GlobalChannel;
 import pl.shg.arcade.api.channels.TeamsChannel;
@@ -30,7 +29,6 @@ public class CyTeamsLoader {
     private List<Team> teams;
     
     public CyTeamsLoader(FileConfiguration f) {
-        Validate.notNull(f, "f can not be null");
         this.f = f;
         this.loadTeams();
     }
@@ -44,7 +42,6 @@ public class CyTeamsLoader {
     }
     
     private List<Spawn> getSpawns(String team) {
-        Validate.notNull(team, "team can not be null");
         List<Spawn> spawns = new ArrayList<>();
         for (String path : this.f.getConfigurationSection(this.section + "." + team + ".spawns").getKeys(false)) {
             path = this.section + "." + team + ".spawns." + path;
@@ -75,7 +72,6 @@ public class CyTeamsLoader {
     }
     
     private void loadTeam(String team) {
-        Validate.notNull(team, "team can not be null");
         String path = this.section + "." + team;
         
         PlayableTeamBuilder builder = new PlayableTeamBuilder(team);

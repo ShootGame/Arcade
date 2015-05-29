@@ -8,6 +8,7 @@ package pl.shg.arcade;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.channels.ChatChannel;
 import pl.shg.arcade.api.channels.GlobalChannel;
@@ -15,7 +16,6 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

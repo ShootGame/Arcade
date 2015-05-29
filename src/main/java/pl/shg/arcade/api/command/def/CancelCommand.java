@@ -6,13 +6,13 @@
  */
 package pl.shg.arcade.api.command.def;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

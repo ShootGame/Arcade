@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.classes;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

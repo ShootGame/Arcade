@@ -8,8 +8,8 @@ package pl.shg.arcade.api.server;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

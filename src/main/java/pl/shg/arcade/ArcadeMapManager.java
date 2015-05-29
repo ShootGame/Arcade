@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.configuration.ConfigurationTechnology;
@@ -19,7 +20,6 @@ import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.server.MiniGameServer;
 import pl.shg.arcade.api.server.Rotation;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

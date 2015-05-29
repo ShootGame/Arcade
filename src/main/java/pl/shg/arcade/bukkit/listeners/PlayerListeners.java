@@ -31,7 +31,6 @@ import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 import pl.shg.arcade.bukkit.BukkitPlayer;
 import pl.shg.arcade.bukkit.BukkitServer;
 import pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin;
@@ -45,7 +44,6 @@ public class PlayerListeners implements Listener {
     private final Random random;
     
     public PlayerListeners(BukkitServer server) {
-        Validate.notNull(server, "server can not be null");
         this.server = server;
         this.random = new Random();
     }

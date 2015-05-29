@@ -7,9 +7,9 @@
 package pl.shg.arcade.api.region;
 
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.kit.Kit;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

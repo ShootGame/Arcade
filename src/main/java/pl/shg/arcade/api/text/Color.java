@@ -6,8 +6,8 @@
  */
 package pl.shg.arcade.api.text;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Material;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -106,7 +106,7 @@ public final class Color {
         private final String name;
         
         public Wool(int id, String name) {
-            Validate.notNegative(id, "id can not be negative");
+            Validate.isTrue(id >= 0);
             Validate.notNull(name, "name can not be null");
             this.id = id;
             this.name = name;

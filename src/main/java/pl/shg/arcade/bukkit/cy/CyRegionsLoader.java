@@ -29,7 +29,6 @@ import pl.shg.arcade.api.region.PlaceFlag;
 import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.region.TeleportFlag;
 import pl.shg.arcade.api.team.Team;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -41,13 +40,11 @@ public class CyRegionsLoader {
     private List<Region> regions;
     
     public CyRegionsLoader(FileConfiguration f) {
-        Validate.notNull(f, "f can not be null");
         this.f = f;
         this.loadRegions();
     }
     
     public BlockLocation getCoord(String path) {
-        Validate.notNull(path, "path can not be null");
         int x = this.f.getInt(path + ".x");
         int y = this.f.getInt(path + ".y");
         int z = this.f.getInt(path + ".z");
@@ -55,9 +52,6 @@ public class CyRegionsLoader {
     }
     
     public Filter getFilter(String filter, String path) {
-        Validate.notNull(filter, "filter can not be null");
-        Validate.notNull(path, "path can not be null");
-        
         List<Material> accept = new ArrayList<>();
         for (String listElement : this.f.getStringList(path + ".accept")) {
             Material material = null;
@@ -98,9 +92,6 @@ public class CyRegionsLoader {
     }
     
     public Flag getFlag(String flag, Team owner, String path) {
-        Validate.notNull(flag, "flag can not be null");
-        Validate.notNull(path, "path can not be null");
-        
         List<Block> allowed = new ArrayList<>();
         for (String b : this.f.getStringList(path + ".allowed")) {
             Block block = Block.fromString(b);
@@ -154,7 +145,6 @@ public class CyRegionsLoader {
     }
     
     private void loadRegion(String region) {
-        Validate.notNull(region, "region can not be null");
         String path = this.section + "." + region;
         BlockLocation max = this.getCoord(path + ".max");
         BlockLocation min = this.getCoord(path + ".min");

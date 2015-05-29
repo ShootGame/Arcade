@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PlayerManagement;
@@ -29,7 +30,6 @@ import pl.shg.arcade.api.server.ArcadeTabList;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.text.Color;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -157,7 +157,7 @@ public class CycleScheduler implements Runnable {
     }
     
     public static void setDefaultSeconds(int seconds) {
-        Validate.isTrue(seconds <= 3, "seconds are incorrent");
+        Validate.isTrue(seconds >= 3);
         defaultSeconds = seconds;
     }
     

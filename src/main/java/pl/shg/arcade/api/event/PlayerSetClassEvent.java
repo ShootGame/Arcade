@@ -6,9 +6,9 @@
  */
 package pl.shg.arcade.api.event;
 
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.classes.ArcadeClass;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *

@@ -7,9 +7,9 @@
 package pl.shg.arcade.api.map;
 
 import java.util.UUID;
+import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.util.Validate;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Rating {
         Validate.notNull(player, "player can not be null");
         Validate.isTrue(rate < 0 || rate > 5, "rate can be only between 1 and 5");
         Validate.notNull(server, "server can not be null");
-        Validate.notNegative(time, "time can not be negative");
+        Validate.isTrue(time >= 0);
         
         this.id = id;
         this.map = map;
