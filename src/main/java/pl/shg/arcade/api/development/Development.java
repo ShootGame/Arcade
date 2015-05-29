@@ -13,6 +13,7 @@ import pl.shg.arcade.api.command.CommandManager;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
 import pl.shg.arcade.api.server.IServerRole;
+import pl.shg.arcade.api.tournament.MessageListeners;
 
 /**
  *
@@ -29,6 +30,9 @@ public class Development implements IServerRole {
         
         this.registerCommands();
         DevelopmentHack.setVariables();
+        
+        // why do not use tournament's extra messages?
+        new MessageListeners().register();
         
         BeginScheduler.setDefaultSeconds(10);
         CycleScheduler.setDefaultSeconds(10);

@@ -4,8 +4,20 @@
     <groupId>pl.shg</groupId>
     <artifactId>arcade</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
     <packaging>jar</packaging>
     <name>Arcade</name>
+    <description>Zarzadzanie mini-grami w jednym pluginie</description>
+    
+    <properties>
+        <plugin.bukkit.mainClass>pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin</plugin.bukkit.mainClass>
+        <plugin.minecraft>MC1.8</plugin.minecraft>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+    
     <build>
         <resources>
             <resource>
@@ -13,10 +25,25 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-        <!-- Arcade debugging -->
+        
         <plugins>
+            <!-- Apply the last Git commit into the version -->
             <plugin>
-                <!-- Build an executable JAR -->
+                <groupId>net.md-5</groupId>
+                <artifactId>scriptus</artifactId>
+                <version>0.1</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>describe</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Build an executable JAR for the Arcade Debugger -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
@@ -31,40 +58,81 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            
+            <!-- Include libraries in the final JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.apache.commons:commons-lang3</include>
+                                    <include>com.google.code.gson:gson</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    
     <repositories>
         <repository>
             <id>overcast-repo</id>
             <url>https://repo.oc.tc/content/groups/public</url>
         </repository>
     </repositories>
+    
     <dependencies>
+        <!-- SportBukkit -->
         <dependency>
             <groupId>tc.oc</groupId>
             <artifactId>sportbukkit</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
         </dependency>
+        
+        <!-- SportBukkit API -->
         <dependency>
             <groupId>tc.oc</groupId>
             <artifactId>sportbukkit-api</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
         </dependency>
+        
+        <!-- ShootGame and our commons library -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ShootGame</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- Permissions API -->
         <dependency>
             <groupId>pl.themolka</groupId>
             <artifactId>Permissions</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+        
+        <!-- Google's Gson to parse JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-    </properties>
 </project>

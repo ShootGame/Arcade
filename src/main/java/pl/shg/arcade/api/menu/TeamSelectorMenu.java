@@ -43,7 +43,7 @@ public class TeamSelectorMenu extends Menu {
             JoinCommand.random(player, status);
             this.close(player);
         } else if (teams.containsKey(slot)) {
-            JoinCommand.team(player, teams.get(slot), status);
+            JoinCommand.team(false, player, teams.get(slot), status);
             this.close(player);
         }
     }

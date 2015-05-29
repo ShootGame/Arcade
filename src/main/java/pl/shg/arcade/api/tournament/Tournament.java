@@ -27,6 +27,7 @@ public class Tournament implements IServerRole {
         
         Arcade.getCommands().registerCommand(new TournamentCommand());
         Event.registerListener(new CancelCycleListener());
+        new MessageListeners().register();
         
         BeginScheduler.setDefaultSeconds(120);
         CycleScheduler.setDefaultSeconds(120);

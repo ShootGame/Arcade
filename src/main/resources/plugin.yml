@@ -1,10 +1,14 @@
-name: Arcade
-version: '${project.version}'
-author: TheMolkaPL
+name: '${project.name}'
+version: '${project.version} for Minecraft ${plugin.minecraft} - ${describe}'
+authors:
+- TheMolkaPL
 website: http://www.shootgame.net
-description: 'Zarzadzanie mini-grami w jednym pluginie'
-prefix: 'Arcade'
+description: '${project.description}'
+prefix: '${project.name}'
 load: STARTUP
-loadbefore: [WorldEdit]
-dependency: [Permissions, ShootGame]
-main: pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin
+loadbefore:
+- WorldEdit
+dependency:
+- Permissions
+- ShootGame
+main: '${plugin.bukkit.mainClass}'

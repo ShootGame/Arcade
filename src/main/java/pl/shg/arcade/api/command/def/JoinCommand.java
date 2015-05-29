@@ -98,7 +98,7 @@ public class JoinCommand extends Command {
     public static void random(Player player, MatchStatus status) {
         List<Team> teams = Arcade.getTeams().getTeams();
         if (teams.size() == 1) {
-            team(player, teams.get(0), Arcade.getMatches().getStatus());
+            team(true, player, teams.get(0), Arcade.getMatches().getStatus());
         } else {
             SortedMap<Integer, Team> sorted = new TreeMap<>(new RandomTeamComparator());
             for (Team team : teams) {
@@ -110,23 +110,24 @@ public class JoinCommand extends Command {
                 team = teams.get(0);
             }
             
-            team(player, team, status);
+            team(true, player, team, status);
         }
     }
     
     public static void team(Player player, String team, MatchStatus status) {
         Team teamObject = Arcade.getTeams().getTeam(team.toLowerCase());
         if (teamObject != null) {
-            team(player, teamObject, status);
+            team(false, player, teamObject, status);
         } else {
             player.sendError("Podana przez Ciebie druzyna nie zostala odnaleziona! Spróbuj jeszcze raz.");
         }
     }
     
-    public static void team(Player player, Team team, MatchStatus status) {
-        if (!player.hasPermission("arcade.command.join.team")) {
+    public static void team(boolean random, Player player, Team team, MatchStatus status) {
+        if (!random && !player.hasPermission("arcade.command.join.team")) {
             player.sendError("Dolaczanie do wybranej druzyny dostepne jest tylko dla rangi "
                     + Color.GOLD + Color.BOLD + "VIP" + Color.RESET + Color.RED + ".");
+            return;
         } else if (!player.hasPermission("arcade.command.join.full") && team.getPlayers().size() >= team.getSlots()) {
             player.sendError("Druzyna " + team.getName() + " jest zapelniona! Poczekaj na zwolnienie miejsca.");
             return;
