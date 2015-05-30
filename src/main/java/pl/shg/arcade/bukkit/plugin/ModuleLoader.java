@@ -34,6 +34,7 @@ import pl.shg.arcade.bukkit.module.mobs.DisableMobSpawningModule;
 import pl.shg.arcade.bukkit.module.monument.MonumentModule;
 import pl.shg.arcade.bukkit.module.party.Party;
 import pl.shg.arcade.bukkit.module.pearls.BlockPearlTeleportModule;
+import pl.shg.arcade.bukkit.module.perform.DelayedPerformModule;
 import pl.shg.arcade.bukkit.module.pickup.CancelPickupModule;
 import pl.shg.arcade.bukkit.module.pvp.NoPvpModule;
 import pl.shg.arcade.bukkit.module.rage.RageModule;
@@ -66,6 +67,7 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(CancelPickupModule.class);
         this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
+        this.register(DelayedPerformModule.class);
         this.register(DelayedRespawnModule.class);
         this.register(DestroyableFireworksModule.class); // prefered for the 'destroyable' objective-module
         this.register(DestroyableModesModule.class); // prefered for the 'destroyable' objective-module
@@ -88,13 +90,13 @@ public abstract class ModuleLoader implements IRegistration {
     
     private void games() {
         this.register(BlitzModule.class);
-        this.register(BossModule.class);
+        this.register(BossModule.class); // TODO
         this.register(DeathMatchModule.class);
-        this.register(DestroyableModule.class);
-        this.register(EscapeModule.class);
-        this.register(MonumentModule.class);
+        this.register(DestroyableModule.class); // TODO
+        this.register(EscapeModule.class); // TODO
+        this.register(MonumentModule.class); // deprecated
         this.register(PaintballModule.class);
-        this.register(WoolModule.class);
+        this.register(WoolModule.class); // TODO
     }
     
     private void libraries() {
