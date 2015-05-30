@@ -7,6 +7,7 @@
 package pl.shg.arcade.bukkit.plugin;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.Validate;
@@ -80,7 +81,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 Validate.notNull(module, "module can not be null");
                 try {
                     Arcade.getModules().register(module);
-                } catch (Exception ex) {
+                } catch (Throwable ex) {
                     String id = module.getCanonicalName();
                     Log.noteAdmins("Napotkano blad w ladowaniu modulu " + id + " - patrz konsole", Log.NoteLevel.SEVERE);
                     Logger.getLogger(ModuleLoader.class.getName()).log(Level.SEVERE, "Napotkano blad podczas ladowania " + id, ex);
@@ -226,13 +227,17 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     }
     
     private void loadRotations() {
+        Charset encoding = Charset.forName("UTF-8");
+        
         MiniGameServer.Online online = MiniGameServer.ONLINE;
-        MiniGameServer.loadRotation(Servers.getConfiguration().getString("arcade." + online.getShoot().getID() + ".rotation"), online.getRotation());
+        String rotationLocation = Servers.getConfiguration().getString("arcade." + online.getShoot().getID() + ".rotation");
+        MiniGameServer.loadRotation(rotationLocation, online.getRotation(), encoding);
         
         for (TargetServer arcade : Servers.getServers()) {
             if (arcade instanceof ArcadeTarget) {
                 MiniGameServer miniGame = MiniGameServer.of((ArcadeTarget) arcade);
-                MiniGameServer.loadRotation(miniGame.getCommons().getSetting("rotation"), miniGame.getRotation());
+                String location = miniGame.getCommons().getSetting("rotation");
+                MiniGameServer.loadRotation(location, miniGame.getRotation(), encoding);
             }
         }
     }

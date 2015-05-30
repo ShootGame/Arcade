@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
-package pl.shg.arcade.api.server;
+package pl.shg.arcade.api.rotation;
 
 import java.util.ArrayList;
 import java.util.List;

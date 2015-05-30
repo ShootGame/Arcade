@@ -18,8 +18,8 @@ import pl.shg.arcade.api.location.WorldManager;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.map.NotLoadedMap;
+import pl.shg.arcade.api.rotation.Rotation;
 import pl.shg.arcade.api.server.MiniGameServer;
-import pl.shg.arcade.api.server.Rotation;
 
 /**
  *

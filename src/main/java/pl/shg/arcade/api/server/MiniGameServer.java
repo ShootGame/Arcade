@@ -6,18 +6,22 @@
  */
 package pl.shg.arcade.api.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.NotLoadedMap;
+import pl.shg.arcade.api.rotation.Rotation;
 import pl.shg.arcade.api.util.TextFileReader;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.OnlineServer;
@@ -47,14 +51,18 @@ public class MiniGameServer {
         return this.rotation;
     }
     
-    public static void loadRotation(String url, Rotation rotation) {
+    public static void loadRotation(String url, Rotation rotation, Charset encoding) {
         try {
             Validate.notNull(rotation, "rotation can not be null");
             
             List<String> lines = new ArrayList<>();
-            Scanner scanner = new Scanner(new URL(url).openStream());
-            while (scanner.hasNextLine()) {
-                lines.add(scanner.nextLine());
+            InputStream input = new URL(url).openStream();
+            InputStreamReader inputReader = new InputStreamReader(input, encoding);
+            BufferedReader buffReader = new BufferedReader(inputReader);
+            
+            String str = null;
+            while ((str = buffReader.readLine()) != null) {
+                lines.add(str);
             }
             
             TextFileReader reader = new TextFileReader(lines);
