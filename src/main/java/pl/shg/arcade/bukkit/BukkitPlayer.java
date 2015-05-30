@@ -65,7 +65,7 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public boolean canSee(pl.shg.arcade.api.human.Player player) {
         Validate.notNull(player, "player can not be null");
-        return true;
+        return Arcade.getPlayerManagement().getVisibility().canSee(this, player);
     }
     
     @Override
@@ -273,13 +273,13 @@ public class BukkitPlayer extends ArcadePlayer {
         this.setChatPrefixes(builder.toString());
     }
     
-    public synchronized void sendChatPacket(String message, byte type) {
+    public void sendChatPacket(String message, byte type) {
         for (IChatBaseComponent component : CraftChatMessage.fromString(message)) {
             this.sendPacket(new PacketPlayOutChat(component, type));
         }
     }
     
-    public synchronized void sendPacket(Packet packet) {
+    public void sendPacket(Packet packet) {
         if (this.bukkit() != null && this.bukkit().getHandle() != null) {
             this.handle.playerConnection.sendPacket(packet);
         }
