@@ -65,6 +65,11 @@ public abstract class ArcadeServer implements Server {
         return this.getName().toLowerCase().startsWith("dev");
     }
     
+    @Override
+    public boolean isFull() {
+        return this.getSlots() <= this.getConnectedPlayers().size();
+    }
+    
     private void checkEnd() {
         for (Team team : Arcade.getTeams().getTeams()) {
             int players = team.getPlayers().size();

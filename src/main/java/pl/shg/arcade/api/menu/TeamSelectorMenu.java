@@ -74,12 +74,12 @@ public class TeamSelectorMenu extends Menu {
                     freeSlots = 0;
                 }
                 
-                Item item = new Item(new Material(35, team.getTeamColor().getWool().getID()), freeSlots);
+                Item item = new Item(new Material(35, team.getTeamColor().getWool().getID())/*, freeSlots*/);
                 
                 item.setName(Color.DARK_AQUA + "Dolacz do " + team.getDisplayName());
                 item.setDescription(Arrays.asList(
-                        Color.GOLD + "Stan graczy: " + Color.DARK_RED + Color.BOLD + team.getPlayers().size()
-                                + Color.RESET + Color.RED + "/" + team.getSlots(),
+                        /*Color.GOLD + "Stan graczy: " + Color.DARK_RED + Color.BOLD + team.getPlayers().size()
+                                + Color.RESET + Color.RED + "/" + team.getSlots(),*/
                         Color.GRAY + "Dolacz do wybranej przez Ciebie druzyny",
                         Color.GOLD + "Dostep: " + Color.RED + "Ranga VIP"));
                 this.addItem(item, slot);

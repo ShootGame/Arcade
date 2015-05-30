@@ -69,11 +69,11 @@ public class PlayerListeners implements Listener {
             e.setKickMessage(Color.RED + "Serwer jest teraz restartowany...");
         }
         
-        if (this.server.getConnectedPlayers().size() >= this.server.getSlots()) {
+        if (this.server.isFull()) {
             boolean allowed = false;
             // TODO MySQL query to check if the player is allowed to join this server
             
-            if (allowed) {
+            if (!allowed) {
                 e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_FULL,
                         Color.RED + "Ten serwer jest obecnie pelny. Spróbuj " +
                         "polaczyc sie ponownie pózniej, lub wybierz inny " +

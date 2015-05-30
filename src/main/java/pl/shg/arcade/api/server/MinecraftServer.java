@@ -28,5 +28,7 @@ public interface MinecraftServer {
     
     int getSlots();
     
+    boolean isFull();
+    
     void shutdown();
 }
