@@ -13,6 +13,7 @@ import pl.shg.arcade.api.development.TestCommand;
 import pl.shg.commons.documents.DocumentArray;
 import pl.shg.commons.users.DBUser;
 import pl.shg.commons.users.XPDocument;
+import pl.shg.commons.users.XPHelper;
 
 /**
  *
@@ -63,7 +64,7 @@ public class XPTest extends TestCommand.Test {
     }
     
     private void calc(final Sender sender, UUID uuid) {
-        XPDocument.getDocument().asyncCalculateXP(new DBUser(uuid), new DocumentArray() {
+        this.getDatabase().calculateXP(new DBUser(uuid), new DocumentArray() {
             @Override
             public void run(Object[] array) {
                 int xp = (int) array[0];
@@ -75,10 +76,14 @@ public class XPTest extends TestCommand.Test {
     }
     
     private void drop(UUID uuid, int amount) {
-        XPDocument.getDocument().asyncDropIfHasXP(new DBUser(uuid), amount, "Testy XP");
+        this.getDatabase().dropIfHasXP(new DBUser(uuid), amount, "Testy XP");
+    }
+    
+    private XPHelper getDatabase() {
+        return (XPHelper) XPDocument.getDocument().getHelper();
     }
     
     private void give(UUID uuid, int amount) {
-        XPDocument.getDocument().asyncGiveXP(new DBUser(uuid), amount, "Testy XP");
+        this.getDatabase().giveXP(new DBUser(uuid), amount, "Testy XP");
     }
 }

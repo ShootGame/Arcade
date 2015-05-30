@@ -14,7 +14,12 @@ import pl.shg.commons.documents.DocumentInfo;
  *
  * @author Aleksander
  */
-@DocumentInfo(name = "obj_wool", strong = false, connection = Connection.USERS)
+@DocumentInfo(
+        name = "obj_wool",
+        strong = false,
+        connection = Connection.USERS,
+        helper = WoolHelper.class
+)
 public class WoolDocument extends Document {
     public WoolDocument() {
         super();

@@ -14,7 +14,12 @@ import pl.shg.commons.documents.DocumentInfo;
  *
  * @author Aleksander
  */
-@DocumentInfo(name = "obj_destroyable", strong = false, connection = Connection.USERS)
+@DocumentInfo(
+        name = "obj_destroyable",
+        strong = false,
+        connection = Connection.USERS,
+        helper = DestroyableHelper.class
+)
 public class DestroyableDocument extends Document {
     public DestroyableDocument() {
         super();

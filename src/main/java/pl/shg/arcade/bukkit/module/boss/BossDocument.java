@@ -14,7 +14,12 @@ import pl.shg.commons.documents.DocumentInfo;
  *
  * @author Aleksander
  */
-@DocumentInfo(name = "obj_boss", strong = false, connection = Connection.USERS)
+@DocumentInfo(
+        name = "obj_boss",
+        strong = false,
+        connection = Connection.USERS,
+        helper = BossHelper.class
+)
 public class BossDocument extends Document {
     public BossDocument() {
         super();
