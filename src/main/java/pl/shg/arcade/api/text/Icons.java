@@ -13,7 +13,9 @@ import org.apache.commons.lang3.Validate;
  * @author Aleksander
  */
 public enum Icons {
+    LEFT_POINTING_DOUBLE('\u00AB'), // «
     NO('\u2716', Color.DARK_RED), // ✖
+    RIGHT_POINTING_DOUBLE('\u00BB'), // »
     YES('\u2714', Color.GREEN), // ✔
     ;
     
