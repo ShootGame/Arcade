@@ -26,6 +26,7 @@ import org.bukkit.potion.PotionEffectType;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.classes.ArcadeClass;
+import pl.shg.arcade.api.human.VisibilityFilter;
 import pl.shg.arcade.api.item.Enchantment;
 import pl.shg.arcade.api.item.Item;
 import pl.shg.arcade.api.kit.Kit;
@@ -46,6 +47,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
     private final ObserverKit obsKit = new ObserverKit();
     private final Random random = new Random();
     private final Server server;
+    private VisibilityFilter visibility = new VisibilityFilter();
     
     public BukkitPlayerManagement(Server server) {
         Validate.notNull(server, "server can not ben null");
@@ -59,6 +61,11 @@ public class BukkitPlayerManagement implements PlayerManagement {
         Validate.isTrue(level >= 0);
         Validate.isTrue(time >= 0);
         ((Player) player.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.getByName(id), time, level), true);
+    }
+    
+    @Override
+    public VisibilityFilter getVisibility() {
+        return this.visibility;
     }
     
     @Override
@@ -100,7 +107,9 @@ public class BukkitPlayerManagement implements PlayerManagement {
     
     @Override
     public void refreshHiderForAll() {
-        PlayerHider.refreshAll();
+        for (pl.shg.arcade.api.human.Player online : Arcade.getServer().getConnectedPlayers()) {
+            online.updateVisibility();
+        }
     }
     
     @Override
@@ -124,7 +133,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         }
         bukkitPlayer.setGameMode(GameMode.CREATIVE);
         if (hider) {
-            PlayerHider.refresh(player);
+            player.updateVisibility();
         }
         for (PotionEffect potion : bukkitPlayer.getActivePotionEffects()) {
             bukkitPlayer.removePotionEffect(potion.getType());
@@ -160,7 +169,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         bukkitPlayer.setHealth(20.0);
         bukkitPlayer.setGameMode(GameMode.SURVIVAL);
         if (hider) {
-            PlayerHider.refresh(player);
+            player.updateVisibility();
         }
         for (PotionEffect potion : bukkitPlayer.getActivePotionEffects()) {
             bukkitPlayer.removePotionEffect(potion.getType());
@@ -195,6 +204,15 @@ public class BukkitPlayerManagement implements PlayerManagement {
         } else {
             ((Player) player.getPlayer()).removePotionEffect(PotionEffectType.INVISIBILITY);
         }
+    }
+    
+    @Override
+    public void setVisibility(VisibilityFilter visibility) {
+        if (visibility == null) {
+            visibility = new VisibilityFilter();
+        }
+        
+        this.visibility = visibility;
     }
     
     private void setKit(pl.shg.arcade.api.human.Player player, Player bukkitPlayer, List<Kit> kits) {

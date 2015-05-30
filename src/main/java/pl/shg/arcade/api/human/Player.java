@@ -13,7 +13,7 @@ import pl.shg.commons.server.TargetServer;
  *
  * @author Aleksander
  */
-public interface Player extends Classable, MinecraftPlayer, NamnedPlayer {
+public interface Player extends Classable, MinecraftPlayer, NamnedPlayer, Visibilitable {
     void connect(TargetServer server);
     
     void connect(String server);

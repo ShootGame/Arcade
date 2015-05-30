@@ -9,6 +9,7 @@ package pl.shg.arcade.debug.impl;
 import java.util.UUID;
 import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.tablist.TabList;
@@ -30,6 +31,11 @@ public class DebugPlayer extends ArcadePlayer {
     public DebugPlayer(String name, UUID uuid) {
         this.name = name;
         this.uuid = uuid;
+    }
+    
+    @Override
+    public boolean canSee(Player player) {
+        return true;
     }
     
     @Override
@@ -183,5 +189,10 @@ public class DebugPlayer extends ArcadePlayer {
     @Override
     public void sendMessage(String message) {
         ArcadeDebug.getConsole().sendMessage("[Do " + this.getName() + "]: " + message);
+    }
+    
+    @Override
+    public void updateVisibility() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

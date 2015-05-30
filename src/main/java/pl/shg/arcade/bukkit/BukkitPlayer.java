@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.bukkit;
 
+import java.util.Objects;
 import java.util.UUID;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
@@ -59,6 +60,12 @@ public class BukkitPlayer extends ArcadePlayer {
         this.settings = ClientSettings.newInstance(this.player);
         
         this.makePermissions();
+    }
+    
+    @Override
+    public boolean canSee(pl.shg.arcade.api.human.Player player) {
+        Validate.notNull(player, "player can not be null");
+        return true;
     }
     
     @Override
@@ -131,6 +138,11 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public UUID getUUID() {
         return this.player.getUniqueId();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getUUID());
     }
     
     @Override
@@ -234,6 +246,11 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void updateTag() {
         ScoreboardManager.updateTag(this);
+    }
+    
+    @Override
+    public void updateVisibility() {
+        Visibility.update(this);
     }
     
     public CraftPlayer bukkit() {

@@ -7,6 +7,7 @@
 package pl.shg.arcade.api;
 
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.human.VisibilityFilter;
 import pl.shg.arcade.api.kit.KitType;
 
 /**
@@ -15,6 +16,8 @@ import pl.shg.arcade.api.kit.KitType;
  */
 public interface PlayerManagement {
     void addPotion(Player player, String id, int level, int time);
+    
+    VisibilityFilter getVisibility();
     
     boolean isGhost(Player player);
     
@@ -29,4 +32,6 @@ public interface PlayerManagement {
     void setAsPlayer(Player player, KitType kit, boolean hider, boolean sendTitle, boolean perms);
     
     void setGhost(Player player, boolean ghost);
+    
+    void setVisibility(VisibilityFilter visibility);
 }

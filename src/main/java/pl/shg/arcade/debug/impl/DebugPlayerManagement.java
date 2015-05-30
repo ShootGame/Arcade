@@ -9,6 +9,7 @@ package pl.shg.arcade.debug.impl;
 import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.human.Player;
+import pl.shg.arcade.api.human.VisibilityFilter;
 import pl.shg.arcade.api.kit.KitType;
 
 /**
@@ -16,9 +17,16 @@ import pl.shg.arcade.api.kit.KitType;
  * @author Aleksander
  */
 public class DebugPlayerManagement implements PlayerManagement {
+    private final VisibilityFilter visibility = new VisibilityFilter();
+    
     @Override
     public void addPotion(Player player, String id, int level, int time) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public VisibilityFilter getVisibility() {
+        return this.visibility;
     }
     
     @Override
@@ -53,6 +61,11 @@ public class DebugPlayerManagement implements PlayerManagement {
     
     @Override
     public void setGhost(Player player, boolean ghost) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public void setVisibility(VisibilityFilter visibility) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
