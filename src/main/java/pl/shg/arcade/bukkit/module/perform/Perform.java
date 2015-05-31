@@ -30,7 +30,7 @@ public abstract class Perform implements Runnable {
     }
     
     public void destroy() {
-        
+        this.setSeconds(-1);
     }
     
     public FileConfiguration getConfig() {
@@ -53,6 +53,10 @@ public abstract class Perform implements Runnable {
         return this.times;
     }
     
+    public boolean isEnabled() {
+        return this.seconds > -1;
+    }
+    
     public boolean isRepeating() {
         return this.repeating;
     }
@@ -60,7 +64,7 @@ public abstract class Perform implements Runnable {
     public void removeTime() {
         this.times--;
         
-        if (this.times <= 0) {
+        if (!this.isRepeating() && this.times <= 0) {
             this.destroy();
         }
     }

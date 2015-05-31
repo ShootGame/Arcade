@@ -36,7 +36,9 @@ public class DelayedPerformModule extends Module {
     
     @Override
     public void enable() {
-        
+        if (!this.performs.isEmpty()) {
+            Arcade.getServer().getScheduler().runSync(new Task(), 20L);
+        }
     }
     
     @Override
@@ -44,10 +46,6 @@ public class DelayedPerformModule extends Module {
         FileConfiguration config = Config.get(file);
         for (String id : Config.getOptions(config, this)) {
             this.load(config, id);
-        }
-        
-        if (!this.performs.isEmpty()) {
-            Arcade.getServer().getScheduler().runSync(new Task(), 20L);
         }
     }
     
@@ -61,7 +59,7 @@ public class DelayedPerformModule extends Module {
         boolean repeating = Config.getValueBoolean(config, this, id + ".repeating", false);
         int times = Config.getValueInt(config, this, id + ".times", 0);
         
-        for (String perform : Config.getOptions(config, this, ".perform")) {
+        for (String perform : Config.getOptions(config, this, id + ".perform")) {
             this.loadPerform(config, id, perform, seconds, repeating, times);
         }
     }
@@ -90,6 +88,7 @@ public class DelayedPerformModule extends Module {
             for (Perform perform : DelayedPerformModule.this.performs) {
                 if (perform.getSeconds() == this.seconds) {
                     perform.run();
+                    perform.setSeconds(this.seconds + perform.getSeconds());
                     perform.removeTime();
                 }
             }

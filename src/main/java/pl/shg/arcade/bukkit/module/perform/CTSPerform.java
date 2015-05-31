@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.bukkit.module.perform;
 
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Sheep;
@@ -29,8 +30,10 @@ public class CTSPerform extends Perform {
     public void run() {
         Sheep sheep = BukkitLocation.getWorld().spawn(this.getLocation(), Sheep.class);
         sheep.setAdult();
+        sheep.setColor(DyeColor.WHITE);
         sheep.setMaxHealth(9999.0D);
         sheep.setHealth(9999.0D);
+        sheep.setCanPickupItems(false);
         
         Event.callEvent(new CTSSpawnEvent(sheep));
     }
@@ -46,9 +49,9 @@ public class CTSPerform extends Perform {
     public static CTSPerform create(Module module, FileConfiguration config,
             String id, int seconds, boolean repeating, int times) {
         CTSPerform perform = new CTSPerform(config, id, seconds, repeating, times);
-        int x = Config.getValueInt(config, module, id + ".perform." + perform.getName() + ".x", 0);
+        double x = Config.getValueDouble(config, module, id + ".perform." + perform.getName() + ".x", 0);
         int y = Config.getValueInt(config, module, id + ".perform." + perform.getName() + ".y", 16);
-        int z = Config.getValueInt(config, module, id + ".perform." + perform.getName() + ".z", 0);
+        double z = Config.getValueDouble(config, module, id + ".perform." + perform.getName() + ".z", 0);
         
         perform.setLocation(new Location(BukkitLocation.getWorld(), x, y, z));
         return perform;

@@ -171,7 +171,7 @@ public class Config {
             }
             return def;
         } else {
-            return value;
+            return Color.translate(value);
         }
     }
     
