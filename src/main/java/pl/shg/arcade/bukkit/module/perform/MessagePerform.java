@@ -62,9 +62,10 @@ public class MessagePerform extends Perform {
             channel = Arcade.getTeams().getChannel(name);
         }
         
-        if (channel == null) {
-            channel = new GlobalChannel();
+        if (channel != null) {
+            return channel;
+        } else {
+            return Arcade.getTeams().getGlobalChannel();
         }
-        return channel;
     }
 }

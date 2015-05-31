@@ -128,7 +128,7 @@ public class MatchTimerModule extends Module {
         // Override Bungee's footer too
         @Override
         public String getRawBungeeFooter() {
-            return super.getRawFooter() + "\n\n" + this.getTime();
+            return super.getRawBungeeFooter() + "\n\n" + this.getTime();
         }
         
         @Override

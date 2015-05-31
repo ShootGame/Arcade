@@ -30,7 +30,13 @@ public class ArcadeTeamManager implements TeamManager {
     @Override
     public ChatChannel getChannel(String name) {
         Validate.notNull(name, "name can not be null");
-        return this.getTeam(name).getChat();
+        
+        Team team = this.getTeam(name);
+        if (team != null) {
+            return team.getChat();
+        } else {
+            return null;
+        }
     }
     
     @Override
