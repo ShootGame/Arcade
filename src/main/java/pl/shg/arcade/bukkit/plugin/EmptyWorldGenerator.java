@@ -10,22 +10,17 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.generator.ChunkGenerator;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.commons.util.AirGenerator;
 
 /**
  *
  * @author Aleksander
  */
-public class EmptyWorldGenerator extends ChunkGenerator {
+public class EmptyWorldGenerator extends AirGenerator {
     private static Spawn worldDefaultSpawn;
-    
-    @Override
-    public byte[] generate(World world, Random random, int x, int z) {
-        return new byte[16 * 16 * 256]; // generate an empty world without blocks
-    }
     
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
