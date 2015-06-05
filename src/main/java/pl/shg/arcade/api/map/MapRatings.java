@@ -9,7 +9,6 @@ package pl.shg.arcade.api.map;
 import java.util.UUID;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.sqlbook.Table;
 
 /**
  *
@@ -35,10 +34,6 @@ public class MapRatings {
     
     public Rating getRating(UUID id) {
         Validate.notNull(id, "id can not be null");
-        return null;
-    }
-    
-    private Table getDatabase() {
         return null;
     }
 }
