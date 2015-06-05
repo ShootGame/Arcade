@@ -6,7 +6,7 @@
  */
 package pl.shg.arcade.api.command.def;
 
-import java.util.List;
+import java.util.Collection;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
@@ -71,7 +71,7 @@ public class RotationCommand extends Command {
     private String rotation(Rotation rotation) {
         Validate.notNull(rotation, "rotation");
         
-        List<Map> maps = rotation.getMaps();
+        Collection<Map> maps = rotation.getMaps();
         StringBuilder builder = new StringBuilder();
         int index = 1;
         for (Map map : maps) {

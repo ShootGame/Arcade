@@ -7,6 +7,7 @@
 package pl.shg.arcade;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.configuration.ConfigurationTechnology;
 import pl.shg.arcade.api.location.WorldManager;
 import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.map.MapComparator;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.rotation.Rotation;
@@ -59,11 +61,11 @@ public class ArcadeMapManager implements MapManager {
         
         boolean nextMap = false;
         for (int i = 0; i < rotation.getMaps().size(); i++) {
-            Map map = rotation.getMaps().get(i);
+            Map map = (Map) rotation.getMaps().toArray()[i];
             if (nextMap) {
                 this.setNextMap(map);
                 return;
-            } else if (map.equals(this.current)) {
+            } else if (map.equals(this.current)) { // TODO uuid
                 nextMap = true;
             }
         }
@@ -71,7 +73,7 @@ public class ArcadeMapManager implements MapManager {
         if (nextMap) {
             this.setNextMap(null);
         } else if (this.current.equals(Arcade.getMaps().getCurrentMap())) {
-            this.setNextMap(rotation.getMaps().get(this.random.nextInt(rotation.getMaps().size())));
+            this.setNextMap((Map) rotation.getMaps().toArray()[this.random.nextInt(rotation.getMaps().size())]);
         } else if (this.getNextMap().getName().equals(this.current.getName())) {
             this.setNextMap(null);
             Log.log(Level.SEVERE, "Aby plugin Arcade dzialal prawidlowo wymagane sa minimum 2 rotacyjne mapy!");
@@ -125,6 +127,7 @@ public class ArcadeMapManager implements MapManager {
     @Override
     public void setMaps(List<Map> maps) {
         Validate.notNull(maps, "maps can not be null");
+        Collections.sort(maps, new MapComparator());
         this.maps = maps;
     }
     

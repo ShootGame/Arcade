@@ -57,29 +57,6 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-            
-            <!-- Include libraries in the final JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.apache.commons:commons-lang3</include>
-                                    <include>com.google.code.gson:gson</include>
-                                </includes>
-                            </artifactSet>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     
@@ -105,34 +82,12 @@
             <version>1.8-R0.1-SNAPSHOT</version>
         </dependency>
         
-        <!-- ShootGame and our commons library -->
+        <!-- Our commons library -->
         <dependency>
             <groupId>pl.shg</groupId>
-            <artifactId>ShootGame</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>commons</artifactId>
+            <version>1.0</version>
             <type>jar</type>
-        </dependency>
-        
-        <!-- Permissions API -->
-        <dependency>
-            <groupId>pl.themolka</groupId>
-            <artifactId>Permissions</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
-        
-        <!-- Apache Commons -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.0</version>
-        </dependency>
-        
-        <!-- Google's Gson to parse JSON -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.3.1</version>
         </dependency>
     </dependencies>
 </project>
