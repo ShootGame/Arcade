@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade;
 
+import java.util.List;
 import java.util.logging.Level;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
@@ -72,19 +73,21 @@ public abstract class ArcadeServer implements Server {
     
     private void checkEnd() {
         for (Team team : Arcade.getTeams().getTeams()) {
-            int players = team.getPlayers().size();
+            List<Player> players = team.getPlayers();
             
             // Check the players amount
-            if (players < Team.MINIMUM) {
+            if (players.size() < Team.MINIMUM) {
                 Arcade.getMatches().getMatch().end();
                 return;
             }
             
             // Check modules to finish the current match
             if (this.modulesAreScored(team)) {
-                Winner winner = new TeamWinner(team);
-                if (players == 1) {
+                Winner winner = null;
+                if (Arcade.getTeams().getTeams().size() == 1) {
                     winner = new PlayerWinner(team.getPlayers().get(0));
+                } else {
+                    winner = new TeamWinner(team);
                 }
                 
                 Arcade.getMatches().getMatch().end(winner);

@@ -208,7 +208,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 loader = new FileMapLoader(new File(properties.getMapsDirectory() + File.separator + "maps.txt"));
                 break;
             case 2:
-                // gettings a list of maps from the directory of maps
+                // getting a list of maps from the directory of maps
                 loader = new DynamicMapLoader();
                 break;
         }
