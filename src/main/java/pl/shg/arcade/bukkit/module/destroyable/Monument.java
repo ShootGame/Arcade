@@ -35,39 +35,59 @@ public class Monument extends GameableBlock {
     
     @Override
     public boolean canBreak(Player player) {
-        if (player.getTeam().equals(this.getDestroyable().getOwner())) {
+        if (this.isDestroyed()) {
+            return true;
+        } else if (player.getTeam().equals(this.getDestroyable().getOwner())) {
             player.sendError("Nie mozesz niszczyc " + this.getDestroyable().getName() + " swojej druzyny.");
             return false;
-        } else {
-            return this.destroy(player);
         }
+        return this.destroy(player);
     }
     
     @Override
     public boolean canInteract(Player player, Material item) {
-        if (player.getTeam().equals(this.getDestroyable().getOwner())) {
+        if (this.isDestroyed()) {
+            return true;
+        } else if (player.getTeam().equals(this.getDestroyable().getOwner())) {
             player.sendError("Nie mozesz ingerowac w " + this.getDestroyable().getName() + " swojej druzyny.");
         }
         return true;
     }
     
     public boolean destroy(Player player) {
-        MonumentDestroyEvent event = new MonumentDestroyEvent(this, player);
+        // handled with every touch on the monument
+        MonumentTouchEvent event = new MonumentTouchEvent(this, player);
         Event.callEvent(event);
         
         if (!event.isCancel()) {
+            // the touch is not canceled and a piece can be broke
             this.setDestroyer(event.getPlayer().getTeam());
             Location location = BukkitLocation.valueOf(event.getMonument().getBlock().getLocation());
             location.getBlock().setType(org.bukkit.Material.AIR);
             
-            Event.callEvent(new MonumentDestroyedEvent(this, player));
-            if ((Integer) this.destroyable.getSettingValue(Destroyable.Setting.OBJECTIVE) <= this.destroyable.getPercent()) {
+            int objective = (Integer) this.destroyable.getSettingValue(Destroyable.Setting.OBJECTIVE);
+            boolean finish = objective <= this.destroyable.getPercent() + 0.01;
+            
+            if (finish) {
+                Event.callEvent(new MonumentDestroyedEvent(this, player));
                 this.destroyable.destroy(player);
-                this.broadcast(event.getMonument(), false);
             } else {
-                this.broadcast(event.getMonument(), true);
+                ScoreMode mode = ScoreMode.valueOf(this.destroyable.getSettingValue(Destroyable.Setting.MODE).toString());
+                
+                if (mode != null) {
+                    switch (mode) {
+                        case PERCENTS:
+                        case STATIC:
+                            this.destroyable.setStatus(DestroyStatus.TOUCHED);
+                            break;
+                        case STATIC_SILENT:
+                            this.destroyable.setStatus(DestroyStatus.TOUCHED_SILENT);
+                            break;
+                    }
+                }
             }
             
+            this.broadcast(this, !finish);
             return true;
         }
         return false;
@@ -90,7 +110,7 @@ public class Monument extends GameableBlock {
     }
     
     private void broadcast(Monument monument, boolean silent) {
-        String monumentName = Color.UNDERLINE + monument.getDestroyable().getName() + Color.RESET;
+        String monumentName = Color.UNDERLINE + monument.getDestroyable().getDisplayName() + Color.RESET;
         
         for (Player online : Arcade.getServer().getConnectedPlayers()) {
             Team team = online.getTeam();
@@ -102,7 +122,7 @@ public class Monument extends GameableBlock {
                 }
                 
                 ModuleMessage.OBSERVER.player(online).sound(Sound.OBJECTIVE).type(ModuleMessage.Type.S_OBJECTIVE).send(
-                        "%s " + Color.RESET + " zniszczyl %s %s" + Color.RESET + " (%s bloków).",
+                        "%s" + Color.RESET + " zniszczyl %s %s" + Color.RESET + " (%s bloków).",
                         
                         monument.getDestroyer().getDisplayName(),
                         monumentName,
@@ -118,7 +138,7 @@ public class Monument extends GameableBlock {
                 }
                 
                 ModuleMessage.ALLY.player(online).sound(Sound.OBJECTIVE_SCORED).type(ModuleMessage.Type.S_OBJECTIVE).send(
-                        "%s wroga %s " + Color.RESET + " zostal zniszczony (%s bloków).",
+                        "%s wroga %s" + Color.RESET + " zostal zniszczony (%s bloków).",
                         
                         monumentName,
                         monument.getDestroyable().getOwner().getDisplayName(),

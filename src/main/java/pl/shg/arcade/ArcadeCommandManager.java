@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.command.Command;
+import pl.shg.arcade.api.command.CommandBlockOutput;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.CommandManager;
 import pl.shg.arcade.api.command.ConsoleSender;
@@ -24,13 +25,21 @@ import pl.shg.arcade.api.text.Color;
  * @author Aleksander
  */
 public abstract class ArcadeCommandManager implements CommandManager {
+    private final CommandBlockOutput commandBlock;
     private final List<Command> commands;
     private final ConsoleSender console;
     
     public ArcadeCommandManager() {
+        this.commandBlock = new CommandBlockOutput(); // it's only a one instance of this class
         this.commands = new ArrayList<>();
-        this.console = new ConsoleSender();
+        this.console = new ConsoleSender(); // it's only a one instance of this class
+        
         this.registerDefaultCommands();
+    }
+    
+    @Override
+    public CommandBlockOutput getCommandBlock() {
+        return this.commandBlock;
     }
     
     @Override

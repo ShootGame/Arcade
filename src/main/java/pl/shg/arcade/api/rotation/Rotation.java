@@ -6,9 +6,9 @@
  */
 package pl.shg.arcade.api.rotation;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.map.Map;
 
@@ -17,18 +17,18 @@ import pl.shg.arcade.api.map.Map;
  * @author Aleksander
  */
 public class Rotation {
-    private final HashMap<UUID, Map> maps;
+    private final List<Map> maps;
     
     public Rotation() {
-        this.maps = new HashMap<>();
+        this.maps = new ArrayList<>();
     }
     
     public void addMap(Map map) {
         Validate.notNull(map, "map can not be null");
-        this.maps.put(UUID.randomUUID(), map);
+        this.maps.add(map);
     }
     
     public Collection<Map> getMaps() {
-        return this.maps.values();
+        return this.maps;
     }
 }

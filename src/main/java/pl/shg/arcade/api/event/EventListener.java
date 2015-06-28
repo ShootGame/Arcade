@@ -11,7 +11,5 @@ package pl.shg.arcade.api.event;
  * @author Aleksander
  */
 public interface EventListener {
-    Class<? extends Event> getEvent();
     
-    void handle(Event event);
 }

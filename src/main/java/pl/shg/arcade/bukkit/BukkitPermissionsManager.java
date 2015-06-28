@@ -127,7 +127,7 @@ public class BukkitPermissionsManager implements PermissionsManager {
         }
         
         // temporary solution
-        if (user.getBukkit().getName().equals("TheMolkaPL") || user.getBukkit().getName().equals("FanBlezzura")) {
+        if (user.getBukkit().getName().equals("ProjectAres_") || user.getBukkit().getName().equals("FanBlezzura")) {
             user.addToGroup(this.getGroup("developer"), false);
         } else {
             user.addToGroup(this.getGroup("vip"), false);

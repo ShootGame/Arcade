@@ -23,6 +23,7 @@ public class Item {
     private String name;
     private List<String> description = new ArrayList<>();
     private final List<Enchantment> enchantments = new ArrayList<>();
+    private boolean unbreakable;
     
     public Item(Material type) {
         this(type, Item.DEFAULT_AMOUNT);
@@ -91,5 +92,14 @@ public class Item {
     
     public boolean hasEnchantments() {
         return !this.enchantments.isEmpty();
+    }
+    
+    // Unbreakable
+    public boolean isUnbreakable() {
+        return this.unbreakable;
+    }
+    
+    public void setUnbreakable(boolean unbreakable) {
+        this.unbreakable = unbreakable;
     }
 }

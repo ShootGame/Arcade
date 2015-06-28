@@ -13,12 +13,12 @@ import pl.shg.arcade.api.human.Player;
  *
  * @author Aleksander
  */
-public class MonumentDestroyEvent extends CancelableEvent {
+public class MonumentTouchEvent extends CancelableEvent {
     private Monument monument;
     private Player player;
     
-    public MonumentDestroyEvent(Monument monument, Player player) {
-        super(MonumentDestroyEvent.class);
+    public MonumentTouchEvent(Monument monument, Player player) {
+        super(MonumentTouchEvent.class);
         this.setMonument(monument);
         this.setPlayer(player);
     }

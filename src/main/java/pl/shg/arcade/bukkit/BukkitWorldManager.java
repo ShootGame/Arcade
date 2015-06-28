@@ -6,10 +6,14 @@
  */
 package pl.shg.arcade.bukkit;
 
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.bukkit.plugin.EmptyWorldGenerator;
@@ -23,17 +27,35 @@ public class BukkitWorldManager implements WorldManager {
     private final Server server;
     
     public BukkitWorldManager(Server server) {
-        Validate.notNull(server, "server can not be null");
+        Validate.notNull(server);
         this.server = server;
     }
     
     @Override
-    public void load(String world) {
-        Validate.notNull(world, "world can not be null");
-        WorldCreator creator = new WorldCreator(world);
+    public void load(Map map) throws IOException {
+        Validate.notNull(map);
+        
+        File from = new File(this.server.getWorldContainer(), map.getName());
+        File to = new File(map.getWorldName());
+        
+        if (to.exists()) {
+            to.delete();
+        }
+        
+        FileUtils.copyDirectory(from, to);
+        new File(to, "uid.dat").delete();
+        new File(to, "session.lock").delete();
+        
+        WorldCreator creator = new WorldCreator(map.getWorldName());
+        creator.environment(World.Environment.NORMAL);
+        creator.generateStructures(false);
         creator.generator(new EmptyWorldGenerator());
-        World w = this.server.createWorld(creator);
-        w.setAutoSave(false);
+        creator.type(WorldType.FLAT);
+        
+        World world = this.server.createWorld(creator);
+        world.setAutoSave(false);
+        world.setDifficulty(this.server.getWorlds().get(0).getDifficulty());
+        world.setPVP(true);
     }
     
     @Override
@@ -42,15 +64,14 @@ public class BukkitWorldManager implements WorldManager {
     }
     
     @Override
-    public void unload(String world) {
-        Map map = Arcade.getMaps().getCurrentMap();
-        if (world == null) {
-            if (map != null) {
-                world = map.getName();
-            }
+    public void unload(Map map) {
+        Map current = Arcade.getMaps().getCurrentMap();
+        if (map == null && current != null) {
+            map = current;
         }
-        if (world != null) {
-            this.server.unloadWorld(world, false);
+        
+        if (map != null) {
+            this.server.unloadWorld(map.getWorldName(), true);
         }
     }
 }

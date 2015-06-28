@@ -1,0 +1,8 @@
+<settings>
+    <server role="DEVELOPMENT" />
+    <proxy>
+        <bungee switching="true">false</bungee>
+    </proxy>
+    <slots overfill="10">default</slots>
+    <permissions>https://raw.githubusercontent.com/ShootGame/Servers/master/_data/arcade-permissions.yml</permissions>
+</settings>

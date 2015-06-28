@@ -29,7 +29,7 @@ public class ApplyFilter extends Filter {
         if (deny == null) {
             this.deny = new ArrayList<>();
         } else {
-            this.deny = new ArrayList<>();
+            this.deny = deny;
         }
     }
     

@@ -11,10 +11,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.menu.ServerPickerMenu;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.commons.server.ArcadeData;
+import pl.shg.commons.server.ArcadeMatchStatus;
 import pl.shg.commons.server.ServersPingedEvent;
 
 /**
@@ -24,7 +24,7 @@ import pl.shg.commons.server.ServersPingedEvent;
 public class PingDataListeners implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent e) {
-        if (Arcade.getMatches().getStatus() == MatchStatus.NOTHING) {
+        if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.RESTARTING) {
             e.setMotd(ArcadeData.toData(new Object[] {new String(), 0, 0, 0}));
         } else {
             Object[] data = new Object[] {
@@ -60,10 +60,10 @@ public class PingDataListeners implements Listener {
     
     private int getStatus() {
         switch (Arcade.getMatches().getStatus()) {
-            case NOTHING: return 0;
+            case RESTARTING: return 0;
             case STARTING: return 1;
-            case PLAYING: return 2;
-            case ENDING: return 3;
+            case RUNNING: return 2;
+            case CYCLING: return 3;
             default: return 0; // called only when status is null
             
         }

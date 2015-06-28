@@ -17,8 +17,8 @@ import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -43,7 +43,7 @@ public class ClassCommand extends Command {
             this.showCurrent((Player) sender);
         } else if (this.switchingDisabled(sender)) {
             sender.sendError(ClassCommand.CLASSES_DISABLED);
-        } else if (Arcade.getMatches().getStatus() == MatchStatus.ENDING) {
+        } else if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.CYCLING) {
             sender.sendError("Mecz sie zakonczyl! " + Color.GOLD + "Poczekaj na serwer az zaladuje nowa mape.");
         } else {
             this.setClass((Player) sender, this.getStringFromArgs(0, args));
@@ -79,7 +79,7 @@ public class ClassCommand extends Command {
                     player.setArcadeClass(clazz);
                     player.sendMessage(Color.GRAY + "Zmieniono klase na " + Color.GREEN +
                             Color.BOLD + clazz.getName() + Color.RESET + Color.GRAY + ".");
-                    if (!player.isObserver() && Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+                    if (!player.isObserver() && Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING) {
                         player.setHealth(0.0);
                     }
                 }
@@ -100,7 +100,7 @@ public class ClassCommand extends Command {
     }
     
     private boolean switchingDisabled(Sender sender) {
-        return Arcade.getMatches().getStatus() == MatchStatus.PLAYING && !((Player) sender).isObserver()
+        return Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING && !((Player) sender).isObserver()
                 && !Arcade.getMaps().getCurrentMap().isSwitchingClassAllowed();
     }
 }

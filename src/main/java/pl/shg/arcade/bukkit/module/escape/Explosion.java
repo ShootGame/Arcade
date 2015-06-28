@@ -8,7 +8,8 @@ package pl.shg.arcade.bukkit.module.escape;
 
 import java.util.ArrayList;
 import java.util.Random;
-import net.minecraft.server.v1_8_R1.PacketPlayOutExplosion;
+import net.minecraft.server.v1_8_R3.BlockPosition;
+import net.minecraft.server.v1_8_R3.PacketPlayOutExplosion;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -20,8 +21,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.Direction;
 import pl.shg.arcade.api.match.MatchManager;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.bukkit.BukkitPlayer;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -77,7 +78,7 @@ public class Explosion {
     
     public void sendPacket() {
         PacketPlayOutExplosion packet = new PacketPlayOutExplosion(this.getDirection().getX(),
-                this.getDirection().getY(), this.getDirection().getZ(), 0F, new ArrayList<>(), null);
+                this.getDirection().getY(), this.getDirection().getZ(), 0F, new ArrayList<BlockPosition>(), null);
         
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             ((BukkitPlayer) player).sendPacket(packet);
@@ -88,7 +89,7 @@ public class Explosion {
             this.rotate();
         }
         
-        if (matches.getStatus() == MatchStatus.PLAYING) {
+        if (matches.getStatus() == ArcadeMatchStatus.RUNNING) {
             this.updateDirection(!border);
         }
     }

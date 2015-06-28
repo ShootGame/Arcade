@@ -97,9 +97,10 @@ public class CyKitsLoader {
             builder.description(this.f.getStringList(path + ".items." + item + ".description"));
             builder.slot(this.f.getInt(path + ".items." + item + ".slot", -1));
             builder.enchantments(this.getEnchantments(path + ".items." + item + ".enchantments"));
+            builder.unbreakable(this.f.getBoolean(path + ".items." + item + ".unbreakable", false));
             builder.data(this.getData(path + ".items." + item + ".data"));
             
-            items.add(builder.toItem());
+            items.add(builder.build());
         }
         return items;
     }

@@ -16,8 +16,12 @@ import pl.shg.arcade.api.Arcade;
  * @author Aleksander
  */
 public class BukkitLocation {
+    public static pl.shg.arcade.api.location.Location convert(Location location) {
+        return new pl.shg.arcade.api.location.Location(location.getX(), location.getY(), location.getZ());
+    }
+    
     public static World getWorld() {
-        return Bukkit.getWorld(Arcade.getMaps().getCurrentMap().getName());
+        return Bukkit.getWorld(Arcade.getMaps().getCurrentMap().getWorldName());
     }
     
     public static Location valueOf(pl.shg.arcade.api.location.Location location) {

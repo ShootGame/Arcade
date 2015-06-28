@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.bukkit.module.destroyable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.shg.arcade.api.text.Icons;
 
 /**
@@ -23,7 +24,19 @@ public abstract class DestroyableObject implements Destroyable {
         return null;
     }
     
+    public String getDisplayName() {
+        return this.getName().trim();
+    }
+    
     public boolean isDestroyed() {
         return this.getStatus() == DestroyStatus.DESTROYED;
+    }
+    
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(this.getName())
+                .append(this.getOwner().getID())
+                .build();
     }
 }

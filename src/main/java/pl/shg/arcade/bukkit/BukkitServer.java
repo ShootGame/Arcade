@@ -110,6 +110,10 @@ public class BukkitServer extends ArcadeServer {
         this.online.put(player.getUUID(), player);
     }
     
+    public Server bukkit() {
+        return this.server;
+    }
+    
     public String getRunCmd() {
         return this.runCmd;
     }

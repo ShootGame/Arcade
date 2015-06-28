@@ -6,6 +6,7 @@
  */
 package pl.shg.arcade.api.team;
 
+import java.util.Collection;
 import java.util.List;
 import pl.shg.arcade.api.channels.ChatChannel;
 import pl.shg.arcade.api.kit.Kit;
@@ -21,7 +22,7 @@ public interface TeamManager {
     
     Kit getKit(String id);
     
-    List<Kit> getKits();
+    Collection<Kit> getKits();
     
     boolean hasKits();
     

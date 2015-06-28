@@ -126,6 +126,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         bukkitPlayer.setAffectsSpawning(false);
         bukkitPlayer.setCollidesWithEntities(false);
         
+        bukkitPlayer.setArrowsStuck(0);
         bukkitPlayer.setFoodLevel(20);
         bukkitPlayer.setMaxHealth(20.0);
         if (!player.isDead()) {
@@ -162,6 +163,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         bukkitPlayer.setAffectsSpawning(true);
         bukkitPlayer.setCollidesWithEntities(true);
         
+        bukkitPlayer.setArrowsStuck(0);
         bukkitPlayer.getInventory().clear();
         bukkitPlayer.getInventory().setArmorContents(null);
         bukkitPlayer.setFoodLevel(20);
@@ -285,12 +287,17 @@ public class BukkitPlayerManagement implements PlayerManagement {
         if (item.hasName()) {
             meta.setDisplayName(Color.translate(item.getName()));
         }
+        
         if (item.hasDescription()) {
             List<String> lore = new ArrayList<>();
             for (String line : item.getDescription()) {
                 lore.add(Color.translate(line));
             }
             meta.setLore(lore);
+        }
+        
+        if (item.isUnbreakable()) {
+            meta.setUnbreakable(true);
         }
         stack.setItemMeta(meta);
         

@@ -19,11 +19,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.shg.arcade.ArcadeFactory;
+import pl.shg.arcade.PluginImpl;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.PluginProperties;
 import pl.shg.arcade.api.command.def.VariableCommand;
 import pl.shg.arcade.api.development.TestCommand;
+import pl.shg.arcade.api.event.ArcadeEventListeners;
+import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.loader.DynamicMapLoader;
 import pl.shg.arcade.api.loader.FileMapLoader;
 import pl.shg.arcade.api.loader.Loader;
@@ -38,11 +41,13 @@ import pl.shg.arcade.bukkit.BukkitPlayerManagement;
 import pl.shg.arcade.bukkit.BukkitServer;
 import pl.shg.arcade.bukkit.BukkitWorldManager;
 import pl.shg.arcade.bukkit.cy.CyConfiguration;
-import pl.shg.arcade.bukkit.listeners.ArcadeEventListeners;
 import pl.shg.arcade.bukkit.listeners.BukkitMenuListener;
+import pl.shg.arcade.bukkit.listeners.CommonsListeners;
 import pl.shg.arcade.bukkit.listeners.CustomMOTDListener;
+import pl.shg.arcade.bukkit.listeners.DatabaseListeners;
 import pl.shg.arcade.bukkit.listeners.GameableBlockListeners;
 import pl.shg.arcade.bukkit.listeners.InventorySpyListeners;
+import pl.shg.arcade.bukkit.listeners.ModuleListeners;
 import pl.shg.arcade.bukkit.listeners.ObserverKitListeners;
 import pl.shg.arcade.bukkit.listeners.ObserverListeners;
 import pl.shg.arcade.bukkit.listeners.PingDataListeners;
@@ -51,7 +56,7 @@ import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
 import pl.shg.arcade.bukkit.listeners.RegionListeners;
 import pl.shg.arcade.bukkit.listeners.WorldListeners;
 import pl.shg.arcade.bukkit.test.DragonDeathTest;
-import pl.shg.arcade.bukkit.test.SQLTest;
+import pl.shg.arcade.bukkit.test.HologramTest;
 import pl.shg.arcade.bukkit.test.SoundTest;
 import pl.shg.arcade.bukkit.test.XPTest;
 import pl.shg.commons.server.ArcadeTarget;
@@ -100,6 +105,11 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     }
     
     @Override
+    public void onDisable() {
+        this.getServer().getPluginManager().callEvent(new ArcadeShutdownEvent((PluginImpl) getAPI(), this, getBukkit()));
+    }
+    
+    @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         return new EmptyWorldGenerator();
     }
@@ -141,6 +151,10 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         Log.log(Level.INFO, "Serwer jest uruchamiany jako \"" + role.getName() + "\".");
         role.getRole().onServerEnable();
         
+        if (role.equals(Role.DEVELOPMENT)) { // it's ugly :(
+            new DatabaseListeners().init(this);
+        }
+        
         BukkitCommandExecutor.createHelpTopic();
         
         this.registerTests();
@@ -170,6 +184,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         }
         
         manager.registerEvents(new BukkitMenuListener(), this);
+        manager.registerEvents(new CommonsListeners(), this);
         manager.registerEvents(new GameableBlockListeners(), this);
         manager.registerEvents(new InventorySpyListeners(), this);
         manager.registerEvents(new ObserverKitListeners(), this);
@@ -179,8 +194,10 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         manager.registerEvents(new RegionListeners(), this);
         manager.registerEvents(new WorldListeners(), this);
         
-        ArcadeEventListeners arcadeListeners = new ArcadeEventListeners();
-        arcadeListeners.registerListeners();
+        Event.registerListener(
+                new ArcadeEventListeners(),
+                new ModuleListeners()
+        );
     }
     
     /**
@@ -217,6 +234,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
             return;
         }
         
+        Log.log(Level.INFO, "Ladowanie konfiguracji map...");
         loader.loadMapList();
         Arcade.getMaps().setMaps(loader.getMaps());
         
@@ -262,7 +280,7 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     private void registerTests() {
         TestCommand.registerDefaults();
         new DragonDeathTest().register();
-        new SQLTest().register();
+        new HologramTest().register();
         new SoundTest().register();
         new XPTest().register();
     }

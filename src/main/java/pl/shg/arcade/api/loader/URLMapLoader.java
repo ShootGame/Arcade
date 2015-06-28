@@ -20,7 +20,9 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.configuration.Configuration;
 import pl.shg.arcade.api.configuration.ConfigurationTechnology;
+import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.map.MapLoadEvent;
 import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.util.TextFileReader;
 
@@ -71,6 +73,12 @@ public class URLMapLoader implements Loader {
         MapManager mapManager = Arcade.getMaps();
         for (TextFileReader.Line line : new TextFileReader(lines).getLines()) {
             Map map = new Map(null, line.getValue(), null, null);
+            
+            MapLoadEvent loadEvent = new MapLoadEvent(map);
+            Event.callEvent(loadEvent);
+            if (loadEvent.isCancel()) {
+                return;
+            }
             
             ConfigurationTechnology loader = mapManager.getConfiguration();
             loader.load(new Configuration(map), true);

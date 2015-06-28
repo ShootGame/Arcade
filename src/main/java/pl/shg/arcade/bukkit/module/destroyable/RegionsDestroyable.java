@@ -53,8 +53,8 @@ public class RegionsDestroyable extends DestroyableObject {
     }
     
     @Override
-    public int getPercent() {
-        return 100;
+    public double getPercent() {
+        return 0.100;
     }
     
     @Override

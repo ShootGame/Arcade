@@ -10,8 +10,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.channels.ChatChannel;
 import pl.shg.arcade.api.classes.PlayerSetClassEvent;
 import pl.shg.arcade.api.event.Event;
-import pl.shg.arcade.api.event.EventExtra;
 import pl.shg.arcade.api.event.EventListener;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.event.Priority;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
@@ -22,12 +22,9 @@ import pl.shg.arcade.api.text.Color;
  *
  * @author Aleksander
  */
-public class MessageListeners {
+public class MessageListeners implements EventListener {
     public void register() {
-        Event.registerListener(
-                new ClassChange(),
-                new TeamChange()
-        );
+        Event.registerListener(this);
     }
     
     public static void info(String message) {
@@ -52,47 +49,29 @@ public class MessageListeners {
     /**
      * Handling when player is switching between classes
      */
-    @EventExtra(priority = Priority.LOWEST)
-    private class ClassChange implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return PlayerSetClassEvent.class;
+    @EventSubscribtion(event = PlayerSetClassEvent.class, priority = Priority.LOWEST)
+    public void handleSwitchingClasses(PlayerSetClassEvent e) {
+        if (e.isCancel()) {
+            return;
         }
         
-        @Override
-        public void handle(Event event) {
-            PlayerSetClassEvent e = (PlayerSetClassEvent) event;
-            if (e.isCancel()) {
-                return;
-            }
-            
-            String player = e.getPlayer().getDisplayName();
-            String clazz = e.getNewClass().getName();
-            MessageListeners.team(e.getPlayer(),
-                    player + Color.GRAY + " zmienil/a klase na " + Color.GOLD + Color.BOLD + clazz);
-        }
+        String player = e.getPlayer().getDisplayName();
+        String clazz = e.getNewClass().getName();
+        MessageListeners.team(e.getPlayer(),
+                player + Color.GRAY + " zmienil/a klase na " + Color.GOLD + Color.BOLD + clazz);
     }
     
     /**
      * Handling when player is switching between teams
      */
-    @EventExtra(priority = Priority.LOWEST)
-    private class TeamChange implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return PlayerJoinTeamEvent.class;
+    @EventSubscribtion(event = PlayerJoinTeamEvent.class, priority = Priority.LOWEST)
+    public void handleSwitchingTeams(PlayerJoinTeamEvent e) {
+        if (e.isCancel()) {
+            return;
         }
         
-        @Override
-        public void handle(Event event) {
-            PlayerJoinTeamEvent e = (PlayerJoinTeamEvent) event;
-            if (e.isCancel()) {
-                return;
-            }
-            
-            String player = e.getPlayer().getDisplayName();
-            String team = e.getTeam().getDisplayName();
-            MessageListeners.info(player + Color.GRAY + " dolaczyl/a do " + team);
-        }
+        String player = e.getPlayer().getDisplayName();
+        String team = e.getTeam().getDisplayName();
+        MessageListeners.info(player + Color.GRAY + " dolaczyl/a do " + team);
     }
 }

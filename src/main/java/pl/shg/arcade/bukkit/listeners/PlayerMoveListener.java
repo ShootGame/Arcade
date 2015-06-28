@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.location.Spawn;
-import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -39,7 +39,7 @@ public class PlayerMoveListener implements Listener {
     
     private boolean isObserver(Player bukkitPlayer) {
         pl.shg.arcade.api.human.Player player = Arcade.getServer().getPlayer(bukkitPlayer.getUniqueId());
-        if (Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             return true;
         } else if (player != null) {
             return player.isObserver();

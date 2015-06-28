@@ -15,13 +15,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Material;
+import pl.shg.arcade.api.filter.Filter;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.Block;
 import pl.shg.arcade.api.location.Location;
 import pl.shg.arcade.api.map.MapManager;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.region.Flag;
 import pl.shg.arcade.api.region.Region;
+import pl.shg.arcade.bukkit.BukkitLocation;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -33,6 +35,8 @@ public class RegionListeners implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         org.bukkit.Location bukkitLocation = e.getBlock().getLocation();
+        Location location = BukkitLocation.convert(bukkitLocation);
+        
         List<Region> regions = this.getRegions(bukkitLocation);
         if (regions.isEmpty()) {
             return;
@@ -44,6 +48,12 @@ public class RegionListeners implements Listener {
         }
         for (Region region : regions) {
             if (this.isIn(region, bukkitLocation)) {
+                for (Filter filter : region.getFilters()) {
+                    if (!filter.canBuild(location, new Material(e.getPlayer().getItemInHand().getTypeId()))) {
+                        e.setCancelled(true);
+                    }
+                }
+                
                 for (Flag flag : region.getFlags()) {
                     if (!flag.canBreak(player, new Block())) {
                         e.setCancelled(true);
@@ -151,6 +161,6 @@ public class RegionListeners implements Listener {
     }
     
     private boolean isObserver(Player player) {
-        return player.isObserver() || Arcade.getMatches().getStatus() != MatchStatus.PLAYING;
+        return player.isObserver() || Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING;
     }
 }

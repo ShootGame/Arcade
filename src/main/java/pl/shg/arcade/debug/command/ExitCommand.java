@@ -6,10 +6,14 @@
  */
 package pl.shg.arcade.debug.command;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.human.Player;
 
 /**
  *
@@ -24,6 +28,12 @@ public class ExitCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
+        Iterator<Player> it = new ArrayList<>(Arcade.getServer().getConnectedPlayers()).iterator();
+        
+        while (it.hasNext()) {
+            it.next().disconnect("Stopping the server...");
+        }
+        
         if (this.hasFlag(args, 'r')) {
             // TODO restart
         }

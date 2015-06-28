@@ -132,8 +132,8 @@ public class DisableMobSpawningModule extends Module implements BListener {
     public void onCreatureSpawn(CreatureSpawnEvent e) {
         boolean cancel = false;
         
-        if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) {
-            cancel = false;
+        if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
+            cancel = true;
         } else if (this.cancelAll) {
             cancel = true;
         } else if (!this.allowed.isEmpty()) { // W liscie dozwolonych znajduja sie moby

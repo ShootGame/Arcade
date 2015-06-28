@@ -4,16 +4,14 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.bukkit.module.destroyable;
-
-import pl.shg.commons.helpers.Helper;
+package pl.shg.arcade.api.module;
 
 /**
  *
  * @author Aleksander
  */
-public class DestroyableHelper extends Helper {
-    public DestroyableHelper(DestroyableDocument document) {
-        super(document);
+public class ModuleLoadEvent extends ModuleBaseEvent {
+    public ModuleLoadEvent(Module module) {
+        super(ModuleLoadEvent.class, module);
     }
 }

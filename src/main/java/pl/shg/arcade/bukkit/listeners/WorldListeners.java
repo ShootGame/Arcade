@@ -14,12 +14,13 @@ import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -69,6 +70,13 @@ public class WorldListeners implements Listener {
     }
     
     @EventHandler
+    public void onBlockPhysics(BlockPhysicsEvent e) {
+        if (this.cancel()) {
+            e.setCancelled(true);
+        }
+    }
+    
+    @EventHandler
     public void onBlockSpreadEvent(BlockSpreadEvent e) {
         if (this.cancel()) {
             e.setCancelled(true);
@@ -93,6 +101,6 @@ public class WorldListeners implements Listener {
     }
     
     private boolean cancel() {
-        return Arcade.getMatches().getStatus() != MatchStatus.PLAYING;
+        return Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING;
     }
 }

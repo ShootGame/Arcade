@@ -13,6 +13,8 @@ import java.util.List;
  * @author Aleksander
  */
 public interface CommandManager {
+    CommandBlockOutput getCommandBlock();
+    
     List<Command> getCommands();
     
     ConsoleSender getConsoleSender();

@@ -6,14 +6,19 @@
  */
 package pl.shg.arcade.api.event;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  *
  * @author Aleksander
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EventExtra {
+@Target(ElementType.METHOD)
+public @interface EventSubscribtion {
+    Class<? extends Event> event();
+    
     Priority priority() default Priority.NORMAL;
 }

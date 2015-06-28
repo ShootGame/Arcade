@@ -7,6 +7,8 @@
 package pl.shg.arcade;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
@@ -23,13 +25,13 @@ import pl.shg.arcade.api.team.TeamManager;
  */
 public class ArcadeTeamManager implements TeamManager {
     private final ChatChannel globalChannel = new GlobalChannel();
-    private List<Kit> kits = new ArrayList<>();
+    private final HashMap<String, Kit> kits = new HashMap<>();
     private Team obs;
     private List<Team> teams;
     
     @Override
     public ChatChannel getChannel(String name) {
-        Validate.notNull(name, "name can not be null");
+        Validate.notNull(name);
         
         Team team = this.getTeam(name);
         if (team != null) {
@@ -46,18 +48,13 @@ public class ArcadeTeamManager implements TeamManager {
     
     @Override
     public Kit getKit(String name) {
-        Validate.notNull(name, "name can not be null");
-        for (Kit kit : this.kits) {
-            if (kit.getID().toLowerCase().equals(name.toLowerCase())) {
-                return kit;
-            }
-        }
-        return null;
+        Validate.notNull(name);
+        return this.kits.get(name.toLowerCase());
     }
     
     @Override
-    public List<Kit> getKits() {
-        return this.kits;
+    public Collection<Kit> getKits() {
+        return this.kits.values();
     }
     
     @Override
@@ -67,10 +64,13 @@ public class ArcadeTeamManager implements TeamManager {
     
     @Override
     public void setKits(List<Kit> kits) {
-        if (kits == null) {
-            kits = new ArrayList<>();
+        if (kits != null) {
+            for (Kit kit : kits) {
+                this.kits.put(kit.getID(), kit);
+            }
+        } else {
+            this.kits.clear();
         }
-        this.kits = kits;
     }
     
     @Override
@@ -80,7 +80,7 @@ public class ArcadeTeamManager implements TeamManager {
     
     @Override
     public void setObservers(Team obs) {
-        Validate.notNull(obs, "obs can not be null");
+        Validate.notNull(obs);
         this.obs = obs;
     }
     
@@ -105,7 +105,7 @@ public class ArcadeTeamManager implements TeamManager {
     
     @Override
     public void setTeams(List<Team> teams) {
-        Validate.notNull(teams, "teams can not be null");
+        Validate.notNull(teams);
         this.teams = teams;
     }
     

@@ -10,10 +10,6 @@ import java.util.UUID;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.development.TestCommand;
-import pl.shg.commons.documents.DocumentArray;
-import pl.shg.commons.users.DBUser;
-import pl.shg.commons.users.XPDocument;
-import pl.shg.commons.users.XPHelper;
 
 /**
  *
@@ -46,44 +42,10 @@ public class XPTest extends TestCommand.Test {
             sender.sendError("Liczba XP nie moze byc równa zero lub ujemna.");
             return;
         }
-        
-        if (args[1].equalsIgnoreCase("calc")) {
-            this.calc(sender, uuid);
-        } else if (args[1].equalsIgnoreCase("drop")) {
-            this.drop(uuid, amount);
-        } else if (args[1].equalsIgnoreCase("give")) {
-            this.give(uuid, amount);
-        } else {
-            sender.sendError("Nie zrozumiano polecenia \"" + args[1] + "\".");
-        }
     }
     
     @Override
     public int minArguments() {
         return 4;
-    }
-    
-    private void calc(final Sender sender, UUID uuid) {
-        this.getDatabase().calculateXP(new DBUser(uuid), new DocumentArray() {
-            @Override
-            public void run(Object[] array) {
-                int xp = (int) array[0];
-                DBUser user = (DBUser) array[1];
-                
-                sender.sendSuccess(user.getUUID() + " posiada " + xp + " XP.");
-            }
-        });
-    }
-    
-    private void drop(UUID uuid, int amount) {
-        this.getDatabase().dropIfHasXP(new DBUser(uuid), amount, "Testy XP");
-    }
-    
-    private XPHelper getDatabase() {
-        return (XPHelper) XPDocument.getDocument().getHelper();
-    }
-    
-    private void give(UUID uuid, int amount) {
-        this.getDatabase().giveXP(new DBUser(uuid), amount, "Testy XP");
     }
 }

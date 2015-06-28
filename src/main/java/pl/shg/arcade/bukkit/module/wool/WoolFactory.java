@@ -15,7 +15,7 @@ import pl.shg.arcade.api.util.SimpleFactory;
  *
  * @author Aleksander
  */
-public class WoolFactory extends SimpleFactory {
+public class WoolFactory extends SimpleFactory<Wool> {
     private final WoolModule module;
     
     public WoolFactory(WoolModule module) {
@@ -24,7 +24,7 @@ public class WoolFactory extends SimpleFactory {
     }
     
     @Override
-    public void build() {
+    public Wool build() {
         if (this.canBuild()) {
             Wool wool = new Wool(
                     (Color.Wool) this.get("color"),
@@ -37,6 +37,8 @@ public class WoolFactory extends SimpleFactory {
             wool.setMonument(monument);
             this.getModule().registerMonument(monument);
         }
+        
+        return null;
     }
     
     public WoolModule getModule() {

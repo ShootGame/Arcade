@@ -14,6 +14,7 @@ import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.CommandExecutor;
 import pl.shg.arcade.api.command.CommandTest;
 import pl.shg.arcade.api.command.Sender;
+import pl.shg.arcade.api.event.EventTest;
 import pl.shg.arcade.api.text.Color;
 
 /**
@@ -102,7 +103,7 @@ public class TestCommand extends Command {
     }
     
     public static void register(Test test) {
-        Validate.notNull(test, "test can not be null");
+        Validate.notNull(test);
         tests.add(test);
     }
     
@@ -112,6 +113,7 @@ public class TestCommand extends Command {
         }
         
         new CommandTest().register();
+        new EventTest().register();
     }
     
     public static abstract class Test implements CommandExecutor {
@@ -121,7 +123,7 @@ public class TestCommand extends Command {
         private final String description;
         
         public Test(String name, String usage, boolean console, String description) {
-            Validate.notNull(name, "name can not be null");
+            Validate.notNull(name);
             this.name = name.toLowerCase();
             this.usage = usage;
             this.console = console;

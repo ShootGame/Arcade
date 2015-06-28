@@ -4,16 +4,14 @@
  * Proprietary and confidential
  * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2015
  */
-package pl.shg.arcade.bukkit.module.wool;
+package pl.shg.arcade.api;
 
-import pl.shg.commons.helpers.Helper;
+import java.util.logging.Level;
 
 /**
  *
  * @author Aleksander
  */
-public class WoolHelper extends Helper {
-    public WoolHelper(WoolDocument document) {
-        super(document);
-    }
+public interface Debugger {
+    void debug(Level level, String message);
 }

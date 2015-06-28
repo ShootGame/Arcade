@@ -11,8 +11,8 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -38,7 +38,7 @@ public class CancelCommand extends Command {
         return 0;
     }
     
-    private void cancel(Sender sender, MatchStatus status, boolean hard) {
+    private void cancel(Sender sender, ArcadeMatchStatus status, boolean hard) {
         Validate.notNull(sender, "sender can not be null");
         Validate.notNull(status, "status can not be null");
         if (hard) {
@@ -48,7 +48,7 @@ public class CancelCommand extends Command {
             } else {
                 sender.sendSuccess("Wlaczono automatyczne odliczanie.");
             }
-        } else if (status == MatchStatus.STARTING || status == MatchStatus.ENDING) {
+        } else if (status == ArcadeMatchStatus.STARTING || status == ArcadeMatchStatus.CYCLING) {
             SchedulerManager schedulers = Arcade.getServer().getScheduler();
             int amount = schedulers.getIDs().size();
             if (amount != 0) {

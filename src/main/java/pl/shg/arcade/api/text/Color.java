@@ -48,8 +48,8 @@ public final class Color {
     }
     
     protected Color(char section, char color) {
-        Validate.notNull(section, "section can not be null");
-        Validate.notNull(color, "color can not be null");
+        Validate.notNull(section);
+        Validate.notNull(color);
         this.section = section;
         this.color = color;
     }
@@ -71,14 +71,33 @@ public final class Color {
         return new Color(code).toString();
     }
     
+    public static String fixColors(String message) {
+        StringBuilder builder = new StringBuilder();
+        if (message.contains(String.valueOf(Color.SECTION_SIGN))) { // We need to remove colors from this message
+            boolean startsWith = message.startsWith(String.valueOf(Color.SECTION_SIGN));
+            String[] split = message.split(String.valueOf(Color.SECTION_SIGN));
+            for (int i = 0; i < split.length; i++) {
+                String label = split[i];
+                if (!startsWith && i == 0) {
+                    builder.append(label);
+                } else if (label.length() > 0) {
+                    builder.append(label.substring(1));
+                }
+            }
+        } else {
+            builder.append(message);
+        }
+        return builder.toString();
+    }
+    
     public static String translate(String message) {
-        Validate.notNull(message, "message can not be null");
+        Validate.notNull(message);
         return Color.translate(message, Color.CONFIGURATION_COLOR);
     }
     
     public static String translate(String message, char code) {
-        Validate.notNull(message, "message can not be null");
-        Validate.notNull(code, "code can not be null");
+        Validate.notNull(message);
+        Validate.notNull(code);
         return message.replace(String.valueOf(code), String.valueOf(Color.SECTION_SIGN));
     }
     
@@ -107,7 +126,7 @@ public final class Color {
         
         public Wool(int id, String name) {
             Validate.isTrue(id >= 0);
-            Validate.notNull(name, "name can not be null");
+            Validate.notNull(name);
             this.id = id;
             this.name = name;
         }

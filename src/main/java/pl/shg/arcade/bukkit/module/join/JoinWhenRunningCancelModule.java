@@ -13,19 +13,20 @@ import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.documentation.ConfigurationDoc;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
-import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.PlayerJoinTeamEvent;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
  * @author Aleksander
  */
-public class JoinWhenRunningCancelModule extends Module {
-    private EventListener listener;
+public class JoinWhenRunningCancelModule extends Module implements EventListener {
+    private String message;
     
     public JoinWhenRunningCancelModule() {
         super(new Date(2015, 4, 19), "join-when-running-cancel", Version.valueOf("1.0"));
@@ -59,37 +60,21 @@ public class JoinWhenRunningCancelModule extends Module {
     
     @Override
     public void load(File file) throws ConfigurationException {
-        String message = Config.getValueMessage(Config.get(file), this,
+        this.message = Config.getValueMessage(Config.get(file), this,
                 "Nie mozesz dolaczyc do druzyny w czasie trawania meczu na tej mapie.", false);
-        this.listener = new PlayerJoinTeam(message);
-        Event.registerListener(this.listener);
     }
     
     @Override
     public void unload() {
-        Event.unregisterListener(this.listener);
+        
     }
     
-    private class PlayerJoinTeam implements EventListener {
-        private final String message;
-        
-        public PlayerJoinTeam(String message) {
-            this.message = message;
-        }
-        
-        @Override
-        public Class<? extends Event> getEvent() {
-            return PlayerJoinTeamEvent.class;
-        }
-        
-        @Override
-        public void handle(Event event) {
-            PlayerJoinTeamEvent e = (PlayerJoinTeamEvent) event;
-            if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING &&
-                    !e.getTeam().getID().equals(ObserverTeamBuilder.getTeamID())) {
-                e.setCancel(true);
-                e.getPlayer().sendError(this.message);
-            }
+    @EventSubscribtion(event = PlayerJoinTeamEvent.class)
+    public void handlePlayerJoinTeam(PlayerJoinTeamEvent e) {
+        if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING &&
+                !e.getTeam().getID().equals(ObserverTeamBuilder.getTeamID())) {
+            e.setCancel(true);
+            e.getPlayer().sendError(this.message);
         }
     }
 }

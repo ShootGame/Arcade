@@ -7,7 +7,7 @@
 package pl.shg.arcade.bukkit.test;
 
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.development.TestCommand;

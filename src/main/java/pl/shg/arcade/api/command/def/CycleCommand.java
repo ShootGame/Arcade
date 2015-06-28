@@ -11,9 +11,9 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.CycleScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -51,8 +51,8 @@ public class CycleCommand extends Command {
     private void cycle(Sender sender, int seconds) {
         Validate.notNull(sender, "sender can not be null");
         Validate.isTrue(seconds >= 0);
-        MatchStatus status = Arcade.getMatches().getStatus();
-        if (status == MatchStatus.PLAYING) {
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
+        if (status == ArcadeMatchStatus.RUNNING) {
             sender.sendError("Obecny tryb gry nie jest startujacy, ani konczacy!");
         } else if (seconds > this.maxSeconds) {
             sender.sendError("Przykro mi, lecz nie mozna ustawic tak dlugiego odliczania. Spróbuj go zmniejszyc.");

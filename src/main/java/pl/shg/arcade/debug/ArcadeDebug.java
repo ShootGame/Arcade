@@ -49,7 +49,7 @@ public final class ArcadeDebug {
         TestCommand.registerDefaults();
         DebugCommandManager.registerDebugCommands();
         
-        debugPlayers();
+        debugPlayers(5);
         
         listenToCommands();
     }
@@ -62,8 +62,8 @@ public final class ArcadeDebug {
         return server;
     }
     
-    private static void debugPlayers() {
-        for (int i = 0; i < 5; i++) {
+    private static void debugPlayers(int amount) {
+        for (int i = 0; i < amount; i++) {
             Player player = new DebugPlayer("Player-" + (i + 1), UUID.randomUUID());
             server.addPlayer(player);
         }
@@ -72,7 +72,7 @@ public final class ArcadeDebug {
     private static void listenToCommands() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+            String line = scanner.nextLine().trim();
             
             String args[] = line.split(" ");
             DebugCommandManager.perform(getConsole(), args);

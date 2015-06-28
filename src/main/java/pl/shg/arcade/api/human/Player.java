@@ -8,6 +8,7 @@ package pl.shg.arcade.api.human;
 
 import pl.shg.arcade.api.team.Team;
 import pl.shg.commons.server.TargetServer;
+import pl.shg.commons.users.LocalUser;
 
 /**
  *
@@ -17,6 +18,8 @@ public interface Player extends Classable, MinecraftPlayer, NamnedPlayer, Visibi
     void connect(TargetServer server);
     
     void connect(String server);
+    
+    LocalUser getCommons();
     
     Object getPlayer();
     

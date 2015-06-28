@@ -10,18 +10,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.Builder;
 import pl.shg.arcade.api.Material;
 
 /**
  *
  * @author Aleksander
  */
-public class ItemBuilder {
+public class ItemBuilder implements Builder<Item> {
     private Material type;
     private int amount;
     private List<String> description;
     private String name;
     private final List<Enchantment> enchantments;
+    private boolean unbreakable;
     
     public ItemBuilder() {
         this.enchantments = new ArrayList<>();
@@ -53,6 +55,12 @@ public class ItemBuilder {
         return this;
     }
     
+    public ItemBuilder unbreakable(boolean unbreakable) {
+        this.unbreakable = unbreakable;
+        return this;
+    }
+    
+    @Override
     public Item build() {
         Validate.notNull(this.type, "type can not be null");
         
@@ -63,6 +71,8 @@ public class ItemBuilder {
         for (Enchantment enchantment : this.enchantments) {
             item.addEnchantment(enchantment);
         }
+        
+        item.setUnbreakable(this.unbreakable);
         return item;
     }
 }

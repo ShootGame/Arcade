@@ -24,6 +24,7 @@ public class BlocksDestroyable extends DestroyableObject {
     private final String name;
     private final Team owner;
     private final HashMap<Setting, Object> settings;
+    private DestroyStatus status = DestroyStatus.UNTOUCHED;
     
     public BlocksDestroyable(String name, Team owner) {
         this.name = name;
@@ -48,8 +49,8 @@ public class BlocksDestroyable extends DestroyableObject {
     
     @Override
     public void destroy(Player player) {
-        DestroyableDestroyedEvent event = new DestroyableDestroyedEvent(this, player);
-        Event.callEvent(event);
+        this.setStatus(DestroyStatus.DESTROYED);
+        Event.callEvent(new DestroyableDestroyedEvent(this, player));
         
         Arcade.getServer().checkEndMatch();
     }
@@ -65,14 +66,15 @@ public class BlocksDestroyable extends DestroyableObject {
     }
     
     @Override
-    public int getPercent() {
+    public double getPercent() {
         int destroyed = 0;
         for (Monument monument : this.getMonuments()) {
             if (monument.isDestroyed()) {
                 destroyed++;
             }
         }
-        return (100 / this.getMonuments().size()) * destroyed;
+        
+        return 100 / this.getMonuments().size() * destroyed;
     }
     
     @Override
@@ -82,7 +84,7 @@ public class BlocksDestroyable extends DestroyableObject {
     
     @Override
     public DestroyStatus getStatus() {
-        return DestroyStatus.UNTOUCHED;
+        return status;
     }
     
     public List<Monument> getMonuments() {
@@ -97,5 +99,9 @@ public class BlocksDestroyable extends DestroyableObject {
                 GameableBlock.register(monument);
             }
         }
+    }
+    
+    public void setStatus(DestroyStatus status) {
+        this.status = status;
     }
 }

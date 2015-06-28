@@ -13,9 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
+import pl.shg.arcade.api.event.Event;
+import pl.shg.arcade.api.event.EventListener;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.module.ModuleException;
+import pl.shg.arcade.api.module.ModuleLoadEvent;
 import pl.shg.arcade.api.module.ModuleManager;
+import pl.shg.arcade.api.module.ModuleUnloadEvent;
 
 /**
  *
@@ -35,13 +39,24 @@ public class ArcadeModuleManager implements ModuleManager {
         Validate.notNull(module, "module can not be null");
         if (module.getID().length() > 25) {
             throw new UnsupportedOperationException("Module " + module.getID() + " is not supported (danger ID).");
-        } else {
-            List<Class<? extends Module>> dependencies = module.getDependencies(Module.DependencyType.STRONG);
-            // Dependency
-            for (Class<? extends Module> dependency : dependencies) {
-                Log.log(Level.INFO, "Dependency: " + dependency.getName());
-                this.active(this.asObject(dependency));
-            }
+        }
+        
+        ModuleLoadEvent loadEvent = new ModuleLoadEvent(module);
+        Event.callEvent(loadEvent);
+        if (loadEvent.isCancel()) {
+            return;
+        }
+        
+        List<Class<? extends Module>> dependencies = module.getDependencies(Module.DependencyType.STRONG);
+        // Dependency
+        for (Class<? extends Module> dependency : dependencies) {
+            Log.log(Level.INFO, "Dependency: " + dependency.getName());
+            this.active(this.asObject(dependency));
+        }
+        
+        // register listeners if this module imlements a EventListener interface
+        if (module instanceof EventListener) {
+            Event.registerListener((EventListener) module);
         }
         
         this.active.put(module.getID(), module);
@@ -66,7 +81,19 @@ public class ArcadeModuleManager implements ModuleManager {
     @Override
     public void inactive(Module module) {
         Validate.notNull(module, "module can not be null");
+        
+        ModuleUnloadEvent unloadEvent = new ModuleUnloadEvent(module);
+        Event.callEvent(unloadEvent);
+        if (unloadEvent.isCancel()) {
+            return;
+        }
+        
         module.unload();
+        
+        if (module instanceof EventListener) {
+            Event.unregisterListener((EventListener) module);
+        }
+        
         this.active.remove(module.getID());
         Log.log(Level.INFO, "Zdezaktywowano modul " + module.getID() + ".");
     }
@@ -78,6 +105,7 @@ public class ArcadeModuleManager implements ModuleManager {
             for (Module module : this.getActiveModules()) {
                 module.unload();
             }
+            
             this.active.clear();
             Log.log(Level.INFO, "Zdezaktywowano " + amount + " modulow.");
         }

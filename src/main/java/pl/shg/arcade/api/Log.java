@@ -17,12 +17,25 @@ import pl.shg.arcade.api.text.Color;
  * @author Aleksander
  */
 public class Log {
+    private static Debugger debugger;
+    
     public enum NoteLevel {
         INFO, WARNING, SEVERE;
     }
     
+    public static void debug(String message) {
+        debug(null, message);
+    }
+    
+    public static void debug(Level level, String message) {
+        Validate.notNull(message);
+        if (getDebugger() != null) {
+            getDebugger().debug(level, message);
+        }
+    }
+    
     public static void error(String message) {
-        Validate.notNull(message, "message can not be null");
+        Validate.notNull(message);
         log(Level.WARNING, "Blad: " + message);
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isStaff()) {
@@ -31,8 +44,12 @@ public class Log {
         }
     }
     
+    public static Debugger getDebugger() {
+        return debugger;
+    }
+    
     public static void infoAdmins(String message) {
-        Validate.notNull(message, "message can not be null");
+        Validate.notNull(message);
         log(Level.INFO, message);
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.isStaff()) {
@@ -42,22 +59,31 @@ public class Log {
     }
     
     public static void log(Level level, String message) {
-        Validate.notNull(level, "level can not be null");
-        Validate.notNull(message, "message can not be null");
-        message = "(Arcade) " + fixColors(message);
+        log(level, message, null);
+    }
+    
+    public static void log(Level level, String message, Throwable throwable) {
+        Validate.notNull(level);
+        if (message == null) {
+            message = throwable.getMessage();
+        }
         
-        Logger logger = Logger.getLogger("arcade");
-        logger.log(level, message);
+        message = "(Arcade) " + Color.fixColors(message);
+        Logger.getLogger(Log.class.getName()).log(level, message, throwable);
+        
+        if (level.equals(Level.SEVERE) || level.equals(Level.WARNING)) {
+            error(message);
+        }
     }
     
     public static void noteAdmins(String message) {
-        Validate.notNull(message, "message can not be null");
+        Validate.notNull(message);
         noteAdmins(message, NoteLevel.INFO);
     }
     
     public static void noteAdmins(String message, NoteLevel level) {
-        Validate.notNull(message, "message can not be null");
-        Validate.notNull(level, "level can not be null");
+        Validate.notNull(message);
+        Validate.notNull(level);
         log(Level.INFO, "[Notify - " + level.toString() + "] " + message);
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             if (player.hasPermission(getPermissionByLevel(level))) {
@@ -66,23 +92,8 @@ public class Log {
         }
     }
     
-    private static String fixColors(String message) {
-        StringBuilder builder = new StringBuilder();
-        if (message.contains(String.valueOf(Color.SECTION_SIGN))) { // We need to remove colors from this message
-            boolean startsWith = message.startsWith(String.valueOf(Color.SECTION_SIGN));
-            String[] split = message.split(String.valueOf(Color.SECTION_SIGN));
-            for (int i = 0; i < split.length; i++) {
-                String label = split[i];
-                if (!startsWith && i == 0) {
-                    builder.append(label);
-                } else if (label.length() > 0) {
-                    builder.append(label.substring(1));
-                }
-            }
-        } else {
-            builder.append(message);
-        }
-        return builder.toString();
+    public static void setDebugger(Debugger debugger) {
+        Log.debugger = debugger;
     }
     
     private static String getColorByLevel(NoteLevel level) {
@@ -94,7 +105,7 @@ public class Log {
     }
     
     private static String getPermissionByLevel(NoteLevel level) {
-        Validate.notNull(level, "level can not be null");
+        Validate.notNull(level);
         switch (level) {
             case INFO: return "arcade.notify.info";
             case WARNING: return "arcade.notify.warn";

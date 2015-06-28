@@ -31,8 +31,8 @@ public class CTSPerform extends Perform {
         Sheep sheep = BukkitLocation.getWorld().spawn(this.getLocation(), Sheep.class);
         sheep.setAdult();
         sheep.setColor(DyeColor.WHITE);
-        sheep.setMaxHealth(9999.0D);
-        sheep.setHealth(9999.0D);
+        sheep.setMaxHealth(1024.0);
+        sheep.setHealth(1024.0);
         sheep.setCanPickupItems(false);
         
         Event.callEvent(new CTSSpawnEvent(sheep));

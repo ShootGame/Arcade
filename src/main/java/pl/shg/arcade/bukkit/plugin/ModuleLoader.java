@@ -26,7 +26,6 @@ import pl.shg.arcade.bukkit.module.exp.CancelPickupExpModule;
 import pl.shg.arcade.bukkit.module.gamerules.GameRuleModule;
 import pl.shg.arcade.bukkit.module.grief.AntiGriefModule;
 import pl.shg.arcade.bukkit.module.hunger.NoHungerModule;
-import pl.shg.arcade.bukkit.module.internal.ChatModule;
 import pl.shg.arcade.bukkit.module.join.AutoJoinModule;
 import pl.shg.arcade.bukkit.module.join.JoinWhenRunningCancelModule;
 import pl.shg.arcade.bukkit.module.lib.Points;
@@ -40,6 +39,7 @@ import pl.shg.arcade.bukkit.module.pvp.NoPvpModule;
 import pl.shg.arcade.bukkit.module.rage.RageModule;
 import pl.shg.arcade.bukkit.module.respawn.AutoRespawnModule;
 import pl.shg.arcade.bukkit.module.respawn.DelayedRespawnModule;
+import pl.shg.arcade.bukkit.module.rules.RulesModule;
 import pl.shg.arcade.bukkit.module.timer.MatchTimerModule;
 import pl.shg.arcade.bukkit.module.weather.NoRainModule;
 import pl.shg.arcade.bukkit.module.weather.NoThunderModule;
@@ -65,7 +65,6 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(CancelDropModule.class);
         this.register(CancelPickupExpModule.class);
         this.register(CancelPickupModule.class);
-        this.register(ChatModule.class); // ess
         this.register(DeathMessagesModule.class); // ess
         this.register(DelayedPerformModule.class);
         this.register(DelayedRespawnModule.class);
@@ -84,6 +83,7 @@ public abstract class ModuleLoader implements IRegistration {
         this.register(NoRainModule.class);
         this.register(NoThunderModule.class);
         this.register(PlayableAreaModule.class); // ess
+        this.register(RulesModule.class);
         this.register(RageModule.class);
         this.register(StaticChestItemsModule.class);
     }

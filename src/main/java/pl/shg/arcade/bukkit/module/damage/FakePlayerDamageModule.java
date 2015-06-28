@@ -25,7 +25,7 @@ public class FakePlayerDamageModule extends Module implements BListener {
     public FakePlayerDamageModule() {
         super(new Date(2015, 5, 3), "fake-player-damage", Version.valueOf("1.0"));
         this.getDocs().setDescription("Anuluje uderzenia na graczu wykonane " +
-                "przez innego gracza. Gracz nie traci życia, lecz dostaje uderzony.");
+                "przez innego gracza. Gracz nie traci życia, lecz zostaje uderzony.");
         this.deploy(true);
     }
     

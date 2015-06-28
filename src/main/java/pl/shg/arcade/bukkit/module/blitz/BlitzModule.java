@@ -24,7 +24,6 @@ import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.documentation.ConfigurationDoc;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.module.Score;
@@ -37,6 +36,7 @@ import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Config;
 import pl.shg.arcade.bukkit.Listeners;
 import pl.shg.arcade.bukkit.ScoreboardManager;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -223,7 +223,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
                 ScoreboardManager.Sidebar.getScore(oldTeam.getID(), null, oldTeam.getPlayers().size());
             }
             
-            if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+            if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING) {
                 this.updateObjectives();
             }
         }
@@ -246,7 +246,7 @@ public class BlitzModule extends ObjectiveModule implements BListener {
         player.resetPlayerState();
         ((ArcadeTabList) Arcade.getServer().getGlobalTabList()).update();
         
-        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING) {
             Arcade.getServer().checkEndMatch();
         }
     }

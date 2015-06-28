@@ -20,8 +20,8 @@ public class Kit {
     private final List<Option> options = new ArrayList<>();
     
     public Kit(String id) {
-        Validate.notNull(id, "id can not be null");
-        this.id = id;
+        Validate.notNull(id);
+        this.id = id.toLowerCase();
     }
     
     public String getID() {
@@ -38,7 +38,7 @@ public class Kit {
     }
     
     public void registerItem(KitItem item) {
-        Validate.notNull(item, "item can not be null");
+        Validate.notNull(item);
         this.items.add(item);
     }
     
@@ -52,7 +52,7 @@ public class Kit {
     }
     
     public void registerOption(Option option) {
-        Validate.notNull(option, "option can not be null");
+        Validate.notNull(option);
         this.options.add(option);
     }
 }

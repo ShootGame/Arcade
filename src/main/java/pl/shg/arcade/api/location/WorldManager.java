@@ -6,14 +6,20 @@
  */
 package pl.shg.arcade.api.location;
 
+import java.io.File;
+import java.io.IOException;
+import pl.shg.arcade.api.map.Map;
+
 /**
  *
  * @author Aleksander
  */
 public interface WorldManager {
-    void load(String world);
+    public static final File DIRECTORY = new File("matches");
+    
+    void load(Map map) throws IOException ;
     
     void unloadCurrent();
     
-    void unload(String world);
+    void unload(Map map);
 }

@@ -81,6 +81,7 @@ public class CyConfiguration implements ConfigurationTechnology {
                 ((ObjectiveModule) module).makeScoreboard();
             }
         }
+        
         ScoreboardManager.Sidebar.newScoreboard();
     }
     

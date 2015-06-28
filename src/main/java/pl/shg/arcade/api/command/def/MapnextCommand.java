@@ -30,13 +30,13 @@ public class MapnextCommand extends Command {
     public void execute(Sender sender, String[] args) throws CommandException {
         Map next = this.getPlugin().getMaps().getNextMap();
         if (next != null) {
-            MapinfoCommand.show(sender, next);
+            MapinfoCommand.show(sender, next, true);
         } else {
             Rotation rotation = MiniGameServer.ONLINE.getRotation();
             for (Map map : rotation.getMaps()) {
                 if (!(map instanceof NotLoadedMap)) {
                     sender.sendMessage(Color.RED + "Wczesniej serwer zostanie zrestartowany!");
-                    MapinfoCommand.show(sender, map);
+                    MapinfoCommand.show(sender, map, true);
                     return;
                 }
             }

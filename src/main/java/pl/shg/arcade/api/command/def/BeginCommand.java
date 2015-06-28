@@ -11,9 +11,9 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -51,7 +51,7 @@ public class BeginCommand extends Command {
     private void begin(Sender sender, int seconds) {
         Validate.notNull(sender, "sender can not be null");
         Validate.isTrue(seconds >= 0);
-        if (Arcade.getMatches().getStatus() != MatchStatus.STARTING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.STARTING) {
             sender.sendError("Obecny tryb serwera nie jest startujacy!");
         } else if (seconds > this.maxSeconds) {
             sender.sendError("Przykro mi, lecz nie mozna ustawic tak dlugiego odliczania. Spróbuj go zmniejszyc.");

@@ -7,7 +7,6 @@
 package pl.shg.arcade.api.human;
 
 import pl.shg.arcade.api.location.Location;
-import pl.shg.arcade.api.location.Spawn;
 
 /**
  *
@@ -19,6 +18,4 @@ public interface HumanEntity extends Damageable, Feedable, Titleable {
     boolean isDead();
     
     void teleport(Location location);
-    
-    void teleport(Spawn spawn);
 }

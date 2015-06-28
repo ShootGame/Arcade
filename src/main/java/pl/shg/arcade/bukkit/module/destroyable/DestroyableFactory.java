@@ -14,7 +14,7 @@ import pl.shg.arcade.api.util.SimpleFactory;
  *
  * @author Aleksander
  */
-public class DestroyableFactory extends SimpleFactory {
+public class DestroyableFactory extends SimpleFactory<Destroyable> {
     private final DestroyableModule module;
     
     public DestroyableFactory(DestroyableModule module) {
@@ -23,7 +23,7 @@ public class DestroyableFactory extends SimpleFactory {
     }
     
     @Override
-    public void build() {
+    public Destroyable build() {
         if (this.canBuild()) {
             List<BlocksDestroyable> blocks = (List) this.get("blocks");
             List<RegionsDestroyable> regions = (List) this.get("regions");
@@ -36,14 +36,14 @@ public class DestroyableFactory extends SimpleFactory {
                 destroyables.addAll(regions);
             }
             
-            for (DestroyableObject destroyable : destroyables) {
-                this.module.registerDestroyable(destroyable);
-            }
+            this.module.registerDestroyables(destroyables);
         }
+        
+        return null;
     }
     
     private void register() {
-        this.register("blocks", true, List.class);
-        this.register("regions", true, List.class);
+        this.register("blocks", false, List.class);
+        this.register("regions", false, List.class);
     }
 }

@@ -11,11 +11,11 @@ import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.command.def.CancelCommand;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -74,7 +74,7 @@ public class BeginScheduler implements Runnable {
     private boolean checkEnd() {
         if (this.endIgnored) {
             return true;
-        } else if (Arcade.getMatches().getStatus() != MatchStatus.STARTING) {
+        } else if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             return false;
         }
         

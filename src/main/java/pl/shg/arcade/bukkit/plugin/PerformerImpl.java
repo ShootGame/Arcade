@@ -97,30 +97,34 @@ public class PerformerImpl implements VariableCommand.Performer {
         }
         
         try {
-            Class<?> type = field.getType();
             if (value == null) {
                 field.set(module, null);
-            } else if (type.equals(Boolean.class)) {
+                sender.sendSuccess("Usunieto wartosc zmiennej " + field.getName() + ".");
+                return;
+            }
+            
+            Class<?> type = field.getType();
+            if (type.equals(Boolean.TYPE)) {
                 field.setBoolean(module, Boolean.parseBoolean(value));
-            } else if (type.equals(Byte.class)) {
+            } else if (type.equals(Byte.TYPE)) {
                 field.setByte(module, Byte.parseByte(value));
-            } else if (type.equals(Character.class)) {
+            } else if (type.equals(Character.TYPE)) {
                 field.set(module, value.charAt(0));
-            } else if (type.equals(Double.class)) {
+            } else if (type.equals(Double.TYPE)) {
                 field.setDouble(module, Double.parseDouble(value));
-            } else if (type.equals(Float.class)) {
+            } else if (type.equals(Float.TYPE)) {
                 field.setFloat(module, Float.parseFloat(value));
-            } else if (type.equals(Integer.class)) {
+            } else if (type.equals(Integer.TYPE)) {
                 field.setInt(module, Integer.parseInt(value));
-            } else if (type.equals(Long.class)) {
+            } else if (type.equals(Long.TYPE)) {
                 field.setLong(module, Long.parseLong(value));
-            } else if (type.equals(Short.class)) {
+            } else if (type.equals(Short.TYPE)) {
                 field.setShort(module, Short.parseShort(value));
             } else {
                 field.set(module, value);
             }
             
-            sender.sendSuccess("Zmieniono wartosc dla zmiennej " + field.getName() + " na " + value + ".");
+            sender.sendSuccess("Zmieniono wartosc dla zmiennej " + field.getName() + " na " + field.get(module) + ".");
         } catch (IllegalArgumentException | IllegalAccessException ex) {
             this.error(sender, "Wystapil blad przy próbie ustawienia wartosci dla zmiennej - " + ex.getMessage());
         }

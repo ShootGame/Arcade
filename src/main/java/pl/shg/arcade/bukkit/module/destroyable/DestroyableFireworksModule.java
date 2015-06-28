@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.region.Region;
 import pl.shg.arcade.api.team.Team;
@@ -29,9 +30,7 @@ import pl.shg.commons.util.Fireworks;
  *
  * @author Aleksander
  */
-public class DestroyableFireworksModule extends Module {
-    private EventListener listener;
-    
+public class DestroyableFireworksModule extends Module implements EventListener {
     public DestroyableFireworksModule() {
         super(new Date(2015, 5, 14), "destroyable-fireworks", Version.valueOf("1.0"));
         this.deploy(true);
@@ -39,13 +38,12 @@ public class DestroyableFireworksModule extends Module {
     
     @Override
     public void disable() {
-        Event.unregisterListener(this.listener);
+        Event.unregisterListener(this);
     }
     
     @Override
     public void enable() {
-        this.listener = new DestroyableDestroy();
-        Event.registerListener(this.listener);
+        Event.registerListener(this);
     }
     
     @Override
@@ -58,7 +56,7 @@ public class DestroyableFireworksModule extends Module {
         
     }
     
-    private void createFirework(Location bukkitLocation, Team team) {
+    private void createFirework(Location bukkitLocation) {
         Fireworks.create(bukkitLocation, FireworkEffect.builder()
                 .with(FireworkEffect.Type.BURST)
                 .withFlicker()
@@ -66,32 +64,30 @@ public class DestroyableFireworksModule extends Module {
                 .build(), 0);
         
         for (Player online : Bukkit.getOnlinePlayers()) {
+            if (!online.getLocation().getWorld().equals(bukkitLocation.getWorld())) {
+                continue;
+            }
+            
             if (online.getLocation().distance(bukkitLocation) > 64) {
+                // fireworks can't be heared
                 online.playSound(online.getLocation(), Sound.FIREWORK_LARGE_BLAST2, 0.75F, 1F);
                 online.playSound(online.getLocation(), Sound.FIREWORK_TWINKLE2, 0.75F, 1F);
             }
         }
     }
     
-    private class DestroyableDestroy implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return DestroyableDestroyedEvent.class;
-        }
+    @EventSubscribtion(event = DestroyableDestroyedEvent.class)
+    public void handleDestroyableDestroy(Event event) {
+        DestroyableDestroyedEvent e = (DestroyableDestroyedEvent) event;
         
-        @Override
-        public void handle(Event event) {
-            DestroyableDestroyedEvent e = (DestroyableDestroyedEvent) event;
-            
-            if (e.getDestroyable() instanceof BlocksDestroyable) {
-                List<Monument> monuments = ((BlocksDestroyable) e.getDestroyable()).getMonuments();
-                Location bukkitLocation = BukkitLocation.valueOf(monuments.get(0).getBlock().getLocation());
-                DestroyableFireworksModule.this.createFirework(bukkitLocation, e.getPlayer().getTeam());
-            } else if (e.getDestroyable() instanceof RegionsDestroyable) {
-                Region region = ((RegionsDestroyable) e.getDestroyable()).getRegion();
-                Location bukkitLocaiton = BukkitLocation.valueOf(region.getMax()); // TODO fix this
-                DestroyableFireworksModule.this.createFirework(bukkitLocaiton, e.getPlayer().getTeam());
-            }
+        if (e.getDestroyable() instanceof BlocksDestroyable) {
+            List<Monument> monuments = ((BlocksDestroyable) e.getDestroyable()).getMonuments();
+            Location bukkitLocation = BukkitLocation.valueOf(monuments.get(0).getBlock().getLocation());
+            DestroyableFireworksModule.this.createFirework(bukkitLocation);
+        } else if (e.getDestroyable() instanceof RegionsDestroyable) {
+            Region region = ((RegionsDestroyable) e.getDestroyable()).getRegion();
+            Location bukkitLocaiton = BukkitLocation.valueOf(region.getMax()); // TODO fix this
+            DestroyableFireworksModule.this.createFirework(bukkitLocaiton);
         }
     }
 }

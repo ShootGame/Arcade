@@ -23,7 +23,7 @@ public class TeamWinner implements Winner {
     
     @Override
     public String getMessage() {
-        return this.getName() + Winner.DEFAULT_COLOR + " wygral/a!";
+        return this.getName() + Winner.DEFAULT_COLOR + " wygrali!";
     }
     
     @Override

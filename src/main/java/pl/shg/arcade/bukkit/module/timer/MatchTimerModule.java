@@ -14,10 +14,9 @@ import pl.shg.arcade.api.PlayerManagement;
 import pl.shg.arcade.api.Sound;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.documentation.ConfigurationDoc;
-import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.UnresolvedWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
@@ -26,13 +25,13 @@ import pl.shg.arcade.api.tablist.TabListUpdateEvent;
 import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
  * @author Aleksander
  */
-public class MatchTimerModule extends Module {
-    private TabListUpdate tabListUpdate;
+public class MatchTimerModule extends Module implements EventListener {
     private int taskID;
     private long ticks = 300L;
     private String winner = "auto";
@@ -102,14 +101,18 @@ public class MatchTimerModule extends Module {
         FileConfiguration config = Config.get(file);
         this.ticks = Config.getValueLong(config, this, "time", 120) * 20L;
         this.winner = Config.getValueString(config, this, "winner");
-        
-        this.tabListUpdate = new TabListUpdate();
-        Event.registerListener(this.tabListUpdate);
     }
     
     @Override
     public void unload() {
-        Event.unregisterListener(this.tabListUpdate);
+        
+    }
+    
+    @EventSubscribtion(event = TabListUpdateEvent.class)
+    public void handleTabListUpdate(TabListUpdateEvent e) {
+        if (e.getTabList() instanceof ArcadeTabList) {
+            e.setTabList(new TabListObject(Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING));
+        }
     }
     
     private class TabListObject extends ArcadeTabList {
@@ -201,21 +204,6 @@ public class MatchTimerModule extends Module {
                 for (Player player : Arcade.getServer().getConnectedPlayers()) {
                     players.playSound(player, Sound.TIME_OUT, 1F, 0.78F);
                 }
-            }
-        }
-    }
-    
-    private class TabListUpdate implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return TabListUpdateEvent.class;
-        }
-        
-        @Override
-        public void handle(Event event) {
-            TabListUpdateEvent e = (TabListUpdateEvent) event;
-            if (e.getTabList() instanceof ArcadeTabList) {
-                e.setTabList(new TabListObject(Arcade.getMatches().getStatus() != MatchStatus.PLAYING));
             }
         }
     }

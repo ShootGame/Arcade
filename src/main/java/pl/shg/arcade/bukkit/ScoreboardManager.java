@@ -44,7 +44,7 @@ public class ScoreboardManager {
     
     public static void updateTag(Player player) {
         org.bukkit.scoreboard.Team team = ScoreboardManager.SCOREBOARD.getTeam(player.getTeam().getID());
-        team.add(player.getName());
+        team.addEntry(player.getName());
         ((org.bukkit.entity.Player) player.getPlayer()).setScoreboard(ScoreboardManager.SCOREBOARD);
     }
     
@@ -95,7 +95,7 @@ public class ScoreboardManager {
                 if (suffix != null) {
                     team.setSuffix(suffix);
                 }
-                team.add(name);
+                team.addEntry(name);
                 ScoreboardScore newScore = new ScoreboardScore(prefix, suffix, name, score);
                 scores.put(id.toLowerCase(), newScore);
                 return newScore;
@@ -135,7 +135,7 @@ public class ScoreboardManager {
                 if (obj.getSuffix() != null) {
                     team.setSuffix(obj.getSuffix());
                 }
-                team.add(obj.getName());
+                team.addEntry(obj.getName());
                 if (obj.isNameEdited()) {
                     objective.getScoreboard().resetScores(obj.getOldName());
                 }

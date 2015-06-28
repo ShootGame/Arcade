@@ -14,6 +14,7 @@ import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -45,11 +46,11 @@ public class Match {
      * <code>null</code> - match fails
      */
     public void end(Winner winner) {
-        if (Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             throw new UnsupportedOperationException("Can not end the match when it is not running.");
         }
         
-        Arcade.getMatches().setStatus(MatchStatus.ENDING);
+        Arcade.getMatches().setStatus(ArcadeMatchStatus.CYCLING);
         this.broadcastEnd(winner);
         this.playEndSound(winner);
         Arcade.getServer().getScheduler().runCycle(-1);

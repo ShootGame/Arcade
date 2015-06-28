@@ -94,7 +94,7 @@ public class CyClassesLoader {
         builder.fullDescription(this.f.getString(path + ".full"));
         builder.icon(this.getIcon(path + ".icon"));
         
-        ArcadeClass classObj = builder.toClass();
+        ArcadeClass classObj = builder.build();
         classObj.setKits(this.getKits(clazz));
         this.classes.add(classObj);
     }

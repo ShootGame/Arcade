@@ -14,7 +14,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Aleksander
  */
-public abstract class SimpleFactory implements IFactory {
+public abstract class SimpleFactory<T extends Object> implements IFactory<T> {
     private final List<Variable> variables;
     
     public SimpleFactory() {
@@ -23,6 +23,7 @@ public abstract class SimpleFactory implements IFactory {
     
     public boolean canBuild() {
         boolean result = true;
+        
         for (Variable var : this.getAllVariables()) {
             if (!var.isNullable() && !var.isSet()) {
                 result = false;
@@ -43,10 +44,12 @@ public abstract class SimpleFactory implements IFactory {
     
     public Object get(String variable, Object def) {
         Validate.notNull(variable, "variable can not be null");
+        
         Variable var = this.getVariable(variable);
         if (var != null) {
             return var.getValue();
         }
+        
         return def;
     }
     
@@ -56,6 +59,7 @@ public abstract class SimpleFactory implements IFactory {
     
     public Variable getVariable(String name) {
         Validate.notNull(name, "name can not be null");
+        
         for (Variable var : this.getAllVariables()) {
             if (var.getName().equals(name.toLowerCase())) {
                 return var;
@@ -66,6 +70,7 @@ public abstract class SimpleFactory implements IFactory {
     
     public boolean isSet(String variable) {
         Validate.notNull(variable, "variable can not be null");
+        
         Variable var = this.getVariable(variable);
         if (var != null) {
             return var.isSet();
@@ -79,14 +84,16 @@ public abstract class SimpleFactory implements IFactory {
     
     public void register(String variable, boolean nullable, Class<?> clazz) {
         Validate.notNull(variable, "variable can not be null");
+        
         Variable var = this.getVariable(variable);
-        if (var != null) {
+        if (var == null) {
             this.variables.add(new Variable(clazz, variable, nullable));
         }
     }
     
     public void set(String variable, Object value) {
         Validate.notNull(variable, "variable can not be null");
+        
         Variable var = this.getVariable(variable);
         if (var != null) {
             var.setValue(value);

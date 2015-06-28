@@ -13,7 +13,6 @@ import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.MatchType;
 import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
@@ -21,6 +20,7 @@ import pl.shg.arcade.api.match.UnresolvedWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.team.ObserverTeamBuilder;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -38,7 +38,7 @@ public class EndCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        if (Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             sender.sendError("Aby zakonczyc mecz musi byc on w trakcie trwania!");
         } else if (args.length == 0 || args[0].equals(".")) {
             this.end(sender, null);

@@ -17,9 +17,9 @@ import pl.shg.arcade.api.command.def.JoinCommand;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.item.Item;
 import pl.shg.arcade.api.map.Map;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -36,8 +36,8 @@ public class TeamSelectorMenu extends Menu {
     
     @Override
     public void onClick(Player player, int slot) {
-        MatchStatus status = Arcade.getMatches().getStatus();
-        if (status == MatchStatus.ENDING) {
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
+        if (status == ArcadeMatchStatus.RUNNING) {
             player.sendError("Mecz sie zakonczyl! " + Color.GOLD + "Poczekaj na serwer az zaladuje nowa mape.");
         } else if (slot == 0) {
             JoinCommand.random(player, status);

@@ -7,22 +7,28 @@
 package pl.shg.arcade.api.classes;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.Builder;
 import pl.shg.arcade.api.Material;
 
 /**
  *
  * @author Aleksander
  */
-public class ClassBuilder {
+public class ClassBuilder implements Builder<ArcadeClass> {
     private String name, description, fullDescription;
     private Material icon;
     
     public ClassBuilder() {}
     
     public ClassBuilder(ArcadeClass copyOf) {
-        Validate.notNull(copyOf, "copyOf can not be null");
+        Validate.notNull(copyOf);
         this.name = copyOf.getName();
         this.description = copyOf.getDescription();
+    }
+    
+    @Override
+    public ArcadeClass build() {
+        return new ArcadeClass(this.name, this.description, this.fullDescription, this.icon);
     }
     
     public ClassBuilder name(String name) {
@@ -43,9 +49,5 @@ public class ClassBuilder {
     public ClassBuilder icon(Material icon) {
         this.icon = icon;
         return this;
-    }
-    
-    public ArcadeClass toClass() {
-        return new ArcadeClass(this.name, this.description, this.fullDescription, this.icon);
     }
 }

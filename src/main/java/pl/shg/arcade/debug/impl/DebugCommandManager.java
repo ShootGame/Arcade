@@ -13,6 +13,7 @@ import pl.shg.arcade.api.command.CommandManager;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.debug.command.ExitCommand;
 import pl.shg.arcade.debug.command.HelpCommand;
+import pl.shg.arcade.debug.command.MongoCommand;
 
 /**
  *
@@ -47,5 +48,6 @@ public class DebugCommandManager extends ArcadeCommandManager {
         CommandManager commands = Arcade.getCommands();
         commands.registerCommand(new ExitCommand());
         commands.registerCommand(new HelpCommand());
+        commands.registerCommand(new MongoCommand());
     }
 }

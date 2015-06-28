@@ -74,6 +74,9 @@ public class PlayableTeamBuilder implements TeamBuilder {
     
     public void setName(String name) {
         Validate.notNull(name, "name can not be null");
+        int nameLength = Team.MAX_NAME_LENGTH;
+        Validate.isTrue(name.length() <= nameLength, "name is too long (must be " + nameLength + " characters)");
+        
         this.name = name;
     }
     

@@ -7,6 +7,7 @@
 package pl.shg.arcade;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +23,7 @@ import pl.shg.arcade.api.map.MapManager;
 import pl.shg.arcade.api.map.NotLoadedMap;
 import pl.shg.arcade.api.rotation.Rotation;
 import pl.shg.arcade.api.server.MiniGameServer;
+import pl.shg.arcade.api.util.CrashHandler;
 
 /**
  *
@@ -141,19 +143,23 @@ public class ArcadeMapManager implements MapManager {
         Validate.notNull(worlds, "worlds can not be null");
         this.worlds = worlds;
         
-        Rotation rotation = MiniGameServer.ONLINE.getRotation();
-        if (this.getNextMap() != null) {
-            this.getWorlds().load(this.getNextMap().getName());
-        } else if (rotation.getMaps().isEmpty()) {
-            Log.log(Level.SEVERE, "Brak map w rotacji serwera " + MiniGameServer.ONLINE.getShoot().getID());
-        } else {
-            for (Map map : rotation.getMaps()) {
-                if (!(map instanceof NotLoadedMap)) {
-                    this.setNextMap(map);
-                    Arcade.getServer().getScheduler().runCycle(0);
-                    return;
+        try {
+            Rotation rotation = MiniGameServer.ONLINE.getRotation();
+            if (this.getNextMap() != null) {
+                this.getWorlds().load(this.getNextMap());
+            } else if (rotation.getMaps().isEmpty()) {
+                Log.log(Level.SEVERE, "Brak map w rotacji serwera " + MiniGameServer.ONLINE.getShoot().getID());
+            } else {
+                for (Map map : rotation.getMaps()) {
+                    if (!(map instanceof NotLoadedMap)) {
+                        this.setNextMap(map);
+                        Arcade.getServer().getScheduler().runCycle(0);
+                        return;
+                    }
                 }
             }
+        } catch (IOException ex) {
+            new CrashHandler("cycling", ex).crash();
         }
     }
 }

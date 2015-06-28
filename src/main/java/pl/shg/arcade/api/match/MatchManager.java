@@ -6,6 +6,8 @@
  */
 package pl.shg.arcade.api.match;
 
+import pl.shg.commons.server.ArcadeMatchStatus;
+
 /**
  *
  * @author Aleksander
@@ -13,9 +15,9 @@ package pl.shg.arcade.api.match;
 public interface MatchManager {
     Match getMatch();
     
-    MatchStatus getStatus();
+    ArcadeMatchStatus getStatus();
     
-    void setStatus(MatchStatus status);
+    void setStatus(ArcadeMatchStatus status);
     
     Winner getWinner();
     

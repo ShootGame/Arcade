@@ -24,7 +24,9 @@ import pl.shg.arcade.api.text.Color;
  * @author Aleksander
  */
 public class Team {
+    public static final int MAX_NAME_LENGTH = 15;
     public static final int MINIMUM = 0;
+    
     private final TeamBuilder builder;
     private ChatChannel channel;
     private HashMap<KitType, List<Kit>> kits = new HashMap<>();
@@ -59,7 +61,7 @@ public class Team {
     }
     
     public String getDisplayName() {
-        return this.getColor() + this.getBuilder().getName() + Color.RESET;
+        return this.getColor() + this.getBuilder().getName().trim() + Color.RESET;
     }
     
     public boolean isFrendlyFire() {

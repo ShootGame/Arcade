@@ -8,19 +8,18 @@ package pl.shg.arcade.bukkit;
 
 import java.util.Objects;
 import java.util.UUID;
-import net.minecraft.server.v1_8_R1.ChatSerializer;
-import net.minecraft.server.v1_8_R1.EntityPlayer;
-import net.minecraft.server.v1_8_R1.EnumClientCommand;
-import net.minecraft.server.v1_8_R1.IChatBaseComponent;
-import net.minecraft.server.v1_8_R1.Packet;
-import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
+import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_8_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.Arcade;
@@ -34,7 +33,9 @@ import pl.shg.arcade.api.tablist.TabList;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;
-import pl.shg.commons.util.ClientSettings;
+import pl.shg.commons.bukkit.UserUtils;
+import pl.shg.commons.users.BukkitUser;
+import pl.shg.commons.users.LocalUser;
 import pl.shg.commons.util.Messages;
 import pl.shg.commons.util.Tablists;
 import pl.shg.commons.util.Titles;
@@ -47,17 +48,15 @@ import pl.themolka.permissions.User;
  */
 public class BukkitPlayer extends ArcadePlayer {
     private static final CraftServer server = (CraftServer) Bukkit.getServer();
-    private final EntityPlayer handle;
+    private final BukkitUser commons;
     private final User permissions;
     private final CraftPlayer player;
-    private final ClientSettings settings;
     
     public BukkitPlayer(Player player) {
         Validate.notNull(player, "player can not be null");
+        this.commons = UserUtils.getUser(player);
         this.permissions = new User(player);
         this.player = (CraftPlayer) player;
-        this.handle = this.player.getHandle();
-        this.settings = ClientSettings.newInstance(this.player);
         
         this.makePermissions();
     }
@@ -85,8 +84,8 @@ public class BukkitPlayer extends ArcadePlayer {
     }
     
     @Override
-    public ClientSettings getClientSettings() {
-        return this.settings;
+    public LocalUser getCommons() {
+        return this.commons;
     }
     
     @Override
@@ -112,8 +111,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public Location getLocation() {
-        org.bukkit.Location location = this.player.getLocation();
-        return new Location(location.getX(), location.getY(), location.getZ());
+        return BukkitLocation.convert(this.player.getLocation());
     }
     
     @Override
@@ -230,17 +228,7 @@ public class BukkitPlayer extends ArcadePlayer {
     @Override
     public void teleport(Location location) {
         Validate.notNull(location, "location can not be null");
-        String map = Arcade.getMaps().getCurrentMap().getName();
-        this.player.teleport(new org.bukkit.Location(Bukkit.getWorld(map),
-                location.getX(), location.getY(), location.getZ()));
-    }
-    
-    @Override
-    public void teleport(Spawn spawn) {
-        Validate.notNull(spawn, "spawn can not be null");
-        String map = Arcade.getMaps().getCurrentMap().getName();
-        this.player.teleport(new org.bukkit.Location(Bukkit.getWorld(map),
-                spawn.getX(), spawn.getY(), spawn.getZ(), spawn.getYaw(), spawn.getPitch()));
+        this.player.teleport(BukkitLocation.valueOf(location));
     }
     
     @Override
@@ -281,7 +269,7 @@ public class BukkitPlayer extends ArcadePlayer {
     
     public void sendPacket(Packet packet) {
         if (this.bukkit() != null && this.bukkit().getHandle() != null) {
-            this.handle.playerConnection.sendPacket(packet);
+            this.getCommons().sendPacket(packet);
         }
     }
     

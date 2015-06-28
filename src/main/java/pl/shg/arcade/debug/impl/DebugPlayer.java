@@ -11,13 +11,12 @@ import pl.shg.arcade.ArcadePlayer;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.Location;
-import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.tablist.TabList;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;
 import pl.shg.arcade.debug.ArcadeDebug;
-import pl.shg.commons.util.ClientSettings;
+import pl.shg.commons.users.LocalUser;
 import pl.themolka.permissions.User;
 
 /**
@@ -87,7 +86,7 @@ public class DebugPlayer extends ArcadePlayer {
     }
     
     @Override
-    public ClientSettings getClientSettings() {
+    public LocalUser getCommons() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -113,11 +112,6 @@ public class DebugPlayer extends ArcadePlayer {
     
     @Override
     public void teleport(Location location) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public void teleport(Spawn spawn) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

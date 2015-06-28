@@ -11,7 +11,7 @@ package pl.shg.arcade.api.event;
  * @author Aleksander
  */
 public enum Priority {
-    MONITOR(Priority.getMintorLevel()),
+    MONITOR(Priority.getMonitorLevel()),
     HIGHEST(2),
     HIGH(1),
     NORMAL(0),
@@ -34,14 +34,14 @@ public enum Priority {
     }
     
     public boolean isMonitor() {
-        return this.getLevel() == Priority.getMintorLevel();
+        return this.getLevel() == Priority.getMonitorLevel();
     }
     
     public static int getCancelableLevel() {
         return 1000;
     }
     
-    public static int getMintorLevel() {
+    public static int getMonitorLevel() {
         return Integer.MAX_VALUE;
     }
 }

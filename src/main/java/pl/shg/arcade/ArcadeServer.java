@@ -12,7 +12,6 @@ import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.human.Player;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
@@ -21,12 +20,14 @@ import pl.shg.arcade.api.module.ObjectiveModule;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.tablist.TabList;
 import pl.shg.arcade.api.team.Team;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
  * @author Aleksander
  */
 public abstract class ArcadeServer implements Server {
+    private boolean checkMinimum = true;
     private TabList tabList;
     
     @Override
@@ -45,7 +46,7 @@ public abstract class ArcadeServer implements Server {
     
     @Override
     public void checkEndMatch() {
-        if (Arcade.getMatches().getStatus() == MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() == ArcadeMatchStatus.RUNNING) {
             this.checkEnd();
         }
     }
@@ -71,12 +72,21 @@ public abstract class ArcadeServer implements Server {
         return this.getSlots() <= this.getConnectedPlayers().size();
     }
     
+    public boolean isCheckMinimum() {
+        return this.checkMinimum;
+    }
+    
+    public void setCheckMinimum(boolean checkMinimum) {
+        this.checkMinimum = checkMinimum;
+    }
+    
     private void checkEnd() {
         for (Team team : Arcade.getTeams().getTeams()) {
             List<Player> players = team.getPlayers();
             
             // Check the players amount
-            if (players.size() < Team.MINIMUM) {
+            if (this.isCheckMinimum() && players.size() < Team.MINIMUM) {
+                Log.log(Level.INFO, "Konczenie meczu z powodu zbyt malej ilosci graczy.");
                 Arcade.getMatches().getMatch().end();
                 return;
             }

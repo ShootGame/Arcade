@@ -32,10 +32,9 @@ import pl.shg.arcade.bukkit.Listeners;
  *
  * @author Aleksander
  */
-public class DelayedRespawnModule extends Module implements BListener {
+public class DelayedRespawnModule extends Module implements BListener, EventListener {
     public static int seconds = 10;
     private final Map<UUID, Long> dead = new HashMap<>();
-    private EventListener respawnListener;
     
     public DelayedRespawnModule() {
         super(new Date(2015, 4, 25), "delayed-respawn", Version.valueOf("1.0"));
@@ -43,13 +42,12 @@ public class DelayedRespawnModule extends Module implements BListener {
     
     @Override
     public void disable() {
-        Event.unregisterListener(this.respawnListener);
+        Event.unregisterListener(this);
     }
     
     @Override
     public void enable() {
-        this.respawnListener = new PlayerRespawnMatch();
-        Event.registerListener(this.respawnListener);
+        Event.registerListener(this);
         
         Arcade.getServer().getScheduler().runSync(new Runnable() {
             private final DelayedRespawnModule module = (DelayedRespawnModule) Module.of(DelayedRespawnModule.class);
@@ -104,26 +102,18 @@ public class DelayedRespawnModule extends Module implements BListener {
         player.sendMessage("Zostales/as odrodzony/a po " + seconds + " sekundach.");
     }
     
-    private class PlayerRespawnMatch implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return PlayerRespawnMatchEvent.class;
-        }
-        
-        @Override
-        public void handle(Event event) {
-            PlayerRespawnMatchEvent e = (PlayerRespawnMatchEvent) event;
-            if (!e.getPlayer().isObserver()) {
-                e.setCancel(true); // cancel this event, so play will not give kits, etc...
-                e.setSpawn((Spawn) e.getPlayer().getLocation()); // respawn player in the death location
-                
-                e.getPlayer().sendMessage("Zostaniesz odrodzony/a za " + DelayedRespawnModule.seconds + " sekund...");
-                this.dead(e.getPlayer());
-            }
-        }
-        
-        private void dead(Player player) {
+    public void handleRespawn(Event event) {
+        PlayerRespawnMatchEvent e = (PlayerRespawnMatchEvent) event;
+        if (!e.getPlayer().isObserver()) {
+            e.setCancel(true); // cancel this event, so play will not give kits, etc...
+            e.setSpawn((Spawn) e.getPlayer().getLocation()); // respawn player in the death location
             
+            e.getPlayer().sendMessage("Zostaniesz odrodzony/a za " + DelayedRespawnModule.seconds + " sekund...");
+            this.dead(e.getPlayer());
         }
+    }
+    
+    private void dead(Player player) {
+        
     }
 }

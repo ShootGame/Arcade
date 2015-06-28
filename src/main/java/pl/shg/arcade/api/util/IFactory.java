@@ -6,10 +6,12 @@
  */
 package pl.shg.arcade.api.util;
 
+import org.apache.commons.lang3.builder.Builder;
+
 /**
  *
  * @author Aleksander
  */
-public interface IFactory {
-    void build();
+public interface IFactory<T extends Object> extends Builder<T> {
+    
 }

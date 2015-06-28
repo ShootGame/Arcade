@@ -16,7 +16,7 @@ import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.location.GameableBlock;
 import pl.shg.arcade.api.location.Location;
-import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -26,7 +26,7 @@ public class GameableBlockListeners implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
-        if (player.isObserver() || Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (player.isObserver() || Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             return;
         }
         
@@ -47,7 +47,7 @@ public class GameableBlockListeners implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
-        if (player.isObserver() || Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (player.isObserver() || Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             return;
         }
         
@@ -73,7 +73,7 @@ public class GameableBlockListeners implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
-        if (player.isObserver() || Arcade.getMatches().getStatus() != MatchStatus.PLAYING || e.getClickedBlock() == null) {
+        if (player.isObserver() || Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING || e.getClickedBlock() == null) {
             return;
         }
         

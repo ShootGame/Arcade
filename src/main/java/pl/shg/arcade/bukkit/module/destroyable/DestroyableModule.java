@@ -9,11 +9,14 @@ package pl.shg.arcade.bukkit.module.destroyable;
 import com.google.common.collect.Lists;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.shg.arcade.api.Arcade;
+import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.location.BlockLocation;
 import pl.shg.arcade.api.map.Tutorial;
@@ -56,9 +59,6 @@ public class DestroyableModule extends ObjectiveModule {
             factory.set("regions", this.getRegionsList(config));
         }
         
-        factory.set("objective", Config.getValueInt(config, this, "objective", 100));
-        factory.set("score-mode", ScoreMode.valueOf(Config.getValueString(config,
-                this, "score-mode", ScoreMode.STATIC_SILENT.name()).toUpperCase()));
         factory.build();
     }
     
@@ -96,15 +96,19 @@ public class DestroyableModule extends ObjectiveModule {
     
     @Override
     public boolean objectiveScored(Team team) {
-        int found = 0, destroyed = 0;
+        int destroyed = 0, found = 0;
+        
         for (DestroyableObject destroyable : this.getDestroyables()) {
-            if (!destroyable.getOwner().equals(team)) {
-                found++;
-                if (destroyable.isDestroyed()) {
-                    destroyed++;
-                }
+            if (destroyable.getOwner().equals(team)) {
+                continue;
+            }
+            
+            found++;
+            if (destroyable.isDestroyed()) {
+                destroyed++;
             }
         }
+        
         return destroyed >= found;
     }
     
@@ -117,14 +121,16 @@ public class DestroyableModule extends ObjectiveModule {
         return this.destroyables;
     }
     
-    public void registerDestroyable(DestroyableObject destroyable) {
-        this.destroyables.add(destroyable);
+    public void registerDestroyables(Collection<? extends DestroyableObject> destroyable) {
+        this.destroyables.addAll(destroyable);
     }
     
     private List<BlocksDestroyable> getBlocksList(FileConfiguration config) {
         List<BlocksDestroyable> list = new ArrayList<>();
         for (String objective : Config.getOptions(config, this, "blocks")) {
             Team team = Arcade.getTeams().getTeam(Config.getValueString(config, this, "blocks." + objective + ".owner"));
+            Log.debug("Rejestrowanie " + objective + " dla " + team.getID());
+            
             BlocksDestroyable blocks = new BlocksDestroyable(objective, team);
             blocks.setMonuments(this.getBlocksMonuments(config, blocks, objective));
             
@@ -134,11 +140,16 @@ public class DestroyableModule extends ObjectiveModule {
                     "blocks." + objective + ".objective", 100));
             list.add(blocks);
         }
+        
         return list;
     }
     
     private List<Monument> getBlocksMonuments(FileConfiguration config, BlocksDestroyable destroyable, String objective) {
-        List<Monument> monuments = new ArrayList<>();
+        List<Monument> monuments = destroyable.getMonuments();
+        if (monuments == null) {
+            monuments = new ArrayList<>();
+        }
+        
         for (String monument : Config.getValueList(config, this, "blocks." + objective + ".monuments")) {
             String[] args = monument.split(";");
             int x = Integer.parseInt(args[0]);

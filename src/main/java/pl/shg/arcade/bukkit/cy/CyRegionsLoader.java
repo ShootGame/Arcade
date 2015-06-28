@@ -2,7 +2,7 @@
  * Copyright (C) 2014 TheMolkaPL - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Aleksander JagieĹ‚Ĺ‚o <themolkapl@gmail.com>, 2014
+ * Written by Aleksander Jagiełło <themolkapl@gmail.com>, 2014
  */
 package pl.shg.arcade.bukkit.cy;
 
@@ -53,32 +53,37 @@ public class CyRegionsLoader {
     
     public Filter getFilter(String filter, String path) {
         List<Material> accept = new ArrayList<>();
-        for (String listElement : this.f.getStringList(path + ".accept")) {
-            Material material = null;
-            try {
-                material = new Material(listElement);
-            } catch (NumberFormatException ex) {
-                Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
-                        " nie zostalo rozpoznane (accept).", Log.NoteLevel.WARNING);
-            }
-            
-            if (material != null) {
-                accept.add(material);
+        List<Material> deny = new ArrayList<>();
+        
+        if (this.f.isSet(path + ".accept")) {
+            for (String listElement : this.f.getStringList(path + ".accept")) {
+                Material material = null;
+                try {
+                    material = new Material(listElement);
+                } catch (NumberFormatException ex) {
+                    Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
+                            " nie zostalo rozpoznane (accept).", Log.NoteLevel.WARNING);
+                }
+                
+                if (material != null) {
+                    accept.add(material);
+                }
             }
         }
         
-        List<Material> deny = new ArrayList<>();
-        for (String listElement : this.f.getStringList(path + ".deny")) {
-            Material material = null;
-            try {
-                material = new Material(listElement);
-            } catch (NumberFormatException ex) {
-                Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
-                        " nie zostalo rozpoznane (deny).", Log.NoteLevel.WARNING);
-            }
-            
-            if (material != null) {
-                accept.add(material);
+        if (this.f.isSet(path + ".deny")) {
+            for (String listElement : this.f.getStringList(path + ".deny")) {
+                Material material = null;
+                try {
+                    material = new Material(listElement);
+                } catch (NumberFormatException ex) {
+                    Log.noteAdmins("ID bloku " + listElement + " w filtrze " + filter +
+                            " nie zostalo rozpoznane (deny).", Log.NoteLevel.WARNING);
+                }
+                
+                if (material != null) {
+                    accept.add(material);
+                }
             }
         }
         

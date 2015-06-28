@@ -14,9 +14,9 @@ import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.command.def.CancelCommand;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -31,7 +31,7 @@ public class DbeginCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        if (Arcade.getMatches().getStatus() != MatchStatus.STARTING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.STARTING) {
             sender.sendError("Obecny tryb serwera nie jest startujacy!");
         } else {
             CancelCommand.setDisabled(false);

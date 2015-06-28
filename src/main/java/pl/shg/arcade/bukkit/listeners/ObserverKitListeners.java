@@ -6,6 +6,10 @@
  */
 package pl.shg.arcade.bukkit.listeners;
 
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,15 +17,16 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.Tutorial;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.menu.ClassSelectorMenu;
 import pl.shg.arcade.api.menu.ServerPickerMenu;
 import pl.shg.arcade.api.menu.TeamSelectorMenu;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -39,8 +44,8 @@ public class ObserverKitListeners implements Listener {
         }
         
         Player player = Arcade.getServer().getPlayer(e.getPlayer().getUniqueId());
-        MatchStatus status = Arcade.getMatches().getStatus();
-        if (player.isObserver() || status != MatchStatus.PLAYING) {
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
+        if (player.isObserver() || status != ArcadeMatchStatus.RUNNING) {
             ItemStack item = e.getItem();
             switch (item.getType()) {
                 case NETHER_STAR:
@@ -109,18 +114,21 @@ public class ObserverKitListeners implements Listener {
     }
     
     private void handleTutorial(Player player, Tutorial tutorial, boolean rightClicked) {
-        // TOOD temporary tutorial fix
-        /*if (rightClicked && tutorial.isEmpty()) {
+        if (!rightClicked) {
+            return;
+        }
+        
+        if (tutorial.isEmpty()) {
             player.sendError("Przepraszamy, na tej mapie poradnik nie jest dostepny.");
             player.sendError("Staramy sie go dodac jak najszybciej!");
-        }*/
-        if (rightClicked) {
-            if (tutorial.isEmpty()) {
-                player.sendError("Przepraszamy, na tej mapie poradnik nie jest dostepny.");
-                player.sendError("Staramy sie go dodac jak najszybciej!");
-            } else {
-                pl.shg.arcade.api.command.def.TutorialCommand.handleTutorial(player, tutorial, 1);
-            }
+        } else {
+            ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
+            BookMeta meta = (BookMeta) book.getItemMeta();
+            meta.setPages(tutorial.toList());
+            book.setItemMeta(meta);
+
+            EntityPlayer nmsPlayer = ((CraftPlayer) player.getPlayer()).getHandle();
+            nmsPlayer.openBook(CraftItemStack.asNMSCopy(book));
         }
     }
 }

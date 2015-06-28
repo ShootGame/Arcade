@@ -17,7 +17,6 @@ import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.kit.KitType;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.scheduler.BeginScheduler;
 import pl.shg.arcade.api.scheduler.SchedulerManager;
 import pl.shg.arcade.api.tablist.ArcadeTabList;
@@ -26,6 +25,7 @@ import pl.shg.arcade.api.team.PlayerJoinTeamEvent;
 import pl.shg.arcade.api.team.RandomTeamComparator;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -45,10 +45,10 @@ public class JoinCommand extends Command {
     
     @Override
     public void execute(Sender sender, String[] args) throws CommandException {
-        MatchStatus status = Arcade.getMatches().getStatus();
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
         if (sender.isConsole()) {
             this.throwMessage(sender, CommandMessage.PLAYER_NEEDED);
-        } else if (status == MatchStatus.ENDING) {
+        } else if (status == ArcadeMatchStatus.CYCLING) {
             sender.sendError("Mecz sie zakonczyl! " + Color.GOLD + "Poczekaj na serwer az zaladuje nowa mape.");
         } else if (args.length == 0 || this.hasFlag(args, 'r')) {
             Player player = (Player) sender;
@@ -95,7 +95,7 @@ public class JoinCommand extends Command {
         return !player.getTeam().getID().equals(ObserverTeamBuilder.getTeamID());
     }
     
-    public static void random(Player player, MatchStatus status) {
+    public static void random(Player player, ArcadeMatchStatus status) {
         List<Team> teams = Arcade.getTeams().getTeams();
         if (teams.size() == 1) {
             team(true, player, teams.get(0), Arcade.getMatches().getStatus());
@@ -114,7 +114,7 @@ public class JoinCommand extends Command {
         }
     }
     
-    public static void team(Player player, String team, MatchStatus status) {
+    public static void team(Player player, String team, ArcadeMatchStatus status) {
         Team teamObject = Arcade.getTeams().getTeam(team.toLowerCase());
         if (teamObject != null) {
             team(false, player, teamObject, status);
@@ -123,7 +123,7 @@ public class JoinCommand extends Command {
         }
     }
     
-    public static void team(boolean random, Player player, Team team, MatchStatus status) {
+    public static void team(boolean random, Player player, Team team, ArcadeMatchStatus status) {
         if (!random && !player.hasPermission("arcade.command.join.team")) {
             player.sendError("Dolaczanie do wybranej druzyny dostepne jest tylko dla rangi "
                     + Color.GOLD + Color.BOLD + "VIP" + Color.RESET + Color.RED + ".");
@@ -140,7 +140,7 @@ public class JoinCommand extends Command {
             player.setTeam(team);
             player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));
             
-            if (status == MatchStatus.PLAYING) {
+            if (status == ArcadeMatchStatus.RUNNING) {
                 Arcade.getPlayerManagement().setAsPlayer(player, KitType.JOIN, true, true, true);
             }
             
@@ -149,7 +149,7 @@ public class JoinCommand extends Command {
         }
     }
     
-    public static void observer(Player player, MatchStatus status) {
+    public static void observer(Player player, ArcadeMatchStatus status) {
         Team team = Arcade.getTeams().getObservers();
         if (player.getTeam().getID().equals(team.getID())) {
             player.sendError("Juz znajdujesz sie w druzynie obserwatorów!");
@@ -159,7 +159,7 @@ public class JoinCommand extends Command {
             
             if (!event.isCancel()) {
                 player.setTeam(team);
-                if (status == MatchStatus.PLAYING) {
+                if (status == ArcadeMatchStatus.RUNNING) {
                     player.setHealth(0.0);
                 }
                 player.sendMessage(String.format(JoinCommand.JOIN_MESSAGE, team.getDisplayName()));

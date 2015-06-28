@@ -25,7 +25,7 @@ public interface Destroyable {
     
     Team getOwner();
     
-    int getPercent();
+    double getPercent();
     
     Object getSettingValue(Setting setting);
     

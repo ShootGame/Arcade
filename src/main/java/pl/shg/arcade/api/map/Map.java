@@ -6,12 +6,15 @@
  */
 package pl.shg.arcade.api.map;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Log;
 import pl.shg.arcade.api.classes.ArcadeClass;
+import pl.shg.arcade.api.location.WorldManager;
 import pl.shg.arcade.api.protocol.Protocol;
 import pl.shg.arcade.api.region.RegionManager;
 import pl.shg.arcade.api.text.Color;
@@ -26,6 +29,7 @@ public class Map {
     private String[] authors;
     private final List<ArcadeClass> classes;
     private final String displayName;
+    private final UUID id;
     private final String name;
     private String objective;
     private Protocol protocol;
@@ -41,6 +45,7 @@ public class Map {
         this.authors = authors;
         this.classes = new ArrayList<>();
         this.displayName = name.replace("_", " ");
+        this.id = UUID.randomUUID();
         this.name = name;
         this.protocol = protocol;
         this.ratings = new MapRatings();
@@ -147,6 +152,10 @@ public class Map {
         return this.displayName;
     }
     
+    public UUID getID() {
+        return this.id;
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -192,7 +201,11 @@ public class Map {
         if (this.version != null) {
             return this.version.toString();
         } else {
-            return "unknown";
+            return "nieznana";
         }
+    }
+    
+    public String getWorldName() {
+        return this.getName();
     }
 }

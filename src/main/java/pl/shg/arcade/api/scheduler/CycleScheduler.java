@@ -25,11 +25,12 @@ import pl.shg.arcade.api.location.Spawn;
 import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.MapLoadedEvent;
 import pl.shg.arcade.api.map.MapManager;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.tablist.ArcadeTabList;
 import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.arcade.api.util.CrashHandler;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -39,6 +40,7 @@ public class CycleScheduler implements Runnable {
     private static int defaultSeconds = 20;
     private static int id;
     
+    private final Random random = new Random();
     private final MapManager maps;
     private int seconds;
     private final Server server;
@@ -62,19 +64,23 @@ public class CycleScheduler implements Runnable {
         
         this.print();
         
-        if (this.seconds <= 0) {
-            Arcade.getServer().getScheduler().cancel();
-            if (this.maps.getNextMap() != null) {
-                this.cycle();
+        try {
+            if (this.seconds <= 0) {
+                Arcade.getServer().getScheduler().cancel();
+                if (this.maps.getNextMap() != null) {
+                    this.cycle();
+                } else {
+                    this.server.shutdown();
+                }
             } else {
-                this.server.shutdown();
+                this.seconds--;
             }
-        } else {
-            this.seconds--;
+        } catch (Throwable ex) {
+            new CrashHandler("cycling", ex).crash();
         }
     }
     
-    private void cycle() {
+    private void cycle() throws Throwable {
         Log.noteAdmins("Ladowanie mapy " + this.maps.getNextMap().getName() + "...", Log.NoteLevel.INFO);
         long ms = System.currentTimeMillis();
         
@@ -100,7 +106,7 @@ public class CycleScheduler implements Runnable {
         Map oldMap = this.maps.getCurrentMap();
         try {
             this.maps.getConfiguration().load(new Configuration(this.maps.getNextMap()), false);
-            this.maps.getWorlds().load(this.maps.getNextMap().getName());
+            this.maps.getWorlds().load(this.maps.getNextMap());
             this.maps.updateCurrentMap();
             this.maps.getConfiguration().registerModules();
         } catch (ConfigurationException ex) {
@@ -114,15 +120,16 @@ public class CycleScheduler implements Runnable {
         List<Spawn> spawns = teams.getObservers().getSpawns();
         for (Player player : Arcade.getServer().getConnectedPlayers()) {
             player.setTeam(teams.getObservers());
-            player.teleport(spawns.get(new Random().nextInt(spawns.size())));
+            player.teleport(spawns.get(this.random.nextInt(spawns.size())));
             players.setAsObserver(player, true, false, false);
             player.setArcadeClass(null);
-            MapinfoCommand.show(player, map);
+            
+            MapinfoCommand.show(player, map, false);
         }
         
-        Arcade.getMatches().setStatus(MatchStatus.STARTING);
+        Arcade.getMatches().setStatus(ArcadeMatchStatus.STARTING);
         if (oldMap != null) {
-            this.maps.getWorlds().unload(oldMap.getName());
+            this.maps.getWorlds().unload(oldMap);
         }
         ms = System.currentTimeMillis() - ms;
         Log.noteAdmins("Zaladowano mape " + this.maps.getCurrentMap().getName() + " w " + ms + " ms.", Log.NoteLevel.INFO);

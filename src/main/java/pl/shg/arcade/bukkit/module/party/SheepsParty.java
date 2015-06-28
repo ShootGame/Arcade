@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.team.TeamColor;
@@ -31,10 +32,7 @@ import pl.shg.arcade.bukkit.module.perform.CTSPerform;
  *
  * @author Aleksander
  */
-public class SheepsParty extends Party {
-    private final EventListener[] listeners = new EventListener[] {
-        new CTSSpawnListener()
-    };
+public class SheepsParty extends Party implements EventListener {
     private final int maxTake = 3;
     private final HashMap<Sheep, GameSheep> sheeps = new HashMap<>();
     
@@ -45,13 +43,13 @@ public class SheepsParty extends Party {
     @Override
     public void disable() {
         super.disable();
-        Event.unregisterListener(this.listeners);
+        Event.unregisterListener(this);
     }
     
     @Override
     public void enable() {
         super.enable();
-        Event.registerListener(this.listeners);
+        Event.registerListener(this);
     }
     
     @Override
@@ -147,17 +145,10 @@ public class SheepsParty extends Party {
         }
     }
     
-    private class CTSSpawnListener implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return CTSPerform.CTSSpawnEvent.class;
-        }
-        
-        @Override
-        public void handle(Event event) {
-            Sheep sheep = ((CTSPerform.CTSSpawnEvent) event).getSheep();
-            SheepsParty.this.sheeps.put(sheep, new GameSheep(sheep));
-        }
+    @EventSubscribtion(event = CTSPerform.CTSSpawnEvent.class)
+    public void handleCTSSpawn(Event event) {
+        Sheep sheep = ((CTSPerform.CTSSpawnEvent) event).getSheep();
+        SheepsParty.this.sheeps.put(sheep, new GameSheep(sheep));
     }
     
     private class GameSheep {

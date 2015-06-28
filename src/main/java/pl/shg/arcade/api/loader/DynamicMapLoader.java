@@ -12,7 +12,9 @@ import java.util.List;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.configuration.Configuration;
 import pl.shg.arcade.api.configuration.ConfigurationTechnology;
+import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.map.Map;
+import pl.shg.arcade.api.map.MapLoadEvent;
 
 /**
  *
@@ -44,6 +46,12 @@ public class DynamicMapLoader implements Loader {
     private void load(String name, File file) {
         if (file.exists() && file.isFile()) {
             Map map = new Map(null, name, null, null);
+            
+            MapLoadEvent loadEvent = new MapLoadEvent(map);
+            Event.callEvent(loadEvent);
+            if (loadEvent.isCancel()) {
+                return;
+            }
             
             ConfigurationTechnology loader = Arcade.getMaps().getConfiguration();
             loader.load(new Configuration(map), true);

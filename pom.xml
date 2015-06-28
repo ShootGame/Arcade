@@ -11,11 +11,11 @@
     
     <properties>
         <plugin.bukkit.mainClass>pl.shg.arcade.bukkit.plugin.ArcadeBukkitPlugin</plugin.bukkit.mainClass>
-        <plugin.minecraft>1.8</plugin.minecraft>
+        <plugin.minecraft>1.8.7</plugin.minecraft>
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     
     <build>
@@ -68,20 +68,6 @@
     </repositories>
     
     <dependencies>
-        <!-- SportBukkit -->
-        <dependency>
-            <groupId>tc.oc</groupId>
-            <artifactId>sportbukkit</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-        
-        <!-- SportBukkit API -->
-        <dependency>
-            <groupId>tc.oc</groupId>
-            <artifactId>sportbukkit-api</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-        
         <!-- Our commons library -->
         <dependency>
             <groupId>pl.shg</groupId>

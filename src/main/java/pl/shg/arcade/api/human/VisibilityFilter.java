@@ -8,7 +8,7 @@ package pl.shg.arcade.api.human;
 
 import org.apache.commons.lang3.Validate;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.match.MatchStatus;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -24,7 +24,7 @@ public class VisibilityFilter {
         Validate.notNull(player, "player can not be null");
         Validate.notNull(other, "other can not be null");
         
-        if (Arcade.getMatches().getStatus() != MatchStatus.PLAYING) {
+        if (Arcade.getMatches().getStatus() != ArcadeMatchStatus.RUNNING) {
             return true;
         } else if (!player.isObserver() && other.isObserver()) {
             return false;

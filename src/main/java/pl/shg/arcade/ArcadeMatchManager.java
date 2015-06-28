@@ -12,13 +12,13 @@ import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.kit.KitType;
 import pl.shg.arcade.api.match.Match;
 import pl.shg.arcade.api.match.MatchManager;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.match.PlayerWinner;
 import pl.shg.arcade.api.match.TeamWinner;
 import pl.shg.arcade.api.match.Winner;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -26,7 +26,7 @@ import pl.shg.arcade.api.text.Color;
  */
 public class ArcadeMatchManager implements MatchManager {
     private Match match;
-    private MatchStatus status;
+    private ArcadeMatchStatus status;
     
     @Override
     public Match getMatch() {
@@ -34,16 +34,16 @@ public class ArcadeMatchManager implements MatchManager {
     }
     
     @Override
-    public MatchStatus getStatus() {
+    public ArcadeMatchStatus getStatus() {
         if (this.status != null) {
             return this.status;
         } else {
-            return MatchStatus.NOTHING;
+            return ArcadeMatchStatus.RESTARTING;
         }
     }
     
     @Override
-    public void setStatus(MatchStatus status) {
+    public void setStatus(ArcadeMatchStatus status) {
         this.status = status;
     }
     
@@ -59,7 +59,7 @@ public class ArcadeMatchManager implements MatchManager {
     @Override
     public void startNew() {
         this.match = new Match();
-        this.setStatus(MatchStatus.PLAYING);
+        this.setStatus(ArcadeMatchStatus.RUNNING);
         this.broadcastStart();
         
         PlayerManagement players = Arcade.getPlayerManagement();

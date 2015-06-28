@@ -27,10 +27,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import pl.shg.arcade.api.Arcade;
 import pl.shg.arcade.api.match.MatchManager;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.server.Server;
 import pl.shg.arcade.api.team.TeamManager;
 import pl.shg.arcade.api.text.Color;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -53,7 +53,7 @@ public class InventorySpyListeners implements Listener {
             return;
         Player bukkitPlayer = e.getPlayer();
         
-        if (this.matches.getStatus() == MatchStatus.ENDING || this.matches.getStatus() == MatchStatus.STARTING
+        if (this.matches.getStatus() == ArcadeMatchStatus.CYCLING || this.matches.getStatus() == ArcadeMatchStatus.STARTING
                 || this.server.getPlayer(bukkitPlayer.getUniqueId()).isObserver()) {
             Material block = e.getClickedBlock().getType();
             BlockState state = e.getClickedBlock().getState();
@@ -65,7 +65,6 @@ public class InventorySpyListeners implements Listener {
                     spy = Bukkit.createInventory(bukkitPlayer, InventoryType.BREWING);
                     spy.setContents(brewing.getInventory().getContents());
                     break;
-                case LOCKED_CHEST:
                 case TRAPPED_CHEST:
                 case CHEST:
                     Chest chest = (Chest) state;
@@ -114,12 +113,15 @@ public class InventorySpyListeners implements Listener {
         pl.shg.arcade.api.human.Player target = this.server.getPlayer(targetBukkit.getUniqueId());
         Player bukkitPlayer = e.getPlayer();
         pl.shg.arcade.api.human.Player player = this.server.getPlayer(bukkitPlayer.getUniqueId());
-        if (this.matches.getStatus() == MatchStatus.ENDING ||
+        if (this.matches.getStatus() == ArcadeMatchStatus.CYCLING ||
                 (player.isObserver() && !this.server.getPlayer(target.getUUID()).isObserver())) {
             Inventory inv = targetBukkit.getInventory();
-            inv = Bukkit.createInventory(bukkitPlayer, inv.getSize(), Color.GRAY + "Ekwipunek " + target.getDisplayName());
-            inv.setContents(inv.getContents());
-            bukkitPlayer.openInventory(inv);
+            
+            
+            Inventory spy = Bukkit.createInventory(bukkitPlayer, inv.getSize(),
+                    Color.GRAY + "Ekwipunek " + target.getDisplayName());
+            spy.setContents(inv.getContents());
+            bukkitPlayer.openInventory(spy);
         }
     }
 }

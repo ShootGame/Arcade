@@ -10,9 +10,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import pl.shg.arcade.api.Arcade;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.text.Color;
 import pl.shg.arcade.api.text.Icons;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
@@ -22,13 +22,13 @@ public class CustomMOTDListener implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent e) {
         String motd = null;
-        MatchStatus status = Arcade.getMatches().getStatus();
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
         
-        if (status == MatchStatus.STARTING) {
+        if (status == ArcadeMatchStatus.STARTING) {
             motd = this.build(Color.GREEN);
-        } else if (status == MatchStatus.PLAYING) {
+        } else if (status == ArcadeMatchStatus.RUNNING) {
             motd = this.build(Color.GOLD);
-        } else if (status == MatchStatus.ENDING) {
+        } else if (status == ArcadeMatchStatus.CYCLING) {
             motd = this.build(Color.DARK_RED);
         } else {
             motd = this.build(Color.GRAY);

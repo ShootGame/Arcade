@@ -14,19 +14,19 @@ import pl.shg.arcade.api.configuration.ConfigurationException;
 import pl.shg.arcade.api.documentation.ConfigurationDoc;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.event.EventListener;
+import pl.shg.arcade.api.event.EventSubscribtion;
 import pl.shg.arcade.api.human.Player;
 import pl.shg.arcade.api.map.MapLoadedEvent;
-import pl.shg.arcade.api.match.MatchStatus;
 import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.Config;
+import pl.shg.commons.server.ArcadeMatchStatus;
 
 /**
  *
  * @author Aleksander
  */
-public class AutoJoinModule extends Module {
-    private EventListener listener;
+public class AutoJoinModule extends Module implements EventListener {
     private String message;
     
     public AutoJoinModule() {
@@ -63,30 +63,21 @@ public class AutoJoinModule extends Module {
     
     @Override
     public void load(File file) throws ConfigurationException {
-        this.listener = new MapLoaded();
-        Event.registerListener(this.listener);
         this.message = Config.getValueMessage(Config.get(file), this, null, true);
     }
     
     @Override
     public void unload() {
-        Event.unregisterListener(this.listener);
-    }
-    
-    private class MapLoaded implements EventListener {
-        @Override
-        public Class<? extends Event> getEvent() {
-            return MapLoadedEvent.class;
-        }
         
-        @Override
-        public void handle(Event event) {
-            MatchStatus status = Arcade.getMatches().getStatus();
-            for (Player player : Arcade.getServer().getConnectedPlayers()) {
-                if (!JoinCommand.hasTeam(player) && AutoJoinModule.this.message != null) {
-                    player.sendSuccess(AutoJoinModule.this.message);
-                    JoinCommand.random(player, status);
-                }
+    }
+
+    @EventSubscribtion(event = MapLoadedEvent.class)
+    public void handleMapLoaded(MapLoadedEvent e) {
+        ArcadeMatchStatus status = Arcade.getMatches().getStatus();
+        for (Player player : Arcade.getServer().getConnectedPlayers()) {
+            if (!JoinCommand.hasTeam(player) && AutoJoinModule.this.message != null) {
+                player.sendSuccess(AutoJoinModule.this.message);
+                JoinCommand.random(player, status);
             }
         }
     }

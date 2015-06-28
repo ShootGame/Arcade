@@ -9,6 +9,7 @@ package pl.shg.arcade.api.kit;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.Builder;
 import pl.shg.arcade.api.Material;
 import pl.shg.arcade.api.item.Enchantment;
 import pl.shg.arcade.api.item.Item;
@@ -17,7 +18,7 @@ import pl.shg.arcade.api.item.Item;
  *
  * @author Aleksander
  */
-public class KitItemBuilder {
+public class KitItemBuilder implements Builder<KitItem> {
     private final String id;
     private final Material type;
     
@@ -27,6 +28,7 @@ public class KitItemBuilder {
     private List<String> description;
     private List<Enchantment> enchantments = new ArrayList<>();
     private int slot;
+    private boolean unbreakable;
     
     public KitItemBuilder(String id, Material type) {
         Validate.notNull(id, "id can not be null");
@@ -80,7 +82,13 @@ public class KitItemBuilder {
         return this;
     }
     
-    public KitItem toItem() {
+    public KitItemBuilder unbreakable(boolean unbreakable) {
+        this.unbreakable = unbreakable;
+        return this;
+    }
+    
+    @Override
+    public KitItem build() {
         KitItem item = new KitItem(this.id, this.type, this.amount);
         item.setAmount(this.amount);
         item.setData(this.data);
@@ -90,6 +98,7 @@ public class KitItemBuilder {
         for (Enchantment enchantment : this.enchantments) {
             item.addEnchantment(enchantment);
         }
+        item.setUnbreakable(this.unbreakable);
         return item;
     }
 }
