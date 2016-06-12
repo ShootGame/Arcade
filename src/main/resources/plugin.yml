@@ -3,7 +3,7 @@ version: 'Minecraft ${plugin.minecraft}: ${project.version}-${git.commit.id.abbr
 authors:
 - TheMolkaPL
 website: http://www.shootgame.net
-description: 'Stwórz swój własny temat na MPCForum przez Bukkit, BungeeCord, konsolę, Diorite, interfejs oraz TeamSpeak!'
+description: '${project.description}'
 prefix: '${project.name}'
 load: STARTUP
 loadbefore:
