@@ -250,8 +250,23 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     private void loadRotations() {
         Charset encoding = Charset.forName("UTF-8");
         
+        if (Servers.getConfiguration() == null) {
+            Log.log(Level.WARNING, "Nie znaleziono konfiguracji serwera.");
+            return;
+        }
+        
         MiniGameServer.Online online = MiniGameServer.ONLINE;
+        if (online.getShoot() == null) {
+            Log.log(Level.WARNING, "Serwer online nie istnieje!");
+            return;
+        }
+        
         String rotationLocation = Servers.getConfiguration().getString("arcade." + online.getShoot().getID() + ".rotation");
+        if (rotationLocation == null) {
+            Log.log(Level.WARNING, "Rotacja dla " + online.getShoot().getID() + " nie zostala znaleziona.");
+            return;
+        }
+        
         MiniGameServer.loadRotation(rotationLocation, online.getRotation(), encoding);
         
         for (TargetServer arcade : Servers.getServers()) {

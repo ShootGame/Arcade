@@ -30,7 +30,7 @@ public class Development implements IServerRole {
         Log.log(Level.INFO, "#################");
         
         Log.setDebugger(new SimpleDebugger());
-        Event.setListener(new SimpleCallListener());
+//        Event.setListener(new SimpleCallListener());
         
         this.registerCommands();
         DevelopmentHack.setVariables();

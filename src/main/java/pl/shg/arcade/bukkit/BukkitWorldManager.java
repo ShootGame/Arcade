@@ -35,6 +35,8 @@ public class BukkitWorldManager implements WorldManager {
     public void load(Map map) throws IOException {
         Validate.notNull(map);
         
+        /* To ponizej i tak jakos nie dzialalo xD
+        
         File from = new File(this.server.getWorldContainer(), map.getName());
         File to = new File(map.getWorldName());
         
@@ -45,6 +47,7 @@ public class BukkitWorldManager implements WorldManager {
         FileUtils.copyDirectory(from, to);
         new File(to, "uid.dat").delete();
         new File(to, "session.lock").delete();
+        */
         
         WorldCreator creator = new WorldCreator(map.getWorldName());
         creator.environment(World.Environment.NORMAL);
