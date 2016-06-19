@@ -54,9 +54,29 @@
                           <mainClass>pl.shg.arcade.debug.ArcadeDebug</mainClass>
                         </manifest>
                     </archive>
-                    <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-shade-plugin</artifactId>-->
+                <!--<version>2.2</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>shade</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<artifactSet>-->
+                                <!--<includes>-->
+                                    <!--<include>pl.shg:shootgame</include>-->
+                                <!--</includes>-->
+                            <!--</artifactSet>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
     
@@ -68,11 +88,15 @@
     </repositories>
     
     <dependencies>
-        <!-- Our commons library -->
         <dependency>
             <groupId>pl.shg</groupId>
             <artifactId>commons</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.shg</groupId>
+            <artifactId>shootgame</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
     </dependencies>

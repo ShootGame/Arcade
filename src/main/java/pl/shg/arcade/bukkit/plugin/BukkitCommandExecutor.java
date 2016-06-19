@@ -6,13 +6,6 @@
  */
 package pl.shg.arcade.bukkit.plugin;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandMap;
@@ -29,6 +22,14 @@ import pl.shg.arcade.api.command.Command;
 import pl.shg.arcade.api.command.CommandException;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.text.Color;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -118,7 +119,7 @@ public class BukkitCommandExecutor extends ArcadeCommandManager implements Comma
     public static void createHelpTopic() {
         Set<HelpTopic> help = new TreeSet<>(HelpTopicComparator.helpTopicComparatorInstance());
         for (Command command : Arcade.getCommands().getCommands()) {
-            org.bukkit.command.Command bCommand = Bukkit.getCommandMap().getCommand(command.getCommands()[0]);
+            org.bukkit.command.Command bCommand = Bukkit.getPluginCommand(command.getCommands()[0]);
             if (bCommand != null) {
                 help.add(new GenericCommandHelpTopic(bCommand));
             }

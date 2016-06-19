@@ -6,10 +6,6 @@
  */
 package pl.shg.arcade.bukkit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -38,6 +34,11 @@ import pl.shg.arcade.api.map.Map;
 import pl.shg.arcade.api.map.Tutorial;
 import pl.shg.arcade.api.team.Team;
 import pl.shg.arcade.api.text.Color;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -123,10 +124,11 @@ public class BukkitPlayerManagement implements PlayerManagement {
             player.reloadPermissions();
         }
         
-        bukkitPlayer.setAffectsSpawning(false);
-        bukkitPlayer.setCollidesWithEntities(false);
+//        bukkitPlayer.setAffectsSpawning(false);
+        bukkitPlayer.spigot().setCollidesWithEntities(false);
+        bukkitPlayer.spigot().respawn();
         
-        bukkitPlayer.setArrowsStuck(0);
+//        bukkitPlayer.setArrowsStuck(0);
         bukkitPlayer.setFoodLevel(20);
         bukkitPlayer.setMaxHealth(20.0);
         if (!player.isDead()) {
@@ -160,10 +162,11 @@ public class BukkitPlayerManagement implements PlayerManagement {
             player.reloadPermissions();
         }
         
-        bukkitPlayer.setAffectsSpawning(true);
-        bukkitPlayer.setCollidesWithEntities(true);
+//        bukkitPlayer.setAffectsSpawning(true);
+        bukkitPlayer.spigot().setCollidesWithEntities(true);
+        bukkitPlayer.spigot().respawn();
         
-        bukkitPlayer.setArrowsStuck(0);
+//        bukkitPlayer.setArrowsStuck(0);
         bukkitPlayer.getInventory().clear();
         bukkitPlayer.getInventory().setArmorContents(null);
         bukkitPlayer.setFoodLevel(20);
@@ -297,7 +300,7 @@ public class BukkitPlayerManagement implements PlayerManagement {
         }
         
         if (item.isUnbreakable()) {
-            meta.setUnbreakable(true);
+            meta.spigot().setUnbreakable(true);
         }
         stack.setItemMeta(meta);
         

@@ -6,13 +6,10 @@
  */
 package pl.shg.arcade.bukkit;
 
-import java.util.Objects;
-import java.util.UUID;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
-import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
@@ -27,9 +24,8 @@ import pl.shg.arcade.api.channels.PlayerReceiveChatEvent;
 import pl.shg.arcade.api.command.Sender;
 import pl.shg.arcade.api.event.Event;
 import pl.shg.arcade.api.location.Location;
-import pl.shg.arcade.api.location.Spawn;
-import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.tablist.TabList;
+import pl.shg.arcade.api.team.TeamColor;
 import pl.shg.arcade.api.text.ActionMessageType;
 import pl.shg.arcade.api.text.BossBarMessage;
 import pl.shg.arcade.api.text.ChatMessage;
@@ -41,6 +37,9 @@ import pl.shg.commons.util.Tablists;
 import pl.shg.commons.util.Titles;
 import pl.themolka.permissions.Group;
 import pl.themolka.permissions.User;
+
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  *
@@ -172,7 +171,8 @@ public class BukkitPlayer extends ArcadePlayer {
     
     @Override
     public void respawn() {
-        this.player.getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        this.player.getHandle().playerConnection.a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN));
+        ((Player) this.player).spigot().respawn();
     }
     
     @Override

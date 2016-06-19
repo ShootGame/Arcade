@@ -10,5 +10,4 @@ loadbefore:
 - WorldEdit
 dependency:
 - Permissions
-- ShootGame
 main: '${plugin.bukkit.mainClass}'

@@ -6,10 +6,6 @@
  */
 package pl.shg.arcade.bukkit.module.respawn;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.shg.arcade.api.Arcade;
@@ -19,6 +15,11 @@ import pl.shg.arcade.api.module.Module;
 import pl.shg.arcade.api.util.Version;
 import pl.shg.arcade.bukkit.BListener;
 import pl.shg.arcade.bukkit.Listeners;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  *

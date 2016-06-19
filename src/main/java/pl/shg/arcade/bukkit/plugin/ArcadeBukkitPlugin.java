@@ -6,13 +6,11 @@
  */
 package pl.shg.arcade.bukkit.plugin;
 
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
@@ -41,27 +39,25 @@ import pl.shg.arcade.bukkit.BukkitPlayerManagement;
 import pl.shg.arcade.bukkit.BukkitServer;
 import pl.shg.arcade.bukkit.BukkitWorldManager;
 import pl.shg.arcade.bukkit.cy.CyConfiguration;
-import pl.shg.arcade.bukkit.listeners.BukkitMenuListener;
-import pl.shg.arcade.bukkit.listeners.CommonsListeners;
-import pl.shg.arcade.bukkit.listeners.CustomMOTDListener;
-import pl.shg.arcade.bukkit.listeners.DatabaseListeners;
-import pl.shg.arcade.bukkit.listeners.GameableBlockListeners;
-import pl.shg.arcade.bukkit.listeners.InventorySpyListeners;
-import pl.shg.arcade.bukkit.listeners.ModuleListeners;
-import pl.shg.arcade.bukkit.listeners.ObserverKitListeners;
-import pl.shg.arcade.bukkit.listeners.ObserverListeners;
-import pl.shg.arcade.bukkit.listeners.PingDataListeners;
-import pl.shg.arcade.bukkit.listeners.PlayerListeners;
-import pl.shg.arcade.bukkit.listeners.PlayerMoveListener;
-import pl.shg.arcade.bukkit.listeners.RegionListeners;
-import pl.shg.arcade.bukkit.listeners.WorldListeners;
+import pl.shg.arcade.bukkit.listeners.*;
 import pl.shg.arcade.bukkit.test.DragonDeathTest;
 import pl.shg.arcade.bukkit.test.HologramTest;
 import pl.shg.arcade.bukkit.test.SoundTest;
 import pl.shg.arcade.bukkit.test.XPTest;
+import pl.shg.commons.bukkit.BukkitCommons;
 import pl.shg.commons.server.ArcadeTarget;
 import pl.shg.commons.server.Servers;
 import pl.shg.commons.server.TargetServer;
+import pl.shg.shootgame.arcade.PrimitiveAntiLogout;
+import pl.shg.shootgame.plugin.ServersLoader;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,6 +71,8 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
     
     @Override
     public void onEnable() {
+        this.loadServers();
+
         PluginProperties properties = this.loadBasics();
         this.registerOnlinePlayers();
         this.loadBukkitListeners();
@@ -139,8 +137,8 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
         properties.setMapsDirectory(this.getServer().getWorldContainer().getPath());
         properties.setPermissions(new BukkitPermissionsManager());
         properties.setPlayerManagement(new BukkitPlayerManagement(this.getServer()));
-        properties.setProxyServer(new BungeeCordProxy());
-        properties.setSettingsDirectory("plugins" + File.pathSeparator + PLUGIN_NAME + File.pathSeparator);
+//        properties.setProxyServer(new BungeeCordProxy());
+        properties.setSettingsDirectory(this.getDataFolder().getAbsolutePath());
         
         // Setup Arcade API
         implementation = ArcadeFactory.newInstance(getBukkit(), properties);
@@ -276,6 +274,30 @@ public final class ArcadeBukkitPlugin extends JavaPlugin {
                 MiniGameServer.loadRotation(location, miniGame.getRotation(), encoding);
             }
         }
+    }
+
+    private void loadServers() {
+        this.saveDefaultConfig();
+
+        String translations = this.getConfig().getString("translations", "translations");
+        String configuration = this.getConfig().getString("server-list");
+        String serverId = this.getConfig().getString("server-id", "Arcade");
+
+        BukkitCommons.initialize(this, new File(translations));
+        FileConfiguration target = null;
+
+        try (InputStream input = new URL(configuration).openStream()){
+            target = YamlConfiguration.loadConfiguration(input);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
+        if (target != null) {
+            new ServersLoader(serverId, target).initialize();
+        }
+
+        this.getServer().getPluginManager().registerEvents(new PrimitiveAntiLogout(this), this);
+        this.getServer().getPluginManager().registerEvents(new pl.shg.shootgame.listeners.PlayerListeners(), this);
     }
     
     private void registerOnlinePlayers() {

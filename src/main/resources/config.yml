@@ -1,0 +1,3 @@
+server-id: 'Arcade'
+translations: 'translations'
+server-list: 'https://bitbucket.org/partiakorwin/servers/raw/4b996bb8112b5bb4749c4298f468f374216ec29d/servers.yml'
